@@ -9,13 +9,23 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
+
+javafx {
+	version = "13"
+	modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+mainClassName = 'application, Main'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.

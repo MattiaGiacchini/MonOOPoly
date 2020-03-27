@@ -4,6 +4,9 @@
 package OOP19.monoopoly;
 
 import org.junit.Test;
+
+import monoopoly.Library;
+
 import static org.junit.Assert.*;
 
 public class LibraryTest {

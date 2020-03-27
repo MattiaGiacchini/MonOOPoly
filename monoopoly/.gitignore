@@ -3,3 +3,8 @@
 
 # Ignore Gradle build output directory
 build
+
+#27/03/2020 fix bugs
+.classpath
+
+.settings/

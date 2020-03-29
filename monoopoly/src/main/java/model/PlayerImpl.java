@@ -6,10 +6,12 @@ package model;
  */
 public class PlayerImpl implements Player {
 
+	protected final static int LAST_POSITION = 40;
+
 	private final String name;
 	private Double balance;
 	private int position;
-	private States state;
+//	private States state;
 
 	/**
 	 * This method creates an instance of {@link Player}
@@ -23,7 +25,7 @@ public class PlayerImpl implements Player {
 		this.name = name;
 		this.balance = startingBalance;
 		this.position = position;
-		this.state = States.SLEEPING;
+		// this.state = States.SLEEPING;
 	}
 
 	@Override
@@ -46,15 +48,15 @@ public class PlayerImpl implements Player {
 		this.position = position;
 	}
 
-	@Override
-	public States getState() {
-		return state;
-	}
+//	@Override
+//	public States getState() {
+//		return state;
+//	}
 
-	@Override
-	public void setState(States state) {
-		this.state = state;
-	}
+//	@Override
+//	public void setState(States state) {
+//		this.state = state;
+//	}
 
 	@Override
 	public String getName() {
@@ -62,14 +64,22 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void updateBalance(int value) {
+	public void updateBalance(Double value) {
 		this.balance = this.balance + value;
 
 	}
 
 	@Override
 	public void updatePosition(int distance) {
-		this.position = this.position + distance;
+		if (this.position + distance <= LAST_POSITION - 1) {
+			this.position = this.position + distance;
+		} else {
+			this.position = this.position + distance - LAST_POSITION;
+		}
+
+		if (this.position < 0) {
+			this.position = this.position + LAST_POSITION;
+		}
 
 	}
 

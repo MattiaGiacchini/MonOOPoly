@@ -21,7 +21,7 @@ public interface Player {
 	 * 
 	 * @param value the value to add or to withdraw from the balance
 	 */
-	public void updateBalance(int value);
+	public void updateBalance(Double value);
 
 	/**
 	 * This method returns the actual position of the player
@@ -47,14 +47,14 @@ public interface Player {
 	 * 
 	 * @return the player's state
 	 */
-	public States getState();
-
-	/**
-	 * This method is used to update the player's game status
-	 * 
-	 * @param state actual player's state
-	 */
-	public void setState(States state);
+//	public States getState();
+//
+//	/**
+//	 * This method is used to update the player's game status
+//	 * 
+//	 * @param state actual player's state
+//	 */
+//	public void setState(States state);
 
 	/**
 	 * This method returns the player's name

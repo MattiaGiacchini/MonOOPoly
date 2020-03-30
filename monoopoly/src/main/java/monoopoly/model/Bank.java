@@ -11,6 +11,7 @@ public class Bank {
 	private final static int HARD_CAP = 500000;
 	private final List<Property> allProperties;
 	private Map<Property, Player> assignedProperties;
+	private Map<Property, Player> mortgagedProperties;
 	private boolean isBroke;
 	
 	private int currentBudget;
@@ -19,6 +20,7 @@ public class Bank {
 		this.currentBudget = HARD_CAP;
 		this.allProperties = property;
 		this.assignedProperties = new HashMap<>();
+		this.mortgagedProperties = new HashMap<>();
 		this.isBroke = false;
 	}
 	
@@ -39,6 +41,10 @@ public class Bank {
 	
 	public Map<Property, Player> getAssignedProperties(){
 		return this.assignedProperties;
+	}
+	
+	public Map<Property, Player> getMortgagedProperties(){
+		return this.mortgagedProperties;
 	}
 	
 	public boolean isBankBroken() {

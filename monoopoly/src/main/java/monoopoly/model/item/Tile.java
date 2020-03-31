@@ -11,5 +11,5 @@ public interface Tile {
 	 *  Tile is purchasable
 	 *  @return true if tile is purchasable, false if not
 	 */
-	boolean isPurchasable();
+	public boolean isPurchasable();
 }

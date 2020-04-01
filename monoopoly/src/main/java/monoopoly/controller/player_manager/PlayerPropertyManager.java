@@ -3,8 +3,8 @@ package monoopoly.controller.player_manager;
 import javax.annotation.Nonnull;
 
 /**
- * This interface manages the {@link Player}'s {@link Purchasable} tiles. All of these methods
- * will be invoked by {@link PlayerManager}.
+ * This interface manages the {@link Player}'s {@link Purchasable} tiles. All of
+ * these methods will be invoked by {@link PlayerManager}.
  */
 interface PlayerPropertyManager {
 

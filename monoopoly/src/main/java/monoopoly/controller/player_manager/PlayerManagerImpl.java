@@ -4,6 +4,10 @@ import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 
+/**
+ * This class represents one of the playerManagers which will manage a single
+ * {@link Player}
+ */
 public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
@@ -77,7 +81,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	public void unMortgagePurchasable(Purchasable purchasableTile) {
 		this.propertyManager.unMortgagePurchasable(purchasableTile);
 	}
-
 
 	@Override
 	public void payMoney(Double amount) {

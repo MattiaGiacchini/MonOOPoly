@@ -67,5 +67,22 @@ public interface Purchasable extends Tile {
 	 *  		{@link monoopoly.utilities.PurchasableCategory}
 	 */
 	public PurchasableCategory getPurchaseCategory();
+
+	/**
+	 *  this method is used to get the actual quotation applied
+	 *  
+	 *  @return the value of quotation applied
+	 */
+	public double getQuotation();
+	
+	/**
+	 *  this method is used to set a new quotation for this 
+	 *  purchasable tile
+	 *  
+	 *  @param 	quotation new percentage of quotation
+	 *  
+	 *  @throws java.io.IOException
+	 */
+	public void setQuotation(double quotation);
 	
 }

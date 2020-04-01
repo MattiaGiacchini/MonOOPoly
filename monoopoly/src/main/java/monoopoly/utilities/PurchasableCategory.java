@@ -1,5 +1,7 @@
 package monoopoly.utilities;
-
+/**
+ *	This enum lists the possible Category of Purchasable Tile
+ */
 public enum PurchasableCategory {
 	BROWN,
 	LIGHT_BLUE,

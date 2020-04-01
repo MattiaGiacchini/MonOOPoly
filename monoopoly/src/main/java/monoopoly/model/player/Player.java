@@ -1,7 +1,16 @@
-package model;
+package monoopoly.model.player;
+
+import monoopoly.utilities.States;
 
 public interface Player {
 
+	/**
+	 * This method returns the ID of the {@link Player}
+	 * 
+	 * @return the unique player ID
+	 */
+	public int getID();
+	
 	/**
 	 * This method returns the balance of the {@link Player}
 	 * 
@@ -38,23 +47,25 @@ public interface Player {
 	public void setPosition(int position);
 
 	/**
+	 * This method is used to move the player forward or backward on the board
+	 * 
 	 * @param distance the value to apply on the position to move the player
 	 */
 	public void updatePosition(int distance);
 
 	/**
-	 * This method is used to know the game staus of the player
+	 * This method is used to know the game status of the player
 	 * 
 	 * @return the player's state
 	 */
-//	public States getState();
-//
-//	/**
-//	 * This method is used to update the player's game status
-//	 * 
-//	 * @param state actual player's state
-//	 */
-//	public void setState(States state);
+	public States getState();
+
+	/**
+	 * This method is used to update the player's game status
+	 * 
+	 * @param state actual player's state
+	 */
+	public void setState(States state);
 
 	/**
 	 * This method returns the player's name
@@ -62,5 +73,14 @@ public interface Player {
 	 * @return player's name
 	 */
 	public String getName();
+
+	
+	/**
+	 * This method is used to set the player's name
+	 * 
+	 * @param name player's name chosen on the beginning of the game
+	 */
+	public void setName(String name);
+	
 
 }

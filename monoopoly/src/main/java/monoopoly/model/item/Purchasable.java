@@ -85,4 +85,20 @@ public interface Purchasable extends Tile {
 	 */
 	public void setQuotation(double quotation);
 	
+	/**
+	 * This method is used to set a new owner
+	 * 
+	 * TODO
+	 * 
+	 * @param newOwner
+	 * @throws IllegalArgumentException 
+	 */
+	public void setOwner(final Integer newOwner) throws IllegalArgumentException;
+
+	/**
+	 * This method is used to know which player is the owner
+	 * 
+	 * @return the id of the owner
+	 */
+	public Integer getOwner(); 
 }

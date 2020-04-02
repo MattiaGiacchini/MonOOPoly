@@ -2,6 +2,7 @@ package monoopoly.model.item;
 
 /**
  *	This interface represents the single property of Monoopoly
+ *  where you can build and sell house or hotel.
  */
 public interface Property extends Purchasable {
 	
@@ -20,11 +21,11 @@ public interface Property extends Purchasable {
 	 */
 	public void buildOn() throws Exception;
 	
-	
 	/**
 	 *  this method sell one building you already 
 	 *  built. if there is a building you'll give
-	 *  back a portion of cost to build it,
+	 *  back the listed selling value to build it
+	 *  and decrease the number of buildings,
 	 *  otherwise throws Exception.<br>
 	 *  The sequence of building produced is:<br>
 	 *  1 hotel -> sellBuilding() -> 4 house+hotelValue<br>
@@ -33,7 +34,7 @@ public interface Property extends Purchasable {
 	 *  2 house -> sellBuilding() -> 1 house+houseValue<br>
 	 *  1 house -> sellBuilding() -> exception<br>
 	 *      
-	 * @return The portion of value back.
+	 * @return the listed selling value for a hotel or house
 	 * @throws java.io.Exception
 	 */
 	public Integer sellBuilding() throws Exception;
@@ -42,7 +43,7 @@ public interface Property extends Purchasable {
 	 * this method is used to know how many constructions 
 	 * are built in this Property
 	 *  
-	 * @return number of constructions built on
+	 * @return then number of constructions built on
 	 */
 	public Integer getNumberOfBuildingsBuilt();
 	
@@ -64,12 +65,18 @@ public interface Property extends Purchasable {
 
 	/**
 	 * this method is used to know the quotation
-	 * for selling an house
+	 * to sell a house
 	 * 
-	 * @return the value of one house
+	 * @return the listed selling value of a house
 	 */
 	public Integer getQuotationToSellHouse();
-	
+
+	/**
+	 * this method is used to know the quotation
+	 * to sell a hotel
+	 * 
+	 * @return the listed selling value of a hotel
+	 */
 	public Integer getQuotationToSellHotel();
 	
 }

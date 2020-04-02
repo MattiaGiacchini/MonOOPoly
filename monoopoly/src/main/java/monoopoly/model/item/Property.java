@@ -6,7 +6,7 @@ package monoopoly.model.item;
 public interface Property extends Purchasable {
 	
 	/**
-	 *  this method build add a new construction on 
+	 *  this method add a new construction on 
 	 *  the Property to increase the value of Lease. 
 	 *  The sequence of building produced is:<br>
 	 *  0 house -> buildOn() -> 1 house<br>
@@ -14,11 +14,11 @@ public interface Property extends Purchasable {
 	 *  2 house -> buildOn() -> 3 house<br>
 	 *  3 house -> buildOn() -> 4 house<br>
 	 *  4 house -> buildOn() -> 1 hotel<br>
-	 *  1 Hotel -> buildOn() -> 1 hotel<br>
+	 *  1 Hotel -> buildOn() -> exception<br>
 	 *  
-	 *  @throws java.io.Exception
+	 *  @throws java.io.Exception 
 	 */
-	public void buildOn();
+	public void buildOn() throws Exception;
 	
 	
 	/**
@@ -27,16 +27,16 @@ public interface Property extends Purchasable {
 	 *  back a portion of cost to build it,
 	 *  otherwise throws Exception.<br>
 	 *  The sequence of building produced is:<br>
-	 *  1 hotel -> sellBuilding() -> 4 house+value<br>
-	 *  4 house -> sellBuilding() -> 3 house+value<br>
-	 *  3 house -> sellBuilding() -> 2 house+value<br>
-	 *  2 house -> sellBuilding() -> 1 house+value<br>
+	 *  1 hotel -> sellBuilding() -> 4 house+hotelValue<br>
+	 *  4 house -> sellBuilding() -> 3 house+houseValue<br>
+	 *  3 house -> sellBuilding() -> 2 house+houseValue<br>
+	 *  2 house -> sellBuilding() -> 1 house+houseValue<br>
 	 *  1 house -> sellBuilding() -> exception<br>
 	 *      
 	 * @return The portion of value back.
 	 * @throws java.io.Exception
 	 */
-	public Integer sellBuilding();
+	public Integer sellBuilding() throws Exception;
 	
 	/**
 	 * this method is used to know how many constructions 
@@ -44,7 +44,33 @@ public interface Property extends Purchasable {
 	 *  
 	 * @return number of constructions built on
 	 */
-	public Integer getNumberOfBuildingOn();
+	public Integer getNumberOfBuildingsBuilt();
+	
+	/**
+	 * this method is used to know the cost of
+	 * Building a house
+	 * 
+	 * @return value to pay for a new house
+	 */
+	public Integer getCostToBuildHouse();
+
+	/**
+	 * this method is used to know the cost of
+	 * Building a Hotel
+	 * 
+	 * @return value to pay for a new Hotel
+	 */
+	public Integer getCostToBuildHotel();
+
+	/**
+	 * this method is used to know the quotation
+	 * for selling an house
+	 * 
+	 * @return the value of one house
+	 */
+	public Integer getQuotationToSellHouse();
+	
+	public Integer getQuotationToSellHotel();
 	
 }
 	

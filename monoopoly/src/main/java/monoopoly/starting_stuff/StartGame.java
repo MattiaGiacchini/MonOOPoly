@@ -1,4 +1,4 @@
-package monoopoly;
+package monoopoly.starting_stuff;
 
 public interface StartGame {
 	

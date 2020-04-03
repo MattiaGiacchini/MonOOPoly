@@ -4,6 +4,7 @@ import java.util.*;
 
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.model.item.Table;
 
 public class GameEngineImpl implements GameEngine {
 	
@@ -20,6 +21,8 @@ public class GameEngineImpl implements GameEngine {
 	
 	private List<PlayerManager> playersList = new ArrayList<>();
 	
+	private Integer currentPlayerID;
+
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
 	 * every player's credentials 
@@ -39,11 +42,11 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public Table createTable() {
-		//TODO (Table doesn't exist yet)
+		return new Table();
 	}
 	
-	public PlayerManager createPlayer(final int number) {
-		return new PlayerManagerImpl(number);
+	public PlayerManager createPlayer(final int ID) {
+		return new PlayerManagerImpl(ID);
 	}
 	
 	public void createPlayers() {
@@ -55,11 +58,15 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public PlayerManager currentPlayer() {
-		//TODO
+		for (PlayerManager pM: this.playersList) {
+			if (pM.getPlayerManagerID == this.currentPlayerID) { //I need Mattia to make method
+				return pM;
+			}
+		}
 		return null;
 	}
 	
-	public List<PlayerManager> playerList(){
+	public List<PlayerManager> playersList(){
 		return this.playersList;
 	}
 	
@@ -104,5 +111,13 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		return null;
+	}
+	
+	public Integer getCurrentPlayerID() {
+		return currentPlayerID;
+	}
+
+	public void setCurrentPlayerID(Integer currentPlayerID) {
+		this.currentPlayerID = currentPlayerID;
 	}
 }

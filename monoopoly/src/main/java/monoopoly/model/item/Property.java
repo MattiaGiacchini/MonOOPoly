@@ -54,15 +54,22 @@ public interface Property extends Purchasable {
 	public double sellBuilding();
 	
 	/**
-	 * this method is used to know how many constructions 
-	 * are built in this Property
+	 * this method is used to know how many house 
+	 * are already built in this Property
 	 * 
 	 *  
-	 * @return value = 0 <i>no buildings</i><br>
-	 * 		   value > 0 <i>number of building</i><br>
-	 * 		   value = 5 <i>represents the hotel</i> 
+	 * @return the number of houses built
 	 */
-	public Integer getNumberOfBuildingsBuilt();
+	public Integer getNumberOfHouseBuilt();
+	
+	/**
+	 * this method is used to know how many hotel 
+	 * are already built in this Property
+	 * 
+	 *  
+	 * @return the number of Hotels built 
+	 */
+	public Integer getNumberOfHotelBuilt();
 	
 	/**
 	 * this method is used to know the cost of

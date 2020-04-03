@@ -12,4 +12,11 @@ public interface Tile {
 	 *  @return true if tile is purchasable, false if not
 	 */
 	public boolean isPurchasable();
+	
+	/**
+	 *  this method is used to know the name of Tile
+	 * 
+	 * @return name of tile
+	 */
+	public String getName();
 }

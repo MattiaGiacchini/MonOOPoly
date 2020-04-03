@@ -109,21 +109,12 @@ public class PlayerImpl implements Player {
 		if (getClass() != obj.getClass())
 			return false;
 		PlayerImpl other = (PlayerImpl) obj;
-		if (balance == null) {
-			if (other.balance != null)
-				return false;
-		} else if (!balance.equals(other.balance))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
 		if (playerID != other.playerID)
-			return false;
-		if (position != other.position)
-			return false;
-		if (state != other.state)
 			return false;
 		return true;
 	}

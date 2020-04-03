@@ -1,6 +1,11 @@
 package monoopoly.controller.player_manager;
 
+import java.util.Set;
+
 import monoopoly.GameEngine;
+import monoopoly.controller.Trader;
+import monoopoly.model.Trade;
+import monoopoly.model.TradeBuilder;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
@@ -16,8 +21,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
+	private TradeBuilder tradeBuilder;
+	private Trader trader;
 	private GameEngine gameEngine;
-	
+
 	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
 		this.gameEngine = gameEngine.getGameEngine;
@@ -30,10 +37,15 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	private void initializePlayer() {
-		this.player.setName(gameEngine.getName(playerManagerID));
-		this.player.setBalance(gameEngine.getBalance(playerManagerID));
-		this.player.setPosition(gameEngine.getPosition(playerManagerID));
-		this.player.setState(gameEngine.getState(playerManagerID));
+		this.player.setName(gameEngine.getName(this.playerManagerID));
+		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
+		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
+		this.player.setState(gameEngine.getState(this.playerManagerID));
+	}
+
+	@Override
+	public int getPlayerManagerID() {
+		return this.playerManagerID;
 	}
 
 	@Override
@@ -88,13 +100,44 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void payMoney(Double amount) {
-		this.balanceManager.updateBalance(player, -amount);
+		this.balanceManager.updateBalance(this.player, -amount);
 	}
 
 	@Override
 	public void collectMoney(Double amount) {
-		this.balanceManager.updateBalance(player, amount);
+		this.balanceManager.updateBalance(this.player, amount);
 
+	}
+
+	@Override
+	public Trade createTradeOffer() {
+		this.tradeBuilder.build();		
+	}
+
+	@Override
+	public void acceptTrade() {
+		this.trader.acceptTrade();
+	}
+	
+	@Override
+	public void declineTrade() {
+		this.trader.declineTrade();
+	}
+
+	@Override
+	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney) {
+		this.tradeBuilder.setPlayerOne(this.player);
+		this.tradeBuilder.setPlayerOneProperties(offererRealEstate);
+		this.tradeBuilder.setPlayerOneMoney(offererMoney);
+	}
+
+	@Override
+	public void setContractorRequest(Player contractor, Set<Purchasable> contractorRealEstate,
+			Double contractorMoney) {
+		
+		this.tradeBuilder.setPlayerTwo(contractor);
+		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
+		this.tradeBuilder.setPlayerTwoMoney(contractorMoney);
 	}
 
 }

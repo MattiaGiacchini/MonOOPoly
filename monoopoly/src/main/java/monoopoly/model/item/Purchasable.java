@@ -94,7 +94,7 @@ public interface Purchasable extends Tile {
 	 * @param newOwner the owner's ID (only positive numbers)
 	 * 
 	 * @throws IllegalArgumentException if the parameter isn't an
-	 * 		   Integer or it's equal zero
+	 * 		   Integer
 	 */
 	public void setOwner(final Integer newOwnerIdentify);
 

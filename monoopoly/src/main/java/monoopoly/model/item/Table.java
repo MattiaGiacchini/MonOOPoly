@@ -26,7 +26,7 @@ public interface Table {
 	 */
 	public void notifyDices(final Integer diceOne, 
 							final Integer diceTwo,
-							final Optional<Integer> diceTree);	 
+							final Optional<Integer> diceThree);	 
 	
 	/**
 	 *  this method sets a new quotation for a specific

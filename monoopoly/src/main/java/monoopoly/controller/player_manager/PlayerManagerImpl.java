@@ -1,5 +1,6 @@
 package monoopoly.controller.player_manager;
 
+import monoopoly.GameEngine;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
@@ -15,8 +16,11 @@ public class PlayerManagerImpl implements PlayerManager {
 	private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
-	public PlayerManagerImpl(final int playerManagerID) {
+	private GameEngine gameEngine;
+	
+	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
+		this.gameEngine = gameEngine.getGameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
 	}

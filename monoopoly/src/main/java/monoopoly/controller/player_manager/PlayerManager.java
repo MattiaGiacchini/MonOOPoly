@@ -1,6 +1,11 @@
 package monoopoly.controller.player_manager;
 
+import java.util.Set;
+
+import monoopoly.model.Trade;
 import monoopoly.model.player.Player;
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
 
 /**
  * This interface is used to manage the {@link Player} associated to the
@@ -11,9 +16,16 @@ import monoopoly.model.player.Player;
  *
  */
 public interface PlayerManager {
+	
+	/**
+	 * Return the {@link PlayerManager} identifier
+	 * 
+	 * @return the {@link PlayerManager} identifier
+	 */
+	public int getPlayerManagerID()
 
 	/**
-	 * Returns the player associated to the {@link PlayerManager}
+	 * Returns the {@link Player} associated to the {@link PlayerManager}
 	 * 
 	 * @return a {@link Player} instance
 	 */
@@ -29,7 +41,7 @@ public interface PlayerManager {
 	/**
 	 * Moves the {@link Player} to a precise position on the game board
 	 * 
-	 * @param position position on the board
+	 * @param position position on the board 
 	 */
 	public void goToPosition(int position);
 
@@ -97,5 +109,5 @@ public interface PlayerManager {
 	 * @param amount of money to deduct from the balance
 	 */
 	public void collectMoney(Double amount);
-
+	
 }

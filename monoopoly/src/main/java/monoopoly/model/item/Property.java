@@ -8,42 +8,59 @@ public interface Property extends Purchasable {
 	
 	/**
 	 *  this method add a new construction on 
-	 *  the Property to increase the value of Lease. 
+	 *  the Property to increase the value of Lease.<br><br> 
 	 *  The sequence of building produced is:<br>
 	 *  0 house -> buildOn() -> 1 house<br>
 	 *  1 house -> buildOn() -> 2 house<br>
 	 *  2 house -> buildOn() -> 3 house<br>
 	 *  3 house -> buildOn() -> 4 house<br>
-	 *  4 house -> buildOn() -> 1 hotel<br>
-	 *  1 Hotel -> buildOn() -> exception<br>
+	 *  4 house -> buildOn() -> 1 Hotel<br>
+	 *  1 Hotel -> buildOn() -> IllegalStateException<br>
 	 *  
-	 *  @throws java.io.Exception 
+	 *  @throws IllegalStateException if you try to build 
+	 *  		over an hotel
+	 *  
+	 *  @throws IllegalStateException if you try to build 
+	 *  		a further building when the other properties 
+	 *  		-of the same color- haven't reached the same 
+	 *  		number of buildings
 	 */
-	public void buildOn() throws Exception;
+	public void buildOn();
 	
 	/**
 	 *  this method sell one building you already 
 	 *  built. if there is a building you'll give
 	 *  back the listed selling value to build it
 	 *  and decrease the number of buildings,
-	 *  otherwise throws Exception.<br>
-	 *  The sequence of building produced is:<br>
-	 *  1 hotel -> sellBuilding() -> 4 house+hotelValue<br>
-	 *  4 house -> sellBuilding() -> 3 house+houseValue<br>
-	 *  3 house -> sellBuilding() -> 2 house+houseValue<br>
-	 *  2 house -> sellBuilding() -> 1 house+houseValue<br>
-	 *  1 house -> sellBuilding() -> exception<br>
+	 *  otherwise throws Exception.<br><br>
+	 *  The sequence of state produced is:<br>
+	 *  1 hotel -> sellBuilding() -> 4 house (hotelValue)<br>
+	 *  4 house -> sellBuilding() -> 3 house (houseValue)<br>
+	 *  3 house -> sellBuilding() -> 2 house (houseValue)<br>
+	 *  2 house -> sellBuilding() -> 1 house (houseValue)<br>
+	 *  1 house -> sellBuilding() -> 0 house (houseValue)<br>
+	 *  0 house -> sellBuilding() -> IllegalStateException<br>
 	 *      
-	 * @return the listed selling value for a hotel or house
-	 * @throws java.io.Exception
+	 * @return 	the listed selling value for a hotel or house
+	 * 
+	 * @throws 	IllegalStateException if you try to sell 
+	 *  		a further building when the other properties 
+	 *  		-of the same color- haven't decrease at the 
+	 *  		same number of buildings.
+	 *  
+	 * @throws 	IllegalStateException if you try to sell 
+	 *  		a build that you haven't
 	 */
-	public Integer sellBuilding() throws Exception;
+	public double sellBuilding();
 	
 	/**
 	 * this method is used to know how many constructions 
 	 * are built in this Property
+	 * 
 	 *  
-	 * @return then number of constructions built on
+	 * @return value = 0 <i>no buildings</i><br>
+	 * 		   value > 0 <i>number of building</i><br>
+	 * 		   value = 5 <i>represents the hotel</i> 
 	 */
 	public Integer getNumberOfBuildingsBuilt();
 	
@@ -53,7 +70,7 @@ public interface Property extends Purchasable {
 	 * 
 	 * @return value to pay for a new house
 	 */
-	public Integer getCostToBuildHouse();
+	public double getCostToBuildHouse();
 
 	/**
 	 * this method is used to know the cost of
@@ -61,7 +78,7 @@ public interface Property extends Purchasable {
 	 * 
 	 * @return value to pay for a new Hotel
 	 */
-	public Integer getCostToBuildHotel();
+	public double getCostToBuildHotel();
 
 	/**
 	 * this method is used to know the quotation
@@ -69,7 +86,7 @@ public interface Property extends Purchasable {
 	 * 
 	 * @return the listed selling value of a house
 	 */
-	public Integer getQuotationToSellHouse();
+	public double getQuotationToSellHouse();
 
 	/**
 	 * this method is used to know the quotation
@@ -77,7 +94,7 @@ public interface Property extends Purchasable {
 	 * 
 	 * @return the listed selling value of a hotel
 	 */
-	public Integer getQuotationToSellHotel();
+	public double getQuotationToSellHotel();
 	
 }
 	

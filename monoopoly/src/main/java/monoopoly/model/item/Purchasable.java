@@ -1,4 +1,6 @@
 package monoopoly.model.item;
+import java.util.Optional;
+
 import monoopoly.utilities.PurchasableCategory;
 
 /**
@@ -12,7 +14,7 @@ public interface Purchasable extends Tile {
 	 *  
 	 *  @return the mortgage value of the purchasable tile 
 	 */
-	public Integer mortgage();
+	public double mortgage();
 
 	/**
 	 *  This method is used to know if the purchasable tile is
@@ -34,14 +36,14 @@ public interface Purchasable extends Tile {
 	 *  
 	 *  @return the quoted lease value 
 	 */
-	public Integer getLeaseValue();
+	public double getLeaseValue();
 
 	/**
 	 *  this method is used to know the quoted sales value
 	 *  
 	 *  @return the quoted sales value
 	 */
-	public Integer getSalesValue();
+	public double getSalesValue();
 	
 	/**
 	 *  This method is used to know how much money you'll receive
@@ -49,7 +51,7 @@ public interface Purchasable extends Tile {
 	 *  
 	 *  @return the mortgage value of the purchasable tile 
 	 */
-	public Integer getMortgageValue();
+	public double getMortgageValue();
 	
 	/**
 	 *  This method is used to know how much money you'll have
@@ -57,7 +59,7 @@ public interface Purchasable extends Tile {
 	 *  
 	 *  @return the unMortgage value of the purchasable tile 
 	 */
-	public Integer getCostToRemoveMortgage();
+	public double getCostToRemoveMortgage();
 	
 	/**
 	 *  This method is used to know the Category of Purchasable 
@@ -81,24 +83,25 @@ public interface Purchasable extends Tile {
 	 *  
 	 *  @param 	quotation new percentage of quotation
 	 *  
-	 *  @throws java.io.IOException
+	 *  @throws IllegalArgumentException if the argument isn't a
+	 *  		double
 	 */
-	public void setQuotation(double quotation);
+	public void setQuotation(final double quotation);
 	
 	/**
 	 * This method is used to set a new owner
 	 * 
-	 * TODO
+	 * @param newOwner the owner's ID (only positive numbers)
 	 * 
-	 * @param newOwner
-	 * @throws IllegalArgumentException 
+	 * @throws IllegalArgumentException if the parameter isn't an
+	 * 		   Integer or it's equal zero
 	 */
-	public void setOwner(final Integer newOwner) throws IllegalArgumentException;
+	public void setOwner(final Integer newOwnerIdentify);
 
 	/**
 	 * This method is used to know which player is the owner
 	 * 
-	 * @return the id of the owner
+	 * @return the ID of the owner
 	 */
-	public Integer getOwner(); 
+	public Optional<Integer> getOwner(); 
 }

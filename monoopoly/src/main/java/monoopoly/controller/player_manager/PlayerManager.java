@@ -1,12 +1,9 @@
 package monoopoly.controller.player_manager;
 
 import java.util.List;
-import java.util.Set;
 
 import monoopoly.model.Trade;
 import monoopoly.model.player.Player;
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Purchasable;
 
 /**
  * This interface is used to manage the {@link Player} associated to the
@@ -33,6 +30,14 @@ public interface PlayerManager {
 	public Player getPlayer();
 
 	/**
+	 * This method return a manager to manage the {@link Player}'s
+	 * {@link Purchasable}
+	 * 
+	 * @return the {@link PlayerPropertyManager}
+	 */
+	public PlayerPropertyManager getPropertyManager();
+
+	/**
 	 * Moves the {@link Player} forward or backward on the game board.
 	 * 
 	 * @param steps number got from dices or card
@@ -51,51 +56,6 @@ public interface PlayerManager {
 	 * will go to the {@link Bank}.
 	 */
 	public void giveUp();
-
-	/**
-	 * Allows the player to build a house or a hotel on the chosen property.
-	 * 
-	 * @param property where to build on a house or a hotel
-	 */
-	public void buildHouse(Property property);
-
-	/**
-	 * Allows the player to sell a house or a hotel from the chosen property.
-	 * 
-	 * @param property where to sell a house or a hotel
-	 */
-	public void sellHouse(Property property);
-
-	/**
-	 * Allows the {@link Player} to buy a specific {@link Purchasable}.
-	 * 
-	 * @param purchasableTile table tile marketable to buy
-	 */
-	public void buyPurchasable(Purchasable purchasableTile);
-
-	/**
-	 * Allows the {@link Player} to sell a specific {@link Purchasable} if has no
-	 * houses built on it.
-	 * 
-	 * @param purchasableTile table tile marketable to sell
-	 */
-	public void sellPurchasable(Purchasable purchasableTile);
-
-	/**
-	 * Allows the {@link Player} to mortgage a specific {@link Purchasable} if has
-	 * no houses built on it.
-	 * 
-	 * @param purchasableTile table tile marketable to mortgage
-	 */
-	public void mortgagePurchasable(Purchasable purchasableTile);
-
-	/**
-	 * Allows the {@link Player} to remove the mortgage put on one of his specific
-	 * {@link Purchasable}.
-	 * 
-	 * @param purchasableTile table tile marketable to be released from mortgage
-	 */
-	public void unMortgagePurchasable(Purchasable purchasableTile);
 
 	/**
 	 * Add money to the {@link Player}'s balance.
@@ -120,7 +80,7 @@ public interface PlayerManager {
 	 * @param offererMoney      amount of money offered by the offerer
 	 *                          {@link Player} in order to balance the offer value
 	 */
-	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney);
+	public void setOffererOffer(List<Purchasable> offererRealEstate, Double offererMoney);
 
 	/**
 	 * Creates the contractor {@link Player}'s request made by the offerer
@@ -132,7 +92,7 @@ public interface PlayerManager {
 	 * @param contractorMoney      additional money to give in order to balance the
 	 *                             offer value
 	 */
-	public void setContractorRequest(Player contractor, Set<Purchasable> contractorRealEstate, Double contractorMoney);
+	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate, Double contractorMoney);
 
 	/**
 	 * Creates an exchange of {@link Purchasable}s and eventually an addition of

@@ -1,6 +1,8 @@
 package monoopoly.controller.bank;
 
 import monoopoly.model.Bank;
+import monoopoly.model.item.Property;
+import monoopoly.model.player.Player;
 
 /**
  *	This interface allows the game to manage a Player

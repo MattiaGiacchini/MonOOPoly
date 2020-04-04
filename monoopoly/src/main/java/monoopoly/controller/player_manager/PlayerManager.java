@@ -1,5 +1,7 @@
 package monoopoly.controller.player_manager;
 
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
 
 /**

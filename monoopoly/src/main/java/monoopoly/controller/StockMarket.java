@@ -3,7 +3,7 @@ package monoopoly.controller;
 import java.util.List;
 import java.util.Map;
 
-import monoopoly.utilities.Color;
+import monoopoly.model.item.Property;
 import monoopoly.utilities.PurchasableCategory;
 
 /**

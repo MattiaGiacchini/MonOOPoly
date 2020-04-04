@@ -2,6 +2,8 @@ package monoopoly.controller.player_manager;
 
 import javax.annotation.Nonnull;
 
+import monoopoly.model.item.Purchasable;
+
 /**
  * This interface manages the {@link Player}'s {@link Purchasable} tiles. All of
  * these methods will be invoked by {@link PlayerManager}.

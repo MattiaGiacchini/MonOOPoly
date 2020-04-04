@@ -1,6 +1,6 @@
 package monoopoly.controller;
 
-import monoopoly.model.Trade;
+import monoopoly.model.trade.Trade;
 
 /**
  * This interfaces presents a trade, and allows the trade to be accepted.

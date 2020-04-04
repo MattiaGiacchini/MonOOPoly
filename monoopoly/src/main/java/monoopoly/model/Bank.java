@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import monoopoly.model.item.Property;
+import monoopoly.model.player.Player;
+
 /**
  *	This class represents the bank
  */

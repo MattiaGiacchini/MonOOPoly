@@ -2,6 +2,8 @@ package monoopoly.model;
 
 import java.util.List;
 
+import monoopoly.model.player.Player;
+
 /**
  * This interface builds a Trade, with different fields.
  */

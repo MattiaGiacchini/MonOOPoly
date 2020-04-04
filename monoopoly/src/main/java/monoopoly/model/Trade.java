@@ -2,6 +2,8 @@ package monoopoly.model;
 
 import java.util.List;
 
+import monoopoly.model.item.Property;
+
 /**
  *	This interface represents a trade between two players
  */

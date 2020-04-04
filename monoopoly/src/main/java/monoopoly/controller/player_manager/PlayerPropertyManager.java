@@ -11,14 +11,15 @@ import monoopoly.model.player.Player;
 interface PlayerPropertyManager {
 
 	/**
-	 * Allows the player to build a house or a hotel on the chosen property.
+	 * Allows the {@link Player} to build a house or a hotel on the chosen property.
 	 * 
 	 * @param property where to build on a house or a hotel
 	 */
 	public void buildBuilding(Property property);
 
 	/**
-	 * Allows the player to sell a house or a hotel from the chosen property.
+	 * Allows the {@link Player} sell a house or a hotel from the chosen
+	 * {@link Property}.
 	 * 
 	 * @param property where to sell a house or a hotel
 	 */
@@ -41,8 +42,9 @@ interface PlayerPropertyManager {
 	public void sellPurchasable(Purchasable purchasableTile);
 
 	/**
-	 * Allows a {@link Player} to mortgage a specific non-null, owned Purchasable
-	 * tile with no houses built on. The player will receive a monetary settlement
+	 * Allows a {@link Player} to mortgage a specific non-null, owned
+	 * {@link Purchasable} tile with no houses built on. The {@link Player} will
+	 * receive a monetary settlement
 	 * 
 	 * @param purchasableTile table tile marketable to mortgage
 	 */
@@ -56,5 +58,4 @@ interface PlayerPropertyManager {
 	 */
 	public void unMortgagePurchasable(Purchasable purchasableTile);
 
-	
 }

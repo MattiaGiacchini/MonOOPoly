@@ -1,6 +1,8 @@
 package monoopoly.controller.player_manager;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 
 import monoopoly.GameEngine;
 import monoopoly.controller.Trader;
@@ -18,16 +20,23 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-	private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
+	private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private GameEngine gameEngine;
 
+	/**
+	 * This constructor creates an instance of {@link PlayerMAnager}
+	 * 
+	 * @param playerManagerID
+	 * @param gameEngine
+	 */
 	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
-		this.gameEngine = gameEngine.getGameEngine;
+		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
+		this.gameEngine = gameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
 	}
@@ -111,30 +120,29 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public Trade createTradeOffer() {
-		this.tradeBuilder.build();		
+		this.tradeBuilder.build();
 	}
 
 	@Override
 	public void acceptTrade() {
 		this.trader.acceptTrade();
 	}
-	
+
 	@Override
 	public void declineTrade() {
 		this.trader.declineTrade();
 	}
 
 	@Override
-	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney) {
+	public void setOffererOffer(List<Purchasable> offererRealEstate, Double offererMoney) {
 		this.tradeBuilder.setPlayerOne(this.player);
 		this.tradeBuilder.setPlayerOneProperties(offererRealEstate);
 		this.tradeBuilder.setPlayerOneMoney(offererMoney);
 	}
 
 	@Override
-	public void setContractorRequest(Player contractor, Set<Purchasable> contractorRealEstate,
-			Double contractorMoney) {
-		
+	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate, Double contractorMoney) {
+
 		this.tradeBuilder.setPlayerTwo(contractor);
 		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
 		this.tradeBuilder.setPlayerTwoMoney(contractorMoney);

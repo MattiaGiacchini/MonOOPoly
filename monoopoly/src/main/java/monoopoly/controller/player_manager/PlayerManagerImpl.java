@@ -1,5 +1,7 @@
 package monoopoly.controller.player_manager;
 
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
@@ -12,7 +14,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-	private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
+	//private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	public PlayerManagerImpl(final int playerManagerID) {
@@ -26,10 +28,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	private void initializePlayer() {
-		this.player.setName(gameEngine.getName(playerManagerID));
+		/*this.player.setName(gameEngine.getName(playerManagerID));
 		this.player.setBalance(gameEngine.getBalance(playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(playerManagerID));
-		this.player.setState(gameEngine.getState(playerManagerID));
+		this.player.setState(gameEngine.getState(playerManagerID));*/
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	public void giveUp() {
 		this.player.setState(States.BROKE);
 	}
-
+/*
 	@Override
 	public void buildHouse(Property property) {
 		this.propertyManager.updateHouseNumber(property, 1);
@@ -92,5 +94,41 @@ public class PlayerManagerImpl implements PlayerManager {
 		this.balanceManager.updateBalance(player, amount);
 
 	}
+
+	@Override
+	public void buildHouse(Property property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sellHouse(Property property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void buyPurchasable(Purchasable purchasableTile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void sellPurchasable(Purchasable purchasableTile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mortgagePurchasable(Purchasable purchasableTile) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unMortgagePurchasable(Purchasable purchasableTile) {
+		// TODO Auto-generated method stub
+		
+	}*/
 
 }

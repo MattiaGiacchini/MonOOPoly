@@ -13,20 +13,17 @@ import monoopoly.utilities.PurchasableCategory;
 public interface Table {
 
 	/**
+	 * This method returns the current diceSum
+	 * @return the sum.
+	 */
+	public int currentDices();
+	/**
 	 * This method is used to notify table to the last 
 	 * dices throws
 	 * 
-	 * @param diceOne the result of first dice thrown
-	 * @param diceTwo the result of second dice thrown
-	 * @param diceTree the result of third dice thrown
-	 * 
-	 * @throws IllegalArgumentException if one of these
-	 * 		   parameters isn't an integer value or 
-	 * 		   Optional of Integer
+	 * @param sum The sum of the dices.
 	 */
-	public void notifyDices(final Integer diceOne, 
-							final Integer diceTwo,
-							final Optional<Integer> diceThree);	 
+	public void notifyDices(final int sum);	 
 	
 	/**
 	 *  this method sets a new quotation for a specific

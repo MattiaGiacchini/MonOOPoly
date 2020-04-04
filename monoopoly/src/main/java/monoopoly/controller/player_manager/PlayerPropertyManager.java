@@ -2,6 +2,8 @@ package monoopoly.controller.player_manager;
 
 import javax.annotation.Nonnull;
 
+import monoopoly.model.player.Player;
+
 /**
  * This interface manages the {@link Player}'s {@link Purchasable} tiles. All of
  * these methods will be invoked by {@link PlayerManager}.
@@ -9,45 +11,50 @@ import javax.annotation.Nonnull;
 interface PlayerPropertyManager {
 
 	/**
-	 * Is a method that could add or remove houses/hotel to a specific
-	 * {@link Property} Hotels are considered as a "fifth house".
+	 * Allows the player to build a house or a hotel on the chosen property.
 	 * 
-	 * 
-	 * @param property  is the {@link Property} that is going to be modified
-	 * @param variation is the number (positive or negative) of houses to
-	 *                  add/remove.
+	 * @param property where to build on a house or a hotel
 	 */
-	public void updateHouseNumber(@Nonnull Property property, int variation);
+	public void buildBuilding(Property property);
 
 	/**
-	 * Allows a {@link Player} to buy a specific non-null and free Purchasable tile
+	 * Allows the player to sell a house or a hotel from the chosen property.
 	 * 
-	 * @param purchasableTile to be purchased, if not already owned by other players
+	 * @param property where to sell a house or a hotel
 	 */
-	public void buyProperty(@Nonnull Purchasable purchasableTile);
+	public void sellBuilding(Property property);
 
 	/**
-	 * Allows a {@link Player} to sell a specific owned Purchasable tile, only if
-	 * has no houses built on
+	 * Allows the {@link Player} to buy a specific free {@link Purchasable}.
 	 * 
-	 * @param purchasableTile to be sold
+	 * @param purchasableTile table tile marketable to buy if not already owned by
+	 *                        other players
 	 */
-	public void sellProperty(@Nonnull Purchasable purchasableTile);
+	public void buyPurchasable(Purchasable purchasableTile);
+
+	/**
+	 * Allows the {@link Player} to sell a specific {@link Purchasable} if has no
+	 * houses built on it.
+	 * 
+	 * @param purchasableTile table tile marketable to sell
+	 */
+	public void sellPurchasable(Purchasable purchasableTile);
 
 	/**
 	 * Allows a {@link Player} to mortgage a specific non-null, owned Purchasable
-	 * tile with no houses built on. the player will receive a monetary settlement
+	 * tile with no houses built on. The player will receive a monetary settlement
 	 * 
-	 * @param purchasableTile to mortgage
+	 * @param purchasableTile table tile marketable to mortgage
 	 */
-	public void mortgageProperty(@Nonnull Purchasable purchasableTile);
+	public void mortgagePurchasable(Purchasable purchasableTile);
 
 	/**
 	 * Allows a {@link Player} to revoke mortgage from a specific non-null and owned
 	 * Purchasable tile paying a share of money
 	 * 
-	 * @param purchasableTile to be freed by mortgage
+	 * @param purchasableTile table tile marketable to be released from mortgage
 	 */
-	public void unMortgageProperty(@Nonnull Purchasable purchasableTile);
+	public void unMortgagePurchasable(Purchasable purchasableTile);
 
+	
 }

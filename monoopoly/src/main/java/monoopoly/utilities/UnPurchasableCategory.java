@@ -4,9 +4,7 @@ package monoopoly.utilities;
  */
 public enum UnPurchasableCategory {
 	START,
-	DECK_CALAMITY,
-	DECK_PROBABILITY,
-	DECK_UNEXPECTED,
+	DECK,	
 	JAIL,
 	GO_TO_JAIL,
 	FREE_PARKING;

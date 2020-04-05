@@ -1,9 +1,7 @@
 package monoopoly.model.item;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import monoopoly.model.item.Purchasable;
-import monoopoly.utilities.PurchasableCategory;
 
 /**
  *	This interface represents the monopoly's board-game, 
@@ -37,7 +35,7 @@ public interface Table {
 	 *  @throws IllegalArgumentException if the parameters aren't
 	 *  		as request
 	 */
-	public void setNewQuotationToSpecificPurchasableCategory(final PurchasableCategory category, 
+	public void setNewQuotationToSpecificPurchasableCategory(final Purchasable.Category category, 
 															 final double quotation);
 
 	/**
@@ -65,6 +63,6 @@ public interface Table {
 	 * @throws IllegalArgumentException if the parameter isn't an
 	 * 		   Integer
 	 */
-	public List<Purchasable> getPurchasablesTilesforSpecificPlayer(final Integer idPlayer);
+	public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(final Integer idPlayer);
 	
 }

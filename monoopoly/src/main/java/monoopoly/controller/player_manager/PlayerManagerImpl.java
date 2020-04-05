@@ -63,6 +63,11 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	@Override
+	public PlayerPropertyManager getPropertyManager() {
+		return this.propertyManager;
+	}
+
+	@Override
 	public void movePlayer(int steps) {
 		this.player.updatePosition(steps);
 	}
@@ -141,11 +146,27 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	@Override
-	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate, Double contractorMoney) {
+	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate,
+			Double contractorMoney) {
 
 		this.tradeBuilder.setPlayerTwo(contractor);
 		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
 		this.tradeBuilder.setPlayerTwoMoney(contractorMoney);
+	}
+
+	@Override
+	public void goToPrison() {
+		this.player.setState(States.INPRISONED);
+	}
+
+	@Override
+	public void leavePrison() {
+		this.player.setState(States.STANDING);
+	}
+
+	@Override
+	public boolean isInPrison() {
+		return this.player.getState().equals(States.INPRISONED);
 	}
 
 }

@@ -1,9 +1,11 @@
 package monoopoly.model.item;
 
+import monoopoly.model.item.card.Card;
+
 public interface Deck extends UnPurchasable {
 
 	/**
-	 * this enum is used to know which deck is this.
+	 * it's used to know which deck is this.
 	 */
 	enum Type{
 		CALAMITY,

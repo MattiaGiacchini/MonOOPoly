@@ -20,7 +20,7 @@ public interface UnPurchasable extends Tile {
 	 * This method is used to know which {@link UnPurchasable.Category}
 	 * this Tile belongs to.
 	 * 
-	 * @return the specific {@link UnPurchasableCategory}
+	 * @return the specific {@link UnPurchasable.Category}
 	 */
 	public UnPurchasable.Category getCategory();
 }

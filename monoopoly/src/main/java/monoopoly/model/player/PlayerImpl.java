@@ -74,21 +74,6 @@ public class PlayerImpl implements Player {
 	@Override
 	public void updateBalance(Double value) {
 		this.balance = this.balance + value;
-
-	}
-
-	@Override
-	public void updatePosition(int distance) {
-		if (this.position + distance <= LAST_POSITION - 1) {
-			this.position = this.position + distance;
-		} else {
-			this.position = this.position + distance - LAST_POSITION;
-		}
-
-		if (this.position < 0) {
-			this.position = this.position + LAST_POSITION;
-		}
-
 	}
 
 	@Override

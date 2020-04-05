@@ -1,13 +1,28 @@
 package monoopoly.model.item;
 import java.util.Optional;
 
-import monoopoly.utilities.PurchasableCategory;
 
 /**
  *	This interface represents a generic Table's tile purchasable.
  */
 public interface Purchasable extends Tile {
 
+	/**
+	 *	This enum lists the possible Category of Purchasable Tile
+	 */
+	enum Category {
+		BROWN,
+		LIGHT_BLUE,
+		PINK,
+		ORANGE,
+		RED,
+		YELLOW,
+		GREEN,
+		BLUE,
+		SOCIETY,
+		STATION;
+	}
+	
 	/**
 	 *  This method is used to set the Purchasable Tile in 
 	 *  status Mortgage and receive the value back 
@@ -68,7 +83,7 @@ public interface Purchasable extends Tile {
 	 *  @return the specific Category of Purchase Tile 
 	 *  		{@link monoopoly.utilities.PurchasableCategory}
 	 */
-	public PurchasableCategory getPurchaseCategory();
+	public Purchasable.Category getPurchaseCategory();
 
 	/**
 	 *  this method is used to get the actual quotation applied

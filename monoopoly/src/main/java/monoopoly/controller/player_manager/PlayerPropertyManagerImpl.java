@@ -1,6 +1,7 @@
 package monoopoly.controller.player_manager;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * This class implements {@link PlayerPropertyManager} methods.
@@ -99,6 +100,11 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	 */
 	private boolean checkFreePurchasable(Purchasable purchasable) {
 		return (purchasable.getOwner.empty());
+	}
+
+	@Override
+	public Set<Purchasable> getProperties() {
+		return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
 	}
 
 }

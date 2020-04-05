@@ -1,5 +1,7 @@
 package monoopoly.controller.player_manager;
 
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 
 import monoopoly.model.player.Player;
@@ -8,7 +10,7 @@ import monoopoly.model.player.Player;
  * This interface manages the {@link Player}'s {@link Purchasable} tiles. All of
  * these methods will be invoked by {@link PlayerManager}.
  */
-interface PlayerPropertyManager {
+public interface PlayerPropertyManager {
 
 	/**
 	 * Allows the {@link Player} to build a house or a hotel on the chosen property.
@@ -57,5 +59,12 @@ interface PlayerPropertyManager {
 	 * @param purchasableTile table tile marketable to be released from mortgage
 	 */
 	public void unMortgagePurchasable(Purchasable purchasableTile);
+	
+	/**
+	 * Returns the list of {@link Purchasable}s owned by the {@link Player}
+	 * 
+	 * @return the list of {@link Purchasable}s owned by the {@link Player}
+	 */
+	public Set<Purchasable > getProperties();
 
 }

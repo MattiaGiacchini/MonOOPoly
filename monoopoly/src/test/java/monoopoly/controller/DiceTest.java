@@ -1,12 +1,13 @@
-package monoopoly.controller.dices;
+package monoopoly.controller;
 
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import monoopoly.controller.dices.Dices;
+import monoopoly.controller.dices.DicesImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.model.item.Purchasable;

@@ -3,7 +3,6 @@ package monoopoly.controller.dices;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Random;
 
 import monoopoly.controller.player_manager.PlayerManager;
@@ -34,7 +33,9 @@ public class DicesImpl implements Dices{
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
+		this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
+		//TODO logica prigione
 		this.currentPlayer.movePlayer(diceSum);
 		this.gameTable.notifyDices(diceSum);
 	}

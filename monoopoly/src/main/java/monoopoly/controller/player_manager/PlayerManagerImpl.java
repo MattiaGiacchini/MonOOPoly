@@ -124,7 +124,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void collectMoney(Double amount) {
 		this.balanceManager.updateBalance(this.player, amount);
-
 	}
 
 	@Override

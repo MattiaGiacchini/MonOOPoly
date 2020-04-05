@@ -65,6 +65,6 @@ public interface PlayerPropertyManager {
 	 * 
 	 * @return the list of {@link Purchasable}s owned by the {@link Player}
 	 */
-	public Set<Purchasable > getProperties();
+	public Set<Purchasable> getProperties();
 
 }

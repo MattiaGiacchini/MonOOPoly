@@ -40,7 +40,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.setOwner(Optional.empty());
 		}
-
 	}
 
 	@Override
@@ -48,7 +47,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.mortgage();
 		}
-
 	}
 
 	@Override
@@ -56,7 +54,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.removeMortgage();
 		}
-
 	}
 
 	/**
@@ -106,5 +103,4 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	public Set<Purchasable> getProperties() {
 		return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
 	}
-
 }

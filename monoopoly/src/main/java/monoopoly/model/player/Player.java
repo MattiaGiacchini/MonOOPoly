@@ -47,13 +47,6 @@ public interface Player {
 	public void setPosition(int position);
 
 	/**
-	 * This method is used to move the player forward or backward on the board
-	 * 
-	 * @param distance the value to apply on the position to move the player
-	 */
-	public void updatePosition(int distance);
-
-	/**
 	 * This method is used to know the game status of the player
 	 * 
 	 * @return the player's state

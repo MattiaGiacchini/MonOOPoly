@@ -9,8 +9,6 @@ import monoopoly.utilities.States;
  */
 public class PlayerImpl implements Player {
 
-	protected final static int LAST_POSITION = 40;
-
 	private final int playerID;
 	private String name;
 	private Double balance;

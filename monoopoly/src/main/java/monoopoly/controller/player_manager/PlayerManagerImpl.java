@@ -69,12 +69,16 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void movePlayer(int steps) {
-		this.player.updatePosition(steps);
+		if (!this.isInPrison()) {
+			this.player.updatePosition(steps);
+		}
 	}
 
 	@Override
 	public void goToPosition(int position) {
-		this.player.setPosition(position);
+		if (!this.isInPrison()) {
+			this.player.setPosition(position);
+		}
 	}
 
 	@Override

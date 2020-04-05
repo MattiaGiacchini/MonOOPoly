@@ -83,7 +83,7 @@ public interface Purchasable extends Tile {
 	 *  @return the specific Category of Purchase Tile 
 	 *  		{@link monoopoly.utilities.PurchasableCategory}
 	 */
-	public Category getPurchaseCategory();
+	public Purchasable.Category getPurchaseCategory();
 
 	/**
 	 *  this method is used to get the actual quotation applied

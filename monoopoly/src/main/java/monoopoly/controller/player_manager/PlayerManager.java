@@ -113,4 +113,20 @@ public interface PlayerManager {
 	 */
 	public void declineTrade();
 
+	/**
+	 * Updates the {@link Player}'s state setting it to "PRISONED"
+	 */
+	public void goToPrison();
+
+	/**
+	 * Updates the {@link Player}'s state setting it to "IN GAME"
+	 */
+	public void leavePrison();
+
+	/**
+	 * Checks if the {@link Player} is or not in prison
+	 * 
+	 * @return true if {@link Player} is in prison
+	 */
+	public boolean isInPrison();
 }

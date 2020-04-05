@@ -1,6 +1,7 @@
 package monoopoly.controller.player_manager;
 
 import java.util.List;
+import java.util.Optional;
 
 import monoopoly.model.Trade;
 import monoopoly.model.player.Player;
@@ -114,11 +115,6 @@ public interface PlayerManager {
 	public void declineTrade();
 
 	/**
-	 * Updates the {@link Player}'s state setting it to "PRISONED"
-	 */
-	public void goToPrison();
-
-	/**
 	 * Updates the {@link Player}'s state setting it to "IN GAME"
 	 */
 	public void leavePrison();
@@ -129,4 +125,5 @@ public interface PlayerManager {
 	 * @return true if {@link Player} is in prison
 	 */
 	public boolean isInPrison();
+
 }

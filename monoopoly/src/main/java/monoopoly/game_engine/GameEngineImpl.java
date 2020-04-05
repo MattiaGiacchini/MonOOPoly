@@ -1,9 +1,11 @@
-package monoopoly.starting_stuff;
+package monoopoly.game_engine;
 
 import java.util.*;
 
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player_manager.TurnManager;
+import monoopoly.controller.player_manager.TurnManagerImpl;
 import monoopoly.model.item.Table;
 
 public class GameEngineImpl implements GameEngine {
@@ -11,6 +13,8 @@ public class GameEngineImpl implements GameEngine {
 	/**
 	 * creating a map for each credential you need, reachable by player's ID
 	 */
+	private static final int FIRST_PLAYER = 0;
+	
 	private Map<Integer, String> name = new HashMap<>(); 
 	
 	private Map<Integer, Double> balance = new HashMap<>(); 
@@ -20,12 +24,13 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
 	
 	private List<PlayerManager> playersList = new ArrayList<>();
-	
-	private Integer currentPlayerID;
+		
+	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
 	 * every player's credentials 
+	 * 
 	 * @param name
 	 * @param balance
 	 * @param position
@@ -59,7 +64,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	public PlayerManager currentPlayer() {
 		for (PlayerManager pM: this.playersList) {
-			if (pM.getPlayerManagerID == this.currentPlayerID) { //I need Mattia to make method
+			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
 				return pM;
 			}
 		}
@@ -112,12 +117,15 @@ public class GameEngineImpl implements GameEngine {
 		}
 		return null;
 	}
-	
-	public Integer getCurrentPlayerID() {
-		return currentPlayerID;
-	}
 
-	public void setCurrentPlayerID(Integer currentPlayerID) {
+	/*public void setCurrentPlayerID(Integer currentPlayerID) {
 		this.currentPlayerID = currentPlayerID;
+	}*/
+	
+	/**
+	 * it returns the successive player 
+	 */
+	public PlayerManager passPlayer() {
+		return this.turnManager.nextTurn(this.playersList);
 	}
 }

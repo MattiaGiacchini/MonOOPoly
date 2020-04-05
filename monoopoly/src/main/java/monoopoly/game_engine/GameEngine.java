@@ -1,4 +1,4 @@
-package monoopoly.starting_stuff;
+package monoopoly.game_engine;
 
 import java.util.*;
 
@@ -33,9 +33,9 @@ public interface GameEngine {
 	void createPlayers();
 	
 	/**
-	 * Method to track turn by turn the current player.
+	 * Method to track turn by turn the current player by watching it 
+	 * into TurnManagerImpl.
 	 * 
-	 * @param ID
 	 * @return {@link PlayerManager} that is the currently gaming player 
 	 */
 	PlayerManager currentPlayer();
@@ -72,5 +72,13 @@ public interface GameEngine {
 	 * @return monoopoly.utilities.States
 	 */
 	monoopoly.utilities.States getState(final int ID);
+	
+	/**
+	 * You can call this method to pass your turn
+	 * @return successive {@link PlayerManager} 
+	 */
+	PlayerManager passPlayer();
+	
+	
 
 }

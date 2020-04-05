@@ -5,7 +5,7 @@ package monoopoly;
 
 import org.junit.Test;
 
-import monoopoly.starting_stuff.Library;
+import monoopoly.game_engine.Library;
 
 import static org.junit.Assert.*;
 

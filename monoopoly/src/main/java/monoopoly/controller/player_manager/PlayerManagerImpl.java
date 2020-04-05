@@ -70,14 +70,18 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void movePlayer(int steps) {
 		if (!this.isInPrison()) {
-			this.player.updatePosition(steps);
+			this.goToPosition(this.nextPosition(steps));
 		}
 	}
 
 	@Override
 	public void goToPosition(int position) {
 		if (!this.isInPrison()) {
-			this.player.setPosition(position);
+			if (this.checkGoToJail(position)) {
+				this.goToPrison();
+			} else {
+				this.player.setPosition(position);
+			}
 		}
 	}
 
@@ -128,7 +132,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public Trade createTradeOffer() {
-		this.tradeBuilder.build();
+		return this.tradeBuilder.build();
 	}
 
 	@Override
@@ -151,15 +155,9 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate,
 			Double contractorMoney) {
-
 		this.tradeBuilder.setPlayerTwo(contractor);
 		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
 		this.tradeBuilder.setPlayerTwoMoney(contractorMoney);
-	}
-
-	@Override
-	public void goToPrison() {
-		this.player.setState(States.INPRISONED);
 	}
 
 	@Override
@@ -172,4 +170,50 @@ public class PlayerManagerImpl implements PlayerManager {
 		return this.player.getState().equals(States.INPRISONED);
 	}
 
+	/**
+	 * This private method return the right position where the {@link Player} is
+	 * going to move to.
+	 * 
+	 * @param steps number of steps the {@link Player} has to do on the board
+	 * @return the position where the {@link Player} is going to go
+	 */
+	private int nextPosition(int steps) {
+		return this.checkOutOfBoard(this.player.getPosition() + steps);
+	}
+
+	/**
+	 * This private method checks if the {@link Player} is going to exit from the
+	 * Table bounds. In this case the method adjusts the position.
+	 * 
+	 * @param position where the {@link Player} should be
+	 * @return the right {@link Player}'s position
+	 */
+	private int checkOutOfBoard(int position) {
+		if (position >= Table.getTableSize()) {
+			return position = position - Table.getTableSize();
+		} else if (position < 0) {
+			return position + Table.getTableSize();
+		} else {
+			return position;
+		}
+	}
+
+	/**
+	 * This private method checks if the {@link Player} has to go to the jail
+	 * 
+	 * @param position to check
+	 * @return true if i need to go to the jail
+	 */
+	private boolean checkGoToJail(int position) {
+		return position.equals(UnPurchasable.Category.GO_TO_JAIL)
+	}
+
+	/**
+	 * This private method updates the state of the {@link Player} to "PRISONED" and
+	 * moves the {@link Player} to the prison tile
+	 */
+	private void goToPrison() {
+		this.player.setState(States.INPRISONED);
+		this.player.setPosition(UnPurchasable.Category.JAIL);
+	}
 }

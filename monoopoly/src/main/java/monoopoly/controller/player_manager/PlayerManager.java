@@ -1,5 +1,7 @@
 package monoopoly.controller.player_manager;
 
+import java.util.Map;
+
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
@@ -40,7 +42,19 @@ public interface PlayerManager {
 	 * will go to the {@link Bank}
 	 */
 	public void giveUp();
+	
+	/**
+	 * Allows the player to know how the dices rolled
+	 * @param dices rhe dices
+	 */
+	public void setDices(Map<Integer, Integer> dices);
 
+	/**
+	 * 
+	 * @return the {@link PlayerPropertyManager} 
+	 */
+	public PlayerPropertyManager getPropertyManager();
+	
 	/**
 	 * Allows the player to build a house or a hotel on the chosen property
 	 * 

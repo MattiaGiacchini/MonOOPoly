@@ -50,6 +50,12 @@ public interface PlayerManager {
 	public void setDices(Map<Integer, Integer> dices);
 
 	/**
+	 * 
+	 * @return the {@link PlayerPropertyManager} 
+	 */
+	public PlayerPropertyManager getPropertyManager();
+	
+	/**
 	 * Allows the player to build a house or a hotel on the chosen property
 	 * 
 	 * @param property where to build on a house or a hotel

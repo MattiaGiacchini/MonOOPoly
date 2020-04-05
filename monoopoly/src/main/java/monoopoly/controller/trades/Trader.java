@@ -1,4 +1,4 @@
-package monoopoly.controller;
+package monoopoly.controller.trades;
 
 import monoopoly.model.trade.Trade;
 
@@ -18,4 +18,10 @@ public interface Trader {
 	 * This accepts the trade, and makes the opportune swaps.
 	 */
 	void acceptTrade();
+	
+	/**
+	 * This changes the trade inside the trader.
+	 * @param trade	The trade.
+	 */
+	void changeTrade(Trade trade);
 }

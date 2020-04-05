@@ -14,13 +14,14 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-	//private PlayerPropertyManager propertyManager = new PlayerPropertyManagerImpl();
+	private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	public PlayerManagerImpl(final int playerManagerID) {
 		this.playerManagerID = playerManagerID;
 		this.player = this.createPlayer();
 		this.initializePlayer();
+		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
 	}
 
 	private Player createPlayer() {
@@ -32,6 +33,7 @@ public class PlayerManagerImpl implements PlayerManager {
 		this.player.setBalance(gameEngine.getBalance(playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(playerManagerID));
 		this.player.setState(gameEngine.getState(playerManagerID));*/
+		this.player.setBalance(0.0);
 	}
 
 	@Override
@@ -52,6 +54,11 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void giveUp() {
 		this.player.setState(States.BROKE);
+	}
+	
+	@Override
+	public PlayerPropertyManager getPropertyManager() {
+		return this.propertyManager;
 	}
 /*
 	@Override
@@ -87,14 +94,14 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void payMoney(Double amount) {
 		this.balanceManager.updateBalance(player, -amount);
-	}
+	}*/
 
 	@Override
 	public void collectMoney(Double amount) {
 		this.balanceManager.updateBalance(player, amount);
 
 	}
-
+	/*
 	@Override
 	public void buildHouse(Property property) {
 		// TODO Auto-generated method stub

@@ -32,8 +32,8 @@ public class DicesImpl implements Dices{
 	public void roll(PlayerManager playerManager, Table table) {
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
-			//TODO comunica il dado al player
 		}
+		this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
 		//TODO logica prigione
 		this.currentPlayer.movePlayer(diceSum);

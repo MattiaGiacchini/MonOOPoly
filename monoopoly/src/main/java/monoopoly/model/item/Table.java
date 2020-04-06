@@ -64,5 +64,12 @@ public interface Table {
 	 * 		   Integer
 	 */
 	public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(final Integer idPlayer);
-
+	
+	/**
+	 * this method is used to get the number Tile inside the Table 
+	 * 
+	 * @return number of tile
+	 */
+	public Integer getTableSize();
+	
 }

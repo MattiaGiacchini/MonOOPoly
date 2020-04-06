@@ -1,10 +1,11 @@
 package monoopoly.controller.player_manager;
 
 import java.util.Map;
+import java.util.Set;
 
-import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
+import monoopoly.model.trade.Trade;
 
 /**
  * This interface is used to manage the {@link Player} associated to the
@@ -59,23 +60,7 @@ public interface PlayerManager {
 	public void giveUp();
 
 	/**
-	 * Allows the player to know how the dices rolled
-	 * @param dices rhe dices
-	 */
-	public void setDices(Map<Integer, Integer> dices);
-
-	/**
-<<<<<<< HEAD
-	 *
-	 * @return the {@link PlayerPropertyManager}
-	 */
-	public PlayerPropertyManager getPropertyManager();
-
-	/**
-	 * Allows the player to build a house or a hotel on the chosen property
-=======
 	 * Add money to the {@link Player}'s balance.
->>>>>>> playerAdjustments
 	 *
 	 * @param amount of money to add to the balance
 	 */
@@ -97,7 +82,7 @@ public interface PlayerManager {
 	 * @param offererMoney      amount of money offered by the offerer
 	 *                          {@link Player} in order to balance the offer value
 	 */
-	public void setOffererOffer(List<Purchasable> offererRealEstate, Double offererMoney);
+	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney);
 
 	/**
 	 * Creates the contractor {@link Player}'s request made by the offerer
@@ -109,7 +94,8 @@ public interface PlayerManager {
 	 * @param contractorMoney      additional money to give in order to balance the
 	 *                             offer value
 	 */
-	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate, Double contractorMoney);
+	public void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate,
+			Double contractorMoney);
 
 	/**
 	 * Creates an exchange of {@link Purchasable}s and eventually an addition of
@@ -129,6 +115,11 @@ public interface PlayerManager {
 	 * Declines the trade offer made by the offerer {@link Player}.
 	 */
 	public void declineTrade();
+
+	/**
+	 * This method modifies the existing trade setting new fields
+	 */
+	public void modifyTrade();
 
 	/**
 	 * Updates the {@link Player}'s state setting it to "IN GAME"

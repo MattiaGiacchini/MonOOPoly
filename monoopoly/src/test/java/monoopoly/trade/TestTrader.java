@@ -12,6 +12,7 @@ import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.trades.Trader;
 import monoopoly.controller.trades.TraderImpl;
+import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
@@ -21,8 +22,8 @@ import monoopoly.utilities.PurchasableCategory;
 
 public class TestTrader {
 	
-	private PlayerManager playerOne = new PlayerManagerImpl(0);
-	private PlayerManager playerTwo = new PlayerManagerImpl(1);
+	private PlayerManager playerOne = new PlayerManagerImpl(0, new GameEngineImpl(null, null, null, null));
+	private PlayerManager playerTwo = new PlayerManagerImpl(1, new GameEngineImpl(null, null, null, null));
 	private Purchasable propertyOne = new Purchasable() {
 		
 		@Override
@@ -80,7 +81,7 @@ public class TestTrader {
 		}
 		
 		@Override
-		public PurchasableCategory getPurchaseCategory() {
+		public Purchasable.Category getPurchaseCategory() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -167,7 +168,7 @@ public class TestTrader {
 		}
 		
 		@Override
-		public PurchasableCategory getPurchaseCategory() {
+		public Purchasable.Category getPurchaseCategory() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -254,7 +255,7 @@ public class TestTrader {
 		}
 		
 		@Override
-		public PurchasableCategory getPurchaseCategory() {
+		public Purchasable.Category getPurchaseCategory() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -341,7 +342,7 @@ public class TestTrader {
 		}
 		
 		@Override
-		public PurchasableCategory getPurchaseCategory() {
+		public Purchasable.Category getPurchaseCategory() {
 			// TODO Auto-generated method stub
 			return null;
 		}
@@ -394,7 +395,8 @@ public class TestTrader {
 								   .setPlayerOneProperties(setOne)
 								   .setPlayerTwoProperties(setTwo)
 								   .build();
-		final Trader traderTest = new TraderImpl(trade);
+		final Trader traderTest = new TraderImpl();
+		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
 		
 		assertTrue(this.playerOne.getPropertyManager().getProperties().contains(propertyThree));
@@ -412,7 +414,8 @@ public class TestTrader {
 								   .setPlayerTwoMoney(MONEYTWO)
 								   .build();
 		
-		final Trader traderTest = new TraderImpl(trade);
+		final Trader traderTest = new TraderImpl();
+		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
 		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), this.MONEYTWO) == 0);
 		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), this.MONEYONE) == 0);
@@ -441,7 +444,8 @@ public class TestTrader {
 								   .setPlayerOneMoney(MONEYONE)
 								   .setPlayerTwoMoney(MONEYTWO)
 								   .build();
-		final Trader traderTest = new TraderImpl(trade);
+		final Trader traderTest = new TraderImpl();
+		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
 		
 		assertTrue(this.playerOne.getPropertyManager().getProperties().contains(propertyThree));

@@ -1,5 +1,7 @@
 package monoopoly.controller.trades;
 
+import java.util.Optional;
+
 import monoopoly.model.trade.Trade;
 
 /**
@@ -23,5 +25,5 @@ public interface Trader {
 	 * This changes the trade inside the trader.
 	 * @param trade	The trade.
 	 */
-	void changeTrade(Trade trade);
+	void changeTrade(Optional<Trade> trade);
 }

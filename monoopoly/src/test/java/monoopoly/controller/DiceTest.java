@@ -3,6 +3,7 @@ package monoopoly.controller;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,9 +12,9 @@ import monoopoly.controller.dices.DicesImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Purchasable.Category;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
-import monoopoly.utilities.PurchasableCategory;
 
 public class DiceTest {
 
@@ -22,16 +23,19 @@ public class DiceTest {
 	private PlayerManager playerTest = new PlayerManagerImpl(0);
 	private Table tableTest = new Table() {
 		
-		private int diceSum;
-		
+		int diceSum = 0;
 		
 		@Override
-		public void setNewQuotationToSpecificPurchasableCategory(PurchasableCategory category, double quotation) {
+		public void setNewQuotationToSpecificPurchasableCategory(Category category, double quotation) {
 			// TODO Auto-generated method stub
 			
 		}
 		
-		
+		@Override
+		public void notifyDices(int sum) {
+			// TODO Auto-generated method stub
+			this.diceSum = sum;
+		}
 		
 		@Override
 		public Tile getTile(Integer position) {
@@ -40,21 +44,21 @@ public class DiceTest {
 		}
 		
 		@Override
-		public List<Purchasable> getPurchasablesTilesforSpecificPlayer(Integer idPlayer) {
+		public Integer getTableSize() {
 			// TODO Auto-generated method stub
 			return null;
 		}
-
+		
+		@Override
+		public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(Integer idPlayer) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
 		@Override
 		public int getNotifiedDices() {
 			// TODO Auto-generated method stub
 			return this.diceSum;
-		}
-
-		@Override
-		public void notifyDices(int sum) {
-			// TODO Auto-generated method stub
-			this.diceSum = sum;
 		}
 	};
 	

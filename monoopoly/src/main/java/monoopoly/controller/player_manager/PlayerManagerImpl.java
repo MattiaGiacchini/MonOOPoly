@@ -2,6 +2,8 @@ package monoopoly.controller.player_manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.List;
 
 import monoopoly.game_engine.*;
@@ -9,6 +11,8 @@ import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
+import monoopoly.model.item.UnPurchasable;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
@@ -116,18 +120,18 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void declineTrade() {
-		this.trader.declineTrade();
+		this.trader.changeTrade(Optional.empty());
 	}
 
 	@Override
-	public void setOffererOffer(List<Purchasable> offererRealEstate, Double offererMoney) {
-		this.tradeBuilder.setPlayerOne(this.player);
+	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney) {
+		this.tradeBuilder.setPlayerOne(this);
 		this.tradeBuilder.setPlayerOneProperties(offererRealEstate);
 		this.tradeBuilder.setPlayerOneMoney(offererMoney);
 	}
 
 	@Override
-	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate,
+	public void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate,
 			Double contractorMoney) {
 		this.tradeBuilder.setPlayerTwo(contractor);
 		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
@@ -136,12 +140,12 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void leavePrison() {
-		this.player.setState(States.STANDING);
+		this.player.setState(States.IN_GAME);
 	}
 
 	@Override
 	public boolean isInPrison() {
-		return this.player.getState().equals(States.INPRISONED);
+		return this.player.getState().equals(States.PRISONED);
 	}
 
 	/**
@@ -179,7 +183,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return true if i need to go to the jail
 	 */
 	private boolean checkGoToJail(int position) {
-		return position.equals(UnPurchasable.Category.GO_TO_JAIL)
+		return UnPurchasable.Category.GO_TO_JAIL.equals(position);
 	}
 
 	/**
@@ -187,7 +191,12 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * moves the {@link Player} to the prison tile
 	 */
 	private void goToPrison() {
-		this.player.setState(States.INPRISONED);
+		this.player.setState(States.PRISONED);
 		this.player.setPosition(UnPurchasable.Category.JAIL);
+	}
+
+	@Override
+	public void modifyTrade() {
+		//TODO
 	}
 }

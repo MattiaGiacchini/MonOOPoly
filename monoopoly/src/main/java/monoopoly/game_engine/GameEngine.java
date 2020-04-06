@@ -1,13 +1,23 @@
-package monoopoly.starting_stuff;
+package monoopoly.game_engine;
 
 import java.util.*;
 
 import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
 
+/**
+ * Interface representing the brain behind 
+ * every action.
+ */
 public interface GameEngine {
 	
-	Table createTable();  //(I need Daniele to create Table interface)
+	/**
+	 * method to create Table, monopoly's board-game
+	 * 
+	 * @return {@link Table}
+	 */
+	Table createTable();  
 	
 	/**
 	 * Creating a single player by passing ID
@@ -15,19 +25,25 @@ public interface GameEngine {
 	 * @param number as playerID
 	 * @return a {@link PlayerManager}  
 	 */
-	PlayerManager createPlayer(final int number); 
+	PlayerManager createPlayer(final int ID); 
 	
 	/**
 	 * Creating all the players using all the IDs stored in maps
 	 */
 	void createPlayers();
 	
+	/**
+	 * Method to track turn by turn the current player by watching it 
+	 * into TurnManagerImpl.
+	 * 
+	 * @return {@link PlayerManager} that is the currently gaming player 
+	 */
 	PlayerManager currentPlayer();
 	
 	/**
 	 * @return a list of {@link PlayerManager} 
 	 */
-	List<PlayerManager> playerList();
+	List<PlayerManager> playersList();
 	
 	/**
 	 * helpful for getting player's name by putting ID
@@ -56,5 +72,13 @@ public interface GameEngine {
 	 * @return monoopoly.utilities.States
 	 */
 	monoopoly.utilities.States getState(final int ID);
+	
+	/**
+	 * You can call this method to pass your turn
+	 * @return successive {@link PlayerManager} 
+	 */
+	PlayerManager passPlayer();
+	
+	
 
 }

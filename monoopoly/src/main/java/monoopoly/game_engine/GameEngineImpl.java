@@ -1,15 +1,20 @@
-package monoopoly.starting_stuff;
+package monoopoly.game_engine;
 
 import java.util.*;
 
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player_manager.TurnManager;
+import monoopoly.controller.player_manager.TurnManagerImpl;
+import monoopoly.model.item.Table;
 
 public class GameEngineImpl implements GameEngine {
 	
 	/**
 	 * creating a map for each credential you need, reachable by player's ID
 	 */
+	private static final int FIRST_PLAYER = 0;
+	
 	private Map<Integer, String> name = new HashMap<>(); 
 	
 	private Map<Integer, Double> balance = new HashMap<>(); 
@@ -19,10 +24,13 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
 	
 	private List<PlayerManager> playersList = new ArrayList<>();
-	
+		
+	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
+
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
 	 * every player's credentials 
+	 * 
 	 * @param name
 	 * @param balance
 	 * @param position
@@ -39,11 +47,11 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public Table createTable() {
-		//TODO (Table doesn't exist yet)
+		return new Table();
 	}
 	
-	public PlayerManager createPlayer(final int number) {
-		return new PlayerManagerImpl(number);
+	public PlayerManager createPlayer(final int ID) {
+		return new PlayerManagerImpl(ID);
 	}
 	
 	public void createPlayers() {
@@ -55,11 +63,15 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public PlayerManager currentPlayer() {
-		//TODO
+		for (PlayerManager pM: this.playersList) {
+			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
+				return pM;
+			}
+		}
 		return null;
 	}
 	
-	public List<PlayerManager> playerList(){
+	public List<PlayerManager> playersList(){
 		return this.playersList;
 	}
 	
@@ -104,5 +116,16 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		return null;
+	}
+
+	/*public void setCurrentPlayerID(Integer currentPlayerID) {
+		this.currentPlayerID = currentPlayerID;
+	}*/
+	
+	/**
+	 * it returns the successive player 
+	 */
+	public PlayerManager passPlayer() {
+		return this.turnManager.nextTurn(this.playersList);
 	}
 }

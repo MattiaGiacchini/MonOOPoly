@@ -14,20 +14,22 @@ import monoopoly.model.item.Table;
 public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	private final int playerID;
-	
-	/*ONLY FOR TRADING TEST PURPOSES!!!!!*/
+
+	/*ONLY FOR TRADING TEST PURPOSES!!!!!
 	private Set<Purchasable> properties;
-	
+
 	public PlayerPropertyManagerImpl(int playerID) {
 		this.playerID = playerID;
 		this.properties = new HashSet<Purchasable>();
+	*/
+	public PlayerPropertyManagerImpl(int playerID) {
+		this.playerID = playerID;
 	}
 
 	@Override
 	public void buildBuilding(Property property) {
 		if (isPossibleToBuildBuilding(property)) {
 			property.buildOn();
-			this.properties.add(property);
 		}
 	}
 
@@ -50,7 +52,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.setOwner(Optional.empty());
 		}
-
 	}
 
 	@Override
@@ -58,7 +59,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.mortgage();
 		}
-
 	}
 
 	@Override
@@ -66,13 +66,12 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 		if (this.checkOwner(purchasableTile)) {
 			purchasableTile.removeMortgage();
 		}
-
 	}
 
 	/**
 	 * This method checks if is possible to sell a building on a specific
 	 * {@link Property}
-	 * 
+	 *
 	 * @param property where to sell a building
 	 * @return true if is possible to sell, false if not
 	 */
@@ -83,7 +82,7 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	/**
 	 * This method checks if is possible to build a building on a specific
 	 * {@link Property}
-	 * 
+	 *
 	 * @param property where to build a building
 	 * @return true if is possible to build, false if not
 	 */
@@ -94,7 +93,7 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	/**
 	 * This method checks if the {@link Player} related to this manager is the owner
 	 * of the {@link Purchasable} parameter
-	 * 
+	 *
 	 * @param purchasable
 	 * @return true if this {@link Player} is the owner of the {@link Purchasable}
 	 */
@@ -104,7 +103,7 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	/**
 	 * This method checks if the {@link Purchasable} has no owner
-	 * 
+	 *
 	 * @param purchasable to control owner
 	 * @return true if the {@link Purchasable} has no owner
 	 */
@@ -114,8 +113,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	@Override
 	public Set<Purchasable> getProperties() {
-		//return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
-		return this.properties;
+		return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
 	}
-
 }

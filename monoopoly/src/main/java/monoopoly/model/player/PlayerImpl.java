@@ -9,8 +9,6 @@ import monoopoly.utilities.States;
  */
 public class PlayerImpl implements Player {
 
-	protected final static int LAST_POSITION = 40;
-
 	private final int playerID;
 	private String name;
 	private Double balance;
@@ -74,21 +72,6 @@ public class PlayerImpl implements Player {
 	@Override
 	public void updateBalance(Double value) {
 		this.balance = this.balance + value;
-
-	}
-
-	@Override
-	public void updatePosition(int distance) {
-		if (this.position + distance <= LAST_POSITION - 1) {
-			this.position = this.position + distance;
-		} else {
-			this.position = this.position + distance - LAST_POSITION;
-		}
-
-		if (this.position < 0) {
-			this.position = this.position + LAST_POSITION;
-		}
-
 	}
 
 	@Override
@@ -109,21 +92,12 @@ public class PlayerImpl implements Player {
 		if (getClass() != obj.getClass())
 			return false;
 		PlayerImpl other = (PlayerImpl) obj;
-		if (balance == null) {
-			if (other.balance != null)
-				return false;
-		} else if (!balance.equals(other.balance))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
 		if (playerID != other.playerID)
-			return false;
-		if (position != other.position)
-			return false;
-		if (state != other.state)
 			return false;
 		return true;
 	}

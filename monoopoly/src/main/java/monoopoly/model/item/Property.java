@@ -1,5 +1,7 @@
 package monoopoly.model.item;
 
+import java.util.Map;
+
 /**
  *	This interface represents the single property of Monoopoly
  *  where you can build and sell house or hotel.
@@ -8,7 +10,7 @@ public interface Property extends Purchasable {
 	
 	/**
 	 *  this method add a new construction on 
-	 *  the Property to increase the value of Lease.<br><br> 
+	 *  this Property to increase the value of Lease.<br><br> 
 	 *  The sequence of building produced is:<br>
 	 *  0 house -> buildOn() -> 1 house<br>
 	 *  1 house -> buildOn() -> 2 house<br>
@@ -21,18 +23,18 @@ public interface Property extends Purchasable {
 	 *  		over an hotel
 	 *  
 	 *  @throws IllegalStateException if you try to build 
-	 *  		a further building when the other properties 
-	 *  		-of the same color- haven't reached the same 
-	 *  		number of buildings
+	 *  		a building when the owner of this Property 
+	 *  		isn't the same of the other Properties 
+	 *  		which the same category of this
 	 */
 	public void buildOn();
 	
 	/**
 	 *  this method sell one building you already 
 	 *  built. if there is a building you'll give
-	 *  back the listed selling value to build it
-	 *  and decrease the number of buildings,
-	 *  otherwise throws Exception.<br><br>
+	 *  back the listed selling value nd decrease 
+	 *  the number of buildings, otherwise throws 
+	 *  Exception.<br><br>
 	 *  The sequence of state produced is:<br>
 	 *  1 hotel -> sellBuilding() -> 4 house (hotelValue)<br>
 	 *  4 house -> sellBuilding() -> 3 house (houseValue)<br>
@@ -42,11 +44,6 @@ public interface Property extends Purchasable {
 	 *  0 house -> sellBuilding() -> IllegalStateException<br>
 	 *      
 	 * @return 	the listed selling value for a hotel or house
-	 * 
-	 * @throws 	IllegalStateException if you try to sell 
-	 *  		a further building when the other properties 
-	 *  		-of the same color- haven't decrease at the 
-	 *  		same number of buildings.
 	 *  
 	 * @throws 	IllegalStateException if you try to sell 
 	 *  		a build that you haven't
@@ -102,6 +99,17 @@ public interface Property extends Purchasable {
 	 * @return the listed selling value of a hotel
 	 */
 	public double getQuotationToSellHotel();
-	
+		
+	/**
+	 * this method is used to get the value each 
+	 * of level of construction
+	 * 
+	 * @return a {@link Map} where the key indicate
+	 * 		   the number of buildings constructible
+	 * 		   and the value indicate the Lease's 
+	 * 		   value 	
+	 * 		   
+	 */
+	public Map<Integer,Double> getLeaseList();
 }
 	

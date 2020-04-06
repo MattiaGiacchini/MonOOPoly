@@ -4,10 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import monoopoly.GameEngine;
-import monoopoly.controller.Trader;
-import monoopoly.model.Trade;
-import monoopoly.model.TradeBuilder;
+import monoopoly.game_engine.*;
+import monoopoly.controller.trades.Trader;
+import monoopoly.model.trade.*;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
@@ -94,40 +93,6 @@ public class PlayerManagerImpl implements PlayerManager {
 		this.player.setState(States.BROKE);
 	}
 
-	@Override
-	public PlayerPropertyManager getPropertyManager() {
-		return this.propertyManager;
-	}
-
-	@Override
-	public void buildHouse(Property property) {
-		this.propertyManager.updateHouseNumber(property, 1);
-	}
-
-	@Override
-	public void sellHouse(Property property) {
-		this.propertyManager.updateHouseNumber(property, -1);
-	}
-
-	@Override
-	public void buyPurchasable(Purchasable purchasableTile) {
-		this.propertyManager.buyPurchasable(purchasableTile);
-	}
-
-	@Override
-	public void sellPurchasable(Purchasable purchasableTile) {
-		this.propertyManager.sellPurchasable(purchasableTile);
-	}
-
-	@Override
-	public void mortgagePurchasable(Purchasable purchasableTile) {
-		this.propertyManager.mortgagePurchasable(purchasableTile);
-	}
-
-	@Override
-	public void unMortgagePurchasable(Purchasable purchasableTile) {
-		this.propertyManager.unMortgagePurchasable(purchasableTile);
-	}
 
 	@Override
 	public void payMoney(Double amount) {

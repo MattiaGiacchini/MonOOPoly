@@ -1,5 +1,6 @@
 package monoopoly.controller.trades;
 
+import java.util.Optional;
 import java.util.Set;
 
 import monoopoly.controller.player_manager.PlayerManager;
@@ -10,29 +11,30 @@ public class TraderImpl implements Trader {
 
 	private PlayerManager playerOne;
 	private PlayerManager playerTwo;
-	private final Trade trade;
+	private Optional<Trade> trade;
 	
-	public TraderImpl(Trade trade) {
-		this.trade = trade;
-		this.playerOne = trade.getPlayerOne();
-		this.playerTwo = trade.getPlayerTwo();
+	public TraderImpl() {
 	}
 	
 	@Override
 	public Trade getTrade() {
-		return this.trade;
+		return this.trade.get();
 	}
 
 	@Override
 	public void acceptTrade() {
-		this.swapAlgorithm();
+		if (this.trade.isPresent()){
+			this.swapAlgorithm();
+		} else {
+			return;
+		}
 	}
 	
 	private void swapAlgorithm() {
-		final Set<Purchasable> setOne = this.trade.getPlayerOneTradeProperty();
-		final Set<Purchasable> setTwo = this.trade.getPlayerTwoTradeProperty();
-		final double moneyOne = this.trade.getPlayerOneTradeMoney();
-		final double moneyTwo = this.trade.getPlayerTwoTradeMoney();
+		final Set<Purchasable> setOne = this.trade.get().getPlayerOneTradeProperty();
+		final Set<Purchasable> setTwo = this.trade.get().getPlayerTwoTradeProperty();
+		final double moneyOne = this.trade.get().getPlayerOneTradeMoney();
+		final double moneyTwo = this.trade.get().getPlayerTwoTradeMoney();
 		/*
 		final Set<Purchasable> tempSet = setTwo;
 		final double tempMoney = moneyTwo;*/
@@ -48,6 +50,13 @@ public class TraderImpl implements Trader {
 		
 		this.playerTwo.getPlayer().updateBalance(-moneyTwo);
 		this.playerTwo.getPlayer().updateBalance(moneyOne);
+	}
+
+	@Override
+	public void changeTrade(Optional<Trade> trade) {
+		this.trade = trade;
+		this.playerOne = trade.get().getPlayerOne();
+		this.playerTwo = trade.get().getPlayerTwo();
 	}
 
 }

@@ -9,12 +9,7 @@ import monoopoly.model.item.Purchasable;
  *  tiles of the map.
  */
 public interface Table {
-
-	/**
-	 * This method returns the current diceSum
-	 * @return the sum.
-	 */
-	public int currentDices();
+	
 	/**
 	 * This method is used to notify table to the last
 	 * dices throws
@@ -71,5 +66,11 @@ public interface Table {
 	 * @return number of tile
 	 */
 	public Integer getTableSize();
-	
+
+
+	/**
+	 * This method returns the current diceSum
+	 * @return the sum.
+	 */
+	public int getNotifiedDices();
 }

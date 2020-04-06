@@ -46,7 +46,7 @@ public class DiceTest {
 		}
 
 		@Override
-		public int currentDices() {
+		public int getNotifiedDices() {
 			// TODO Auto-generated method stub
 			return this.diceSum;
 		}
@@ -76,7 +76,7 @@ public class DiceTest {
 		this.dicesTwo.roll(this.playerTest, this.tableTest);
 		final Integer sum = this.dicesTwo.getDices().values().stream().reduce(0, Integer::sum);
 		assertTrue(this.playerTest.getPlayer().getPosition() == sum);
-		assertTrue(this.tableTest.currentDices() == sum);
+		assertTrue(this.tableTest.getNotifiedDices() == sum);
 	}
 	
 	@Test
@@ -87,6 +87,6 @@ public class DiceTest {
 		this.dicesThree.roll(this.playerTest, this.tableTest);
 		final Integer sum = this.dicesThree.getDices().values().stream().reduce(0, Integer::sum);
 		assertTrue(this.playerTest.getPlayer().getPosition() == sum);
-		assertTrue(this.tableTest.currentDices() == sum);
+		assertTrue(this.tableTest.getNotifiedDices() == sum);
 	}
 }

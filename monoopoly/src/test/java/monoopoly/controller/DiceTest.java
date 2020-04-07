@@ -12,7 +12,7 @@ import monoopoly.controller.dices.DicesImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Purchasable.Category;
+import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
 

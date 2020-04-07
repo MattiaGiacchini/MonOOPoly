@@ -18,7 +18,6 @@ import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
 import monoopoly.model.trade.TradeImpl;
-import monoopoly.utilities.PurchasableCategory;
 
 public class TestTrader {
 	
@@ -81,12 +80,6 @@ public class TestTrader {
 		}
 		
 		@Override
-		public Purchasable.Category getPurchaseCategory() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
 		public Optional<Integer> getOwner() {
 			// TODO Auto-generated method stub
 			return Optional.empty();
@@ -108,6 +101,18 @@ public class TestTrader {
 		public double getCostToRemoveMortgage() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		@Override
+		public boolean isADeck() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Category getCategory() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	};
 	
@@ -168,12 +173,6 @@ public class TestTrader {
 		}
 		
 		@Override
-		public Purchasable.Category getPurchaseCategory() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
 		public Optional<Integer> getOwner() {
 			// TODO Auto-generated method stub
 			return Optional.empty();
@@ -195,6 +194,18 @@ public class TestTrader {
 		public double getCostToRemoveMortgage() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		@Override
+		public boolean isADeck() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Category getCategory() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	};
 	
@@ -255,12 +266,6 @@ public class TestTrader {
 		}
 		
 		@Override
-		public Purchasable.Category getPurchaseCategory() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
 		public Optional<Integer> getOwner() {
 			// TODO Auto-generated method stub
 			return Optional.empty();
@@ -282,6 +287,18 @@ public class TestTrader {
 		public double getCostToRemoveMortgage() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		@Override
+		public boolean isADeck() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Category getCategory() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	};
 	
@@ -341,12 +358,7 @@ public class TestTrader {
 			return 0;
 		}
 		
-		@Override
-		public Purchasable.Category getPurchaseCategory() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
+
 		@Override
 		public Optional<Integer> getOwner() {
 			// TODO Auto-generated method stub
@@ -369,6 +381,18 @@ public class TestTrader {
 		public double getCostToRemoveMortgage() {
 			// TODO Auto-generated method stub
 			return 0;
+		}
+
+		@Override
+		public boolean isADeck() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Category getCategory() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	};
 	

@@ -6,22 +6,6 @@ import java.util.Optional;
  *	This interface represents a generic Table's tile purchasable.
  */
 public interface Purchasable extends Tile {
-
-	/**
-	 *	This enum lists the possible Category of Purchasable Tile
-	 */
-	enum Category {
-		BROWN,
-		LIGHT_BLUE,
-		PINK,
-		ORANGE,
-		RED,
-		YELLOW,
-		GREEN,
-		BLUE,
-		SOCIETY,
-		STATION;
-	}
 	
 	/**
 	 *  This method is used to set the Purchasable Tile in 
@@ -75,15 +59,6 @@ public interface Purchasable extends Tile {
 	 *  @return the unMortgage value of the purchasable tile 
 	 */
 	public double getCostToRemoveMortgage();
-	
-	/**
-	 *  This method is used to know the Category of Purchasable 
-	 *  tile 
-	 *  
-	 *  @return the specific Category of Purchase Tile 
-	 *  		{@link monoopoly.utilities.PurchasableCategory}
-	 */
-	public Purchasable.Category getPurchaseCategory();
 
 	/**
 	 *  this method is used to get the actual quotation applied

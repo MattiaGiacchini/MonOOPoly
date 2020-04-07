@@ -1,19 +1,19 @@
 package monoopoly.controller.player_manager;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import monoopoly.model.player.Player;
 
 public class TurnManagerImpl implements TurnManager {
+		
+	private int currentPlayerID;
 	
-	//private Integer firstPlayer;
-	
-	private Integer currentPlayer;
+	private List<PlayerManager> playersList = new ArrayList<>();
 
 	public TurnManagerImpl(final int firstPlayer) {
-		//this.firstPlayer = firstPlayer;
-		this.currentPlayer = firstPlayer;
+		this.currentPlayerID = firstPlayer;
 	}	
 
 	@Override
@@ -21,11 +21,11 @@ public class TurnManagerImpl implements TurnManager {
 		int flag = 0;
 		Iterator it = playersList.iterator();
 		while (it.hasNext()) {
-			if (it.next().getPlayerManagerID() == this.currentPlayer) {
+			if (((PlayerManager) it.next()).getPlayerManagerID() == this.currentPlayerID) {
 				flag = flag + 1;
 			}
 			if (flag == 1) {
-				this.setCurrentPlayer(it.next().getPlayerManagerID());
+				this.setCurrentPlayer(((PlayerManager) it.next()).getPlayerManagerID());
 				return (PlayerManager)it.next(); 
 			}
 		}
@@ -35,8 +35,12 @@ public class TurnManagerImpl implements TurnManager {
 
 	@Override
 	public Boolean areThereOtherPlayersInGame() {
-		// TODO Auto-generated method stub
-		return null;
+		for (PlayerManager pM: this.playersList) {
+			if (pM.getPlayerManagerID() != this.currentPlayerID) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
@@ -46,11 +50,15 @@ public class TurnManagerImpl implements TurnManager {
 	}
 	
 	public Integer getCurrentPlayer() {
-		return this.currentPlayer;
+		return this.currentPlayerID;
 	}
 	
 	public void setCurrentPlayer(Integer currentPlayer) {
-		this.currentPlayer = currentPlayer;
+		this.currentPlayerID = currentPlayer;
+	}
+	
+	public List<PlayerManager> getPlayersList() {
+		return playersList;
 	}
 
 

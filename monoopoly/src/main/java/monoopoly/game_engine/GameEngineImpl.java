@@ -22,9 +22,7 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, Integer> position = new HashMap<>(); 
 
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
-	
-	private List<PlayerManager> playersList = new ArrayList<>();
-		
+			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 
 	/**
@@ -58,12 +56,12 @@ public class GameEngineImpl implements GameEngine {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while(it.hasNext()) {
 			this.createPlayer(it.next().getKey());
-			this.playersList.add(this.createPlayer(it.next().getKey()));
+			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
 	
 	public PlayerManager currentPlayer() {
-		for (PlayerManager pM: this.playersList) {
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
 			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
 				return pM;
 			}
@@ -72,7 +70,7 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public List<PlayerManager> playersList(){
-		return this.playersList;
+		return this.turnManager.getPlayersList();
 	}
 	
 	/*
@@ -126,6 +124,6 @@ public class GameEngineImpl implements GameEngine {
 	 * it returns the successive player 
 	 */
 	public PlayerManager passPlayer() {
-		return this.turnManager.nextTurn(this.playersList);
+		return this.turnManager.nextTurn(this.turnManager.getPlayersList());
 	}
 }

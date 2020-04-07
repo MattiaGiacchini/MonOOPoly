@@ -1,15 +1,10 @@
 package monoopoly.controller.player_manager;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.List;
-
 import monoopoly.game_engine.*;
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
-import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
@@ -28,6 +23,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
+	private Table table;
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private GameEngine gameEngine;
@@ -52,7 +48,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	private void initializePlayer() {
-		/*this.player.setBalance(0.0);*/
+		/* this.player.setBalance(0.0); */
 		this.player.setName(gameEngine.getName(this.playerManagerID));
 		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
@@ -96,7 +92,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	public void giveUp() {
 		this.player.setState(States.BROKE);
 	}
-
 
 	@Override
 	public void payMoney(Double amount) {
@@ -167,10 +162,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return the right {@link Player}'s position
 	 */
 	private int checkOutOfBoard(int position) {
-		if (position >= Table.getTableSize()) {
-			return position = position - Table.getTableSize();
+		if (position >= table.getTableSize()) {
+			return position = position - table.getTableSize();
 		} else if (position < 0) {
-			return position + Table.getTableSize();
+			return position + table.getTableSize();
 		} else {
 			return position;
 		}
@@ -183,7 +178,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return true if i need to go to the jail
 	 */
 	private boolean checkGoToJail(int position) {
-		return UnPurchasable.Category.GO_TO_JAIL.equals(position);
+		return table.getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
 	}
 
 	/**
@@ -192,11 +187,11 @@ public class PlayerManagerImpl implements PlayerManager {
 	 */
 	private void goToPrison() {
 		this.player.setState(States.PRISONED);
-		this.player.setPosition(UnPurchasable.Category.JAIL);
+		this.player.setPosition(table.getJailPosition());
 	}
 
 	@Override
 	public void modifyTrade() {
-		//TODO
+		// TODO
 	}
 }

@@ -50,7 +50,7 @@ public class DiceTest {
 		}
 		
 		@Override
-		public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(Integer idPlayer) {
+		public Set<Purchasable> getPurchasableTilesforSpecificPlayer(Integer idPlayer) {
 			// TODO Auto-generated method stub
 			return null;
 		}

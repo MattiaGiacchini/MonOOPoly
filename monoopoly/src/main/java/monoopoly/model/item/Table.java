@@ -59,7 +59,7 @@ public interface Table {
 	 * @throws IllegalArgumentException if the parameter isn't an
 	 * 		   Integer
 	 */
-	public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(final Integer idPlayer);
+	public Set<Purchasable> getPurchasableTilesforSpecificPlayer(final Integer idPlayer);
 	
 	/**
 	 * this method is used to get the number Tile inside the Table 
@@ -82,4 +82,11 @@ public interface Table {
 	 * @return the value to retrieve
 	 */
 	public double getValueToRetrieveFromStart();
+	
+	/**
+	 * this method is used to know the Jail's Position
+	 * 
+	 * @return the Jail's Position
+	 */
+	public Integer getJailPosition();
 }

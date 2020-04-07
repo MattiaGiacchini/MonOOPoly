@@ -112,6 +112,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	@Override
 	public Set<Purchasable> getProperties() {
-		return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
+		return Table.getPurchasableTilesforSpecificPlayer(this.playerID);
 	}
 }

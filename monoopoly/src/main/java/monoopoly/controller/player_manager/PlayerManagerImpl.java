@@ -12,7 +12,7 @@ import monoopoly.model.trade.*;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
-import monoopoly.model.item.UnPurchasable;
+import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;

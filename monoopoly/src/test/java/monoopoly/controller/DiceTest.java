@@ -32,7 +32,7 @@ public class DiceTest {
 		}
 		
 		@Override
-		public void notifyDices(int sum) {
+		public void notifyDices(Integer sum) {
 			// TODO Auto-generated method stub
 			this.diceSum = sum;
 		}

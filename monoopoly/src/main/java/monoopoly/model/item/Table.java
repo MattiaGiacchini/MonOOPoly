@@ -16,7 +16,7 @@ public interface Table {
 	 *
 	 * @param sum The sum of the dices.
 	 */
-	public void notifyDices(final int sum);
+	public void notifyDices(final Integer sum);
 
 	/**
 	 *  this method sets a new quotation for a specific

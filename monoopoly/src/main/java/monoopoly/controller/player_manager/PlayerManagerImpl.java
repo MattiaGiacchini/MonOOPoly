@@ -1,14 +1,13 @@
 package monoopoly.controller.player_manager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-
+import java.util.Optional;
+import java.util.Set;
 import monoopoly.game_engine.*;
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
-import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
+import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
@@ -24,6 +23,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
+	private Table table;
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private GameEngine gameEngine;
@@ -48,7 +48,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	private void initializePlayer() {
-		/*this.player.setBalance(0.0);*/
+		/* this.player.setBalance(0.0); */
 		this.player.setName(gameEngine.getName(this.playerManagerID));
 		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
@@ -93,7 +93,6 @@ public class PlayerManagerImpl implements PlayerManager {
 		this.player.setState(States.BROKE);
 	}
 
-
 	@Override
 	public void payMoney(Double amount) {
 		this.balanceManager.updateBalance(this.player, -amount);
@@ -116,18 +115,18 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void declineTrade() {
-		this.trader.declineTrade();
+		this.trader.changeTrade(Optional.empty());
 	}
 
 	@Override
-	public void setOffererOffer(List<Purchasable> offererRealEstate, Double offererMoney) {
-		this.tradeBuilder.setPlayerOne(this.player);
+	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney) {
+		this.tradeBuilder.setPlayerOne(this);
 		this.tradeBuilder.setPlayerOneProperties(offererRealEstate);
 		this.tradeBuilder.setPlayerOneMoney(offererMoney);
 	}
 
 	@Override
-	public void setContractorRequest(Player contractor, List<Purchasable> contractorRealEstate,
+	public void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate,
 			Double contractorMoney) {
 		this.tradeBuilder.setPlayerTwo(contractor);
 		this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
@@ -136,12 +135,12 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void leavePrison() {
-		this.player.setState(States.STANDING);
+		this.player.setState(States.IN_GAME);
 	}
 
 	@Override
 	public boolean isInPrison() {
-		return this.player.getState().equals(States.INPRISONED);
+		return this.player.getState().equals(States.PRISONED);
 	}
 
 	/**
@@ -163,10 +162,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return the right {@link Player}'s position
 	 */
 	private int checkOutOfBoard(int position) {
-		if (position >= Table.getTableSize()) {
-			return position = position - Table.getTableSize();
+		if (position >= table.getTableSize()) {
+			return position = position - table.getTableSize();
 		} else if (position < 0) {
-			return position + Table.getTableSize();
+			return position + table.getTableSize();
 		} else {
 			return position;
 		}
@@ -179,7 +178,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return true if i need to go to the jail
 	 */
 	private boolean checkGoToJail(int position) {
-		return position.equals(UnPurchasable.Category.GO_TO_JAIL)
+		return table.getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
 	}
 
 	/**
@@ -187,7 +186,12 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * moves the {@link Player} to the prison tile
 	 */
 	private void goToPrison() {
-		this.player.setState(States.INPRISONED);
-		this.player.setPosition(UnPurchasable.Category.JAIL);
+		this.player.setState(States.PRISONED);
+		this.player.setPosition(table.getJailPosition());
+	}
+
+	@Override
+	public void modifyTrade() {
+		// TODO
 	}
 }

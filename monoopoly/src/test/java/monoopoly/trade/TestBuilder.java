@@ -14,7 +14,6 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
-import monoopoly.utilities.PurchasableCategory;
 
 public class TestBuilder {
 	private TradeBuilder tradeBuilder = new TradeBuilderImpl();

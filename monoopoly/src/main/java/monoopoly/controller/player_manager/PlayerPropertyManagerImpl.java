@@ -15,13 +15,12 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	private final int playerID;
 
-	/*ONLY FOR TRADING TEST PURPOSES!!!!!
-	private Set<Purchasable> properties;
-
-	public PlayerPropertyManagerImpl(int playerID) {
-		this.playerID = playerID;
-		this.properties = new HashSet<Purchasable>();
-	*/
+	/*
+	 * ONLY FOR TRADING TEST PURPOSES!!!!! private Set<Purchasable> properties;
+	 * 
+	 * public PlayerPropertyManagerImpl(int playerID) { this.playerID = playerID;
+	 * this.properties = new HashSet<Purchasable>();
+	 */
 	public PlayerPropertyManagerImpl(int playerID) {
 		this.playerID = playerID;
 	}
@@ -113,6 +112,6 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 
 	@Override
 	public Set<Purchasable> getProperties() {
-		return Table.getPurchasablesTilesforSpecificPlayer(this.playerID);
+		return Table.getPurchasableTilesforSpecificPlayer(this.playerID);
 	}
 }

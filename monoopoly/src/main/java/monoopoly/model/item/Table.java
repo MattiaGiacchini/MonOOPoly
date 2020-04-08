@@ -30,7 +30,7 @@ public interface Table {
 	 *  @throws IllegalArgumentException if the parameters aren't
 	 *  		as request
 	 */
-	public void setNewQuotationToSpecificPurchasableCategory(final Purchasable.Category category,
+	public void setNewQuotationToSpecificPurchasableCategory(final Tile.Category category,
 															 final double quotation);
 
 	/**
@@ -44,7 +44,7 @@ public interface Table {
 	 *  @throws IllegalArgumentException if the parameters isn't
 	 *  		an Integer Value
 	 */
-	public Tile getTile(Integer position);
+	public Tile getTile(final Integer position);
 
 
 	/**
@@ -53,12 +53,13 @@ public interface Table {
 	 *
 	 * @param idPlayer the number which you use to identify the player
 	 *
-	 * @return a list of specific Purchasable tile owned by the player
+	 * @return a set of specific Purchasable tile owned by the player
+	 * 		   (the set can be Empty)
 	 *
 	 * @throws IllegalArgumentException if the parameter isn't an
 	 * 		   Integer
 	 */
-	public Set<Purchasable> getPurchasablesTilesforSpecificPlayer(final Integer idPlayer);
+	public Set<Purchasable> getPurchasableTilesforSpecificPlayer(final Integer idPlayer);
 	
 	/**
 	 * this method is used to get the number Tile inside the Table 
@@ -67,10 +68,25 @@ public interface Table {
 	 */
 	public Integer getTableSize();
 
-
 	/**
 	 * This method returns the current diceSum
+	 * 
 	 * @return the sum.
 	 */
 	public int getNotifiedDices();
+	
+	/**
+	 * this method is used to know the value that should  
+	 * retrieve a player when pass over the start Tile
+	 * 
+	 * @return the value to retrieve
+	 */
+	public double getValueToRetrieveFromStart();
+	
+	/**
+	 * this method is used to know the Jail's Position
+	 * 
+	 * @return the Jail's Position
+	 */
+	public Integer getJailPosition();
 }

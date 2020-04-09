@@ -40,11 +40,16 @@ public class PlayerManagerImpl implements PlayerManager {
 		this.gameEngine = gameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
+		this.setTable();
 		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
 	}
 
 	private Player createPlayer() {
 		return new PlayerImpl(playerManagerID);
+	}
+
+	private void setTable() {
+		this.table = gameEngine.getTable();
 	}
 
 	private void initializePlayer() {

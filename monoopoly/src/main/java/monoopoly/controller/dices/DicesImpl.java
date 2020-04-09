@@ -33,7 +33,7 @@ public class DicesImpl implements Dices{
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
-		this.currentPlayer.setDices(dices);
+		//this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
 		//TODO logica prigione
 		this.currentPlayer.movePlayer(diceSum);

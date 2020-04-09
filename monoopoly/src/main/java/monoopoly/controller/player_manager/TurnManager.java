@@ -12,12 +12,13 @@ public interface TurnManager {
 	/**
 	 * Used to handle turn passing
 	 * 
-	 * @return a list of {@link PlayerManager} 
+	 *  @param a list of {@link PlayerManager} 
+	 *  @return {@link PlayerManager} successive 
 	 */
 	PlayerManager nextTurn(final List<PlayerManager> playersList );
 	
 	/**
-	 * Lets you know if are there still players in game
+	 * Lets you know if are there still players in game besides the current player
 	 * 
 	 * @return Boolean
 	 */
@@ -31,4 +32,6 @@ public interface TurnManager {
 	Integer getNumberOfRound();
 	
 	public Integer getCurrentPlayer();
+	
+	public List<PlayerManager> getPlayersList();
 }

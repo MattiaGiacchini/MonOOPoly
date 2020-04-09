@@ -16,15 +16,13 @@ public class GameEngineImpl implements GameEngine {
 	private static final int FIRST_PLAYER = 0;
 	
 	private Map<Integer, String> name = new HashMap<>(); 
-	
+
 	private Map<Integer, Double> balance = new HashMap<>(); 
 
 	private Map<Integer, Integer> position = new HashMap<>(); 
 
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
-	
-	private List<PlayerManager> playersList = new ArrayList<>();
-		
+			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 
 	/**
@@ -58,12 +56,12 @@ public class GameEngineImpl implements GameEngine {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while(it.hasNext()) {
 			this.createPlayer(it.next().getKey());
-			this.playersList.add(this.createPlayer(it.next().getKey()));
+			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
 	
 	public PlayerManager currentPlayer() {
-		for (PlayerManager pM: this.playersList) {
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
 			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
 				return pM;
 			}
@@ -72,50 +70,46 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public List<PlayerManager> playersList(){
-		return this.playersList;
+		return this.turnManager.getPlayersList();
 	}
 	
 	/*
 	 * Getters reachable by PlayerManager by just putting ID
 	 */
 	public String getName(final int ID) {
-		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
-		while(it.hasNext()) {
-			if(it.next().getKey() == ID) {
-				return it.next().getValue();
-			}
+		if (this.name.keySet().contains(ID)) {
+			return this.name.get(ID);
 		}
-		return null;
+		else {
+			throw new java.lang.IllegalArgumentException("No player found"); 
+		}
 	}
 	
 	public Double getBalance(final int ID) {
-		Iterator<Map.Entry<Integer, Double>> it = balance.entrySet().iterator();
-		while(it.hasNext()) {
-			if(it.next().getKey() == ID) {
-				return it.next().getValue();
-			}
+		if (this.name.keySet().contains(ID)) {
+			return this.balance.get(ID);
 		}
-		return null;
+		else {
+			throw new java.lang.IllegalArgumentException("No player found"); 
+		}
 	}
 
 	public int getPosition(final int ID) {
-		Iterator<Map.Entry<Integer, Integer>> it = position.entrySet().iterator();
-		while(it.hasNext()) {
-			if(it.next().getKey() == ID) {
-				return it.next().getValue();
-			}
+		if (this.name.keySet().contains(ID)) {
+			return this.position.get(ID);
 		}
-		return -1;
+		else {
+			throw new java.lang.IllegalArgumentException("No player found"); 
+		}
 	}
 
 	public monoopoly.utilities.States getState(final int ID){
-		Iterator<Map.Entry<Integer, monoopoly.utilities.States>> it = state.entrySet().iterator();
-		while(it.hasNext()) {
-			if(it.next().getKey() == ID) {
-				return it.next().getValue();
-			}
+		if (this.name.keySet().contains(ID)) {
+			return this.state.get(ID);
 		}
-		return null;
+		else {
+			throw new java.lang.IllegalArgumentException("No player found"); 
+		}
 	}
 
 	/*public void setCurrentPlayerID(Integer currentPlayerID) {
@@ -126,6 +120,7 @@ public class GameEngineImpl implements GameEngine {
 	 * it returns the successive player 
 	 */
 	public PlayerManager passPlayer() {
-		return this.turnManager.nextTurn(this.playersList);
+		return this.turnManager.nextTurn(this.turnManager.getPlayersList());
 	}
+
 }

@@ -1,0 +1,123 @@
+package monoopoly.controller.bank;
+
+import java.util.List;
+import java.util.Set;
+
+import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.model.Bank;
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
+import monoopoly.model.item.Tile;
+import monoopoly.model.player.Player;
+
+public class BankManagerImpl implements BankManager {
+
+	
+	private final Bank bank;
+	private final Table table;
+	private Set<Tile> purchaseableProperties;
+	
+	public BankManagerImpl(Table table) {
+		this.table = table;
+		this.purchaseableProperties = this.table.getAllPurchaseableTile();
+		this.bank = new Bank(this.purchaseableProperties);
+	}
+	@Override
+	public void giveMoney(double toGive, PlayerManager player) {
+		this.bank.giveMoney(toGive);
+		player.collectMoney(toGive);
+	}
+
+	@Override
+	public void assignHouse(Tile property, PlayerManager player) {
+		final BankCommand command = new BankCommand() {
+
+			@Override
+			public void execute(Bank bank) {
+				checkPurchasability(property);
+				Property toBuild = (Property)property;
+				if (toBuild.getNumberOfHotelBuilt() == 1) {
+					toBuild.buildOn();
+					double moneyPaid = toBuild.getNumberOfHotelBuilt() == 1 ? toBuild.getCostToBuildHotel() : toBuild.getCostToBuildHouse();
+					player.payMoney(moneyPaid);
+					bank.giveMoney(-moneyPaid);
+				}
+			}
+			
+		};
+		command.execute(this.bank);
+	}
+
+	@Override
+	public Bank getBank() {
+		return this.bank;
+	}
+	@Override
+	public void mortgageProperty(Tile property, PlayerManager player) {
+		final BankCommand command = new BankCommand() {
+			
+			@Override
+			public void execute(Bank bank) {
+				checkPurchasability(property);
+				Purchasable purchasable = (Purchasable)property;
+				if (!purchasable.isMortgage()) {
+					double money = purchasable.mortgage();
+					bank.giveMoney(money);
+					player.payMoney(-money);
+					bank.getMortgagedProperties().put(property, player.getPlayer());
+				}
+			}
+		};
+		
+		command.execute(this.bank);
+	}
+	@Override
+	public void unmortgageProperty(Tile property, PlayerManager player) {
+		final BankCommand command = new BankCommand() {
+			
+			@Override
+			public void execute(Bank bank) {
+				checkPurchasability(property);
+				Purchasable purchasable = (Purchasable)property;
+				if (purchasable.isMortgage()) {
+					double money = purchasable.getMortgageValue();
+					purchasable.removeMortgage();
+					bank.giveMoney(-money);
+					player.payMoney(money);
+					bank.getMortgagedProperties().remove(property);
+				}
+			}
+		};
+		command.execute(this.bank);
+	}
+	@Override
+	public void buyProperty(Tile property, PlayerManager player) {
+		final BankCommand command = new BankCommand() {
+			
+			@Override
+			public void execute(Bank bank) {
+				checkPurchasability(property);
+				Purchasable purchasable = (Purchasable)property;
+				if(purchasable.getOwner().isEmpty()) {
+					double money = purchasable.getSalesValue();
+					purchasable.setOwner(player.getPlayerManagerID());
+					bank.getAssignedProperties().put(property, player.getPlayer());
+					bank.giveMoney(-money);
+					player.collectMoney(money);
+				} else {
+					throw new IllegalStateException("Property already bought!");
+				}
+			}
+		};
+		
+		command.execute(this.bank);
+	}
+	
+	private void checkPurchasability(Tile property) {
+		if (!property.isPurchasable()) {
+			throw new IllegalArgumentException("Property " + property.getName() + " has to be purchasable.");
+		}
+	}
+
+}

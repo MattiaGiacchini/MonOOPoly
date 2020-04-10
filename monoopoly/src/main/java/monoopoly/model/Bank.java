@@ -3,23 +3,25 @@ package monoopoly.model;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import monoopoly.model.item.Property;
+import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 
 /**
  *	This class represents the bank
  */
 public class Bank {
-	private final static int HARD_CAP = 500000;
-	private final List<Property> allProperties;
-	private Map<Property, Player> assignedProperties;
-	private Map<Property, Player> mortgagedProperties;
+	private final static double HARD_CAP = 500000.0;
+	private final Set<Tile> allProperties;
+	private Map<Tile, Player> assignedProperties;
+	private Map<Tile, Player> mortgagedProperties;
 	private boolean isBroke;
 	
-	private int currentBudget;
+	private double currentBudget;
 	
-	public Bank(List<Property> property) {
+	public Bank(Set<Tile> property) {
 		this.currentBudget = HARD_CAP;
 		this.allProperties = property;
 		this.assignedProperties = new HashMap<>();
@@ -27,26 +29,26 @@ public class Bank {
 		this.isBroke = false;
 	}
 	
-	public void giveMoney(int toGive) {
+	public void giveMoney(double toGive) {
 		this.currentBudget -= toGive;
 		if (this.currentBudget < 0) {
 			this.isBroke = true;
 		}
 	}
 	
-	public int getBankBudget() {
+	public double getBankBudget() {
 		return this.currentBudget;
 	}
 	
-	public List<Property> getProperties(){
+	public Set<Tile> getProperties(){
 		return this.allProperties;
 	}
 	
-	public Map<Property, Player> getAssignedProperties(){
+	public Map<Tile, Player> getAssignedProperties(){
 		return this.assignedProperties;
 	}
 	
-	public Map<Property, Player> getMortgagedProperties(){
+	public Map<Tile, Player> getMortgagedProperties(){
 		return this.mortgagedProperties;
 	}
 	

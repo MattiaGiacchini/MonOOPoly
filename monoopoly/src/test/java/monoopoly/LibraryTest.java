@@ -5,8 +5,6 @@ package monoopoly;
 
 import org.junit.Test;
 
-import monoopoly.game_engine.Library;
-
 import static org.junit.Assert.*;
 
 public class LibraryTest {

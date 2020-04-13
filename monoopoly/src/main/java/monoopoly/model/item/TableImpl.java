@@ -16,7 +16,7 @@ public class TableImpl implements Table, ObserverPurchasable {
 	private Integer sumOfDicesThrownNotified;
 	private Map<Integer, Tile> table;
 
-	private TableImpl() {
+	public TableImpl() {
 		super();
 		this.sumOfDicesThrownNotified = 0;
 		this.table = new TableFactory().createTable(this);

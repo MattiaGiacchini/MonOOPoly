@@ -1,6 +1,5 @@
 package monoopoly.model.item;
 
-
 /**
  *	This interface represents a generic
  * 	Table's tile.
@@ -10,7 +9,7 @@ public interface Tile {
 	/**
 	 *	This enum lists the possible Category of every Tile
 	 */
-	public enum Category {
+	public enum Category {  
 		START,	
 		JAIL,
 		GO_TO_JAIL,
@@ -29,22 +28,30 @@ public interface Tile {
 		SOCIETY,
 		STATION;
 	}
-	
+
 	/**
-	 *  This method is used to understand if the 
+	 *  This method is used to know if the 
 	 *  Tile is purchasable
 	 *  
 	 *  @return true if tile is purchasable, false if not
 	 */
 	public boolean isPurchasable();
+
+	/**
+	 *  this method is used to know if the 
+	 *  Tile is a deck 
+	 * 
+	 * @return true if the tile is a deck
+	 */
+	public boolean isDeck();
 	
 	/**
-	 *  this method is used to understand if the Tile
-	 *  represents a deck 
+	 *  this method is used to know if the
+	 *  Category is Buildable 
 	 * 
-	 * @return
+	 * @return true if the tile is a deck
 	 */
-	public boolean isADeck();
+	public boolean isBuildable();
 	
 	/**
 	 *  this method is used to know the Tile's name

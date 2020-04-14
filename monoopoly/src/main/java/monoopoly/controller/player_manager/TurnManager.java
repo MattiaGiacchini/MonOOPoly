@@ -12,10 +12,9 @@ public interface TurnManager {
 	/**
 	 * Used to handle turn passing
 	 * 
-	 *  @param a list of {@link PlayerManager} 
 	 *  @return {@link PlayerManager} successive 
 	 */
-	PlayerManager nextTurn(final List<PlayerManager> playersList );
+	PlayerManager nextTurn();
 	
 	/**
 	 * Lets you know if are there still players in game besides the current player

@@ -17,20 +17,19 @@ public class TurnManagerImpl implements TurnManager {
 	}	
 
 	@Override
-	public PlayerManager nextTurn(final List<PlayerManager> playersList) {
+	public PlayerManager nextTurn() {
 		int flag = 0;
-		Iterator it = playersList.iterator();
-		while (it.hasNext()) {
-			if (((PlayerManager) it.next()).getPlayerManagerID() == this.currentPlayerID) {
-				flag = flag + 1;
-			}
+		for (PlayerManager pM: this.playersList) {
 			if (flag == 1) {
-				this.setCurrentPlayer(((PlayerManager) it.next()).getPlayerManagerID());
-				return (PlayerManager)it.next(); 
+				this.setCurrentPlayer(pM.getPlayerManagerID());
+				return pM;
+			}
+			if (pM.getPlayerManagerID() == this.currentPlayerID) {
+				flag = flag+1;
 			}
 		}
 		this.setCurrentPlayer(0);
-		return playersList.get(0);
+		return this.playersList.get(0);
 	}
 
 	@Override

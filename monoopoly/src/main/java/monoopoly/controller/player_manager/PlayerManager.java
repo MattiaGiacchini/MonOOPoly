@@ -49,6 +49,7 @@ public interface PlayerManager {
 	 * Moves the {@link Player} to a precise position on the game board.
 	 *
 	 * @param position position on the board
+	 * @throws IllegalArgumentException if the position is out of the table bounds
 	 */
 	public void goToPosition(int position);
 

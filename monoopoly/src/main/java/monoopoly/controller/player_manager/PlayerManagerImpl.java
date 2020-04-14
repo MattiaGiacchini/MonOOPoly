@@ -84,13 +84,18 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void goToPosition(int position) {
-		if (!this.isInPrison()) {
-			if (this.checkGoToJail(position)) {
-				this.goToPrison();
-			} else {
-				this.player.setPosition(position);
+		if (position < table.getTableSize() && position >= 0) {
+			if (!this.isInPrison()) {
+				if (this.checkGoToJail(position)) {
+					this.goToPrison();
+				} else {
+					this.player.setPosition(position);
+				}
 			}
+		} else {
+			throw new IllegalArgumentException();
 		}
+
 	}
 
 	@Override

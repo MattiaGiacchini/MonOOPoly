@@ -133,4 +133,12 @@ public interface PlayerManager {
 	 */
 	public boolean isInPrison();
 
+	/**
+	 * This method returns the set of {@link Purchasable}s owned by the
+	 * {@link Player}
+	 *
+	 * @return the set of {@link Purchasable}s owned by the {@link Player}
+	 */
+	public Set<Purchasable> getProperties();
+
 }

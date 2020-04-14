@@ -53,7 +53,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	private void initializePlayer() {
-		/* this.player.setBalance(0.0); */
 		this.player.setName(gameEngine.getName(this.playerManagerID));
 		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
@@ -203,5 +202,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void modifyTrade() {
 		// TODO
+	}
+
+	@Override
+	public Set<Purchasable> getProperties() {
+		return table.getPurchasableTilesforSpecificPlayer(this.playerManagerID);
 	}
 }

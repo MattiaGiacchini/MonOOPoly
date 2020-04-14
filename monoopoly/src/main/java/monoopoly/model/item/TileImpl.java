@@ -52,9 +52,9 @@ public class TileImpl implements Tile {
 		public Tile build() throws IllegalStateException{
 			if(this.name == null || 
 			   this.category == null ||
-			  !this.purchasableSetted || 
-			  !this.deckSetted ||
-			  !this.buildableSetted) {
+			   !this.purchasableSetted || 
+			   !this.deckSetted ||
+			   !this.buildableSetted) {
 				throw new IllegalStateException("Sequence build error");
 			}
 			return new TileImpl(this);

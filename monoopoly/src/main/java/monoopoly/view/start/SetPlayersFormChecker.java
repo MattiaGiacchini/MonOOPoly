@@ -25,14 +25,14 @@ public class SetPlayersFormChecker implements ViewController {
 	 * "spinner" and the minimum player number
 	 */
 	private static final Double MIN_BALANCE = 200.00;
-	private static final Double MAX_BALANCE = 20000.00;
+	private static final Double MAX_BALANCE = 10000.00;
 	private static final Double BALANCE_INCREASE_VALUE = 500.00;
 	private static final int MIN_PLAYERS = 2;
 
 	private StartGame start = new StartGameImpl();
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
-	private Double balance = 0.0;
+	private Double balance = 1000.00;
 
 	
 	/**
@@ -106,7 +106,7 @@ public class SetPlayersFormChecker implements ViewController {
 	@FXML
 	public void updatedBalance() {
 		if (this.startingBalance.getText().isEmpty()) {
-			this.startingBalance.setText("0.0");
+			this.startingBalance.setText(this.balance.toString());
 		}
 		this.balance = Double.valueOf(this.startingBalance.getText().trim());
 		this.checkBalanceUpperBound();

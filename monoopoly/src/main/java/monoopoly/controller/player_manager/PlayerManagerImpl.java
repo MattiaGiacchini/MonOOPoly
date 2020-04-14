@@ -20,7 +20,6 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-	private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	private Table table;
@@ -36,19 +35,21 @@ public class PlayerManagerImpl implements PlayerManager {
 	 */
 	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
-		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
 		this.gameEngine = gameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
-		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
+		this.setTable();
 	}
 
 	private Player createPlayer() {
 		return new PlayerImpl(playerManagerID);
 	}
 
+	private void setTable() {
+		this.table = gameEngine.getTable();
+	}
+
 	private void initializePlayer() {
-		/* this.player.setBalance(0.0); */
 		this.player.setName(gameEngine.getName(this.playerManagerID));
 		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
 		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
@@ -66,11 +67,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	@Override
-	public PlayerPropertyManager getPropertyManager() {
-		return this.propertyManager;
-	}
-
-	@Override
 	public void movePlayer(int steps) {
 		if (!this.isInPrison()) {
 			this.goToPosition(this.nextPosition(steps));
@@ -79,13 +75,18 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void goToPosition(int position) {
-		if (!this.isInPrison()) {
-			if (this.checkGoToJail(position)) {
-				this.goToPrison();
-			} else {
-				this.player.setPosition(position);
+		if (position < table.getTableSize() && position >= 0) {
+			if (!this.isInPrison()) {
+				if (this.checkGoToJail(position)) {
+					this.goToPrison();
+				} else {
+					this.player.setPosition(position);
+				}
 			}
+		} else {
+			throw new IllegalArgumentException();
 		}
+
 	}
 
 	@Override
@@ -193,5 +194,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void modifyTrade() {
 		// TODO
+	}
+
+	@Override
+	public Set<Purchasable> getProperties() {
+		return table.getPurchasableTilesforSpecificPlayer(this.playerManagerID);
 	}
 }

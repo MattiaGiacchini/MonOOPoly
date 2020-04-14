@@ -31,14 +31,6 @@ public interface PlayerManager {
 	public Player getPlayer();
 
 	/**
-	 * This method return a manager to manage the {@link Player}'s
-	 * {@link Purchasable}
-	 *
-	 * @return the {@link PlayerPropertyManager}
-	 */
-	public PlayerPropertyManager getPropertyManager();
-
-	/**
 	 * Moves the {@link Player} forward or backward on the game board.
 	 *
 	 * @param steps number got from dices or card

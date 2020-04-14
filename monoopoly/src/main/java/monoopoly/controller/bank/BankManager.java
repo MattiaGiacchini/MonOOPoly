@@ -46,6 +46,14 @@ public interface BankManager {
 	void buyProperty(Tile property, PlayerManager player);
 	
 	/**
+	 * This sells an house in a property.
+	 * @param property the property.
+	 * @param player the player.
+	 */
+	void sellHouse(Tile property, PlayerManager player);
+	
+	
+	/**
 	 * 
 	 * @return the bank.
 	 */

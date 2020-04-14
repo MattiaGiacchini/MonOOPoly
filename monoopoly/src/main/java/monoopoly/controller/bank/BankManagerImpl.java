@@ -18,11 +18,13 @@ public class BankManagerImpl implements BankManager {
 	private final Table table;
 	private Set<Tile> purchaseableProperties;
 	
+	
 	public BankManagerImpl(Table table) {
 		this.table = table;
 		this.purchaseableProperties = this.table.getAllPurchaseableTile();
 		this.bank = new Bank(this.purchaseableProperties);
 	}
+	
 	@Override
 	public void giveMoney(double toGive, PlayerManager player) {
 		this.bank.giveMoney(toGive);
@@ -61,7 +63,8 @@ public class BankManagerImpl implements BankManager {
 			public void execute(Bank bank) {
 				checkPurchasability(property);
 				Purchasable purchasable = (Purchasable)property;
-				if (!purchasable.isMortgage()) {
+				Property toRemove = (Property)purchasable;
+				if (!purchasable.isMortgage() && toRemove.getNumberOfHouseBuilt() == 0) {
 					double money = purchasable.mortgage();
 					bank.giveMoney(money);
 					player.payMoney(-money);
@@ -119,5 +122,28 @@ public class BankManagerImpl implements BankManager {
 			throw new IllegalArgumentException("Property " + property.getName() + " has to be purchasable.");
 		}
 	}
+	
+	@Override
+	public void sellHouse(Tile property, PlayerManager player) {
+		final BankCommand command = new BankCommand() {
+			
+			@Override
+			public void execute(Bank bank) {
+				Purchasable purchasable = (Purchasable)property;
+				checkOwned(purchasable);
+				Property toSell = (Property)purchasable;
+				double money = toSell.sellBuilding();
+				player.collectMoney(-money);
+			}	
+		};
+		
+		command.execute(this.bank);
+	}
 
+	
+	private void checkOwned(Purchasable property) {
+		if(property.getOwner().isEmpty()) {
+			throw new IllegalStateException("Property doesn't have an owner");
+		}
+	}
 }

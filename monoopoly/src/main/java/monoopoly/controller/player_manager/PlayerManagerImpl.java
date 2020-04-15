@@ -20,7 +20,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-	private PlayerPropertyManager propertyManager;
+	//private PlayerPropertyManager propertyManager;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	private Table table;
@@ -36,12 +36,12 @@ public class PlayerManagerImpl implements PlayerManager {
 	 */
 	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
-		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
+		//this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
 		this.gameEngine = gameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
 		this.setTable();
-		this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
+		//this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
 	}
 
 	private Player createPlayer() {
@@ -70,10 +70,10 @@ public class PlayerManagerImpl implements PlayerManager {
 		return this.player;
 	}
 
-	@Override
+	/*@Override
 	public PlayerPropertyManager getPropertyManager() {
 		return this.propertyManager;
-	}
+	}*/
 
 	@Override
 	public void movePlayer(int steps) {

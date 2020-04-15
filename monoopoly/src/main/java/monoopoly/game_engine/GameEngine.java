@@ -79,6 +79,22 @@ public interface GameEngine {
 	 */
 	PlayerManager passPlayer();
 	
+	/**
+	 * 
+	 * @return the table
+	 */
+	Table getTable();
 	
+	/**
+	 * This updates the dices when rolled.
+	 * @param dices the dices rolled
+	 */
+	void updateDices(Map<Integer, Integer> dices);
+	
+	/**
+	 * 
+	 * @return the dices.
+	 */
+	Map<Integer, Integer> getDices();
 
 }

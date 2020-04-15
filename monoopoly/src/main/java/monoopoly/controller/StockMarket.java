@@ -5,7 +5,6 @@ import java.util.Map;
 
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Tile;
-import monoopoly.utilities.PurchasableCategory;
 
 /**
  * This interface represents the Stock Market, and its history

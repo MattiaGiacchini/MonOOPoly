@@ -8,7 +8,7 @@ import monoopoly.model.Bank;
 public interface BankCommand {
 	/**
 	 *  This method allows the bank to execute the specific command.
-	 * @param bank the bank.
+	 * 	@param bank the bank.
 	 */
 	void execute(Bank bank);
 }

@@ -39,11 +39,19 @@ public class TraderImpl implements Trader {
 		final Set<Purchasable> tempSet = setTwo;
 		final double tempMoney = moneyTwo;*/
 		
-		this.playerTwo.getPropertyManager().getProperties().removeAll(setTwo);
-		this.playerTwo.getPropertyManager().getProperties().addAll(setOne);
+		/*this.playerTwo.getProperties().removeAll(setTwo);
+		this.playerTwo.getProperties().addAll(setOne);
 		
-		this.playerOne.getPropertyManager().getProperties().removeAll(setOne);
-		this.playerOne.getPropertyManager().getProperties().addAll(setTwo);
+		this.playerOne.getProperties().removeAll(setOne);
+		this.playerOne.getProperties().addAll(setTwo);*/
+		
+		for(Purchasable property : setOne) {
+			property.setOwner(Optional.of(this.playerTwo.getPlayerManagerID()));
+		}
+		
+		for(Purchasable property : setTwo) {
+			property.setOwner(Optional.of(this.playerOne.getPlayerManagerID()));
+		}
 		
 		this.playerOne.getPlayer().updateBalance(-moneyOne);
 		this.playerOne.getPlayer().updateBalance(moneyTwo);

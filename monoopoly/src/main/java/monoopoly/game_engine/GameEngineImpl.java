@@ -49,20 +49,20 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public PlayerManager createPlayer(final int ID) {
-		return new PlayerManagerImpl(ID);
+		return new PlayerManagerImpl(ID,this);
 	}
 	
 	public void createPlayers() {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while(it.hasNext()) {
-			this.createPlayer(it.next().getKey());
+			//this.createPlayer(it.next().getKey());
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
 	
 	public PlayerManager currentPlayer() {
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
+			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { 
 				return pM;
 			}
 		}
@@ -120,7 +120,7 @@ public class GameEngineImpl implements GameEngine {
 	 * it returns the successive player 
 	 */
 	public PlayerManager passPlayer() {
-		return this.turnManager.nextTurn(this.turnManager.getPlayersList());
+		return this.turnManager.nextTurn();
 	}
 
 }

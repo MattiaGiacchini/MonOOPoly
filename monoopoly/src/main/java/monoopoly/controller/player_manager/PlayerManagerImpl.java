@@ -6,7 +6,6 @@ import monoopoly.game_engine.*;
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
 import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 import monoopoly.model.player.PlayerImpl;
@@ -20,13 +19,8 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private final int playerManagerID;
 	private Player player;
-<<<<<<< HEAD
-=======
-	//private PlayerPropertyManager propertyManager;
->>>>>>> bank
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
-	private Table table;
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private GameEngine gameEngine;
@@ -37,28 +31,21 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @param playerManagerID
 	 * @param gameEngine
 	 */
+	/**
+	 * This constructor creates an instance of {@link PlayerMAnager}
+	 *
+	 * @param playerManagerID
+	 * @param gameEngine
+	 */
 	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
 		this.playerManagerID = playerManagerID;
-<<<<<<< HEAD
-=======
-		//this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
->>>>>>> bank
 		this.gameEngine = gameEngine;
 		this.player = this.createPlayer();
 		this.initializePlayer();
-		this.setTable();
-<<<<<<< HEAD
-=======
-		//this.propertyManager = new PlayerPropertyManagerImpl(this.playerManagerID);
->>>>>>> bank
 	}
 
 	private Player createPlayer() {
 		return new PlayerImpl(playerManagerID);
-	}
-
-	private void setTable() {
-		this.table = gameEngine.getTable();
 	}
 
 	private void initializePlayer() {
@@ -78,12 +65,6 @@ public class PlayerManagerImpl implements PlayerManager {
 		return this.player;
 	}
 
-
-	/*@Override
-	public PlayerPropertyManager getPropertyManager() {
-		return this.propertyManager;
-	}*/
-
 	@Override
 	public void movePlayer(int steps) {
 		if (!this.isInPrison()) {
@@ -93,7 +74,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void goToPosition(int position) {
-		if (position < table.getTableSize() && position >= 0) {
+		if (position < this.gameEngine.getTable().getTableSize() && position >= 0) {
 			if (!this.isInPrison()) {
 				if (this.checkGoToJail(position)) {
 					this.goToPrison();
@@ -181,10 +162,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return the right {@link Player}'s position
 	 */
 	private int checkOutOfBoard(int position) {
-		if (position >= table.getTableSize()) {
-			return position = position - table.getTableSize();
+		if (position >= this.gameEngine.getTable().getTableSize()) {
+			return position = position - this.gameEngine.getTable().getTableSize();
 		} else if (position < 0) {
-			return position + table.getTableSize();
+			return position + this.gameEngine.getTable().getTableSize();
 		} else {
 			return position;
 		}
@@ -197,7 +178,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return true if i need to go to the jail
 	 */
 	private boolean checkGoToJail(int position) {
-		return table.getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
+		return this.gameEngine.getTable().getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
 	}
 
 	/**
@@ -206,16 +187,16 @@ public class PlayerManagerImpl implements PlayerManager {
 	 */
 	private void goToPrison() {
 		this.player.setState(States.PRISONED);
-		this.player.setPosition(table.getJailPosition());
+		this.player.setPosition(this.gameEngine.getTable().getJailPosition());
 	}
 
 	@Override
 	public void modifyTrade() {
 		// TODO
 	}
-	
+
 	@Override
-	public Set<Purchasable> getProperties(){
+	public Set<Purchasable> getProperties() {
 		return this.gameEngine.getTable().getPurchasableTilesforSpecificPlayer(this.playerManagerID);
 	}
 }

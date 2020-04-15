@@ -30,13 +30,13 @@ public interface PlayerManager {
 	 */
 	public Player getPlayer();
 
-	/*/**
-	 * This method return a manager to manage the {@link Player}'s
-	 * {@link Purchasable}
+	/*
+	 * /** This method return a manager to manage the {@link Player}'s {@link
+	 * Purchasable}
 	 *
 	 * @return the {@link PlayerPropertyManager}
 	 */
-	/*public PlayerPropertyManager getPropertyManager();*/
+	/* public PlayerPropertyManager getPropertyManager(); */
 
 	/**
 	 * Moves the {@link Player} forward or backward on the game board.
@@ -132,12 +132,6 @@ public interface PlayerManager {
 	 * @return true if {@link Player} is in prison
 	 */
 	public boolean isInPrison();
-	
-	/**
-	 * 
-	 * @return the set of {@link Purchasable}s owned by the player.
-	 */
-	public Set<Purchasable> getProperties();
 
 	/**
 	 * This method returns the set of {@link Purchasable}s owned by the

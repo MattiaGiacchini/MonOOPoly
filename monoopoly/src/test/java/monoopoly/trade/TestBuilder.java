@@ -97,9 +97,9 @@ public class TestBuilder {
 	
 	private void initProperties() {
 		this.propertyOne = (Purchasable) this.testEngine.getTable().getTile(1);
-		System.out.println(this.propertyOne.toString());
+		/*System.out.println(this.propertyOne.toString());
 		System.out.println(this.testEngine.getTable().getTile(1).toString());
-		System.out.println(this.testEngine.getTable().getTile(1).getCategory() + this.testEngine.getTable().getTile(1).getName());
+		System.out.println(this.testEngine.getTable().getTile(1).getCategory() + this.testEngine.getTable().getTile(1).getName());*/
 		this.propertyTwo = (Purchasable) this.testEngine.getTable().getTile(3);
 		this.propertyThree = (Purchasable) this.testEngine.getTable().getTile(5);
 		this.propertyFour = (Purchasable) this.testEngine.getTable().getTile(6);

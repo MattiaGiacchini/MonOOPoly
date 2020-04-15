@@ -204,4 +204,9 @@ public class PlayerManagerImpl implements PlayerManager {
 	public void modifyTrade() {
 		// TODO
 	}
+	
+	@Override
+	public Set<Purchasable> getProperties(){
+		return this.gameEngine.getTable().getPurchasableTilesforSpecificPlayer(this.playerManagerID);
+	}
 }

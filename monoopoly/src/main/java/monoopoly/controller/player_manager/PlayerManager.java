@@ -132,5 +132,11 @@ public interface PlayerManager {
 	 * @return true if {@link Player} is in prison
 	 */
 	public boolean isInPrison();
+	
+	/**
+	 * 
+	 * @return the set of {@link Purchasable}s owned by the player.
+	 */
+	public Set<Purchasable> getProperties();
 
 }

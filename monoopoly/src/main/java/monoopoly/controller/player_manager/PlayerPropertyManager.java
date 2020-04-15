@@ -2,8 +2,6 @@ package monoopoly.controller.player_manager;
 
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
@@ -38,8 +36,7 @@ public interface PlayerPropertyManager {
 	public void buyPurchasable(Purchasable purchasableTile);
 
 	/**
-	 * Allows the {@link Player} to sell a specific {@link Purchasable} if has no
-	 * houses built on it.
+	 * Allows the {@link Player} to sell a specific {@link Purchasable} .
 	 *
 	 * @param purchasableTile table tile marketable to sell
 	 */

@@ -1,6 +1,5 @@
 package monoopoly.controller.player_manager;
 
-import java.util.Map;
 import java.util.Set;
 
 import monoopoly.model.item.Purchasable;
@@ -50,6 +49,7 @@ public interface PlayerManager {
 	 * Moves the {@link Player} to a precise position on the game board.
 	 *
 	 * @param position position on the board
+	 * @throws IllegalArgumentException if the position is out of the table bounds
 	 */
 	public void goToPosition(int position);
 
@@ -60,16 +60,16 @@ public interface PlayerManager {
 	public void giveUp();
 
 	/**
-	 * Add money to the {@link Player}'s balance.
+	 * Deduct money to the {@link Player}'s balance.
 	 *
-	 * @param amount of money to add to the balance
+	 * @param amount of money to withdraw from the balance
 	 */
 	public void payMoney(Double amount);
 
 	/**
 	 * Add money to the {@link Player}'s balance.
 	 *
-	 * @param amount of money to deduct from the balance
+	 * @param amount of money to add from the balance
 	 */
 	public void collectMoney(Double amount);
 

@@ -42,7 +42,7 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	@Override
 	public void buyPurchasable(Purchasable purchasableTile) {
 		if (this.checkFreePurchasable(purchasableTile)) {
-			purchasableTile.setOwner(this.playerID);
+			purchasableTile.setOwner(Optional.of(this.playerID));
 		}
 	}
 
@@ -97,7 +97,7 @@ public class PlayerPropertyManagerImpl implements PlayerPropertyManager {
 	 * @return true if this {@link Player} is the owner of the {@link Purchasable}
 	 */
 	private boolean checkOwner(Purchasable purchasable) {
-		return (purchasable.getOwner().equals(this.playerID));
+		return (purchasable.getOwner().isPresent() ? purchasable.getOwner().get().equals(this.playerID) : false);
 	}
 
 	/**

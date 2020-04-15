@@ -19,6 +19,7 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.utilities.States;
 import monoopoly.model.item.Table;
+import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
 
 public class DiceTest {
@@ -27,58 +28,7 @@ public class DiceTest {
 	private Dices dicesThree;
 	private GameEngine testEngine;
 	private PlayerManager playerTest;
-	private Table tableTest = new Table() {
-		
-		int diceSum = 0;
-		
-		@Override
-		public void setNewQuotationToSpecificPurchasableCategory(Category category, double quotation) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void notifyDices(Integer sum) {
-			// TODO Auto-generated method stub
-			this.diceSum = sum;
-		}
-		
-		@Override
-		public Tile getTile(Integer position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public Integer getTableSize() {
-			// TODO Auto-generated method stub
-			return 20;
-		}
-		
-		@Override
-		public Set<Purchasable> getPurchasableTilesforSpecificPlayer(Integer idPlayer) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		@Override
-		public int getNotifiedDices() {
-			// TODO Auto-generated method stub
-			return this.diceSum;
-		}
-
-		@Override
-		public double getValueToRetrieveFromStart() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-
-		@Override
-		public Integer getJailPosition() {
-			// TODO Auto-generated method stub
-			return 1;
-		}
-	};
+	private Table tableTest = new TableImpl();
 	
 	@Test
 	void testDiceInit() {
@@ -99,9 +49,11 @@ public class DiceTest {
 		this.dicesTwo = new DicesImpl(2, this.tableTest);
 		this.dicesTwo.setCurrentPlayer(playerTest);
 		this.dicesTwo.roll(this.playerTest, this.tableTest);
+		this.testEngine.updateDices(this.dicesTwo.getDices());
 		final Integer sum = this.dicesTwo.getDices().values().stream().reduce(0, Integer::sum);
 		assertTrue(this.playerTest.getPlayer().getPosition() == sum);
 		assertTrue(this.tableTest.getNotifiedDices() == sum);
+		assertTrue(this.dicesTwo.getDices().equals(this.testEngine.getDices()));
 	}
 	
 	@Test
@@ -127,5 +79,6 @@ public class DiceTest {
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		this.testEngine = new GameEngineImpl(names, balance, positions, states);
+		testEngine.createTable();
 	}
 }

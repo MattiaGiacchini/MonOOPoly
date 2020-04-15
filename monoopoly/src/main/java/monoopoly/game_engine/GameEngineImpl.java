@@ -7,6 +7,7 @@ import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player_manager.TurnManager;
 import monoopoly.controller.player_manager.TurnManagerImpl;
 import monoopoly.model.item.Table;
+import monoopoly.model.item.TableImpl;
 
 public class GameEngineImpl implements GameEngine {
 	
@@ -24,6 +25,10 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
 			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
+	
+	private Table table;
+	
+	private Map<Integer, Integer> dices;
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -45,7 +50,8 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public Table createTable() {
-		return new Table();
+		this.table = new TableImpl();
+		return this.getTable();
 	}
 	
 	public PlayerManager createPlayer(final int ID) {
@@ -121,6 +127,20 @@ public class GameEngineImpl implements GameEngine {
 	 */
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
+	}
+	
+	public Table getTable() {
+		return this.table;
+	}
+
+	@Override
+	public void updateDices(Map<Integer, Integer> dices) {
+		this.dices = dices;
+	}
+
+	@Override
+	public Map<Integer, Integer> getDices() {
+		return this.dices;
 	}
 
 }

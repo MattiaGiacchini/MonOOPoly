@@ -1,4 +1,5 @@
 package monoopoly.model.item;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -86,7 +87,7 @@ public interface Purchasable extends Tile {
 	 * @throws IllegalArgumentException if the parameter isn't an
 	 * 		   Integer
 	 */
-	public void setOwner(final Integer newOwnerIdentify);
+	public void setOwner(final Optional<Integer> newOwnerIdentify);
 
 	/**
 	 * This method is used to know which player is the owner
@@ -94,4 +95,17 @@ public interface Purchasable extends Tile {
 	 * @return the ID of the owner
 	 */
 	public Optional<Integer> getOwner(); 
+	
+	/**
+	 * this method is used to get the all combination
+	 * of lease 
+	 * 
+	 * @return a {@link Map} where the key indicate
+	 * 		   the level of buildings or the number
+	 * 		   of specific category tile that a player 
+	 * 		   can own and the value indicate the 
+	 * 		   respective value
+	 * 		   
+	 */
+	public Map<Integer,Double> getLeaseList();
 }

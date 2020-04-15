@@ -7,6 +7,7 @@ import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player_manager.TurnManager;
 import monoopoly.controller.player_manager.TurnManagerImpl;
 import monoopoly.model.item.Table;
+import monoopoly.model.item.TableImpl;
 
 public class GameEngineImpl implements GameEngine {
 	
@@ -24,6 +25,8 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
 			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
+	
+	private Table table = new TableImpl();
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -45,24 +48,24 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public Table createTable() {
-		return new Table();
+		return new TableImpl();
 	}
 	
 	public PlayerManager createPlayer(final int ID) {
-		return new PlayerManagerImpl(ID);
+		return new PlayerManagerImpl(ID,this);
 	}
 	
 	public void createPlayers() {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while(it.hasNext()) {
-			this.createPlayer(it.next().getKey());
+			//this.createPlayer(it.next().getKey());
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
 	
 	public PlayerManager currentPlayer() {
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { //Mattia to make method
+			if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) { 
 				return pM;
 			}
 		}
@@ -112,15 +115,8 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
-	/*public void setCurrentPlayerID(Integer currentPlayerID) {
-		this.currentPlayerID = currentPlayerID;
-	}*/
-	
-	/**
-	 * it returns the successive player 
-	 */
 	public PlayerManager passPlayer() {
-		return this.turnManager.nextTurn(this.turnManager.getPlayersList());
+		return this.turnManager.nextTurn();
 	}
 
 }

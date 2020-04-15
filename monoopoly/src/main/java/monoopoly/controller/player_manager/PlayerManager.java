@@ -1,6 +1,5 @@
 package monoopoly.controller.player_manager;
 
-import java.util.Map;
 import java.util.Set;
 
 import monoopoly.model.item.Purchasable;
@@ -32,14 +31,6 @@ public interface PlayerManager {
 	public Player getPlayer();
 
 	/**
-	 * This method return a manager to manage the {@link Player}'s
-	 * {@link Purchasable}
-	 *
-	 * @return the {@link PlayerPropertyManager}
-	 */
-	public PlayerPropertyManager getPropertyManager();
-
-	/**
 	 * Moves the {@link Player} forward or backward on the game board.
 	 *
 	 * @param steps number got from dices or card
@@ -50,6 +41,7 @@ public interface PlayerManager {
 	 * Moves the {@link Player} to a precise position on the game board.
 	 *
 	 * @param position position on the board
+	 * @throws IllegalArgumentException if the position is out of the table bounds
 	 */
 	public void goToPosition(int position);
 
@@ -60,16 +52,16 @@ public interface PlayerManager {
 	public void giveUp();
 
 	/**
-	 * Add money to the {@link Player}'s balance.
+	 * Deduct money to the {@link Player}'s balance.
 	 *
-	 * @param amount of money to add to the balance
+	 * @param amount of money to withdraw from the balance
 	 */
 	public void payMoney(Double amount);
 
 	/**
 	 * Add money to the {@link Player}'s balance.
 	 *
-	 * @param amount of money to deduct from the balance
+	 * @param amount of money to add from the balance
 	 */
 	public void collectMoney(Double amount);
 
@@ -132,5 +124,13 @@ public interface PlayerManager {
 	 * @return true if {@link Player} is in prison
 	 */
 	public boolean isInPrison();
+
+	/**
+	 * This method returns the set of {@link Purchasable}s owned by the
+	 * {@link Player}
+	 *
+	 * @return the set of {@link Purchasable}s owned by the {@link Player}
+	 */
+	public Set<Purchasable> getProperties();
 
 }

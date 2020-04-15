@@ -98,10 +98,14 @@ public class TestTrader {
 		this.initProperties();
 		this.playerOne.collectMoney(this.MONEYONE);
 		this.playerTwo.collectMoney(this.MONEYTWO);
-		this.playerOne.getPropertyManager().buyPurchasable(propertyOne);;
+		/*this.playerOne.getPropertyManager().buyPurchasable(propertyOne);;
 		this.playerOne.getPropertyManager().buyPurchasable(propertyTwo);
 		this.playerTwo.getPropertyManager().buyPurchasable(propertyThree);
-		this.playerTwo.getPropertyManager().buyPurchasable(propertyFour);
+		this.playerTwo.getPropertyManager().buyPurchasable(propertyFour);*/
+		this.propertyOne.setOwner(Optional.of(0));
+		this.propertyTwo.setOwner(Optional.of(0));
+		this.propertyThree.setOwner(Optional.of(1));
+		this.propertyFour.setOwner(Optional.of(1));
 		
 		final Set<Purchasable> setOne = new HashSet<Purchasable>();
 		final Set<Purchasable> setTwo = new HashSet<Purchasable>();

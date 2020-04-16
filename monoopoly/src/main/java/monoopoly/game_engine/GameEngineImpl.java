@@ -27,6 +27,8 @@ public class GameEngineImpl implements GameEngine {
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 	
 	private Table table = new TableImpl();
+	
+	private CardManager cardManager = new CardManagerImpl();
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes

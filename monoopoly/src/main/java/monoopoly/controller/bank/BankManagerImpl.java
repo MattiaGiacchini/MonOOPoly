@@ -1,9 +1,11 @@
 package monoopoly.controller.bank;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.game_engine.GameEngine;
 import monoopoly.model.Bank;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
@@ -17,11 +19,12 @@ public class BankManagerImpl implements BankManager {
 	private final Bank bank;
 	private final Table table;
 	private Set<Tile> purchaseableProperties;
+	private GameEngine gameEngine;
 	
-	
-	public BankManagerImpl(Table table) {
-		this.table = table;
-		this.purchaseableProperties = this.table.getAllPurchaseableTile();
+	public BankManagerImpl(GameEngine engine) {
+		this.gameEngine = engine;
+		this.table = this.gameEngine.getTable()
+		this.purchaseableProperties = this.table.getSetFilteredTiles();
 		this.bank = new Bank(this.purchaseableProperties);
 	}
 	
@@ -29,6 +32,12 @@ public class BankManagerImpl implements BankManager {
 	public void giveMoney(double toGive, PlayerManager player) {
 		this.bank.giveMoney(toGive);
 		player.collectMoney(toGive);
+		if (this.bank.isBankBroken()) {
+			/* THIS METHOD RETURNS THE PLAYER THAT HAS WON THE GAME
+			 * final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
+			 */
+				System.out.println("THE BANK IS BROKEN");
+		}
 	}
 
 	@Override
@@ -104,7 +113,7 @@ public class BankManagerImpl implements BankManager {
 				Purchasable purchasable = (Purchasable)property;
 				if(purchasable.getOwner().isEmpty()) {
 					double money = purchasable.getSalesValue();
-					purchasable.setOwner(player.getPlayerManagerID());
+					purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
 					bank.getAssignedProperties().put(property, player.getPlayer());
 					bank.giveMoney(-money);
 					player.collectMoney(money);

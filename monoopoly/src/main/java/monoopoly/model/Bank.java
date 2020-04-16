@@ -13,7 +13,7 @@ import monoopoly.model.player.Player;
  *	This class represents the bank
  */
 public class Bank {
-	private final static double HARD_CAP = 500000.0;
+	private final static double HARD_CAP = 150000.0;
 	private final Set<Tile> allProperties;
 	private Map<Tile, Player> assignedProperties;
 	private Map<Tile, Player> mortgagedProperties;

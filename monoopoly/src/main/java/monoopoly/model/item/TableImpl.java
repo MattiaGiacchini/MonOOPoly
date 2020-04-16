@@ -1,9 +1,11 @@
 package monoopoly.model.item;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.TableFactory;
@@ -89,6 +91,22 @@ public class TableImpl implements Table, ObserverPurchasable {
 											 .collect(Collectors.toSet());
 	}
 
+	@SuppressWarnings("unchecked")
+	public <Z extends Tile> Set<Z> getFilteredTiles(Predicate<Tile> filter){
+		return this.table.entrySet().stream()
+									.filter(x->filter.test(x.getValue()))
+									.peek((x)->{
+										// TODO
+										// method to verify the single element
+										// filtered
+									})
+									.map(x->(Z)x.getValue())
+									.collect(
+											HashSet<Z>::new,
+											HashSet::add,
+											HashSet::addAll);
+	}
+
 	private void inputCheckIntegerType(Object elem) {
 		if (!(elem instanceof Integer)) {
 			throw new IllegalArgumentException("The Parameter isn't an Integer Type");
@@ -100,5 +118,4 @@ public class TableImpl implements Table, ObserverPurchasable {
 			throw new IndexOutOfBoundsException("The Index is out of Table's Bounds");
 		}
 	}
-
 }

@@ -1,6 +1,8 @@
 package monoopoly.model.item;
 
 import java.util.Set;
+import java.util.function.Predicate;
+
 import monoopoly.model.item.Purchasable;
 
 /**
@@ -89,4 +91,18 @@ public interface Table {
 	 * @return the Jail's Position
 	 */
 	public Integer getJailPosition();
+	
+
+	/**
+	 * This method is used to receive back a Set of Specific tile
+	 * or an extension of it. The Set returned has the element inside
+	 * of him of the same type inferred.   
+	 * 
+	 * @param <Z> this generic is used to define the Type of Set 
+	 * return and the Type cast on the element inside of his
+	 * @param filter this predicate is used to select set of tile
+	 * inside the table
+	 * @return	the {@link Set} of Z Type.
+	 */
+	public <Z extends Tile> Set<Z> getFilteredTiles(Predicate<Tile> filter);
 }

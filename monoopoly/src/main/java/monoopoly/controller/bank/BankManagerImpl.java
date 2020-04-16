@@ -23,7 +23,7 @@ public class BankManagerImpl implements BankManager {
 	
 	public BankManagerImpl(GameEngine engine) {
 		this.gameEngine = engine;
-		this.table = this.gameEngine.getTable()
+		this.table = this.gameEngine.getTable();
 		this.purchaseableProperties = this.table.getSetFilteredTiles();
 		this.bank = new Bank(this.purchaseableProperties);
 	}
@@ -36,7 +36,7 @@ public class BankManagerImpl implements BankManager {
 			/* THIS METHOD RETURNS THE PLAYER THAT HAS WON THE GAME
 			 * final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
 			 */
-				System.out.println("THE BANK IS BROKEN");
+			System.out.println("THE BANK IS BROKEN");
 		}
 	}
 

@@ -79,6 +79,11 @@ public interface GameEngine {
 	 */
 	PlayerManager passPlayer();
 	
+	/**
+	 * You can use this method to get the player with the higher balance
+	 * @return {@link PlayerManager}
+	 */
+	PlayerManager getGameWinner();
 	
 
 }

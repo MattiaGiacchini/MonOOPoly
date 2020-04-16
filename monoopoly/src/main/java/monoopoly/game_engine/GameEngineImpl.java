@@ -120,5 +120,22 @@ public class GameEngineImpl implements GameEngine {
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
 	}
+	
+	public PlayerManager getGameWinner() {
+		Integer current;
+		for (Map.Entry<Integer, Double> entry: this.balance.entrySet()) {
+			if (entry.getValue() > current) {
+				current = entry.getKey();
+			}
+		}
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+			if (pM.getPlayerManagerID() == current) {
+				return pM;
+			}
+		}
+		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
+				 1 : -1).get().getValue();*/
+	}
+
 
 }

@@ -170,4 +170,12 @@ public class TestTile {
 		Set<Purchasable> tmp1 = table.getFilteredTiles(Purchasable.class,
 														x->x.isPurchasable());
 	}
+	
+	@Test()
+	public void positionTileTableTest() {
+		Table table = new TableImpl();
+		for(Integer i = 0; i < table.getTableSize(); i++) {
+			assertEquals(table.getTilePosition(table.getTile(i)), i);
+		}
+	}
 }

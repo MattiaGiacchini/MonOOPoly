@@ -104,6 +104,16 @@ public class TableImpl implements Table, ObserverPurchasable {
 									.map(x->type.cast(x.getValue()))
 									.collect(Collectors.toSet());
 	}
+	
+	@Override
+	public Integer getTilePosition(Tile tile) {
+		for(Integer pos : this.table.keySet()) {
+			if(this.table.get(pos).equals(tile)) {
+				return pos;
+			}
+		}
+		throw new IllegalArgumentException("The tile dosen't Exist!");
+	}
 
 	private void inputCheckIntegerType(Object elem) {
 		if (!(elem instanceof Integer)) {

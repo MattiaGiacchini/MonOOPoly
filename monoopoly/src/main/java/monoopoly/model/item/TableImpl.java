@@ -1,6 +1,5 @@
 package monoopoly.model.item;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -91,20 +90,19 @@ public class TableImpl implements Table, ObserverPurchasable {
 											 .collect(Collectors.toSet());
 	}
 
-	@SuppressWarnings("unchecked")
-	public <Z extends Tile> Set<Z> getFilteredTiles(Predicate<Tile> filter){
+	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter){
 		return this.table.entrySet().stream()
 									.filter(x->filter.test(x.getValue()))
 									.peek((x)->{
-										// TODO
-										// method to verify the single element
-										// filtered
+										if(!type.isAssignableFrom(x.getValue().getClass())) {
+											throw new ClassCastException("the class " 
+																		 + type 
+																		 + " isn't a superClass of "
+																		 + x.getValue().getClass());
+										}
 									})
-									.map(x->(Z)x.getValue())
-									.collect(
-											HashSet<Z>::new,
-											HashSet::add,
-											HashSet::addAll);
+									.map(x->type.cast(x.getValue()))
+									.collect(Collectors.toSet());
 	}
 
 	private void inputCheckIntegerType(Object elem) {

@@ -94,15 +94,18 @@ public interface Table {
 	
 
 	/**
-	 * This method is used to receive back a Set of Specific tile
-	 * or an extension of it. The Set returned has the element inside
-	 * of him of the same type inferred.   
+	 * This method is used to receive back a Set of Specific tiles
+	 * or an extension of them. The Set received will be of type 
+	 * inferred as the elements inside of him   
 	 * 
-	 * @param <Z> this generic is used to define the Type of Set 
-	 * return and the Type cast on the element inside of his
-	 * @param filter this predicate is used to select set of tile
-	 * inside the table
-	 * @return	the {@link Set} of Z Type.
+	 * @param <T> this generic is used to define the Type of Set 
+	 * and the elements inside of his
+	 * @param type is used to apply the cast on the filtered tiles
+	 * @param filter this predicate is used to select a specific 
+	 * set of tile which the same property
+	 * @return	the {@link Set} of Tile Casted on Type Inferred.
+	 * @throws ClassCastException when the type inferred isn't a
+	 * superclass of the all tiles filtered
 	 */
-	public <Z extends Tile> Set<Z> getFilteredTiles(Predicate<Tile> filter);
+	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter);
 }

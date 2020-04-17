@@ -108,4 +108,14 @@ public interface Table {
 	 * superclass of the all tiles filtered
 	 */
 	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter);
+	
+	/**
+	 * this method is used to get the position of a tile
+	 * 
+	 * @param tile whose location to find out
+	 * @return the position of specific location
+	 * @throws IllegalArgumentException when the tile doesn't
+	 * exist inside the table
+	 */
+	public Integer getTilePosition(Tile tile);
 }

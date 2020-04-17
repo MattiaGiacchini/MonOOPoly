@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.TableFactory;
@@ -89,6 +90,21 @@ public class TableImpl implements Table, ObserverPurchasable {
 											 .collect(Collectors.toSet());
 	}
 
+	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter){
+		return this.table.entrySet().stream()
+									.filter(x->filter.test(x.getValue()))
+									.peek((x)->{
+										if(!type.isAssignableFrom(x.getValue().getClass())) {
+											throw new ClassCastException("the class " 
+																		 + type 
+																		 + " isn't a superClass of "
+																		 + x.getValue().getClass());
+										}
+									})
+									.map(x->type.cast(x.getValue()))
+									.collect(Collectors.toSet());
+	}
+
 	private void inputCheckIntegerType(Object elem) {
 		if (!(elem instanceof Integer)) {
 			throw new IllegalArgumentException("The Parameter isn't an Integer Type");
@@ -100,5 +116,4 @@ public class TableImpl implements Table, ObserverPurchasable {
 			throw new IndexOutOfBoundsException("The Index is out of Table's Bounds");
 		}
 	}
-
 }

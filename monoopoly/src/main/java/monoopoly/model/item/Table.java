@@ -1,6 +1,8 @@
 package monoopoly.model.item;
 
 import java.util.Set;
+import java.util.function.Predicate;
+
 import monoopoly.model.item.Purchasable;
 
 /**
@@ -89,4 +91,21 @@ public interface Table {
 	 * @return the Jail's Position
 	 */
 	public Integer getJailPosition();
+	
+
+	/**
+	 * This method is used to receive back a Set of Specific tiles
+	 * or an extension of them. The Set received will be of type 
+	 * inferred as the elements inside of him   
+	 * 
+	 * @param <T> this generic is used to define the Type of Set 
+	 * and the elements inside of his
+	 * @param type is used to apply the cast on the filtered tiles
+	 * @param filter this predicate is used to select a specific 
+	 * set of tile which the same property
+	 * @return	the {@link Set} of Tile Casted on Type Inferred.
+	 * @throws ClassCastException when the type inferred isn't a
+	 * superclass of the all tiles filtered
+	 */
+	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter);
 }

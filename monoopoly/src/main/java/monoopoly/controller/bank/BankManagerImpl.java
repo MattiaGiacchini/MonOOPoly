@@ -24,7 +24,7 @@ public class BankManagerImpl implements BankManager {
 	public BankManagerImpl(GameEngine engine) {
 		this.gameEngine = engine;
 		this.table = this.gameEngine.getTable();
-		this.purchaseableProperties = this.table.getSetFilteredTiles();
+		this.purchaseableProperties = this.table.getFilteredTiles(Tile.class, x -> x.isPurchasable());
 		this.bank = new Bank(this.purchaseableProperties);
 	}
 	
@@ -48,7 +48,7 @@ public class BankManagerImpl implements BankManager {
 			public void execute(Bank bank) {
 				checkPurchasability(property);
 				Property toBuild = (Property)property;
-				if (toBuild.getNumberOfHotelBuilt() == 1) {
+				if (toBuild.getNumberOfHotelBuilt() < 1) {
 					toBuild.buildOn();
 					double moneyPaid = toBuild.getNumberOfHotelBuilt() == 1 ? toBuild.getCostToBuildHotel() : toBuild.getCostToBuildHouse();
 					player.payMoney(moneyPaid);
@@ -115,8 +115,8 @@ public class BankManagerImpl implements BankManager {
 					double money = purchasable.getSalesValue();
 					purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
 					bank.getAssignedProperties().put(property, player.getPlayer());
-					bank.giveMoney(-money);
-					player.collectMoney(money);
+					bank.giveMoney(money);
+					player.collectMoney(-money);
 				} else {
 					throw new IllegalStateException("Property already bought!");
 				}
@@ -142,7 +142,7 @@ public class BankManagerImpl implements BankManager {
 				checkOwned(purchasable);
 				Property toSell = (Property)purchasable;
 				double money = toSell.sellBuilding();
-				player.collectMoney(-money);
+				player.collectMoney(money);
 			}	
 		};
 		

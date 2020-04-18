@@ -25,13 +25,12 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
 			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
-	
 
 	private Table table;
 	
 	private Map<Integer, Integer> dices;
 	
-	private CardManager cardManager = new CardManagerImpl();
+	//private CardManager cardManager = new CardManagerImpl();
 
 
 	/**

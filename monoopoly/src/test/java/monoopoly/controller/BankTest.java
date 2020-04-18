@@ -10,6 +10,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import monoopoly.controller.bank.BankManager;
+import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.game_engine.GameEngine;
@@ -46,10 +47,16 @@ public class BankTest {
 	@Test
 	public void testHouseAssignment() {
 		this.initEngine();
-		this.bankManager.giveMoney(A_LITTLE_MONEY, this.playerOne);
+		this.bankManager.giveMoney( 10 * A_LITTLE_MONEY, this.playerOne);
+		this.bankManager.buyProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
+		this.bankManager.buyProperty(this.engine.getTable().getTile(3), this.playerOne);
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY - 
+		final Purchasable otherTile = (Purchasable)this.engine.getTable().getTile(3);
+		final Property otherProperty = (Property)otherTile;
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(),  10 * A_LITTLE_MONEY - 
+				this.tileBuilt.getSalesValue() - 
+				otherProperty.getSalesValue() - 
 				this.tileBuilt.getCostToBuildHouse()) == 0
 				&& this.tileBuilt.getNumberOfHouseBuilt().equals(1));
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
@@ -61,6 +68,7 @@ public class BankTest {
 				&& this.tileBuilt.getNumberOfHotelBuilt().equals(1));
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
+		
 		assertTrue(this.tileBuilt.getNumberOfHouseBuilt().equals(4)
 				&& this.tileBuilt.getNumberOfHotelBuilt().equals(1));
 	}
@@ -77,20 +85,26 @@ public class BankTest {
 		this.bankManager.buyProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		Set<Purchasable> testSet = new HashSet<>();
 		testSet.add((Purchasable)this.engine.getTable().getTile(PROPERTY_ID));
+		fetchProperty();
 		assertTrue(this.engine.getTable().getPurchasableTilesforSpecificPlayer(this.playerOne.getPlayerManagerID())
 																				   .equals(testSet)
 					&& Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY - 
-							this.tileBuilt.getQuotation()) == 0);
+							this.tileBuilt.getSalesValue()) == 0);
 	}
 	
 	@Test
 	public void testHouseSelling() {
 		this.initEngine();
-		this.bankManager.giveMoney(A_LITTLE_MONEY, this.playerOne);
+		this.bankManager.giveMoney(3 * A_LITTLE_MONEY, this.playerOne);
+		this.bankManager.buyProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
+		this.bankManager.buyProperty(this.engine.getTable().getTile(3), this.playerOne);
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		this.bankManager.sellHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY 
+		final Purchasable otherTile = (Purchasable)this.engine.getTable().getTile(3);
+		final Property otherProperty = (Property)otherTile;
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), 3 * A_LITTLE_MONEY -
+					tileBuilt.getSalesValue() - otherProperty.getSalesValue()
 					- tileBuilt.getCostToBuildHouse() + tileBuilt.getQuotationToSellHouse()) == 0
 				&& this.tileBuilt.getNumberOfHouseBuilt().equals(0));
 	}
@@ -121,5 +135,6 @@ public class BankTest {
 		this.engine = new GameEngineImpl(names, balance, positions, states);
 		this.engine.createTable();
 		this.playerOne = new PlayerManagerImpl(0, this.engine);
+		this.bankManager = new BankManagerImpl(this.engine);
 	}
 }

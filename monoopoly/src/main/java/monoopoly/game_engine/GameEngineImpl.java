@@ -26,9 +26,13 @@ public class GameEngineImpl implements GameEngine {
 			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 	
+
 	private Table table;
 	
 	private Map<Integer, Integer> dices;
+	
+	private CardManager cardManager = new CardManagerImpl();
+
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -118,13 +122,6 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
-	/*public void setCurrentPlayerID(Integer currentPlayerID) {
-		this.currentPlayerID = currentPlayerID;
-	}*/
-	
-	/**
-	 * it returns the successive player 
-	 */
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
 	}

@@ -117,10 +117,12 @@ public class BankTest {
 		this.bankManager.mortgageProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
 		assertTrue(this.tileBuilt.isMortgage() && Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY 
+					- tileBuilt.getSalesValue()
 					+ tileBuilt.getMortgageValue()) == 0);
 		this.bankManager.unmortgageProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		assertTrue(this.tileBuilt.isMortgage() && Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY) == 0);
+		assertTrue(!this.tileBuilt.isMortgage() && Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY
+				 - tileBuilt.getSalesValue()) == 0);
 	}
 	
 	private void initEngine() {

@@ -76,7 +76,7 @@ public class BankManagerImpl implements BankManager {
 				if (!purchasable.isMortgage() && toRemove.getNumberOfHouseBuilt() == 0) {
 					double money = purchasable.mortgage();
 					bank.giveMoney(money);
-					player.payMoney(-money);
+					player.collectMoney(money);
 					bank.getMortgagedProperties().put(property, player.getPlayer());
 				}
 			}

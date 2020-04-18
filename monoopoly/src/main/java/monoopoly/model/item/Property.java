@@ -1,7 +1,5 @@
 package monoopoly.model.item;
 
-import java.util.Map;
-
 /**
  *	This interface represents the single property of Monoopoly
  *  where you can build and sell house or hotel.
@@ -99,17 +97,5 @@ public interface Property extends Purchasable {
 	 * @return the listed selling value of a hotel
 	 */
 	public double getQuotationToSellHotel();
-		
-	/**
-	 * this method is used to get the value each 
-	 * of level of construction
-	 * 
-	 * @return a {@link Map} where the key indicate
-	 * 		   the number of buildings constructible
-	 * 		   and the value indicate the Lease's 
-	 * 		   value 	
-	 * 		   
-	 */
-	public Map<Integer,Double> getLeaseList();
 }
 	

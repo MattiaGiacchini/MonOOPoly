@@ -1,10 +1,12 @@
 package monoopoly.item;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -20,8 +22,8 @@ public class TestTile {
 
 	@Test(expected = IllegalStateException.class)
 	public void wrongSequenceBuild() {
-		tile = new TileImpl.Builder()
-						   .build();
+		new TileImpl.Builder()
+				 	.build();
 	}
 	
 	@Test
@@ -40,25 +42,25 @@ public class TestTile {
 						   .buildable(buildable)
 						   .build();
 		
-		assertTrue(tile.getName().equals(name));
-		assertTrue(tile.getCategory() == category);
-		assertTrue(tile.isBuildable() == buildable);
-		assertTrue(tile.isDeck() == deck);
-		assertTrue(tile.isPurchasable() == purchasable);
+		assertEquals(tile.getName(), name);
+		assertEquals(tile.getCategory(),category);
+		assertTrue(tile.isBuildable());
+		assertFalse(tile.isDeck());
+		assertTrue(tile.isPurchasable());
 		
 	} 
 
 	@Test
 	public void CreationTable() {
 		Table table = new TableImpl();
-		assertTrue(table.getTile(0).getCategory()==Tile.Category.START);
-		assertTrue(table.getTile(5).getCategory()==Tile.Category.STATION);
-		assertTrue(table.getTile(10).getCategory()==Tile.Category.JAIL);
-		assertTrue(table.getTile(15).getCategory()==Tile.Category.STATION);
-		assertTrue(table.getTile(20).getCategory()==Tile.Category.FREE_PARKING);
-		assertTrue(table.getTile(25).getCategory()==Tile.Category.STATION);
-		assertTrue(table.getTile(30).getCategory()==Tile.Category.GO_TO_JAIL);
-		assertTrue(table.getTile(35).getCategory()==Tile.Category.STATION);
+		assertEquals(table.getTile(0).getCategory(),	Tile.Category.START);
+		assertEquals(table.getTile(5).getCategory(),	Tile.Category.STATION);
+		assertEquals(table.getTile(10).getCategory(),	Tile.Category.JAIL);
+		assertEquals(table.getTile(15).getCategory(),	Tile.Category.STATION);
+		assertEquals(table.getTile(20).getCategory(),	Tile.Category.FREE_PARKING);
+		assertEquals(table.getTile(25).getCategory(),	Tile.Category.STATION);
+		assertEquals(table.getTile(30).getCategory(),	Tile.Category.GO_TO_JAIL);
+		assertEquals(table.getTile(35).getCategory(),	Tile.Category.STATION);
 	}
 
 	@Test
@@ -67,32 +69,32 @@ public class TestTile {
 		Purchasable purchBase, purch;
 		purchBase = (Purchasable)table.getTile(5);
 		
-		assertTrue(purchBase.getSalesValue() == 200.0);
-		assertTrue(purchBase.getLeaseValue() == 0.0);
+		assertEquals(purchBase.getSalesValue(), 200.0);
+		assertEquals(purchBase.getLeaseValue(),   0.0);
 		
 		purch = (Purchasable)table.getTile(5);
 		purch.setOwner(Optional.of(1));
-		assertTrue(purchBase.getLeaseValue() == 25.0);
+		assertEquals(purchBase.getLeaseValue(),  25.0);
 		
 		purch = (Purchasable)table.getTile(15);
 		purch.setOwner(Optional.of(1));
-		assertTrue(purchBase.getLeaseValue() == 50.0);
+		assertEquals(purchBase.getLeaseValue(),  50.0);
 		
 		purch = (Purchasable)table.getTile(25);
 		purch.setOwner(Optional.of(1));
-		assertTrue(purchBase.getLeaseValue() == 100.0);
+		assertEquals(purchBase.getLeaseValue(),   100.0);
 		
 		purch = (Purchasable)table.getTile(35);
 		purch.setOwner(Optional.of(1));
-		assertTrue(purchBase.getLeaseValue() == 200.0);
+		assertEquals(purchBase.getLeaseValue(),   200.0);
 		
 		purch = (Purchasable)table.getTile(25);
 		purch.setOwner(Optional.empty());
-		assertTrue(purchBase.getLeaseValue() == 100.0);
+		assertEquals(purchBase.getLeaseValue(),   100.0);
 		
 		table.setNewQuotationToSpecificPurchasableCategory(Tile.Category.STATION, 2.0);
-		assertTrue(purchBase.getLeaseValue() == 200.0);
-		assertTrue(purchBase.getSalesValue() == 400.0);
+		assertEquals(purchBase.getLeaseValue(),   200.0);
+		assertEquals(purchBase.getSalesValue(),   400.0);
 	}
 
 	@Test
@@ -128,41 +130,52 @@ public class TestTile {
 		Property prop1 = (Property)table.getTile(1);
 		Property prop2 = (Property)table.getTile(3);
 
-		assertEquals(prop1.getSalesValue(), 60.0);
-		assertEquals(prop2.getSalesValue(), 60.0);
-		assertEquals(prop1.getLeaseValue(), 0.0);
-		assertEquals(prop2.getLeaseValue(), 0.0);
+		assertEquals(prop1.getSalesValue(),  60.0);
+		assertEquals(prop2.getSalesValue(),  60.0);
+		assertEquals(prop1.getLeaseValue(),   0.0);
+		assertEquals(prop2.getLeaseValue(),   0.0);
 		prop1.setOwner(Optional.of(1));
-		assertEquals(prop1.getLeaseValue(), 2.0);
+		assertEquals(prop1.getLeaseValue(),   2.0);
 		prop2.setOwner(Optional.of(1));
-		assertEquals(prop1.getLeaseValue(), 4.0);
+		assertEquals(prop1.getLeaseValue(),   4.0);
 		prop1.buildOn();
-		assertEquals(prop1.getLeaseValue(), 10.0);
+		assertEquals(prop1.getLeaseValue(),  10.0);
 		prop1.buildOn();
-		assertEquals(prop1.getLeaseValue(), 30.0);
+		assertEquals(prop1.getLeaseValue(),  30.0);
 		prop1.buildOn();
-		assertEquals(prop1.getLeaseValue(), 90.0);
+		assertEquals(prop1.getLeaseValue(),  90.0);
 		prop1.buildOn();
 		assertEquals(prop1.getLeaseValue(), 160.0);
 		prop1.buildOn();
 		assertEquals(prop1.getLeaseValue(), 250.0);
 		prop2.setOwner(Optional.of(1));
-		assertEquals(prop2.getLeaseValue(), 8.0);
-		assertTrue(prop1.getOwner().get() == 1);
+		assertEquals(prop2.getLeaseValue(),   8.0);
+		assertEquals(prop1.getOwner().get(),  1);
 		prop1.setQuotation(2.0);
 		assertEquals(prop1.getLeaseValue(), 500.0);
 		prop1.setOwner(Optional.empty());
-		assertEquals(prop1.getLeaseValue(), 0.0);
-		assertThrows(IllegalStateException.class,()->{
-			prop1.buildOn();
-			});
-		
+		assertEquals(prop1.getLeaseValue(),   0.0);		
 	}
 	
 	@Test(expected = IllegalStateException.class)
 	public void propertyTestingBuild() {
 		Table table = new TableImpl();
 		Property prop1 = (Property)table.getTile(1);
-		prop1.buildOn();
+		prop1.buildOn(); 
+	}
+	
+	@Test()
+	public void specialGetterTableTest() {
+		Table table = new TableImpl();
+		Set<Purchasable> tmp1 = table.getFilteredTiles(Purchasable.class,
+														x->x.isPurchasable());
+	}
+	
+	@Test()
+	public void positionTileTableTest() {
+		Table table = new TableImpl();
+		for(Integer i = 0; i < table.getTableSize(); i++) {
+			assertEquals(table.getTilePosition(table.getTile(i)), i);
+		}
 	}
 }

@@ -26,11 +26,12 @@ public class GameEngineImpl implements GameEngine {
 
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 
-
 	private Map<Integer, Integer> dices;
-	private Table table = new TableImpl();
+	
+	private Table table;
 
 	private CardManager cardManager = new CardManagerImpl();
+
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes

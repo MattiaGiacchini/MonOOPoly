@@ -24,7 +24,7 @@ public interface Tile {
 		BLUE,
 		UNEXPECTED,
 		PROBABILITY,
-		DISASTER,
+		CALAMITY,
 		SOCIETY,
 		STATION;
 	}

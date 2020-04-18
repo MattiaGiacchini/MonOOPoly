@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 public class PropertyImpl extends AbstractPurchasable implements Property {
 
-	private static final Double  PERCENTAGE_TO_APPLY_FOR_SELLING_ALL = 0.75;
 	private static final Double  PERCENTAGE_TO_APPLY_FOR_SELLING = 0.5;
 	private static final Double  VALUE_ZERO = 0.0;
 	private static final Integer UNIT_TO_INCREASE_OR_DECREASE = 1;
@@ -219,7 +218,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 
 	@Override
 	public double getLeaseValue() {
-		if(super.getOwner().isPresent()) {
+		if(super.getOwner().isPresent() && !super.isMortgage()) {
 			if(this.isCategoryOfPropertiesAllOwned() && this.numberOfConstructionBuilt == PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {
 				return this.leaseListBaseValue.get(PropertyImpl.SERIES_COMPLETE) * super.getQuotation();
 			} else {
@@ -237,14 +236,6 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		}
 		return listWithQuotationApplied;
 	}	
-	
-	@Override
-	public double getSalesValue() {
-		return super.getSalesValue() +
-			   (this.getCostToBuildHotel() * this.getNumberOfHotelBuilt() +
-			   this.getCostToBuildHouse() * this.getNumberOfHouseBuilt()) *
-			   PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING_ALL;
-	}
 	
 	private double getQuotationToSellActualBuildings() {
 		if(this.getNumberOfHotelBuilt() > PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {

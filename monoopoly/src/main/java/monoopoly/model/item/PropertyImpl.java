@@ -219,7 +219,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 
 	@Override
 	public double getLeaseValue() {
-		if(super.getOwner().isPresent()) {
+		if(super.getOwner().isPresent() && !super.isMortgage()) {
 			if(this.isCategoryOfPropertiesAllOwned() && this.numberOfConstructionBuilt == PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {
 				return this.leaseListBaseValue.get(PropertyImpl.SERIES_COMPLETE) * super.getQuotation();
 			} else {

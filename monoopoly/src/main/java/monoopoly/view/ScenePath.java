@@ -68,7 +68,7 @@ public enum ScenePath {
 	 * This method returns the scene's path to load
 	 * 
 	 * @return the path of the scene to load
-	 * @throws MalformedURLException 
+	 * @throws MalformedURLException
 	 */
 	public String getPath() throws MalformedURLException {
 		return (this.path + this.name);

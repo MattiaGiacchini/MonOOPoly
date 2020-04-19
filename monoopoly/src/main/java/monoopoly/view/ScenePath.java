@@ -4,7 +4,6 @@
 package monoopoly.view;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * This enumeration contains all the scenes with their path

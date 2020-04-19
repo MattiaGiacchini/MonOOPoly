@@ -1,26 +1,29 @@
 package monoopoly.view.start;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
 import monoopoly.view.SceneManager;
-import monoopoly.view.ScenePath;
-import monoopoly.view.ViewController;
+import monoopoly.view.SceneManagerImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and
  * starts the game
  */
-public class SetPlayersFormChecker implements ViewController {
+public class SetPlayersFormChecker implements Initializable {
 
 	/**
 	 * These constants defines the balance bounds, the balance increase step for the
@@ -35,7 +38,7 @@ public class SetPlayersFormChecker implements ViewController {
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
 	private Double balance = 1000.00;
-	private SceneManager manager = new SceneManager();
+	private SceneManager manager = new SceneManagerImpl();
 
 	/**
 	 * Fields and buttons in .fxml file reference
@@ -70,9 +73,15 @@ public class SetPlayersFormChecker implements ViewController {
 	@FXML
 	private Button startGameBtn;
 
-	@Override
-	public void onDisplay() {
+	@FXML
+	private ImageView logo;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		this.logo.setImage(new Image(this.getClass().getResourceAsStream("/logoMonoopoly500.png")));
 	}
 
 	/**
@@ -83,10 +92,10 @@ public class SetPlayersFormChecker implements ViewController {
 		if (this.checkFields()) {
 			new Alert(AlertType.ERROR, "Game starts in 3... 2... 1.. \n GO").show();
 			// this.start.createEngine();
+			// TODO add elaboration method
 		} else {
 			new Alert(AlertType.ERROR, "Too few players").show();
 		}
-
 	}
 
 	/**
@@ -111,6 +120,7 @@ public class SetPlayersFormChecker implements ViewController {
 		if (this.startingBalance.getText().isEmpty()) {
 			this.startingBalance.setText(this.balance.toString());
 		}
+
 		this.balance = Double.valueOf(this.startingBalance.getText().trim());
 		this.checkBalanceUpperBound();
 		this.checkBalanceLowerBound();
@@ -142,12 +152,14 @@ public class SetPlayersFormChecker implements ViewController {
 	@FXML
 	public void btnIncreaseBalanceClicked() {
 		this.updatedBalance();
+
 		if (this.balance + BALANCE_INCREASE_VALUE <= MAX_BALANCE) {
 			this.balance = this.balance + BALANCE_INCREASE_VALUE;
 		} else {
 			new Alert(AlertType.ERROR, "Balance should be less or equal to " + MAX_BALANCE.toString()).show();
 			this.balance = MAX_BALANCE;
 		}
+
 		this.setBalanceField();
 	}
 

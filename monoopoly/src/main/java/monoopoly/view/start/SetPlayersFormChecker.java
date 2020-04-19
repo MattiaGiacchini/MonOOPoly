@@ -3,15 +3,17 @@ package monoopoly.view.start;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
+import monoopoly.view.SceneManager;
+import monoopoly.view.ScenePath;
 import monoopoly.view.ViewController;
 
 /**
@@ -33,8 +35,8 @@ public class SetPlayersFormChecker implements ViewController {
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
 	private Double balance = 1000.00;
+	private SceneManager manager = new SceneManager();
 
-	
 	/**
 	 * Fields and buttons in .fxml file reference
 	 */
@@ -77,13 +79,14 @@ public class SetPlayersFormChecker implements ViewController {
 	 * This method starts the game when the "Start Game" button is pressed
 	 */
 	@FXML
-	public void btnStartGameClicked() {
+	public void btnStartGameClicked(ActionEvent event) {
 		if (this.checkFields()) {
 			new Alert(AlertType.ERROR, "Game starts in 3... 2... 1.. \n GO").show();
 			// this.start.createEngine();
 		} else {
 			new Alert(AlertType.ERROR, "Too few players").show();
 		}
+
 	}
 
 	/**
@@ -91,12 +94,12 @@ public class SetPlayersFormChecker implements ViewController {
 	 */
 	@FXML
 	public void updatedText() {
-		this.playerMap.put(1, player1.getText().trim());
-		this.playerMap.put(2, player2.getText().trim());
-		this.playerMap.put(3, player3.getText().trim());
-		this.playerMap.put(4, player4.getText().trim());
-		this.playerMap.put(5, player5.getText().trim());
-		this.playerMap.put(6, player6.getText().trim());
+		this.playerMap.put(0, player1.getText().trim());
+		this.playerMap.put(1, player2.getText().trim());
+		this.playerMap.put(2, player3.getText().trim());
+		this.playerMap.put(3, player4.getText().trim());
+		this.playerMap.put(4, player5.getText().trim());
+		this.playerMap.put(5, player6.getText().trim());
 	}
 
 	/**

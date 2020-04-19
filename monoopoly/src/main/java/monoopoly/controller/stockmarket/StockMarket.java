@@ -1,10 +1,11 @@
-package monoopoly.controller;
+package monoopoly.controller.stockmarket;
 
 import java.util.List;
 import java.util.Map;
 
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 
 /**
  * This interface represents the Stock Market, and its history
@@ -14,20 +15,26 @@ public interface StockMarket {
 	/**
 	 * This method allows to set a new currency, to be used when it's needed, for the properties,
 	 * to change their sell/Lease/Mortgage value.
-	 * @return A map <Color, Double> representing the pairs Color - Relative change.
 	 */
-	Map<Tile.Category, Double> setNewMarketValue();
+	void setNewMarketValue();
 	
 	/**
 	 * This method returns the history of the stock market, in form of a map.
+	 * @return the history of the market.
+	 */
+	List<Map<Category, Double>> getStockHistory();
+
+	/**
+	 * This method returns the variation between the two last generations of stockMarket.
 	 * @return the map.
 	 */
-	Map<Integer, List<Map<Tile.Category, Double>>> getStockHistory();
-	
+	Map<Category, Double> getVariation();
+
 	/**
-	 * This method permits changing property values, according to the current market value.
-	 * @param propertyList the list of properties;
-	 * @param marketValue the current market value.
+	 * This method return the last generation of the market.
+	 * @return the last stockMarket.
 	 */
-	void applyChanges(List<Property> propertyList, Map<Tile.Category, Double> marketValue);
+	Map<Category, Double> getMarket();
+
+	
 }

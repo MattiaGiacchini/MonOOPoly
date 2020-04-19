@@ -3,6 +3,9 @@
  */
 package monoopoly.view;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * This enumeration contains all the scenes with their path
  */
@@ -55,7 +58,7 @@ public enum ScenePath {
 	SCOREBOARD("009_scoreboard.fxml");
 
 	private final String name;
-	private final String path = "/view/scenes/";
+	private final String path = "/scenes/";
 
 	private ScenePath(final String sceneName) {
 		this.name = sceneName;
@@ -65,8 +68,9 @@ public enum ScenePath {
 	 * This method returns the scene's path to load
 	 * 
 	 * @return the path of the scene to load
+	 * @throws MalformedURLException 
 	 */
-	public String getScenePath() {
-		return this.path + this.name;
+	public String getPath() throws MalformedURLException {
+		return (this.path + this.name);
 	}
 }

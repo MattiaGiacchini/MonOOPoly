@@ -30,7 +30,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	private Table table;
 
-	private CardManager cardManager = new CardManagerImpl();
+	//private CardManager cardManager = new CardManagerImpl();
 
 
 	/**

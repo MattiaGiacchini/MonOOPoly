@@ -36,6 +36,7 @@ public class StockMarketImpl implements StockMarket {
 	}
 	
 	private Map<Category, Double> initMarket() {
+		this.actualMarket = new HashMap<>();
 		for (Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, INIT_QUOTATION);
 		}
@@ -51,7 +52,7 @@ public class StockMarketImpl implements StockMarket {
 
 	@Override
 	public void setNewMarketValue() {
-		
+		this.actualMarket = new HashMap<>();
 		for (Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, getPercentile());
 		}
@@ -61,7 +62,6 @@ public class StockMarketImpl implements StockMarket {
 		}
 		
 		this.stockHistory.add(this.actualMarket);
-		this.actualMarket.clear();
 		
 	}
 
@@ -101,6 +101,7 @@ public class StockMarketImpl implements StockMarket {
 		while (toReturn < 5.0 && toReturn > 250.0) {
 			toReturn = random.nextGaussian() * RANDOM_DEVIATION + RANDOM_MEAN;
 		}
+		System.out.println(toReturn);
 		return toReturn / RANDOM_DIVIDER;
 		
 		

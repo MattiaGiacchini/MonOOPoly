@@ -55,7 +55,7 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator implemen
 
 	@Override
 	public double getMortgageValue() {
-		return this.morgageValue;
+		return this.morgageValue * this.quotation;
 	}
 
 	@Override

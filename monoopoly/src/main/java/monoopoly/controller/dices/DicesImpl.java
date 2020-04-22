@@ -56,4 +56,12 @@ public class DicesImpl implements Dices{
 		
 	}
 
+	@Override
+	public boolean areEquals() {
+		if (this.dices.get(0).equals(this.dices.get(1))) {
+			return true;
+		}
+		return false;
+	}
+
 }

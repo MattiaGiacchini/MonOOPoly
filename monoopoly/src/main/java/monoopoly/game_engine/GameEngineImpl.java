@@ -26,9 +26,11 @@ public class GameEngineImpl implements GameEngine {
 			
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 	
-	private Table table = new TableImpl();
+	private Map<Integer, Integer> dices;
 	
-	private CardManager cardManager = new CardManagerImpl();
+	private Table table;
+	
+	private CardManager cardManager = new CardManager();
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -117,6 +119,14 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
+	public Map<Integer, Double> getBalance() {
+		return balance;
+	}
+	
+	public Map<Integer, Integer> getPosition() {
+		return position;
+	}
+	
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
 	}
@@ -136,6 +146,16 @@ public class GameEngineImpl implements GameEngine {
 		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
 				 1 : -1).get().getValue();*/
 	}
+	
+	public void useCard(final Tile.CATEGORY category) {
+		Card card = category.playerDrawID(this.turnManager.getCurrentPlayer())
+				.playersBalance(this.getBalance())
+				.playersPosition(this.getPosition())
+				.draw();
+		this.cardManager.applyCard(card);
+	}
+
+
 
 
 }

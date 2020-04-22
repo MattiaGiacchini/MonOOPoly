@@ -35,4 +35,10 @@ public interface Dices {
 	 * This method resets the dices (aka, empties the map).
 	 */
 	void resetDices();
+	
+	/**
+	 * This method tells if the dices returned the same number
+	 * @return
+	 */
+	boolean areEquals();
 }

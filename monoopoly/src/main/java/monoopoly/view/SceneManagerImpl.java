@@ -1,0 +1,55 @@
+package monoopoly.view;
+
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class SceneManagerImpl implements SceneManager {
+
+	Stage stage;
+	FXMLLoader loader = new FXMLLoader();
+
+	@Override
+	public void setup(Stage stage) throws Exception {
+		this.stage = stage;
+		stage.setTitle("Monoopoly");
+	}
+
+	@Override
+	public void loadScene(ScenePath scene, Stage stage) {
+
+		try {
+			this.setup(stage);
+			Parent root = FXMLLoader.load(getClass().getResource(scene.getPath()));
+			Scene newScene = new Scene(root);
+			this.stage.setScene(newScene);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		this.stage.centerOnScreen();
+		this.stage.show();
+	}
+
+	@Override
+	public void swapScene(ScenePath scene) {
+
+		try {
+			this.stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(scene.getPath()))));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		this.stage.centerOnScreen();
+		this.stage.show();
+	}
+
+	@Override
+	public Scene getScene() {
+		return this.stage.getScene();
+	}
+
+}

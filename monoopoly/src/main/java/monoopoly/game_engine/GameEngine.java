@@ -85,5 +85,9 @@ public interface GameEngine {
 	 */
 	PlayerManager getGameWinner();
 	
+	/**
+	 * method to use the effect of a card
+	 */
+	void useCard();
 
 }

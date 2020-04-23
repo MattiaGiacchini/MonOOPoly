@@ -8,6 +8,7 @@ import monoopoly.controller.player_manager.TurnManager;
 import monoopoly.controller.player_manager.TurnManagerImpl;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
+import monoopoly.model.item.Tile;
 
 public class GameEngineImpl implements GameEngine {
 	
@@ -147,12 +148,14 @@ public class GameEngineImpl implements GameEngine {
 				 1 : -1).get().getValue();*/
 	}
 	
-	public void useCard(final Tile.CATEGORY category) {
-		Card card = category.playerDrawID(this.turnManager.getCurrentPlayer())
+	public void useCard() {
+		Tile tile = this.table.getTile(/*posizione presa con un getter da Matti*/);
+		Card card = tile.playerDrawID(this.turnManager.getCurrentPlayer())
 				.playersBalance(this.getBalance())
 				.playersPosition(this.getPosition())
 				.draw();
-		this.cardManager.applyCard(card);
+		monoopoly.game_engine.CardEffect effect = this.cardManager.knowCard(card);
+		
 	}
 
 

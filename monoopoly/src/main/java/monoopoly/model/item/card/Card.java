@@ -109,7 +109,7 @@ public interface Card {
 	 *  will return an {@link Optional}<{@link Map}>
 	 *  where the key indicates the ID of 
 	 *  each player on which to apply the move
-	 *  corresponding to the respective position
+	 *  corresponding to the respective Tile position
 	 */
 	public Optional<Map<Integer,Integer>> 
 	   getMoveToPosition();
@@ -120,7 +120,7 @@ public interface Card {
 	 * table
 	 * 
 	 * @return if the card hasn't effect on 
-	 *  the property buildings it will return an
+	 *  the property's buildings it will return an
 	 *  {@link Optional.Empty()}, otherwise it
 	 *  will return an {@link Optional}<{@link Map}>
 	 *  where the key indicates the position of 

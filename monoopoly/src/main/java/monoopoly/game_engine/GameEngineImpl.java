@@ -31,7 +31,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	private Table table;
 	
-	private CardManager cardManager = new CardManager();
+	private CardManager cardManager;
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -154,7 +154,19 @@ public class GameEngineImpl implements GameEngine {
 				.playersBalance(this.getBalance())
 				.playersPosition(this.getPosition())
 				.draw();
+		this.cardManager = new CardManager(card.getDescription, card.getCardNumber, card.getOriginDeck);
 		monoopoly.game_engine.CardEffect effect = this.cardManager.knowCard(card);
+		if (effect == monoopoly.game_engine.CardEffect.TO_ALL) {
+			Map<Integer, Double> map = card.getValueToApplyOnPlayersWallet().get();
+			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
+				/*vado nella mappa che rappresenta il balance e per ogni 
+				 * key incremento il value*/
+			}
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.BANK_EXCHANGE) {
+			
+		}
+		
 		
 	}
 

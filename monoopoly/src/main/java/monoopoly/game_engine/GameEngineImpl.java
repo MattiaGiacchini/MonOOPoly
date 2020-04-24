@@ -8,6 +8,7 @@ import monoopoly.controller.player_manager.TurnManager;
 import monoopoly.controller.player_manager.TurnManagerImpl;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
+import monoopoly.model.item.Tile;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -27,11 +28,12 @@ public class GameEngineImpl implements GameEngine {
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
 
 	private Map<Integer, Integer> dices;
-	
+
+	private Map<Integer, Integer> dices;
+
 	private Table table;
 
-	//private CardManager cardManager = new CardManagerImpl();
-
+	private CardManager cardManager;
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -121,9 +123,58 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
+	public Map<Integer, Double> getBalance() {
+		return balance;
+	}
+
+	public Map<Integer, Integer> getPosition() {
+		return position;
+	}
+
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
 	}
+
+	public PlayerManager getGameWinner() {
+		Integer current;
+		for (Map.Entry<Integer, Double> entry: this.balance.entrySet()) {
+			if (entry.getValue() > current) {
+				current = entry.getKey();
+			}
+		}
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+			if (pM.getPlayerManagerID() == current) {
+				return pM;
+			}
+		}
+		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
+				 1 : -1).get().getValue();*/
+	}
+
+	public void useCard() {
+		Tile tile = this.table.getTile(/*posizione presa con un getter da Matti*/);
+		Card card = tile.playerDrawID(this.turnManager.getCurrentPlayer())
+				.playersBalance(this.getBalance())
+				.playersPosition(this.getPosition())
+				.draw();
+		this.cardManager = new CardManager(card.getDescription, card.getCardNumber, card.getOriginDeck);
+		monoopoly.game_engine.CardEffect effect = this.cardManager.knowCard(card);
+		if (effect == monoopoly.game_engine.CardEffect.TO_ALL) {
+			Map<Integer, Double> map = card.getValueToApplyOnPlayersWallet().get();
+			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
+				/*vado nella mappa che rappresenta il balance e per ogni
+				 * key incremento il value*/
+			}
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.BANK_EXCHANGE) {
+
+		}
+
+
+	}
+
+
+
 
 	public Table getTable() {
 		return this.table;

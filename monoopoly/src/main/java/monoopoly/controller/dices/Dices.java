@@ -41,4 +41,8 @@ public interface Dices {
 	 * @return
 	 */
 	boolean areEquals();
+	
+	void attachObserver(DicesObserver obs);
+	
+	void removeObserver(DicesObserver obs);
 }

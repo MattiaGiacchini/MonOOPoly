@@ -1,9 +1,13 @@
 package monoopoly.controller.dices;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.model.item.Table;
@@ -16,6 +20,7 @@ public class DicesImpl implements Dices{
 	private final Random random;
 	private final int numberOfDices;
 	private static final int RANDOM_DICE_BOUND = 5;
+	private Set<DicesObserver> observers;
 	/**
 	 * constructor.
 	 * @param number the number of dices.
@@ -26,6 +31,7 @@ public class DicesImpl implements Dices{
 		this.dices = new HashMap<Integer, Integer>();
 		this.random = new Random();
 		this.numberOfDices = number;
+		this.observers = new HashSet<DicesObserver>();
 	}
 	
 	@Override

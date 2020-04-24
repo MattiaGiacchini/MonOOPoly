@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#updatedBalance" prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.start.SetPlayersFormChecker">
+   <children>
+      <VBox alignment="CENTER" layoutX="25.0" layoutY="14.0" prefHeight="626.0" prefWidth="350.0" spacing="10.0">
+         <children>
+            <ImageView fx:id="logo" fitHeight="156.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <HBox alignment="CENTER" prefHeight="71.0" prefWidth="271.0" spacing="10.0">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnDecreaseBalanceClicked" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50;" text="-" textAlignment="CENTER" HBox.hgrow="NEVER">
+                       <font>
+                            <Font name="System Bold" size="18.0" />
+                       </font>
+                  </Button>
+                  <TextField fx:id="startingBalance" alignment="CENTER" focusTraversable="false" prefHeight="40.0" prefWidth="153.0" promptText="Starting balance" style="-fx-background-radius: 50;" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <Button alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" mnemonicParsing="false" onMouseClicked="#btnIncreaseBalanceClicked" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 50;" text="+" textAlignment="CENTER" HBox.hgrow="NEVER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="40.0" right="40.0" top="5.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="284.0" prefWidth="161.0" spacing="10.0">
+               <children>
+                  <TextField fx:id="player1" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 1" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                       <font>
+                            <Font size="17.0" />
+                       </font>
+                  </TextField>
+                  <TextField fx:id="player2" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 2" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="player3" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 3" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="player4" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 4" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="player5" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 5" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="player6" alignment="CENTER" onKeyTyped="#updatedText" prefHeight="40.0" prefWidth="200.0" promptText="Player 6" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </TextField>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="40.0" right="40.0" top="10.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="startGameBtn" focusTraversable="false" mnemonicParsing="false" onAction="#btnStartGameClicked" onMousePressed="#updatedBalance" prefHeight="50.0" prefWidth="141.0" style="-fx-background-radius: 50;" text="START GAME" textAlignment="CENTER">
+                 <font>
+                      <Font name="System Bold" size="18.0" />
+                 </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</Pane>

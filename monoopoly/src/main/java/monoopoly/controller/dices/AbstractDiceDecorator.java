@@ -17,11 +17,7 @@ public abstract class AbstractDiceDecorator implements Dices {
 		this.observers = new HashSet<DicesObserver>();
 	}
 	
-	@Override
-	public void roll(PlayerManager playerManager, Table table) {
-		// TODO Auto-generated method stub
-
-	}
+	public abstract void roll(PlayerManager playerManager, Table table);
 
 	@Override
 	public void setCurrentPlayer(PlayerManager playerManager) {
@@ -52,6 +48,11 @@ public abstract class AbstractDiceDecorator implements Dices {
 	@Override
 	public void removeObserver(DicesObserver obs) {
 		this.decorated.removeObserver(obs);
+	}
+	
+	@Override
+	public Set<DicesObserver> getObserverSet(){
+		return this.decorated.getObserverSet();
 	}
 
 }

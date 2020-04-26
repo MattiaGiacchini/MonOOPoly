@@ -18,7 +18,7 @@ public class DicesImpl implements Dices{
 	private final Table gameTable;
 	private Map<Integer, Integer> dices;
 	private final Random random;
-	private final int numberOfDices;
+	private static final int numberOfDices = 2;
 	private static final int RANDOM_DICE_BOUND = 5;
 	private Set<DicesObserver> observers;
 	/**
@@ -30,20 +30,20 @@ public class DicesImpl implements Dices{
 		this.gameTable = table;
 		this.dices = new HashMap<Integer, Integer>();
 		this.random = new Random();
-		this.numberOfDices = number;
 		this.observers = new HashSet<DicesObserver>();
 	}
 	
 	@Override
 	public void roll(PlayerManager playerManager, Table table) {
-		for (int i = 0; i < this.numberOfDices; i++) {
+		for (int i = 0; i < DicesImpl.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
 		//this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
 		//TODO logica prigione
-		this.currentPlayer.movePlayer(diceSum);
-		this.gameTable.notifyDices(diceSum);
+		/*this.currentPlayer.movePlayer(diceSum);
+		this.gameTable.notifyDices(diceSum);*/
+		this.notifyObservers(diceSum);
 	}
 
 	@Override
@@ -68,6 +68,27 @@ public class DicesImpl implements Dices{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void attachObserver(DicesObserver obs) {
+		this.observers.add(obs);
+	}
+
+	@Override
+	public void removeObserver(DicesObserver obs) {
+		this.observers.remove(obs);
+	}
+	
+	private void notifyObservers(final int sum) {
+		for (DicesObserver obs : this.observers) {
+			obs.notifyNormalDices(sum);
+		}
+	}
+
+	@Override
+	public Set<DicesObserver> getObserverSet() {
+		return Collections.unmodifiableSet(this.observers);
 	}
 
 }

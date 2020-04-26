@@ -1,6 +1,7 @@
 package monoopoly.controller.dices;
 
 import java.util.Map;
+import java.util.Set;
 
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.model.item.Table;
@@ -42,7 +43,21 @@ public interface Dices {
 	 */
 	boolean areEquals();
 	
+	/**
+	 * This method attaches an observer to the dices.
+	 * @param obs The observer.
+	 */
 	void attachObserver(DicesObserver obs);
 	
+	/**
+	 * This method removes an observer to the dices.
+	 * @param obs The observer
+	 */
 	void removeObserver(DicesObserver obs);
+	
+	/**
+	 * This method returns the set of observers.
+	 * @return the set
+	 */
+	Set<DicesObserver> getObserverSet();
 }

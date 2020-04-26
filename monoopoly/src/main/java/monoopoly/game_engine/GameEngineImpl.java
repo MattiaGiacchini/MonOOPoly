@@ -2,6 +2,8 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
+import monoopoly.controller.bank.BankManager;
+import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player_manager.TurnManager;
@@ -29,11 +31,11 @@ public class GameEngineImpl implements GameEngine {
 
 	private Map<Integer, Integer> dices;
 
-	private Map<Integer, Integer> dices;
-
 	private Table table;
 
 	private CardManager cardManager;
+	
+	private BankManager bankManager = new BankManagerImpl(this);
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -130,9 +132,23 @@ public class GameEngineImpl implements GameEngine {
 	public Map<Integer, Integer> getPosition() {
 		return position;
 	}
+	
+	public Table getTable() {
+		return this.table;
+	}
+
+	@Override
+	public Map<Integer, Integer> getDices() {
+		return this.dices;
+	}
 
 	public PlayerManager passPlayer() {
 		return this.turnManager.nextTurn();
+	}
+	
+	@Override
+	public void updateDices(Map<Integer, Integer> dices) {
+		this.dices = dices;
 	}
 
 	public PlayerManager getGameWinner() {
@@ -162,12 +178,47 @@ public class GameEngineImpl implements GameEngine {
 		if (effect == monoopoly.game_engine.CardEffect.TO_ALL) {
 			Map<Integer, Double> map = card.getValueToApplyOnPlayersWallet().get();
 			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
-				/*vado nella mappa che rappresenta il balance e per ogni
-				 * key incremento il value*/
+				for (PlayerManager pM: this.turnManager.getPlayersList()) {
+					if (pM.getPlayer().getID() == entry.getKey()) {
+						pM.getPlayer().setBalance(pM.getPlayer().getBalance() + entry.getValue());
+					}
+				}
 			}
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.BANK_EXCHANGE) {
-
+			Double value = card.getValueToApplyOnBank().get();
+			for (PlayerManager pM: this.turnManager.getPlayersList()) {
+				this.bankManager.giveMoney(value, pM);
+			}
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
+			//TODO
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
+			//TODO (la carta andrà nelle proprieta del giocatore
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.RELATIVE_MOVE) {
+			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
+			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
+				for (PlayerManager pM: this.turnManager.getPlayersList()) {
+					if (pM.getPlayer().getID() == entry.getKey()) {
+						pM.getPlayer().setPosition(pM.getPlayer().getPosition() + entry.getValue());
+					}
+				}
+			}
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE) {
+			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
+			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
+				for (PlayerManager pM: this.turnManager.getPlayersList()) {
+					if (pM.getPlayer().getID() == entry.getKey()) {
+						pM.getPlayer().setPosition(entry.getValue());
+					}
+				}
+			}
+		}
+		else if (effect == monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS) {
+			
 		}
 
 
@@ -176,18 +227,9 @@ public class GameEngineImpl implements GameEngine {
 
 
 
-	public Table getTable() {
-		return this.table;
-	}
+	
 
-	@Override
-	public void updateDices(Map<Integer, Integer> dices) {
-		this.dices = dices;
-	}
+	
 
-	@Override
-	public Map<Integer, Integer> getDices() {
-		return this.dices;
-	}
 
 }

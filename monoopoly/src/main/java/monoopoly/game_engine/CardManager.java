@@ -40,7 +40,7 @@ public class CardManager {
 			return monoopoly.game_engine.CardEffect.RELATIVE_MOVE;
 		}
 		else if (!card.getAbsoluteMoveToPosition().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.RELATIVE_MOVE;
+			return monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE;
 		}
 		else if (!card.getNumberOfBuildingsToRemove().isEmpty()) {
 			return monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS;

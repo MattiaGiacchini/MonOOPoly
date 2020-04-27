@@ -58,6 +58,8 @@
      -fx-border-color: #000000;
      -fx-alignment: center;
      -fx-focus-traversable: false;
+     -fx-wrap-text: true;
+     -fx-font-weight: bold;
 }
 
 .button:hover {

@@ -18,7 +18,8 @@ public class SpeedyDice extends AbstractDiceDecorator{
 		
 
 	@Override
-	public void roll(PlayerManager playerManager, Table table) {
+	public void roll() {
+		super.roll();
 		this.number = speedyRandom.nextInt(DICE_BOUND) + 1;
 		this.notifyObservers();
 	}

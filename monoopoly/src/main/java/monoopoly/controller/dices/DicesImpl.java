@@ -14,8 +14,6 @@ import monoopoly.model.item.Table;
 
 public class DicesImpl implements Dices{
 
-	private PlayerManager currentPlayer;
-	private final Table gameTable;
 	private Map<Integer, Integer> dices;
 	private final Random random;
 	private static final int numberOfDices = 2;
@@ -23,18 +21,15 @@ public class DicesImpl implements Dices{
 	private Set<DicesObserver> observers;
 	/**
 	 * constructor.
-	 * @param number the number of dices.
-	 * @param table the table.
 	 */
-	public DicesImpl(int number, Table table) {
-		this.gameTable = table;
+	public DicesImpl() {
 		this.dices = new HashMap<Integer, Integer>();
 		this.random = new Random();
 		this.observers = new HashSet<DicesObserver>();
 	}
 	
 	@Override
-	public void roll(PlayerManager playerManager, Table table) {
+	public void roll() {
 		for (int i = 0; i < DicesImpl.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
@@ -44,11 +39,6 @@ public class DicesImpl implements Dices{
 		/*this.currentPlayer.movePlayer(diceSum);
 		this.gameTable.notifyDices(diceSum);*/
 		this.notifyObservers(diceSum);
-	}
-
-	@Override
-	public void setCurrentPlayer(PlayerManager playerManager) {
-		this.currentPlayer = playerManager;
 	}
 	
 	@Override

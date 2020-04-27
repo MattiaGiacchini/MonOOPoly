@@ -17,12 +17,9 @@ public abstract class AbstractDiceDecorator implements Dices {
 		this.observers = new HashSet<DicesObserver>();
 	}
 	
-	public abstract void roll(PlayerManager playerManager, Table table);
-
-	@Override
-	public void setCurrentPlayer(PlayerManager playerManager) {
-		this.decorated.setCurrentPlayer(playerManager);
-	}
+	public void roll() {
+		this.decorated.roll();
+	};
 
 	@Override
 	public Map<Integer, Integer> getDices() {

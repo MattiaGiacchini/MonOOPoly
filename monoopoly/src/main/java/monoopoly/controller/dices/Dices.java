@@ -15,16 +15,8 @@ public interface Dices {
 	/**
 	 * This method rolls the dices, and notifies a playerManager and the table that the player 
 	 * must move.
-	 * @param playerManager the manager of the player.
-	 * @param table the table.
 	 */
-	void roll(PlayerManager playerManager, Table table);
-	
-	/**
-	 * This method changes the player who's currently playing
-	 * @param playerManager the player manager.
-	 */
-	void setCurrentPlayer(PlayerManager playerManager);
+	void roll();
 	
 	/**
 	 * 

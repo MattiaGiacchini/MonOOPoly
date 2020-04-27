@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.board.MainBoardController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="10.0" percentWidth="20.0" prefWidth="232.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" percentWidth="55.0" prefWidth="529.0" />
@@ -24,7 +24,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: pinl;" stylesheets="@main.css">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css">
          <children>
             <BorderPane prefHeight="1280.0" prefWidth="384.0" stylesheets="@main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <center>
@@ -33,8 +33,8 @@
                <top>
                   <VBox alignment="CENTER_LEFT" prefHeight="117.0" prefWidth="480.0" spacing="20.0" style="-fx-background-color: white;" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
-                        <Label layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
+                        <Label fx:id="currentPlayer" layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
+                        <Label fx:id="currentPlayerBalance" layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -44,8 +44,8 @@
                <bottom>
                   <HBox alignment="CENTER" prefHeight="129.0" prefWidth="480.0" spacing="20.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Button layoutX="14.0" layoutY="1162.0" minWidth="100.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="144.0" stylesheets="@main.css" text="SURRENDER" />
-                        <Button layoutX="125.0" layoutY="1162.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="324.0" stylesheets="@main.css" text="NEXT TURN" />
+                        <Button fx:id="surrender" layoutX="14.0" layoutY="1162.0" minWidth="100.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="144.0" stylesheets="@main.css" text="SURRENDER" />
+                        <Button fx:id="nextTurn" layoutX="125.0" layoutY="1162.0" mnemonicParsing="false" prefHeight="74.0" prefWidth="324.0" stylesheets="@main.css" text="NEXT TURN" />
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />
@@ -60,7 +60,7 @@
       <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1">
          <children>
             <Canvas height="1080.0" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <GridPane alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="gridPane" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <!-- Created Board game grid 11x11 -->
               <columnConstraints>
                 <!-- columns -->
@@ -92,206 +92,206 @@
               </rowConstraints>
                <children>
                 <!-- These are 40 buttons relative to the board cells -->
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0">
+                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="0">
+                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="0">
+                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="0">
+                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="0">
+                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="0">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="0">
+                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="10">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="0">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
 
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="10">
+                     <stylesheets>
+                        <URL value="@board.css" />
+                        <URL value="@main.css" />
+                     </stylesheets></Button>
 
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+
+                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.rowIndex="4">
+                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.rowIndex="6">
+                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="6">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.rowIndex="7">
+                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="7">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.rowIndex="9">
+                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="9">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
 
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="1">
+                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="1">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="2">
+                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="2">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="3">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="3">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="4">
+                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="4">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="5">
+                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="5">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="6">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="6">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="7">
+                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="7">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="8">
+                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="8">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
                      </stylesheets></Button>
-                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="9">
+                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="9">
                      <stylesheets>
                         <URL value="@board.css" />
                         <URL value="@main.css" />
@@ -306,7 +306,7 @@
                <top>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label minHeight="20.0" minWidth="50.0" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 6;" stylesheets="@main.css" text="30:00" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="timer" minHeight="20.0" minWidth="50.0" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 6;" stylesheets="@main.css" text="30:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
@@ -453,7 +453,7 @@
                <bottom>
                   <VBox alignment="CENTER" prefWidth="480.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Button minHeight="100.0" minWidth="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="350.0" stylesheets="@main.css" text="ROLL DICES" />
+                        <Button fx:id="rollDices" minHeight="100.0" minWidth="100.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="350.0" stylesheets="@main.css" text="ROLL DICES" />
                      </children>
                      <padding>
                         <Insets top="20.0" />

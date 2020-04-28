@@ -169,13 +169,22 @@ public class GameEngineImpl implements GameEngine {
 
 	public void useCard() {
 		Tile tile = this.table.getTile(/*posizione presa con un getter da Matti*/);
-		Card card = tile.playerDrawID(this.turnManager.getCurrentPlayer())
-				.playersBalance(this.getBalance())
-				.playersPosition(this.getPosition())
+		Map<Integer, Double> balance = new HashMap<>();
+		Map<Integer, Integer> position = new HashMap<>();
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+			balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());  
+		}
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());  
+		}
+		Card card = tile.idPlayerWhoHasDrawID(this.turnManager.getCurrentPlayer())
+				.actualPlayersBalance(balance)
+				.actualPlayersPosition(position)
+				.actualBankBalance(this.bankManager.getBank().getBankBudget())
 				.draw();
 		this.cardManager = new CardManager(card.getDescription, card.getCardNumber, card.getOriginDeck);
 		monoopoly.game_engine.CardEffect effect = this.cardManager.knowCard(card);
-		if (effect == monoopoly.game_engine.CardEffect.TO_ALL) {
+		if (effect == monoopoly.game_engine.CardEffect.TO_ALL) {	//no bank called
 			Map<Integer, Double> map = card.getValueToApplyOnPlayersWallet().get();
 			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
 				for (PlayerManager pM: this.turnManager.getPlayersList()) {
@@ -185,8 +194,8 @@ public class GameEngineImpl implements GameEngine {
 				}
 			}
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.BANK_EXCHANGE) {
-			Double value = card.getValueToApplyOnBank().get();
+		else if (effect == monoopoly.game_engine.CardEffect.BANK_EXCHANGE) {	//either bank or players called
+			Double value = card.getValueToApplyOnBankBalance().get();
 			for (PlayerManager pM: this.turnManager.getPlayersList()) {
 				this.bankManager.giveMoney(value, pM);
 			}

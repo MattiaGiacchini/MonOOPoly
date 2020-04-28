@@ -23,12 +23,13 @@ public class CardManager {
 	
 
 	public monoopoly.game_engine.CardEffect knowCard(final Card card) {
-		if (!card.getValueToApplyOnPlayersWallet().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.TO_ALL;
-		}
-		else if (!card.getValueToApplyOnBank().isEmpty()) {
+		if (!card.getValueToApplyOnBankBalance().isEmpty()) {
 			return monoopoly.game_engine.CardEffect.BANK_EXCHANGE;
 		}
+		else if (!card.getValueToApplyOnPlayersWallet().isEmpty()) {
+			return monoopoly.game_engine.CardEffect.TO_ALL;
+		}
+		
 		else if (card.mustThePlayerGoToJail) {
 			return monoopoly.game_engine.CardEffect.JAIL_IN;
 		}

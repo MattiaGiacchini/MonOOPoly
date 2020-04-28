@@ -33,8 +33,14 @@
                <top>
                   <VBox alignment="CENTER_LEFT" prefHeight="117.0" prefWidth="480.0" spacing="20.0" style="-fx-background-color: white;" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Label fx:id="currentPlayer" layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
-                        <Label fx:id="currentPlayerBalance" layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label" />
+                        <Label fx:id="currentPlayer" layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
+                        <Label fx:id="currentPlayerBalance" layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font></Label>
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -332,7 +338,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="quit" mnemonicParsing="false" stylesheets="@main.css" text="QUIT">
+                              <Button mnemonicParsing="false" onAction="#quitButtonPressed" stylesheets="@main.css" text="QUIT">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -345,7 +351,7 @@
                <center>
                   <VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName0" stylesheets="@main.css" text="Label">
                                  <font>
@@ -363,7 +369,7 @@
                               <Insets left="70.0" />
                            </padding>
                         </HBox>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName1" stylesheets="@main.css" text="Label">
                                  <font>
@@ -381,7 +387,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player2" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName2" stylesheets="@main.css" text="Label">
                                  <font>
@@ -399,7 +405,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player3" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName3" stylesheets="@main.css" text="Label">
                                  <font>
@@ -417,7 +423,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player4" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName4" stylesheets="@main.css" text="Label">
                                  <font>
@@ -435,7 +441,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <HBox id="playerInfo" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" stylesheets="@main.css">
+                        <HBox id="player5" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
                            <children>
                               <Label fx:id="playerName5" stylesheets="@main.css" text="Label">
                                  <font>

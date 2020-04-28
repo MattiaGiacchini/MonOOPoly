@@ -1,7 +1,6 @@
-package monoopoly.view;
+package monoopoly.view.utilities;
 
 import java.io.IOException;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,11 +10,13 @@ public class SceneManagerImpl implements SceneManager {
 
 	Stage stage;
 	FXMLLoader loader = new FXMLLoader();
+	ViewUtilities utilities = new ViewUtilitiesImpl();
 
 	@Override
 	public void setup(Stage stage) throws Exception {
 		this.stage = stage;
 		stage.setTitle("Monoopoly");
+		stage.setOnCloseRequest(event -> utilities.closeApp(event));
 	}
 
 	@Override

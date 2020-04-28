@@ -1,7 +1,7 @@
 /**
  * 
  */
-package monoopoly.view;
+package monoopoly.view.utilities;
 
 import java.net.MalformedURLException;
 

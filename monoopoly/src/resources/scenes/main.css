@@ -2,12 +2,12 @@
 
 }
 
-#playerInfo:hover {
+.playerInfo:hover {
      -fx-scale-y: 1.05;
      -fx-scale-x: 1.05;
 }
-.
-#playerInfo:pressed {
+
+.playerInfo:pressed {
     -fx-scale-y: 0.95;
     -fx-scale-x: 0.95;
 }

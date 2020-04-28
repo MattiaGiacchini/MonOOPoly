@@ -3,6 +3,7 @@ package monoopoly.controller.player_manager;
 import java.util.Set;
 
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
 import monoopoly.model.trade.Trade;
 
@@ -29,6 +30,13 @@ public interface PlayerManager {
 	 * @return a {@link Player} instance
 	 */
 	public Player getPlayer();
+
+	/**
+	 * This method sets the {@link Table} inside of the PlayerManager.
+	 * 
+	 * @param table Game table instance
+	 */
+	public void setTable(final Table table);
 
 	/*
 	 * /** This method return a manager to manage the {@link Player}'s {@link

@@ -10,18 +10,76 @@ import monoopoly.utilities.States;
 public class PlayerImpl implements Player {
 
 	private final int playerID;
-	private String name;
+	private final String name;
 	private Double balance;
 	private int position;
 	private States state;
+
+	public static class Builder {
+
+		private int playerID;
+		private String name;
+		private Double balance;
+		private Integer position;
+		private States state;
+
+		public Builder() {
+
+		}
+
+		public Builder playerId(final int id) {
+			this.playerID = id;
+			return this;
+		}
+
+		public Builder name(final String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder balance(final Double balance) {
+			this.balance = balance;
+			return this;
+		}
+
+		public Builder position(final int position) {
+			this.position = position;
+			return this;
+		}
+
+		public Builder state(final States state) {
+			this.state = state;
+			return this;
+		}
+
+		public Player build() throws IllegalStateException {
+			// TODO
+			if (this.playerID < 0 || this.name == null || this.balance == null || this.state == null
+					|| this.position < 0) {
+				throw new IllegalStateException("Wrong player creation");
+			}
+
+			return new PlayerImpl(this.playerID, this.name, this.balance, this.position, this.state);
+		}
+
+	}
 
 	/**
 	 * This method creates an instance of {@link Player} with an unique ID
 	 * 
 	 * @param playerID player unique identifier
+	 * @param name     of the player you want to create
+	 * @param balance  of the player at the beginning of the game
+	 * @param position of the player at the beginning of the game
+	 * @param state    of the player at the beginning of the game
 	 */
-	public PlayerImpl(int playerID) {
+	public PlayerImpl(int playerID, String name, Double balance, Integer position, States state) {
+		super();
 		this.playerID = playerID;
+		this.name = name;
+		this.balance = balance;
+		this.position = position;
+		this.state = state;
 	}
 
 	@Override
@@ -62,11 +120,6 @@ public class PlayerImpl implements Player {
 	@Override
 	public String getName() {
 		return name;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override

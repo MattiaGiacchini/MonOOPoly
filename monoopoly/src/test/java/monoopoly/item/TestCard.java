@@ -161,6 +161,43 @@ public class TestCard {
 		
 	}
 
+	@Test
+	public void statusEffect() {
+		card = new StatusEffect.Builder()
+							   .cardToDecore(card)
+							   .maintainable(false)
+							   .goToJail(true)
+							   .exitFromJail(false)
+							   .build();
+		assertTrue(card.mustThePlayerGoToJail());
+		assertFalse(card.canThePlayerExitFromJail());
+		assertFalse(card.isThisCardMaintainable());
+
+		card = new StatusEffect.Builder()
+							   .cardToDecore(card)
+							   .maintainable(true)
+							   .goToJail(false)
+							   .exitFromJail(true)
+							   .build();
+		assertFalse(card.mustThePlayerGoToJail());
+		assertTrue(card.canThePlayerExitFromJail());
+		assertTrue(card.isThisCardMaintainable());
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private boolean doubleEqualsWithTollerance(Double a, Double b) {
 		return Math.abs(a-b) < Math.pow(10, -7);
 	}

@@ -1,6 +1,8 @@
-package monoopoly.view;
+package monoopoly.view.utilities;
 
+import javafx.event.Event;
 import javafx.scene.layout.GridPane;
+import monoopoly.model.item.Tile;
 
 public interface ViewUtilities {
 
@@ -21,5 +23,12 @@ public interface ViewUtilities {
 	 * @param pane the board gridPane
 	 */
 	public void initializeBoard(GridPane pane);
+
+	/**
+	 * This method shows a popUp to confirm the exit
+	 * 
+	 * @param event
+	 */
+	public void closeApp(Event event);
 
 }

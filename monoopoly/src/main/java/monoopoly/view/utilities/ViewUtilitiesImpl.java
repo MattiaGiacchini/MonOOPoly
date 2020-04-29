@@ -54,10 +54,10 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 		closeConfirmation.initModality(Modality.APPLICATION_MODAL);
 
 		Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
-		if (!ButtonType.OK.equals(closeResponse.get())) {
-			event.consume();
-		} else {
+		if (ButtonType.OK.equals(closeResponse.get())) {
 			Platform.exit();
+		} else {
+			event.consume();
 		}
 
 	};

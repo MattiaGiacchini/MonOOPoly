@@ -2,20 +2,20 @@ package monoopoly.model.item.card;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Stream;
-
 import com.google.common.collect.Maps;
 
 public class MoneyEffect extends AbstractCardDecorator {
 	
-	private Optional<Map<Integer,Double>> valueToApplyOnPlayersBalance;
- 	private Optional<Double> ValueToApplyOnBankBalance;
+	private static final Double ZERO_VALUE = 0.0;
 	
-	public static class Builder {
+	private Optional<Map<Integer, Double>> valueToApplyOnPlayersBalance;
+	
+ 	public static class Builder {
 		private Card cardToDecore;
+		private Integer idDrawer;
+		private Map<Integer,Double> ActualPlayersBalance;
 		private Optional<Double>  playerToOthers;
 		private Optional<Double>  playerToBank;
 		private Optional<Double>  playerValueHouseToBank;
@@ -29,6 +29,8 @@ public class MoneyEffect extends AbstractCardDecorator {
 		public Builder() {
 			super();
 			this.cardToDecore 		 	= null;
+			this.idDrawer 				= null;
+			this.ActualPlayersBalance	= null;
 			this.playerToOthers 	 	= Optional.empty();
 			this.playerToBank 		 	= Optional.empty();
 			this.playerValueHouseToBank = Optional.empty();
@@ -46,36 +48,51 @@ public class MoneyEffect extends AbstractCardDecorator {
 			return this;
 		}
 		
-		public Builder ExchangePlayerToOthers(Double value) {
+		public Builder idDrawer(Integer value) {
+			Objects.requireNonNull(value, "the IdDrawer cannot has a null value");
+			this.idDrawer = value;
+			return this;
+		}
+		
+		public Builder actualPlayersBalance(Map<Integer,Double> map){
+			Objects.requireNonNull(map, "the IdDrawer cannot has a null value");
+			for(Double value : map.values()) {
+				this.doubleChecker(value);
+			}
+			this.ActualPlayersBalance = map;
+			return this;
+		}		
+		
+		public Builder exchangePlayerToOthers(Double value) {
 			this.doubleChecker(value);
 			this.playerToOthers = Optional.ofNullable(value);
 			return this;
 		}
 		
-		public Builder ExchangePlayerToBank(Double value) {
+		public Builder exchangePlayerToBank(Double value) {
 			this.doubleChecker(value);
 			this.playerToBank = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder ExchangeValueHouseToBank(Double value) {
+		public Builder exchangeValueHouseToBank(Double value) {
 			this.doubleChecker(value);
 			this.playerValueHouseToBank = Optional.ofNullable(value);
 			return this;
 		}
 		
-		public Builder ExchangeValueHotelToBank(Double value) {
+		public Builder exchangeValueHotelToBank(Double value) {
 			this.doubleChecker(value);
 			this.playerValueHotelToBank = Optional.ofNullable(value);
 			return this;
 		}
 		
-		public Builder PlayerNumberOfHouse(Integer value) {
+		public Builder playerNumberOfHouse(Integer value) {
 			this.playerNumberHouse = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder PlayerNumberOfHotel(Integer value) {
+		public Builder playerNumberOfHotel(Integer value) {
 			this.playerNumberHotel = Optional.ofNullable(value);
 			return this;
 		}
@@ -99,15 +116,17 @@ public class MoneyEffect extends AbstractCardDecorator {
 		
 		public MoneyEffect build() {
 			if((this.makeTheAvarage == true || 
-					this.allToBank.isPresent() ||
-					this.playerToBank.isPresent() ||
-					this.playerToOthers.isPresent() ||
-					this.allToBankPercentage.isPresent() ||
-					( this.playerNumberHotel.isPresent() &&
-					  this.playerNumberHouse.isPresent() &&
-					  this.playerValueHouseToBank.isPresent() &&
-					  this.playerValueHotelToBank.isPresent())) &&
-			   !Objects.isNull(cardToDecore)) {
+				this.allToBank.isPresent() ||
+				this.playerToBank.isPresent() ||
+				this.playerToOthers.isPresent() ||
+				this.allToBankPercentage.isPresent() ||
+				( this.playerNumberHotel.isPresent() &&
+				  this.playerNumberHouse.isPresent() &&
+				  this.playerValueHouseToBank.isPresent() &&
+				  this.playerValueHotelToBank.isPresent())) &&
+			   !Objects.isNull(this.cardToDecore) &&
+			   !Objects.isNull(this.idDrawer) && 
+			   !Objects.isNull(this.ActualPlayersBalance)) {
 				return new MoneyEffect(this);
 			}
 			throw new IllegalStateException("Wrong build sequence");
@@ -122,44 +141,38 @@ public class MoneyEffect extends AbstractCardDecorator {
 		}
 	}
 	
-	private MoneyEffect(Builder builder) {
+	private MoneyEffect(final Builder builder) {
 		super(builder.cardToDecore);
 
-		Map<Integer,Double> copyActPlayersBal = Maps.newHashMap(super.getActualPlayersBalance());
+		Map<Integer,Double> copyActPlayersBal = Maps.newHashMap(builder.ActualPlayersBalance);
 		Integer numPlayers = copyActPlayersBal.size();
-		Integer idPlayerDrawer = super.getIdPlayerWhoHasDrow();
-		Stream<Entry<Integer,Double>> streamActPlayerBal = copyActPlayersBal.entrySet().stream();
-		Map<Integer,Double> resultPlayer;
-		Double resultBank = super.getActualBankBalance();
-
 		
-		// apply the last variation to players balance
-		Optional<Map<Integer,Double>> variationToApply = super.getValueToApplyOnPlayersBalance();
-		if(variationToApply.isPresent()) {
-			streamActPlayerBal = streamActPlayerBal.peek(x->x.setValue(x.getValue() + variationToApply.get().get(x.getKey())));
-		}
-		 
-		// apply the last variation to bank balance
-		if(super.getValueToApplyOnBankBalance().isPresent()) {
-			resultBank = resultBank + super.getValueToApplyOnBankBalance().get();
+		Map<Integer,Double> result = new HashMap<>();
+		copyActPlayersBal.keySet().forEach(x->result.put(x, MoneyEffect.ZERO_VALUE));
+
+		if(super.getValueToApplyOnPlayersBalance().isPresent()) {
+			super.getValueToApplyOnPlayersBalance().get().entrySet().stream().forEach(el->{
+				if(!result.get(el.getKey()).equals(el.getValue())){
+					result.put(el.getKey(), el.getValue());
+				}
+				
+			});
 		}
 		
 		// generate the value 		
 		if(builder.playerToOthers.isPresent()) {
-			streamActPlayerBal = streamActPlayerBal.peek(x->{
-																if(x.getKey() == idPlayerDrawer) {
-																	x.setValue(x.getValue() - builder.playerToOthers.get() * (numPlayers - 1));
-																} else {
-																	x.setValue(x.getValue() + builder.playerToOthers.get());
-																}
-															});
-		} else if(builder.playerToBank.isPresent()) {
-			streamActPlayerBal = streamActPlayerBal.peek(x->{
-															if(x.getKey() == idPlayerDrawer) {
-																x.setValue(x.getValue() - builder.playerToBank.get());
-															}});	
-			resultBank = resultBank + builder.playerToBank.get();
+			result.entrySet().forEach(el->{
+				if(el.getKey().equals( builder.idDrawer)) {
+					result.put(el.getKey(), el.getValue() - ((numPlayers - 1) * builder.playerToOthers.get()));
+				} else {
+					result.put(el.getKey(), el.getValue() + builder.playerToOthers.get());
+				}
+			});
 			
+		} else if(builder.playerToBank.isPresent()) {
+			Double el = result.get(builder.idDrawer);
+			result.put(builder.idDrawer, (el - builder.playerToBank.get()));
+
 		} else if(builder.playerValueHotelToBank.isPresent() &&
 				  builder.playerValueHouseToBank.isPresent() &&
 				  builder.playerNumberHotel.isPresent() &&
@@ -168,62 +181,42 @@ public class MoneyEffect extends AbstractCardDecorator {
 					 			builder.playerNumberHotel.get() +
 								builder.playerValueHouseToBank.get() * 
 								builder.playerNumberHouse.get();
-			streamActPlayerBal = streamActPlayerBal.peek(x->{
-														if(x.getKey() == idPlayerDrawer) {
-															x.setValue(x.getValue() - moneyToPay);
-														}});	
-			resultBank = resultBank + moneyToPay; 
+			Double el = result.get(builder.idDrawer);
+			result.put(builder.idDrawer, el - moneyToPay);
 			 
 		} else if (builder.allToBank.isPresent()) {
-			resultBank = resultBank + builder.allToBank.get() * numPlayers;
-			streamActPlayerBal = streamActPlayerBal.peek(x->x.setValue(x.getValue() - builder.allToBank.get()));
+			result.entrySet().forEach(el->{
+				result.put(el.getKey(), el.getValue() - builder.allToBank.get());
+			});
 			
 		} else if (builder.allToBankPercentage.isPresent()) { 
-			resultPlayer = streamActPlayerBal.collect(()->new HashMap<Integer,Double>(),
-					   								  (map,el)->map.put(el.getKey(), el.getValue()),
-					   								  (map1,map2)->map1.putAll(map2));
+			copyActPlayersBal.entrySet().forEach(el->{
+				copyActPlayersBal.put(el.getKey(), result.get(el.getKey())+el.getValue());
+			});
 			
-			for(Entry<Integer,Double> entry : resultPlayer.entrySet()) { 
-				resultBank += (entry.getValue() * builder.allToBankPercentage.get());
-				resultPlayer.put(entry.getKey() ,entry.getValue() * (1 - builder.allToBankPercentage.get()));
-			}
+			result.entrySet().forEach(el->{
+				result.put(el.getKey(), 
+						   el.getValue() - (copyActPlayersBal.get(el.getKey()) * builder.allToBankPercentage.get()));
+			});
 			
-			streamActPlayerBal = resultPlayer.entrySet().stream();
+		} else if (builder.makeTheAvarage) {			 
+			copyActPlayersBal.entrySet().forEach(el->{
+				copyActPlayersBal.put(el.getKey(), result.get(el.getKey())+el.getValue());
+			});
 			
-		} else if (builder.makeTheAvarage) {			
-			resultPlayer = streamActPlayerBal.collect(
-												   ()->new HashMap<Integer,Double>(),
-												   (map,el)->map.put(el.getKey(), el.getValue()),
-												   (map1,map2)->map1.putAll(map2));
-			 
-			Double avarage = resultPlayer.entrySet().stream().mapToDouble(x->(Double)x.getValue()).average().getAsDouble();
-			for(Entry<Integer,Double> entry : resultPlayer.entrySet()) {
-				resultPlayer.put(entry.getKey(), avarage - entry.getValue() + entry.getValue() );
-			}
-			
-			streamActPlayerBal = resultPlayer.entrySet().stream();
+			Double avarage = copyActPlayersBal.entrySet().stream().mapToDouble(x->(Double)x.getValue()).average().getAsDouble();
+
+			result.entrySet().forEach(el->{
+				result.put(el.getKey(), (avarage - copyActPlayersBal.get(el.getKey())) + el.getValue());
+			}); 
 			
 		}
 		
-		resultPlayer = streamActPlayerBal.collect(()->new HashMap<Integer,Double>(),
-		 		  				 			      (map,el)->map.put(el.getKey(), el.getValue()),
-		 		  				 			      (map1,map2)->map1.putAll(map2));
-		
-		if(resultPlayer.entrySet().stream().allMatch(x-> this.doubleEqualsWithTollerance(super.getActualPlayersBalance().get(x.getKey()), x.getValue()))) {
+		if(result.entrySet().stream()
+							.allMatch(x-> this.doubleEqualsWithTollerance(x.getValue(), MoneyEffect.ZERO_VALUE))) {
 			this.valueToApplyOnPlayersBalance = Optional.empty();
 		} else {
-			for(Entry<Integer,Double> entry : resultPlayer.entrySet()) {
-				resultPlayer.put(entry.getKey(), entry.getValue()-super.getActualPlayersBalance().get(entry.getKey()));
-			}
-			this.valueToApplyOnPlayersBalance = Optional.of(resultPlayer);
-		}
-
-		
-		if(this.doubleEqualsWithTollerance(resultBank, super.getActualBankBalance())) {
-			this.ValueToApplyOnBankBalance = Optional.empty();
-		} else {
-			resultBank = resultBank  - super.getActualBankBalance();
-			this.ValueToApplyOnBankBalance = Optional.of(resultBank);
+			this.valueToApplyOnPlayersBalance = Optional.of(result);
 		}
 		
 	}
@@ -232,12 +225,6 @@ public class MoneyEffect extends AbstractCardDecorator {
 	public Optional<Map<Integer, Double>> getValueToApplyOnPlayersBalance() {
 		return this.valueToApplyOnPlayersBalance;
 	}
-
-	@Override
-	public Optional<Double> getValueToApplyOnBankBalance() {
-		return this.ValueToApplyOnBankBalance;	
-	}
-
 	
 	private boolean doubleEqualsWithTollerance(Double a, Double b) {
 		return Math.abs(a-b) < Math.pow(10, -6);

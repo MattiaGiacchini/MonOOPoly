@@ -21,7 +21,7 @@ public class TestCard {
 	Card card;
 	Integer numberCard ;
 	Map<Integer,Double> playersBalance;
-	Integer idDrower;
+	Integer idDrawer;
 	Double bankValue;
 	Map<Integer,Integer> playersPosition;
 	Tile.Category originDeck;
@@ -34,7 +34,7 @@ public class TestCard {
 		numberCard = 10;
 		originDeck = Tile.Category.CALAMITY;
 		String description = "vai in prigione senza passare dal via!";
-		idDrower = 3;
+		idDrawer = 3;
 		playersBalance = new HashMap<>();
 		bankValue = 9000.0;
 		playersPosition = new HashMap<>();
@@ -45,22 +45,18 @@ public class TestCard {
 		});
 
 		card = new CardImpl.Builder()
-						   .cardNumber(numberCard)			// io
-						   .description(description)		// io
-						   .originDeck(originDeck)			// io
-						   .idPlayerWhoHasDraw(idDrower)			// aiman
-						   .actualPlayersBalance(playersBalance)	// aiman
-						   .actualPlayersPosition(playersPosition)	// aiman
-						   .actualBankBalance(bankValue)			// aiman
+						   .cardNumber(numberCard)
+						   .description(description)
+						   .originDeck(originDeck)
 						   .build();
-		
+
+		assertFalse(card.mustThePlayerGoToJail());
+		assertFalse(card.isThisCardMaintainable());
+		assertFalse(card.canThePlayerExitFromJail());
 		assertEquals(card.getCardNumber(),					numberCard);
 		assertEquals(card.getDescription(), 				description);
 		assertEquals(card.getOriginDeck(), 					originDeck);
 		assertEquals(card.getMoveToPosition(), 				Optional.empty());
-		assertEquals(card.getValueToApplyOnBankBalance(), 	Optional.empty());
-		assertFalse(card.mustThePlayerGoToJail());
-		assertFalse(card.canThePlayerExitFromJail());
 		assertEquals(card.getNumberOfBuildingsToRemove(),	Optional.empty());
 	}
 
@@ -68,27 +64,30 @@ public class TestCard {
 	public void moneyEffect() {
 		card = new MoneyEffect.Builder()
 							  .cardToDecore(card)
+							  .idDrawer(idDrawer)
+							  .actualPlayersBalance(playersBalance)
 							  .exchangeAllToBank(10.0)
 							  .build();
-		assertEquals(card.getValueToApplyOnBankBalance().get(), 80.0);
 		for(Entry<Integer,Double> entry : card.getValueToApplyOnPlayersBalance().get().entrySet()) {
 			assertTrue(this.doubleEqualsWithTollerance(entry.getValue(), -10.0));
 		}
 
 		card = new MoneyEffect.Builder()
 							  .cardToDecore(card)
+							  .idDrawer(idDrawer)
+							  .actualPlayersBalance(playersBalance)
 							  .exchangeAllToBank(-10.0)
 							  .build();
-		assertTrue(card.getValueToApplyOnBankBalance().isEmpty());
 		assertTrue(card.getValueToApplyOnPlayersBalance().isEmpty());
 
 		card = new MoneyEffect.Builder()
 							  .cardToDecore(card)
-							  .ExchangePlayerToOthers(10.0)
+							  .idDrawer(idDrawer)
+							  .actualPlayersBalance(playersBalance)
+							  .exchangePlayerToOthers(10.0)
 							  .build();
-		assertTrue(card.getValueToApplyOnBankBalance().isEmpty());
 		for(Entry<Integer,Double> entry : card.getValueToApplyOnPlayersBalance().get().entrySet()) {
-			if(entry.getKey() == this.idDrower) {
+			if(entry.getKey() == this.idDrawer) {
 				assertTrue(this.doubleEqualsWithTollerance(entry.getValue(), -10.0*(this.playersBalance.size() - 1)));
 			} else {
 				assertTrue(this.doubleEqualsWithTollerance(entry.getValue(), 10.0)); 
@@ -97,64 +96,70 @@ public class TestCard {
 		
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .ExchangePlayerToOthers(-10.0)
+				  .exchangePlayerToOthers(-10.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		assertTrue(card.getValueToApplyOnBankBalance().isEmpty());
 		assertTrue(card.getValueToApplyOnPlayersBalance().isEmpty());
 		
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .ExchangePlayerToBank(1500.0)
+				  .exchangePlayerToBank(1500.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnBankBalance().get(), 1500.0));
-		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnPlayersBalance().get().get(this.idDrower), -1500.0));
+		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnPlayersBalance().get().get(this.idDrawer), -1500.0));
 
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .ExchangePlayerToBank(-1500.0)
+				  .exchangePlayerToBank(-1500.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		assertTrue(card.getValueToApplyOnBankBalance().isEmpty());
 		assertTrue(card.getValueToApplyOnPlayersBalance().isEmpty());
 
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .PlayerNumberOfHouse(4)
-				  .PlayerNumberOfHotel(4)
-				  .ExchangeValueHouseToBank(10.0)
-				  .ExchangeValueHotelToBank(10.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
+				  .playerNumberOfHouse(4)
+				  .playerNumberOfHotel(4)
+				  .exchangeValueHouseToBank(10.0)
+				  .exchangeValueHotelToBank(10.0)
 				  .build();
-		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnBankBalance().get(), 80.0));
-		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnPlayersBalance().get().get(this.idDrower), -80.0));
+		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnPlayersBalance().get().get(this.idDrawer), -80.0));
 
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .PlayerNumberOfHouse(4)
-				  .PlayerNumberOfHotel(4)
-				  .ExchangeValueHouseToBank(-10.0)
-				  .ExchangeValueHotelToBank(-10.0)
+				  .playerNumberOfHouse(4)
+				  .playerNumberOfHotel(4)
+				  .exchangeValueHouseToBank(-10.0)
+				  .exchangeValueHotelToBank(-10.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		assertTrue(card.getValueToApplyOnBankBalance().isEmpty());
 		assertTrue(card.getValueToApplyOnPlayersBalance().isEmpty());
 
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
-				  .exchangeAllToBankPercentage(0.1)
+				  .exchangeAllToBankPercentage(10.0/100.0)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		
-		testDoubleValue = 0.0;
 		for(Entry<Integer,Double> entry : card.getValueToApplyOnPlayersBalance().get().entrySet()) {
-			assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnPlayersBalance().get().get(entry.getKey()),  
+			assertTrue(this.doubleEqualsWithTollerance(
+					   card.getValueToApplyOnPlayersBalance().get().get(entry.getKey()),  
 					   this.playersBalance.get(entry.getKey())*-0.1));
-			testDoubleValue += this.playersBalance.get(entry.getKey())*0.1;
 		}
-		assertTrue(this.doubleEqualsWithTollerance(card.getValueToApplyOnBankBalance().get(), testDoubleValue ));
 		
 		card = new MoneyEffect.Builder()
 				  .cardToDecore(card)
 				  .makeTheAvaragePlayersBalance(true)
+				  .idDrawer(idDrawer)
+				  .actualPlayersBalance(playersBalance)
 				  .build();
-		testDoubleValue = card.getValueToApplyOnPlayersBalance().get().get(this.idDrower)
-				    + this.playersBalance.get(this.idDrower);		
+		testDoubleValue = card.getValueToApplyOnPlayersBalance().get().get(this.idDrawer)
+				    + this.playersBalance.get(this.idDrawer);		
 		for(Entry<Integer,Double> entry : card.getValueToApplyOnPlayersBalance().get().entrySet()) {
 			assertTrue(this.doubleEqualsWithTollerance(entry.getValue() + this.playersBalance.get(entry.getKey()), testDoubleValue));
 		}

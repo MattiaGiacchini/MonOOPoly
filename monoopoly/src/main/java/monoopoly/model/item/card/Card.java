@@ -42,7 +42,7 @@ public interface Card {
 	/**
 	 * this method is used to get the 
 	 * variation to apply on every 
-	 * player's Balance 
+	 * player's Balance
 	 * 
 	 * @return if the card hasn't effect on 
 	 *  the various balances it will return an
@@ -54,20 +54,6 @@ public interface Card {
 	 */		
 	public Optional<Map<Integer,Double>> 
 	   getValueToApplyOnPlayersBalance();
-	
-	/**
-	 * this method is used to get the 
-	 * variation to apply on the Bank 
-	 * Balance
-	 * 
-	 * @return if the card hasn't effect on 
-	 *  the Bank balance it will return an
-	 *  {@link Optional.Empty()}, otherwise it
-	 *  will return an {@link Optional}<{@link Double}>
-	 *  to apply on bank's Balance
-	 */
-	public Optional<Double> 
-	   getValueToApplyOnBankBalance();
 	
 	/**
 	 * This method is used to know if this

@@ -20,14 +20,6 @@ public interface PlayerViewController {
 	void updateCurrentPlayer(final String name, final Double balance);
 
 	/**
-	 * This method updates all the player's balances
-	 * 
-	 * @param positions a Map containing player identifier and its position on the
-	 *                  board
-	 */
-	void updatePlayerPosition(final Map<Integer, Integer> positions);
-
-	/**
 	 * This method sets the player's names on the beginning of the game
 	 *
 	 * @param names a map of all the players' names

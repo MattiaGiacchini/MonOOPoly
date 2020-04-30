@@ -11,7 +11,7 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="224.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.TileInfoControllerImpl">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+      <AnchorPane fx:id="myProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
          <children>
             <VBox alignment="CENTER" layoutX="-23.0" layoutY="79.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -43,7 +43,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+      <AnchorPane fx:id="ownedProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
          <children>
             <VBox alignment="CENTER" layoutX="-23.0" layoutY="79.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -82,9 +82,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+      <AnchorPane fx:id="freeProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
          <children>
-            <VBox alignment="CENTER" layoutX="-23.0" layoutY="79.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="457.0" prefWidth="214.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>

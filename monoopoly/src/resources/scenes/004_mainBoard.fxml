@@ -55,14 +55,7 @@
                   <Insets right="20.0" />
                </padding>
                <center>
-                  <AnchorPane maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <fx:include fx:id="tileInfo" source="tileInfo.fxml" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="TOP_CENTER" />
-                     </children>
-                     <BorderPane.margin>
-                        <Insets top="50.0" />
-                     </BorderPane.margin>
-                  </AnchorPane>
+                  <fx:include fx:id="tileInfo" source="tileInfo.fxml" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children></AnchorPane>

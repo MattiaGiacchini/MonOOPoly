@@ -8,6 +8,8 @@ import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player_manager.TurnManager;
 import monoopoly.controller.player_manager.TurnManagerImpl;
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
@@ -168,7 +170,8 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void useCard() {
-		Tile tile = this.table.getTile(/*posizione presa con un getter da Matti*/);
+		Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())								   
+									   								    .getPlayer().getPosition());
 		Map<Integer, Double> balance = new HashMap<>();
 		Map<Integer, Integer> position = new HashMap<>();
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
@@ -201,7 +204,8 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
-			//TODO
+			this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
+											 .getPlayer().setState(monoopoly.utilities.States.PRISONED);
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
 			//TODO (la carta andrà nelle proprieta del giocatore
@@ -209,11 +213,11 @@ public class GameEngineImpl implements GameEngine {
 		else if (effect == monoopoly.game_engine.CardEffect.RELATIVE_MOVE) {
 			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-				for (PlayerManager pM: this.turnManager.getPlayersList()) {
-					if (pM.getPlayer().getID() == entry.getKey()) {
-						pM.getPlayer().setPosition(pM.getPlayer().getPosition() + entry.getValue());
-					}
-				}
+				Integer currentPos = this.turnManager.getPlayersList().get(entry.getKey())
+																	  .getPlayer().getPosition();
+				this.turnManager.getPlayersList()
+				.get(entry.getKey())
+				.getPlayer().setPosition(currentPos + entry.getValue());
 			}
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE) {
@@ -227,7 +231,13 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS) {
-			
+			Map<Integer, Integer> map = card.getNumberOfBuildingsToRemove().get();
+			for (Map.Entry<Integer, Integer> entry: map.entrySet()){
+				Property tileDet = (Property) this.table.getTile(entry.getKey());
+				for (int i=0; i<entry.getValue(); i++) {
+					tileDet.sellBuilding();
+				}
+			}
 		}
 
 

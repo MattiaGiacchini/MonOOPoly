@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,6 +8,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -24,29 +23,9 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css">
+      <AnchorPane prefHeight="200.0" prefWidth="244.0" stylesheets="@main.css">
          <children>
             <BorderPane prefHeight="1280.0" prefWidth="384.0" stylesheets="@main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@main.css" BorderPane.alignment="CENTER" />
-               </center>
-               <top>
-                  <VBox alignment="CENTER_LEFT" prefHeight="117.0" prefWidth="480.0" spacing="20.0" style="-fx-background-color: white;" stylesheets="@main.css" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label fx:id="currentPlayer" layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font></Label>
-                        <Label fx:id="currentPlayerBalance" layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label">
-                           <font>
-                              <Font name="System Bold" size="20.0" />
-                           </font></Label>
-                     </children>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </VBox>
-               </top>
                <bottom>
                   <HBox alignment="CENTER" prefHeight="129.0" prefWidth="480.0" spacing="20.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
@@ -69,253 +48,32 @@
                      </padding>
                   </HBox>
                </bottom>
+               <top>
+                  <fx:include source="currentPlayer.fxml" />
+               </top>
                <padding>
                   <Insets right="20.0" />
                </padding>
+               <center>
+                  <AnchorPane maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <fx:include source="tileInfo.fxml" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="TOP_CENTER" />
+                     </children>
+                     <BorderPane.margin>
+                        <Insets top="50.0" />
+                     </BorderPane.margin>
+                  </AnchorPane>
+               </center>
             </BorderPane>
          </children></AnchorPane>
-      <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1">
+      <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <children>
-            <Canvas height="1080.0" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <GridPane fx:id="gridPane" alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <!-- Created Board game grid 11x11 -->
-              <columnConstraints>
-                <!-- columns -->
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <!-- rows -->
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+            <Pane layoutX="197.0" layoutY="117.0" AnchorPane.bottomAnchor="503.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="197.0" AnchorPane.topAnchor="117.0">
                <children>
-                <!-- These are 40 buttons relative to the board cells -->
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="red-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="yellow-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="0">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="lightblue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="brown-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="9" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="10">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-
-
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="orange-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="pink-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="9">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="1">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="2">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="3">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="green-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="4">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="station" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="5">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="6">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="7">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="8">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-                 <Button id="blue-properties" alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="9">
-                     <stylesheets>
-                        <URL value="@board.css" />
-                        <URL value="@main.css" />
-                     </stylesheets></Button>
-
+                  <fx:include source="dices.fxml" />
                </children>
-            </GridPane>
+            </Pane>
+            <fx:include prefHeight="720.0" prefWidth="705.0" source="board.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
       <AnchorPane prefHeight="1280.0" prefWidth="171.0" GridPane.columnIndex="2">
          <children>
@@ -348,123 +106,6 @@
                      </children>
                   </VBox>
                </top>
-               <center>
-                  <VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
-                     <children>
-                        <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName0" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance0" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                        </HBox>
-                        <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName1" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance1" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox id="player2" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName2" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance2" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox id="player3" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName3" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance3" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox id="player4" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName4" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance4" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox id="player5" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="70.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
-                           <children>
-                              <Label fx:id="playerName5" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                              <Label fx:id="playerBalance5" stylesheets="@main.css" text="Label">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font></Label>
-                           </children>
-                           <padding>
-                              <Insets left="70.0" />
-                           </padding>
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="30.0" left="20.0" top="40.0" />
-                     </padding>
-                  </VBox>
-               </center>
                <padding>
                   <Insets bottom="30.0" left="20.0" top="30.0" />
                </padding>
@@ -480,7 +121,10 @@
                         <Insets right="20.0" top="20.0" />
                      </padding>
                   </VBox>
-               </bottom></BorderPane>
+               </bottom>
+               <center>
+                  <fx:include source="playerInfo.fxml" />
+               </center></BorderPane>
          </children></AnchorPane>
    </children>
 </GridPane>

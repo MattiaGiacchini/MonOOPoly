@@ -1,15 +1,18 @@
 package monoopoly.view.controller;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class DiceViewControllerImpl implements DiceViewController {
+public class DiceViewControllerImpl implements DiceViewController, Initializable {
 
 	@FXML
 	private ImageView dice1;
@@ -45,8 +48,8 @@ public class DiceViewControllerImpl implements DiceViewController {
 	 * @param dice2
 	 */
 	private void updateNormalDices(int dice1, int dice2) {
-		this.dice1.setImage(new Image("/dices/dice" + dice1 + ".png"));
-		this.dice2.setImage(new Image("/dices/dice" + dice2 + ".png"));
+		this.dice1.setImage(new Image(getClass().getResourceAsStream("/dices/dice" + dice1 + ".png")));
+		this.dice2.setImage(new Image(getClass().getResourceAsStream("/dices/dice" + dice2 + ".png")));
 	}
 
 	/**
@@ -59,6 +62,7 @@ public class DiceViewControllerImpl implements DiceViewController {
 		if (dice3.isEmpty()) {
 			this.swapImages();
 		} else {
+
 			if (dice3.get() <= 3) {
 				speedyDice = dice3.get().toString();
 			} else if (dice3.get() == 6) {
@@ -66,7 +70,8 @@ public class DiceViewControllerImpl implements DiceViewController {
 			} else {
 				speedyDice = "Bus";
 			}
-			this.dice3.setImage(new Image("/dices/dice" + speedyDice + ".png"));
+
+			this.dice3.setImage(new Image(this.getClass().getResourceAsStream("/dices/dice" + speedyDice + ".png")));
 		}
 	}
 
@@ -76,6 +81,11 @@ public class DiceViewControllerImpl implements DiceViewController {
 	private void swapImages() {
 		this.dice3.setImage(this.dice2.getImage());
 		this.dice2.setImage(null);
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
 	}
 
 }

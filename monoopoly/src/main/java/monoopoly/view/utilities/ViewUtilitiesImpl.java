@@ -25,11 +25,10 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 
 	@Override
 	public int getBoardPosition(int x, int y, int totCells) {
-
 		if (x == 0 || y == totCells / 4) {
-			return totCells / 2 - (x + y);
+			return (totCells / 2) - (x + y);
 		} else {
-			return totCells / 2 + (x + y);
+			return (totCells / 2) + (x + y);
 		}
 	}
 

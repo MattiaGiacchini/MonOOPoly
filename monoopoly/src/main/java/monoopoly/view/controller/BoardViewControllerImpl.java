@@ -41,7 +41,7 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	public void cellButtonPressed(ActionEvent event) {
 		Button myButton = (Button) event.getSource();
 		int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(myButton), GridPane.getRowIndex(myButton),
-				this.gridPane.getRowCount() + this.gridPane.getColumnCount() - 2);
+				(this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
 		System.out.println("\t " + index);
 		System.out.println(this.utilities.getCoords(index, gridPane));
 	}

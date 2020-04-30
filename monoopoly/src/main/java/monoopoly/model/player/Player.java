@@ -10,7 +10,7 @@ public interface Player {
 	 * @return the unique player ID
 	 */
 	public int getID();
-	
+
 	/**
 	 * This method returns the balance of the {@link Player}
 	 * 
@@ -66,14 +66,5 @@ public interface Player {
 	 * @return player's name
 	 */
 	public String getName();
-
-	
-	/**
-	 * This method is used to set the player's name
-	 * 
-	 * @param name player's name chosen on the beginning of the game
-	 */
-	public void setName(String name);
-	
 
 }

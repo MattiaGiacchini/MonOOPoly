@@ -151,8 +151,26 @@ public class GameEngineImpl implements GameEngine {
 		this.dices = dices;
 	}
 
-	/*public PlayerManager getGameWinner() {
-		Integer current;
+	public PlayerManager getGameWinner() {
+		Integer winner = -1;
+		Double greatest = 0.0;
+		Map<Integer, Double> quotationsMap = new HashMap<>();
+		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+			pM.setTable(this.table);
+			double quotationProperties = 0;
+			for (Purchasable p: pM.getProperties()) {
+				quotationProperties = quotationProperties + p.getQuotation();
+			}
+			quotationsMap.put(pM.getPlayer().getID(), quotationProperties + pM.getPlayer().getBalance());	
+		}
+		for (Map.Entry<Integer, Double> entry: quotationsMap.entrySet()) {
+			if (entry.getValue() > greatest) {
+				winner = entry.getKey();
+			}
+		}
+		return this.turnManager.getPlayersList().get(winner);
+		
+		/*Integer current;
 		for (Map.Entry<Integer, Double> entry: this.balance.entrySet()) {
 			if (entry.getValue() > current) {
 				current = entry.getKey();
@@ -162,10 +180,10 @@ public class GameEngineImpl implements GameEngine {
 			if (pM.getPlayerManagerID() == current) {
 				return pM;
 			}
-		}*/
+		}
 		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
 				 1 : -1).get().getValue();*/
-	//}
+	}
 
 	public void useCard() {
 		Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())								   

@@ -23,12 +23,9 @@ public class CardManager {
 	
 
 	public monoopoly.game_engine.CardEffect knowCard(final Card card) {
-		if (!card.getValueToApplyOnPlayersWallet().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.TO_ALL;
-		}
-		else if (!card.getValueToApplyOnBank().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.BANK_EXCHANGE;
-		}
+		if (!card.getValueToApplyOnPlayersBalance().isEmpty()) {
+			return monoopoly.game_engine.CardEffect.MONEY_EXCHANGE;
+		}		
 		else if (card.mustThePlayerGoToJail) {
 			return monoopoly.game_engine.CardEffect.JAIL_IN;
 		}
@@ -40,7 +37,7 @@ public class CardManager {
 			return monoopoly.game_engine.CardEffect.RELATIVE_MOVE;
 		}
 		else if (!card.getAbsoluteMoveToPosition().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.RELATIVE_MOVE;
+			return monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE;
 		}
 		else if (!card.getNumberOfBuildingsToRemove().isEmpty()) {
 			return monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS;

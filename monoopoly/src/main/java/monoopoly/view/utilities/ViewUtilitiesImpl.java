@@ -88,7 +88,7 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 
 	@Override
 	public String toMoneyString(Double number) {
-		return "€\t" + this.format.format(number);
+		return "€ " + this.format.format(number);
 	}
 
 	@Override

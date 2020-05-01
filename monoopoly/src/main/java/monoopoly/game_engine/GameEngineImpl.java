@@ -89,9 +89,6 @@ public class GameEngineImpl implements GameEngine {
 		return this.turnManager.getPlayersList();
 	}
 
-	/*
-	 * Getters reachable by PlayerManager by just putting ID
-	 */
 	public String getName(final int ID) {
 		if (this.name.keySet().contains(ID)) {
 			return this.name.get(ID);
@@ -154,7 +151,7 @@ public class GameEngineImpl implements GameEngine {
 		this.dices = dices;
 	}
 
-	public PlayerManager getGameWinner() {
+	/*public PlayerManager getGameWinner() {
 		Integer current;
 		for (Map.Entry<Integer, Double> entry: this.balance.entrySet()) {
 			if (entry.getValue() > current) {
@@ -165,10 +162,10 @@ public class GameEngineImpl implements GameEngine {
 			if (pM.getPlayerManagerID() == current) {
 				return pM;
 			}
-		}
+		}*/
 		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
 				 1 : -1).get().getValue();*/
-	}
+	//}
 
 	public void useCard() {
 		Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())								   
@@ -199,7 +196,8 @@ public class GameEngineImpl implements GameEngine {
 											 .getPlayer().setState(monoopoly.utilities.States.PRISONED);
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
-			//TODO 
+			this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
+											 .getPlayer().hasPrisonCard();
 		}
 		else if (effect == monoopoly.game_engine.CardEffect.RELATIVE_MOVE) {
 			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
@@ -226,8 +224,6 @@ public class GameEngineImpl implements GameEngine {
 				}
 			}
 		}
-
-
 	}
 
 

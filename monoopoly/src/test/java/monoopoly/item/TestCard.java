@@ -24,13 +24,14 @@ public class TestCard {
 	Integer idDrawer;
 	Double bankValue;
 	Map<Integer,Integer> playersPosition;
+	Map<Integer,Integer> buildingsOnProperty;
 	Tile.Category originDeck;
 	Double testDoubleValue;
 
 	@Before
 	public void CreationASimpleCard() {
 		Random rnd = new Random();
-
+		buildingsOnProperty = new HashMap<>();
 		numberCard = 10;
 		originDeck = Tile.Category.CALAMITY;
 		String description = "vai in prigione senza passare dal via!";
@@ -44,6 +45,10 @@ public class TestCard {
 			playersPosition.put(x, x+1);
 		});
 
+		Stream.iterate(1, x->x+1).limit(20).forEach(x->{
+			this.buildingsOnProperty.put(x, rnd.nextInt(6));
+		});
+		
 		card = new CardImpl.Builder()
 						   .cardNumber(numberCard)
 						   .description(description)
@@ -163,7 +168,6 @@ public class TestCard {
 		for(Entry<Integer,Double> entry : card.getValueToApplyOnPlayersBalance().get().entrySet()) {
 			assertTrue(this.doubleEqualsWithTollerance(entry.getValue() + this.playersBalance.get(entry.getKey()), testDoubleValue));
 		}
-		
 	}
 
 	@Test
@@ -188,10 +192,20 @@ public class TestCard {
 		assertTrue(card.canThePlayerExitFromJail());
 		assertTrue(card.isThisCardMaintainable());
 	}
-	
-	
-	
-	
+
+	@Test
+	public void propertyEffect() {
+		for(int i = 0; i < 10; i ++) {
+			card = new PropertyEffect.Builder()
+									 .buildingsToModify(this.buildingsOnProperty)
+									 .cardToDecore(card)
+									 .build();
+			
+			for(Entry<Integer,Integer> entry : this.buildingsOnProperty.entrySet()) {
+				assertTrue(entry.getValue() >= card.getNumberOfBuildingsToRemove().get().get(entry.getKey()));
+			}
+		}
+	}	
 	
 	
 	

@@ -10,18 +10,87 @@ import monoopoly.utilities.States;
 public class PlayerImpl implements Player {
 
 	private final int playerID;
-	private String name;
+	private final String name;
 	private Double balance;
 	private int position;
 	private States state;
+	private boolean prisonCard = false;
+
+	public static class Builder {
+
+		private int playerID;
+		private String name;
+		private Double balance;
+		private Integer position = 0;
+		private States state = States.IN_GAME;
+		private boolean leavePrisonForFree = false;
+
+		public Builder() {
+
+		}
+
+		public Builder playerId(final int id) {
+			this.playerID = id;
+			return this;
+		}
+
+		public Builder name(final String name) {
+			this.name = name;
+			return this;
+		}
+
+		public Builder balance(final Double balance) {
+			this.balance = balance;
+			return this;
+		}
+
+		public Builder position(final int position) {
+			this.position = position;
+			return this;
+		}
+
+		public Builder state(final States state) {
+			this.state = state;
+			return this;
+		}
+
+		public Builder leavePrisonForFree(final boolean leave) {
+			this.leavePrisonForFree = leave;
+			return this;
+		}
+
+		public Player build() throws IllegalStateException {
+			// TODO
+			if (this.playerID < 0 || this.name == null || this.balance == null || this.state == null
+					|| this.position < 0) {
+				throw new IllegalStateException("Wrong player creation");
+			}
+
+			return new PlayerImpl(this.playerID, this.name, this.balance, this.position, this.state,
+					this.leavePrisonForFree);
+		}
+
+	}
 
 	/**
 	 * This method creates an instance of {@link Player} with an unique ID
 	 * 
 	 * @param playerID player unique identifier
+	 * @param name     of the player you want to create
+	 * @param balance  of the player at the beginning of the game
+	 * @param position of the player at the beginning of the game
+	 * @param state    of the player at the beginning of the game
+	 * @param leave    if the player has a collectable card that allows him to leave
+	 *                 prison for free
 	 */
-	public PlayerImpl(int playerID) {
+	public PlayerImpl(int playerID, String name, Double balance, Integer position, States state, boolean leave) {
+		super();
 		this.playerID = playerID;
+		this.name = name;
+		this.balance = balance;
+		this.position = position;
+		this.state = state;
+		this.prisonCard = leave;
 	}
 
 	@Override
@@ -65,13 +134,18 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
-	public void setName(String name) {
-		this.name = name;
+	public void updateBalance(Double value) {
+		this.balance = this.balance + value;
 	}
 
 	@Override
-	public void updateBalance(Double value) {
-		this.balance = this.balance + value;
+	public boolean hasPrisonCard() {
+		return this.prisonCard;
+	}
+
+	@Override
+	public void setPrisonCard(boolean leaveForFree) {
+		this.prisonCard = leaveForFree;
 	}
 
 	@Override
@@ -104,8 +178,8 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public String toString() {
-		return "PlayerImpl [playerID=" + playerID + ", name=" + name + ", balance=" + balance + ", position=" + position
-				+ ", state=" + state + "]";
+		return "PlayerImpl [playerID=" + this.playerID + ", name=" + this.name + ", balance=" + this.balance
+				+ ", position=" + this.position + ", state=" + this.state + ", prisonCard=" + this.prisonCard + "]";
 	}
 
 }

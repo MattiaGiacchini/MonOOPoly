@@ -2,13 +2,12 @@ package monoopoly.controller.player_manager;
 
 import java.util.Optional;
 import java.util.Set;
-import monoopoly.game_engine.*;
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
-import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 
 /**
@@ -23,36 +22,22 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
-	private GameEngine gameEngine;
+	private Table table;
 
 	/**
-	 * This constructor creates an instance of {@link PlayerMAnager}
+	 * This constructor creates an instance of {@link PlayerManager}
 	 *
-	 * @param playerManagerID
-	 * @param gameEngine
+	 * @param playerManagerID manager ID
+	 * @param player          's ID
+	 * @throws Exception if IDs are different
 	 */
-	/**
-	 * This constructor creates an instance of {@link PlayerMAnager}
-	 *
-	 * @param playerManagerID
-	 * @param gameEngine
-	 */
-	public PlayerManagerImpl(final int playerManagerID, final GameEngine gameEngine) {
-		this.playerManagerID = playerManagerID;
-		this.gameEngine = gameEngine;
-		this.player = this.createPlayer();
-		this.initializePlayer();
-	}
-
-	private Player createPlayer() {
-		return new PlayerImpl(playerManagerID);
-	}
-
-	private void initializePlayer() {
-		this.player.setName(gameEngine.getName(this.playerManagerID));
-		this.player.setBalance(gameEngine.getBalance(this.playerManagerID));
-		this.player.setPosition(gameEngine.getPosition(this.playerManagerID));
-		this.player.setState(gameEngine.getState(this.playerManagerID));
+	public PlayerManagerImpl(final int playerManagerID, final Player player) {
+		if (playerManagerID == player.getID()) {
+			this.player = player;
+			this.playerManagerID = playerManagerID;
+		} else {
+			throw new IllegalStateException("Player and manager's IDs are different");
+		}
 	}
 
 	@Override
@@ -66,6 +51,11 @@ public class PlayerManagerImpl implements PlayerManager {
 	}
 
 	@Override
+	public void setTable(final Table table) {
+		this.table = table;
+	}
+
+	@Override
 	public void movePlayer(int steps) {
 		if (!this.isInPrison()) {
 			this.goToPosition(this.nextPosition(steps));
@@ -74,7 +64,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void goToPosition(int position) {
-		if (position < this.gameEngine.getTable().getTableSize() && position >= 0) {
+		if (position < this.table.getTableSize() && position >= 0) {
 			if (!this.isInPrison()) {
 				if (this.checkGoToJail(position)) {
 					this.goToPrison();
@@ -162,10 +152,10 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return the right {@link Player}'s position
 	 */
 	private int checkOutOfBoard(int position) {
-		if (position >= this.gameEngine.getTable().getTableSize()) {
-			return position = position - this.gameEngine.getTable().getTableSize();
+		if (position >= this.table.getTableSize()) {
+			return position = position - this.table.getTableSize();
 		} else if (position < 0) {
-			return position + this.gameEngine.getTable().getTableSize();
+			return position + this.table.getTableSize();
 		} else {
 			return position;
 		}
@@ -178,16 +168,21 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @return true if i need to go to the jail
 	 */
 	private boolean checkGoToJail(int position) {
-		return this.gameEngine.getTable().getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
+		return this.table.getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
 	}
 
 	/**
 	 * This private method updates the state of the {@link Player} to "PRISONED" and
-	 * moves the {@link Player} to the prison tile
+	 * moves the {@link Player} to the prison tile. If the {@link Player} has got
+	 * the "leave prison for free" card, it will be applied.
 	 */
 	private void goToPrison() {
-		this.player.setState(States.PRISONED);
-		this.player.setPosition(this.gameEngine.getTable().getJailPosition());
+		if (this.player.hasPrisonCard()) {
+			this.player.setPrisonCard(false);
+		} else {
+			this.player.setState(States.PRISONED);
+		}
+		this.player.setPosition(this.table.getJailPosition());
 	}
 
 	@Override
@@ -197,6 +192,6 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public Set<Purchasable> getProperties() {
-		return this.gameEngine.getTable().getPurchasableTilesforSpecificPlayer(this.playerManagerID);
+		return this.table.getPurchasableTilesforSpecificPlayer(this.playerManagerID);
 	}
 }

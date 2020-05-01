@@ -1,7 +1,5 @@
 package monoopoly.view.controller;
 
-import monoopoly.view.utilities.PurchasableState;
-
 public interface TileInfoController {
 
 	/**
@@ -10,6 +8,6 @@ public interface TileInfoController {
 	 * 
 	 * @param state of the {@link Purchasable} tile
 	 */
-	public void showPropertyControlPane(PurchasableState state);
+	void showPropertyControlPane(TileInfo info);
 
 }

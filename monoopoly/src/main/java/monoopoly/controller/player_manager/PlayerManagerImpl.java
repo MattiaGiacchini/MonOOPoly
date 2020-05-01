@@ -173,10 +173,15 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	/**
 	 * This private method updates the state of the {@link Player} to "PRISONED" and
-	 * moves the {@link Player} to the prison tile
+	 * moves the {@link Player} to the prison tile. If the {@link Player} has got
+	 * the "leave prison for free" card, it will be applied.
 	 */
 	private void goToPrison() {
-		this.player.setState(States.PRISONED);
+		if (this.player.hasPrisonCard()) {
+			this.player.setPrisonCard(false);
+		} else {
+			this.player.setState(States.PRISONED);
+		}
 		this.player.setPosition(this.table.getJailPosition());
 	}
 

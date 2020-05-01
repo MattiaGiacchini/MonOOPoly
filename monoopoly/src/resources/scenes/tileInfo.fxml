@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.TileInfoControllerImpl">
    <children>
-      <VBox>
+      <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                <children>
@@ -117,6 +116,9 @@
                </children>
             </StackPane>
          </children>
+         <padding>
+            <Insets left="10.0" top="40.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

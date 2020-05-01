@@ -109,11 +109,11 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 				y = position - columns;
 			}
 		} else {
-			if (position >= totCells - columns) {
+			if (position > totCells - columns - 1) {
 				x = 0;
 				y = totCells - position;
 			} else {
-				x = totCells - rows;
+				x = totCells - position - rows;
 				y = rows;
 			}
 

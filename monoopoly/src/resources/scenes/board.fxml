@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
 
 <GridPane fx:id="gridPane" alignment="CENTER" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.BoardViewControllerImpl">
    <columnConstraints>
@@ -274,5 +275,11 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
+      <Circle fx:id="player0" fill="#ff8a65" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+      <Circle fx:id="player1" fill="#ffb74d" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+      <Circle fx:id="player2" fill="#fff176" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+      <Circle fx:id="player3" fill="#aed581" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+      <Circle fx:id="player4" fill="#4fc3f7" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+      <Circle fx:id="player5" fill="#9575cd" radius="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
    </children>
 </GridPane>

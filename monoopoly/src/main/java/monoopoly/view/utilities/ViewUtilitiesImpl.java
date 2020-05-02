@@ -1,6 +1,7 @@
 package monoopoly.view.utilities;
 
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.Optional;
 
 import javafx.application.Platform;
@@ -33,7 +34,7 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 	}
 
 	@Override
-	public void initializeBoard(GridPane pane) {
+	public void initializeBoard(GridPane pane, List<String> tileNames) {
 		int rows = pane.getRowCount();
 		int columns = pane.getColumnCount();
 
@@ -41,9 +42,7 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 			for (int j = 0; j < columns; j++) {
 				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
 					Button button = this.getChild(pane, i, j);
-					String name = table.getTile(this.getBoardPosition(j, i, (rows - 1 + columns - 1) * 2)).getName()
-							.toUpperCase();
-					button.setText(name);
+					button.setText(tileNames.get((this.getBoardPosition(j, i, (rows - 1 + columns - 1) * 2))).toUpperCase());
 				}
 			}
 		}

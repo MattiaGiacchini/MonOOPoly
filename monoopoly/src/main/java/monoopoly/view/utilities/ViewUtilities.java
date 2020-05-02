@@ -1,5 +1,7 @@
 package monoopoly.view.utilities;
 
+import java.util.List;
+
 import javafx.event.Event;
 import javafx.scene.layout.GridPane;
 import monoopoly.model.item.Tile;
@@ -11,9 +13,10 @@ public interface ViewUtilities {
 	 * This method initializes the game board setting all the names of the
 	 * {@link Tile}s
 	 * 
-	 * @param pane the board gridPane
+	 * @param pane      the board gridPane
+	 * @param tileNames list of all tile names
 	 */
-	public void initializeBoard(GridPane pane);
+	public void initializeBoard(GridPane pane, List<String> tileNames);
 
 	/**
 	 * This method shows a popUp to confirm the exit

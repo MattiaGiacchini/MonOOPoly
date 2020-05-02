@@ -1,4 +1,4 @@
-package monoopoly.view.board;
+package monoopoly.view.main;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +12,7 @@ import monoopoly.view.controller.PlayerViewControllerImpl;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
-public class MainBoardController implements Initializable {
+public class MainBoardControllerImpl implements Initializable, DeleteMe, MainBoardController {
 
 	@FXML
 	private Button rollDices;
@@ -37,10 +37,12 @@ public class MainBoardController implements Initializable {
 	}
 
 	@FXML
+	@Override
 	public void quitButtonPressed(ActionEvent event) {
 		this.utilities.closeApp(event);
 	}
 
+	@Override
 	@FXML
 	public void rollDicesButtonPressed() {
 		this.nextTurn.setDisable(false);
@@ -48,12 +50,14 @@ public class MainBoardController implements Initializable {
 	}
 
 	@FXML
+	@Override
 	public void nextTurnButtonPressed() {
 		this.nextTurn.setDisable(true);
 		this.rollDices.setDisable(false);
 	}
 
 	@FXML
+	@Override
 	public void surrenderButtonPressed() {
 		// TODO
 	}

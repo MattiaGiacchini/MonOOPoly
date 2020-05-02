@@ -1,8 +1,6 @@
-package monoopoly.view.controller;
+package monoopoly.view.utilities;
 
-import monoopoly.view.utilities.ButtonLogic;
-
-public class ButtonLogicsImpl implements ButtonLogic {
+public class ButtonLogicImpl implements ButtonLogic {
 
 	private static final int MAX_HOUSES = 5;
 

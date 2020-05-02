@@ -10,13 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
+import monoopoly.view.utilities.ButtonLogicImpl;
 import monoopoly.view.utilities.PurchasableState;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 public class TileInfoControllerImpl implements TileInfoController, Initializable {
 
-	private ButtonLogic logics = new ButtonLogicsImpl();
+	private ButtonLogic logics = new ButtonLogicImpl();
 	private ViewUtilities utilities = new ViewUtilitiesImpl();
 
 	@FXML
@@ -85,9 +86,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 * @param info
 	 */
 	private void show(final TileInfo info) {
-
 		this.propertyName.setText(info.getTileName());
-
 		if (info.getState().equals(PurchasableState.FREE_PROPERTY)) {
 			this.freePropertyButtonsLogic(info);
 		} else if (info.getState().equals(PurchasableState.MY_PROPERTY)) {
@@ -138,13 +137,15 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	private void freePropertyButtonsLogic(TileInfo info) {
 		this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
 		this.buyPurchasable
-				.setDisable(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue()));
+				.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue()));
 		this.freeProperty.toFront();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+//		this.show(new TileInfo.Builder().currentPlayerBalance(5200.00).housePrice(20.00).mortgage(false).numHouses(4)
+//				.purchasableValue(250.00).rentValue(47000.00).tileName("Parco della Vittoria")
+//				.purchasableState(PurchasableState.FREE_PROPERTY).build());
 	}
 
 }

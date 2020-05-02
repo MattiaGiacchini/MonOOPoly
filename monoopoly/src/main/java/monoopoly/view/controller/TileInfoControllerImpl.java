@@ -75,7 +75,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	private Label purchasableValue;
 
 	@Override
-	public void showPropertyControlPane(TileInfo info) {
+	public void showPropertyPane(TileInfo info) {
 		this.show(info);
 	}
 

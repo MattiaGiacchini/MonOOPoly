@@ -1,4 +1,4 @@
-package monoopoly.view;
+package monoopoly.view.utilities;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

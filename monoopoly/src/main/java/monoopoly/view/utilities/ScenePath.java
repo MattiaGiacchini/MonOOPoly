@@ -1,9 +1,7 @@
 /**
  * 
  */
-package monoopoly.view;
-
-import java.net.MalformedURLException;
+package monoopoly.view.utilities;
 
 /**
  * This enumeration contains all the scenes with their path
@@ -67,9 +65,8 @@ public enum ScenePath {
 	 * This method returns the scene's path to load
 	 * 
 	 * @return the path of the scene to load
-	 * @throws MalformedURLException
 	 */
-	public String getPath() throws MalformedURLException {
+	public String getPath() {
 		return (this.path + this.name);
 	}
 }

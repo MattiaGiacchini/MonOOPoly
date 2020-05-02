@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER_LEFT" prefHeight="117.0" prefWidth="480.0" spacing="20.0" style="-fx-background-color: white;" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.PlayerViewControllerImpl">
+   <children>
+      <Label fx:id="currentPlayer" layoutX="175.0" layoutY="40.0" stylesheets="@main.css" text="Label">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentPlayerBalance" layoutX="70.0" layoutY="40.0" stylesheets="@main.css" text="Label">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+   <padding>
+      <Insets left="30.0" />
+   </padding>
+</VBox>

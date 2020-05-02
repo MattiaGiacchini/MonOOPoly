@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane fx:id="mainBoard" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.main.MainBoardControllerImpl">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="10.0" percentWidth="20.0" prefWidth="232.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" percentWidth="55.0" prefWidth="529.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.0" minWidth="0.0" percentWidth="25.0" prefWidth="237.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="244.0" stylesheets="@main.css">
+         <children>
+            <BorderPane prefHeight="1280.0" prefWidth="384.0" stylesheets="@main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <bottom>
+                  <HBox alignment="CENTER" prefHeight="129.0" prefWidth="480.0" spacing="20.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER" spacing="20.0">
+                           <children>
+                              <Button fx:id="nextTurn" mnemonicParsing="false" onAction="#nextTurnButtonPressed" prefHeight="74.0" prefWidth="324.0" stylesheets="@main.css" text="NEXT TURN">
+                                 <font>
+                                    <Font size="30.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="surrender" minWidth="100.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" stylesheets="@main.css" text="SURRENDER" />
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
+                  </HBox>
+               </bottom>
+               <top>
+                  <fx:include fx:id="currentPlayer" source="currentPlayer.fxml" />
+               </top>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+               <center>
+                  <fx:include fx:id="tileInfo" source="tileInfo.fxml" AnchorPane.bottomAnchor="137.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children></AnchorPane>
+      <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+         <children>
+            <Pane fx:id="dice" layoutX="183.0" layoutY="129.0" prefHeight="127.0" prefWidth="338.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="129.0">
+               <children>
+                  <fx:include fx:id="dicesImage" source="dices.fxml" />
+               </children>
+            </Pane>
+            <fx:include fx:id="board" prefHeight="720.0" prefWidth="705.0" source="board.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children></AnchorPane>
+      <AnchorPane prefHeight="1280.0" prefWidth="171.0" GridPane.columnIndex="2">
+         <children>
+            <BorderPane layoutX="8.0" layoutY="-3.0" prefHeight="1080.0" prefWidth="480.0" stylesheets="@main.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <VBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <Label fx:id="timer" alignment="CENTER" minHeight="20.0" minWidth="50.0" prefHeight="80.0" prefWidth="202.0" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 6;" stylesheets="@main.css" text="30:00" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+                           </padding>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="30.0">
+                           <children>
+                              <Button mnemonicParsing="false" stylesheets="@main.css" text="SAVE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#quitButtonPressed" stylesheets="@main.css" text="QUIT">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </top>
+               <padding>
+                  <Insets bottom="30.0" left="20.0" top="30.0" />
+               </padding>
+               <bottom>
+                  <VBox alignment="CENTER" prefWidth="480.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <Button fx:id="rollDices" alignment="CENTER" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#rollDicesButtonPressed" prefHeight="150.0" prefWidth="350.0" stylesheets="@main.css" text="ROLL DICES">
+                           <font>
+                              <Font size="30.0" />
+                           </font></Button>
+                     </children>
+                     <padding>
+                        <Insets right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </bottom>
+               <center>
+                  <fx:include fx:id="playerInfo" source="playerInfo.fxml" />
+               </center></BorderPane>
+         </children></AnchorPane>
+   </children>
+</GridPane>

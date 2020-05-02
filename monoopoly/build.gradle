@@ -12,7 +12,7 @@ plugins {
     id 'java-library'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-}
+    }
 
 repositories {
     jcenter()
@@ -31,6 +31,9 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     
+   	// https://mvnrepository.com/artifact/com.github.davidmoten/word-wrap
+	implementation 'com.github.davidmoten:word-wrap:0.1.5'
+
     runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
     runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
     runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"

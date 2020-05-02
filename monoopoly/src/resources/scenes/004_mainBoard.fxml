@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.main.MainBoardControllerImpl">
+<GridPane fx:id="mainBoard" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.main.MainBoardControllerImpl">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="306.0" minWidth="10.0" percentWidth="20.0" prefWidth="232.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="740.0" minWidth="10.0" percentWidth="55.0" prefWidth="529.0" />
@@ -61,7 +61,7 @@
          </children></AnchorPane>
       <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
-            <Pane layoutX="183.0" layoutY="129.0" prefHeight="127.0" prefWidth="338.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="129.0">
+            <Pane fx:id="dice" layoutX="183.0" layoutY="129.0" prefHeight="127.0" prefWidth="338.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="129.0">
                <children>
                   <fx:include fx:id="dicesImage" source="dices.fxml" />
                </children>

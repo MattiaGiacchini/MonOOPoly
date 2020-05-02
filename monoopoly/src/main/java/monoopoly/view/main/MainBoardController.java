@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import javafx.event.ActionEvent;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile;
@@ -14,14 +13,6 @@ import monoopoly.model.player.Player;
 import monoopoly.view.controller.TileInfo;
 
 public interface MainBoardController {
-
-	void quitButtonPressed(ActionEvent event);
-
-	void rollDicesButtonPressed();
-
-	void nextTurnButtonPressed();
-
-	void surrenderButtonPressed();
 
 	/**
 	 * This method sets the game controller

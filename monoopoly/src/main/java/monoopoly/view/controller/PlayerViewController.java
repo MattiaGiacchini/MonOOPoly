@@ -26,7 +26,7 @@ public interface PlayerViewController {
 	 * @param names a map of all the players' names
 	 */
 	void setPlayerNames(final Map<Integer, String> names);
-	
+
 	/**
 	 * This method displays the player's properties
 	 * 

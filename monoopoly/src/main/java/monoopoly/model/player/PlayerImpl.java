@@ -14,14 +14,16 @@ public class PlayerImpl implements Player {
 	private Double balance;
 	private int position;
 	private States state;
+	private boolean prisonCard = false;
 
 	public static class Builder {
 
 		private int playerID;
 		private String name;
 		private Double balance;
-		private Integer position;
-		private States state;
+		private Integer position = 0;
+		private States state = States.IN_GAME;
+		private boolean leavePrisonForFree = false;
 
 		public Builder() {
 
@@ -52,6 +54,11 @@ public class PlayerImpl implements Player {
 			return this;
 		}
 
+		public Builder leavePrisonForFree(final boolean leave) {
+			this.leavePrisonForFree = leave;
+			return this;
+		}
+
 		public Player build() throws IllegalStateException {
 			// TODO
 			if (this.playerID < 0 || this.name == null || this.balance == null || this.state == null
@@ -59,7 +66,8 @@ public class PlayerImpl implements Player {
 				throw new IllegalStateException("Wrong player creation");
 			}
 
-			return new PlayerImpl(this.playerID, this.name, this.balance, this.position, this.state);
+			return new PlayerImpl(this.playerID, this.name, this.balance, this.position, this.state,
+					this.leavePrisonForFree);
 		}
 
 	}
@@ -72,14 +80,17 @@ public class PlayerImpl implements Player {
 	 * @param balance  of the player at the beginning of the game
 	 * @param position of the player at the beginning of the game
 	 * @param state    of the player at the beginning of the game
+	 * @param leave    if the player has a collectable card that allows him to leave
+	 *                 prison for free
 	 */
-	public PlayerImpl(int playerID, String name, Double balance, Integer position, States state) {
+	public PlayerImpl(int playerID, String name, Double balance, Integer position, States state, boolean leave) {
 		super();
 		this.playerID = playerID;
 		this.name = name;
 		this.balance = balance;
 		this.position = position;
 		this.state = state;
+		this.prisonCard = leave;
 	}
 
 	@Override
@@ -128,6 +139,16 @@ public class PlayerImpl implements Player {
 	}
 
 	@Override
+	public boolean hasPrisonCard() {
+		return this.prisonCard;
+	}
+
+	@Override
+	public void setPrisonCard(boolean leaveForFree) {
+		this.prisonCard = leaveForFree;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -157,8 +178,8 @@ public class PlayerImpl implements Player {
 
 	@Override
 	public String toString() {
-		return "PlayerImpl [playerID=" + playerID + ", name=" + name + ", balance=" + balance + ", position=" + position
-				+ ", state=" + state + "]";
+		return "PlayerImpl [playerID=" + this.playerID + ", name=" + this.name + ", balance=" + this.balance
+				+ ", position=" + this.position + ", state=" + this.state + ", prisonCard=" + this.prisonCard + "]";
 	}
 
 }

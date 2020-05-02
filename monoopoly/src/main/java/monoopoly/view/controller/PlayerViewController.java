@@ -1,6 +1,7 @@
 package monoopoly.view.controller;
 
 import java.util.Map;
+import java.util.Set;
 
 public interface PlayerViewController {
 
@@ -25,5 +26,12 @@ public interface PlayerViewController {
 	 * @param names a map of all the players' names
 	 */
 	void setPlayerNames(final Map<Integer, String> names);
+	
+	/**
+	 * This method displays the player's properties
+	 * 
+	 * @param properties owned by the player chosen
+	 */
+	void showPlayerProperties(Set<String> properties);
 
 }

@@ -2,6 +2,7 @@ package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -51,9 +52,6 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.utilities.initializeBoard(gridPane);
-//		this.updatePlayerPositions(
-//				IntStream.range(0, 6).boxed().collect(Collectors.toMap(Function.identity(), i -> Integer.valueOf(15))));
 
 		this.circles.put(0, player0);
 		this.circles.put(1, player1);
@@ -88,9 +86,14 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	}
 
 	@Override
-	public void updatePlayerPositions(Map<Integer, Integer> positions) {
+	public void updatePlayerPositions(final Map<Integer, Integer> positions) {
 		this.playerPositions.putAll(positions);
 		this.updatePawn();
+	}
+
+	@Override
+	public void initializeBoard(final List<String> tileNames) {
+		this.utilities.initializeBoard(gridPane, tileNames);
 	}
 
 	/**

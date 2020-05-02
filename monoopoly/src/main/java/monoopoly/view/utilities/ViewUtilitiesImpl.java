@@ -12,8 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.TableImpl;
 import monoopoly.utilities.Pair;
 
 /**
@@ -21,7 +19,6 @@ import monoopoly.utilities.Pair;
  */
 public class ViewUtilitiesImpl implements ViewUtilities {
 
-	private Table table = new TableImpl();
 	private DecimalFormat format = new DecimalFormat("0.00");
 
 	@Override
@@ -42,7 +39,8 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 			for (int j = 0; j < columns; j++) {
 				if (i == 0 || j == 0 || i == rows - 1 || j == columns - 1) {
 					Button button = this.getChild(pane, i, j);
-					button.setText(tileNames.get((this.getBoardPosition(j, i, (rows - 1 + columns - 1) * 2))).toUpperCase());
+					button.setText(
+							tileNames.get((this.getBoardPosition(j, i, (rows - 1 + columns - 1) * 2))).toUpperCase());
 				}
 			}
 		}

@@ -1,13 +1,15 @@
 package monoopoly.view.controller;
 
+import monoopoly.view.controller.TileInfo;
+
 public interface TileInfoController {
 
 	/**
 	 * This method is used to display the correct pane from stack pane according to
 	 * the property owner
 	 * 
-	 * @param state of the {@link Purchasable} tile
+	 * @param {@link TileInfo} to be displayed 
 	 */
-	void showPropertyControlPane(TileInfo info);
+	void showPropertyPane(TileInfo info);
 
 }

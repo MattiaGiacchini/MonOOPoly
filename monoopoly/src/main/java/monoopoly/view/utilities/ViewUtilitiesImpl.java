@@ -67,7 +67,7 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 			event.consume();
 		}
 
-	};
+	}
 
 	/**
 	 * This method returns the button of the gridPane passed as parameter in a

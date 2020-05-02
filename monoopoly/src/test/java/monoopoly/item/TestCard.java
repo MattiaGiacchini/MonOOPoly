@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 import org.junit.Before;
@@ -15,6 +16,7 @@ import org.junit.Test;
 
 import monoopoly.model.item.card.*;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 
 public class TestCard {
 
@@ -42,7 +44,7 @@ public class TestCard {
 
 		Stream.iterate(1, x->x+1).limit(8).forEach(x->{
 			playersBalance.put(x, Math.abs(rnd.nextDouble()*10000));
-			playersPosition.put(x, x+1);
+			playersPosition.put(x, rnd.nextInt(40));
 		});
 
 		Stream.iterate(1, x->x+1).limit(20).forEach(x->{
@@ -61,7 +63,8 @@ public class TestCard {
 		assertEquals(card.getCardNumber(),					numberCard);
 		assertEquals(card.getDescription(), 				description);
 		assertEquals(card.getOriginDeck(), 					originDeck);
-		assertEquals(card.getMoveToPosition(), 				Optional.empty());
+		assertEquals(card.getAbsoluteMoveToPosition(), 		Optional.empty());
+		assertEquals(card.getRelativeMoveToPosition(), 		Optional.empty());
 		assertEquals(card.getNumberOfBuildingsToRemove(),	Optional.empty());
 	}
 
@@ -207,15 +210,118 @@ public class TestCard {
 		}
 	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	@Test
+	public void moveEffect() {
+		
+		BiFunction<Integer,Tile.Category, Integer> biFunction = new BiFunction<Integer,Tile.Category, Integer>() {
+
+			@Override
+			public Integer apply(Integer t, Category u) {
+				return t+10;
+			}
+			
+		};
+		
+		
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToPlayer(true)
+							 .stepToDo(5)
+							 .build();
+		assertEquals(card.getRelativeMoveToPosition().get().get(idDrawer), 5);
+		assertTrue(card.getAbsoluteMoveToPosition().isEmpty());
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToOthers(true)
+							 .stepToDo(5)
+							 .build();
+		card.getRelativeMoveToPosition().get().values().forEach(x->{
+			assertEquals(5, x);
+		});
+		assertTrue(card.getAbsoluteMoveToPosition().isEmpty());
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToOthers(true)
+							 .applyToPlayer(true)
+							 .stepToDo(-5)
+							 .build();
+		assertTrue(card.getRelativeMoveToPosition().isEmpty());
+		assertTrue(card.getAbsoluteMoveToPosition().isEmpty());
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToPlayer(true)
+							 .setTileRetriverFromCategory(biFunction)
+							 .nextTileCategoryToReach(Category.CALAMITY)
+							 .build();
+		assertEquals(card.getRelativeMoveToPosition().get().get(idDrawer), 
+				  this.playersPosition.get(this.idDrawer) + 10);
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .generateRandomStep(true)
+							 .applyToOthers(true)
+							 .applyToPlayer(true)
+							 .build();
+		assertTrue(card.getRelativeMoveToPosition().isPresent());
+		assertTrue(card.getAbsoluteMoveToPosition().isEmpty());
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToPlayer(true)
+							 .tilePositionToGo(10)
+							 .build();		
+		assertEquals(10, card.getAbsoluteMoveToPosition().get().get(this.idDrawer));
+		assertTrue(card.getAbsoluteMoveToPosition().get().keySet().stream().allMatch(x->x==this.idDrawer));
+		assertTrue(card.getRelativeMoveToPosition().isEmpty());
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToOthers(true)
+							 .tilePositionToGo(10)
+							 .build();		
+		assertTrue(card.getAbsoluteMoveToPosition().get().entrySet().stream().allMatch(x->x.getValue() == 10));
+		assertTrue(card.getAbsoluteMoveToPosition().get().size() == this.playersPosition.size());
+		assertTrue(card.getRelativeMoveToPosition().isEmpty());
+
+
+		card = new MoveEffect.Builder()
+							 .cardToDecore(card)
+							 .tableSize(40)
+							 .playersPosition(playersPosition)
+							 .idDrawers(idDrawer)
+							 .applyToPlayer(true)
+							 .applyToOthers(true)
+							 .tilePositionToGo(this.playersPosition.get(idDrawer))
+							 .build();		
+		assertFalse(card.getAbsoluteMoveToPosition().get().containsKey(idDrawer));
+		assertTrue(card.getRelativeMoveToPosition().isEmpty());
+		
+	}
 	
 	private boolean doubleEqualsWithTollerance(Double a, Double b) {
 		return Math.abs(a-b) < Math.pow(10, -7);

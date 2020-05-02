@@ -99,7 +99,12 @@ public final class CardImpl implements Card {
 	}
 
 	@Override
-	public Optional<Map<Integer, Integer>> getMoveToPosition() {
+	public Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
+		return  Optional.empty();
+	}
+
+	@Override
+	public Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
 		return  Optional.empty();
 	}
 

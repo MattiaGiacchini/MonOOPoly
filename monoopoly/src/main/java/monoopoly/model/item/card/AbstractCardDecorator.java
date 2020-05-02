@@ -52,8 +52,13 @@ public abstract class AbstractCardDecorator implements Card {
 	}
 
 	@Override
-	public Optional<Map<Integer, Integer>> getMoveToPosition() {
-		return this.decoratedCard.getMoveToPosition();
+	public Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
+		return  this.decoratedCard.getRelativeMoveToPosition();
+	}
+
+	@Override
+	public Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
+		return  this.decoratedCard.getAbsoluteMoveToPosition();
 	}
 
 	@Override

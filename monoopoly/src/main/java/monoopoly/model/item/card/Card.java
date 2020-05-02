@@ -95,10 +95,27 @@ public interface Card {
 	 *  will return an {@link Optional}<{@link Map}>
 	 *  where the key indicates the ID of 
 	 *  each player on which to apply the move
-	 *  corresponding to the respective Tile position
+	 *  and the value indicates the number of steps
+	 *  to do forward or backward to the players position
 	 */
 	public Optional<Map<Integer,Integer>> 
-	   getMoveToPosition();
+	   getRelativeMoveToPosition();
+
+	/**
+	 * this method is used to get the change 
+	 * of position to apply on each player in
+	 * game
+	 * 
+	 * @return if the card hasn't effect on 
+	 *  the players move it will return an
+	 *  {@link Optional.Empty()}, otherwise it
+	 *  will return an {@link Optional}<{@link Map}>
+	 *  where the key indicates the ID of 
+	 *  each player on which to apply the absolute move,
+	 *  the value indicates the number of tile where to go.
+	 */
+	public Optional<Map<Integer,Integer>> 
+	   getAbsoluteMoveToPosition();
 
 	/**
 	 * this method is used to get the number of

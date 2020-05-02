@@ -12,7 +12,7 @@ import monoopoly.view.controller.PlayerViewControllerImpl;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
-public class MainBoardControllerImpl implements Initializable, DeleteMe, MainBoardController {
+public class MainBoardControllerImpl implements Initializable, MainBoardController {
 
 	@FXML
 	private Button rollDices;

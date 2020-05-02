@@ -97,18 +97,11 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	 * This method updates the pawn position on the board
 	 */
 	private void updatePawn() {
-//		this.playerPositions.forEach((K, V) -> {
-//			this.pawns.put(K, this.utilities.getCoords(V, gridPane));
-//		});
-
 		playerPositions.forEach((K, V) -> {
 			this.pawns.put(K, this.utilities.getCoords(V, gridPane));
-			System.out.println("pawn V di K: " + K + "=" + V);
-			System.out.println(this.pawns.get(K).getX() + ", " + this.pawns.get(K).getY());
 			GridPane.setColumnIndex(this.circles.get(K), this.pawns.get(K).getX());
 			GridPane.setRowIndex(this.circles.get(K), this.pawns.get(K).getY());
 		});
-
 	}
 
 }

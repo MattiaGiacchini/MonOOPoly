@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +26,6 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 	/*
 	 * Player's data fields (name and balance)
 	 */
-
 	@FXML
 	private Label playerName0;
 
@@ -95,6 +95,12 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 	public void updateCurrentPlayer(final String name, final Double balance) {
 		this.currentPlayer.setText(name);
 		this.currentPlayerBalance.setText(this.utilities.toMoneyString(balance));
+	}
+
+	@Override
+	public void showPlayerProperties(Set<String> properties) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

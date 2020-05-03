@@ -2,8 +2,8 @@ package monoopoly.controller;
 
 import org.junit.Test;
 
-import monoopoly.controller.player_manager.PlayerManager;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player.manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 

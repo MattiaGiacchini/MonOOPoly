@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 
 public class DicesImpl implements Dices{

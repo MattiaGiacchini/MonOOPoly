@@ -1,4 +1,4 @@
-package monoopoly.controller.player_manager;
+package monoopoly.controller.player.manager;
 
 import java.util.Set;
 

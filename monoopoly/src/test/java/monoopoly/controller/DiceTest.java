@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import monoopoly.controller.dices.Dices;
 import monoopoly.controller.dices.DicesImpl;
-import monoopoly.controller.player_manager.PlayerManager;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player.manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;

@@ -17,7 +17,7 @@ public class PlayerTest {
 	@Before
 	public void initialize() {
 		manager = new PlayerManagerImpl(5, new PlayerImpl.Builder().playerId(5).name("Mattia").balance(500.00)
-				.position(20).state(States.IN_GAME).build());
+				.position(10).state(States.IN_GAME).build());
 	}
 
 	@Test
@@ -70,15 +70,23 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void Builder() {
-
+	public void testBuilder() {
 		assertEquals(manager.getPlayer().getID(), 5);
 		assertEquals(manager.getPlayer().getName(), "Mattia");
 		assertNotEquals(manager.getPlayer().getName(), "Aiman");
 		assertEquals(manager.getPlayer().getPosition(), 20);
 		assertEquals(manager.getPlayer().getState(), States.IN_GAME);
 
-		assertThrows(IllegalStateException.class, () -> new PlayerImpl.Builder().name("Mattia").build());
-		assertThrows(IllegalStateException.class, () -> new PlayerManagerImpl(0, manager.getPlayer()));
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void testBuilderException() {
+		new PlayerImpl.Builder().name("Mattia").build();
+
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void testPlayerManagerException() {
+		new PlayerManagerImpl(0, manager.getPlayer());
 	}
 }

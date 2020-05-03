@@ -218,8 +218,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 * @param info
 	 */
 	private void showPropertyInfo(TileInfo info) {
-		this.houseNumber.setText(String.valueOf(info.getNumHouses()));
-		this.hotelNumber.setText(info.getNumHouses() > 4 ? String.valueOf(1) : String.valueOf(0));
+		this.houseNumber.setText(String.valueOf(info.getHousesAmount()));
+		this.hotelNumber.setText(info.getHousesAmount() > 4 ? String.valueOf(1) : String.valueOf(0));
 		this.baseRent.setText(this.utilities.toMoneyString(info.getRentValue(0)));
 		this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentValue(1)));
 		this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));
@@ -250,8 +250,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 */
 	private void myPropertyButtonsLogic(TileInfo info) {
 		this.buildHouse.setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getHouseCost())
-				&& this.logics.maxHouses(info.getNumHouses())));
-		this.sellHouse.setDisable(!this.logics.minHouses(info.getNumHouses()));
+				&& this.logics.maxHouses(info.getHousesAmount())));
+		this.sellHouse.setDisable(!this.logics.minHouses(info.getHousesAmount()));
 
 		this.mortgage.setDisable(!info.isMortgaged());
 		this.unMortgage.setDisable(info.isMortgaged());

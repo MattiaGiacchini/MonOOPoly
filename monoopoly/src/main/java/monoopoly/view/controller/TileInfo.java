@@ -73,7 +73,7 @@ public class TileInfo {
 			return this;
 		}
 
-		public Builder numHouses(final int numHouses) {
+		public Builder housesAmount(final int numHouses) {
 			this.numHouses = numHouses;
 			return this;
 		}
@@ -260,7 +260,7 @@ public class TileInfo {
 	 * 
 	 * @return the number of houses
 	 */
-	public int getNumHouses() {
+	public int getHousesAmount() {
 		return numHouses;
 	}
 

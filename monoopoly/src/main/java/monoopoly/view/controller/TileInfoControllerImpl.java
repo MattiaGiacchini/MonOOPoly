@@ -8,11 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import monoopoly.model.item.Tile.Category;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
 import monoopoly.view.utilities.PurchasableState;
+import monoopoly.view.utilities.TileViewCategory;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
@@ -150,12 +150,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	@FXML
 	private AnchorPane society;
 
-	@FXML
-	private Label rentOneSociety;
-
-	@FXML
-	private Label rentTwoSociety;
-
 	@Override
 	public void showPropertyPane(TileInfo info) {
 		this.show(info);
@@ -170,7 +164,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	private void show(final TileInfo info) {
 		this.propertyName.setText(info.getTileName());
 		this.propertyOwner.setText(info.getOwner());
-		this.propertyValue.setText(this.utilities.toMoneyString(info.getTileValue()));
+		this.propertyValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
 		this.mortgageValue.setText(this.utilities.toMoneyString(info.getMortgageValue()));
 		this.unMortgageValue.setText(this.utilities.toMoneyString(info.getUnMortgageValue()));
 
@@ -184,41 +178,40 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 			this.emptyControl.toFront();
 		}
 
-		if (info.getCategory().equals(Category.SOCIETY)) {
+		if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
 			this.showSocietyInfo(info);
-		} else if (info.getCategory().equals(Category.STATION)) {
+		} else if (info.getCategory().equals(TileViewCategory.STATION)) {
 			this.showStationInfo(info);
-		} else if (info.getCategory().equals(Category.PROPERTY)) {
+		} else if (info.getCategory().equals(TileViewCategory.PROPERTY)) {
 			this.showPropertyInfo(info);
 		} else {
 			this.emptyInfo.toFront();
+			this.property.toFront();
 		}
 
 	}
 
 	private void showSocietyInfo(TileInfo info) {
-		this.rentOneSociety.setText(this.utilities.toMoneyString(info.getRentOne()));
-		this.rentTwoSociety.setText(this.utilities.toMoneyString(info.getRentTwo()));
 		this.society.toFront();
 	}
 
 	private void showStationInfo(TileInfo info) {
-		this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentOne()));
-		this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentTwo()));
-		this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentThree()));
-		this.rentFourStation.setText(this.utilities.toMoneyString(info.getRentFour()));
+		this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentValue(1)));
+		this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentValue(2)));
+		this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentValue(3)));
+		this.rentFourStation.setText(this.utilities.toMoneyString(info.getRentValue(4)));
 		this.station.toFront();
 	}
 
 	private void showPropertyInfo(TileInfo info) {
-		this.houseNumber.setText(info.getHouseNumber().toString());
-		this.hotelNumber.setText(info.getHotelNumber().toString());
-		this.baseRent.setText(this.utilities.toMoneyString(info.getBaseRent()));
-		this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentOne()));
-		this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentTwo()));
-		this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentThree()));
-		this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentFour()));
-		this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentFive()));
+		this.houseNumber.setText(String.valueOf(info.getNumHouses()));
+		this.hotelNumber.setText(info.getNumHouses() > 4 ? String.valueOf(1) : String.valueOf(0));
+		this.baseRent.setText(this.utilities.toMoneyString(info.getRentValue(0)));
+		this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentValue(1)));
+		this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));
+		this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentValue(3)));
+		this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentValue(4)));
+		this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(5)));
 		this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
 		this.property.toFront();
 	}
@@ -230,8 +223,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 * @param info
 	 */
 	private void ownedPropertyButtonsLogic(TileInfo info) {
-		this.payRent.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getRentValue()));
-		this.rentValue.setText(this.utilities.toMoneyString(info.getRentValue()));
+		this.payRent.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getRentToPay()));
+		this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
 		this.ownedProperty.toFront();
 	}
 

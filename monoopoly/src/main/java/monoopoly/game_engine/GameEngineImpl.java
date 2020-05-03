@@ -4,18 +4,23 @@ import java.util.*;
 
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
+import monoopoly.controller.dices.Dices;
+import monoopoly.controller.dices.DicesImpl;
+import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.managers.TurnManager;
+import monoopoly.controller.managers.TurnManagerImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
-import monoopoly.controllermanagers.CardManagerImpl;
-import monoopoly.controllermanagers.TurnManager;
-import monoopoly.controllermanagers.TurnManagerImpl;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
+import monoopoly.view.controller.TileInfo;
+import monoopoly.view.utilities.PurchasableState;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -23,25 +28,17 @@ public class GameEngineImpl implements GameEngine {
 	 * creating a map for each credential you need, reachable by player's ID
 	 */
 	private static final int FIRST_PLAYER = 0;
-
-	private Map<Integer, String> name = new HashMap<>();
-
-	private Map<Integer, Double> balance = new HashMap<>();
-
-	private Map<Integer, Integer> position = new HashMap<>();
-
-	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
-
-	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
-
-	private Map<Integer, Integer> dices;
-
-	private Table table;
-
-	private CardManagerImpl cardManager;
 	
-	//private BankManager bankManager = new BankManagerImpl(this);
-
+	private Map<Integer, String> name = new HashMap<>();
+	private Map<Integer, Double> balance = new HashMap<>();
+	private Map<Integer, Integer> position = new HashMap<>();
+	private Map<Integer, States> state = new HashMap<>();
+	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
+	private Map<Integer, Integer> dices;
+	private Table table;
+	private CardManagerImpl cardManager;		
+	private BankManager bankManager = new BankManagerImpl(this);
+	
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
 	 * every player's credentials
@@ -156,7 +153,7 @@ public class GameEngineImpl implements GameEngine {
 		this.dices = dices;
 	}
 
-	public PlayerManager getGameWinner() {
+	public PlayerManager getGameWinner() { 
 		Integer winner = -1;
 		Double greatest = 0.0;
 		Map<Integer, Double> quotationsMap = new HashMap<>();
@@ -187,6 +184,7 @@ public class GameEngineImpl implements GameEngine {
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
 			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());  
 		}
+		
 		Card card = tile.idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
 				.actualPlayersBalance(balance)
 				.actualPlayersPosition(position)
@@ -231,6 +229,54 @@ public class GameEngineImpl implements GameEngine {
 					tileDet.sellBuilding();
 				}
 			}
+		}
+	}
+	
+	public Set<String> giveProperties(Integer ID) {
+		Set<String> properties = new HashSet<>();
+		for (Purchasable p: this.playersList().get(ID).getProperties()) {
+			properties.add(p.getName());
+		}
+		return properties;
+	}
+	
+	public void giveTileInfo(Integer tileNum) {
+		Tile tile = this.table.getTile(tileNum);
+		PurchasableState state;
+        if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+            state = PurchasableState.MY_PROPERTY;
+        } 
+        else if (((Purchasable) tile).getOwner().isEmpty()) {
+            state = PurchasableState.FREE_PROPERTY;
+        } 
+        else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+            state = PurchasableState.OWNED_PROPERTY;
+        }
+         else {
+            state = PurchasableState.OTHER;
+        }
+        
+		if (tile.isBuildable()) { //property
+			TileInfo tileInfo = new TileInfo().tileName(tile.getName())	
+											  .purchasableState(state)
+											  .purchasableCategory(tile.getCategory())
+											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
+													  								  .getPlayer().getBalance())
+											  .housesAmount(((Property)tile).getNumberOfHouseBuilt() +	
+													  		((Property)tile).getNumberOfHotelBuilt())
+											  .
+		}
+		else if (tile.getCategory() == Category.STATION) { //station
+			
+		}
+		else if (tile.getCategory() == Category.SOCIETY) { //SOCIETY
+		
+		}
+		else if (tile.isDeck()) { //deck
+			
+		}
+		else { //other
+			
 		}
 	}
 

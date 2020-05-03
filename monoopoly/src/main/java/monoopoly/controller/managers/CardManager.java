@@ -1,4 +1,4 @@
-package monoopoly.controllermanagers;
+package monoopoly.controller.managers;
 
 public interface CardManager {
 

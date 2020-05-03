@@ -106,5 +106,12 @@ public interface GameEngine {
 	 * method to use the effect of a card
 	 */
 	void useCard();
+	
+	/**
+	 * usefull to get the names of players' properties
+	 * @param ID
+	 * @return a set of String
+	 */
+	Set<String> giveProperties(Integer ID);
 
 }

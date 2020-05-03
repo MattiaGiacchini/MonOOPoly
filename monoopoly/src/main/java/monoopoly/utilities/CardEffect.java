@@ -1,4 +1,4 @@
-package monoopoly.game_engine;
+package monoopoly.utilities;
 
 public enum CardEffect {
 	MONEY_EXCHANGE,

@@ -6,13 +6,15 @@ import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.player_manager.PlayerManager;
 import monoopoly.controller.player_manager.PlayerManagerImpl;
-import monoopoly.controller.player_manager.TurnManager;
-import monoopoly.controller.player_manager.TurnManagerImpl;
+import monoopoly.controllermanagers.CardManagerImpl;
+import monoopoly.controllermanagers.TurnManager;
+import monoopoly.controllermanagers.TurnManagerImpl;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
+import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
 
 public class GameEngineImpl implements GameEngine {
@@ -36,9 +38,9 @@ public class GameEngineImpl implements GameEngine {
 
 	private Table table;
 
-	private CardManager cardManager;
+	private CardManagerImpl cardManager;
 	
-	private BankManager bankManager = new BankManagerImpl(this);
+	//private BankManager bankManager = new BankManagerImpl(this);
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -65,13 +67,16 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public PlayerManager createPlayer(final int ID) {
-		return new PlayerManagerImpl(ID,this);
+		String name = this.getName(ID);
+		return new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
+																 .name(this.getName(ID))
+												    			 .balance(this.getBalance(ID))
+												    			 .build());
 	}
 
 	public void createPlayers() {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while(it.hasNext()) {
-			//this.createPlayer(it.next().getKey());
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
@@ -107,7 +112,7 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
-	public int getPosition(final int ID) {
+	/*public int getPosition(final int ID) {
 		if (this.name.keySet().contains(ID)) {
 			return this.position.get(ID);
 		}
@@ -123,15 +128,15 @@ public class GameEngineImpl implements GameEngine {
 		else {
 			throw new java.lang.IllegalArgumentException("No player found");
 		}
-	}
+	}*/
 
-	public Map<Integer, Double> getBalance() {
+	/*public Map<Integer, Double> getBalance() {
 		return balance;
 	}
 
 	public Map<Integer, Integer> getPosition() {
 		return position;
-	}
+	}*/
 	
 	public Table getTable() {
 		return this.table;
@@ -169,20 +174,6 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		return this.turnManager.getPlayersList().get(winner);
-		
-		/*Integer current;
-		for (Map.Entry<Integer, Double> entry: this.balance.entrySet()) {
-			if (entry.getValue() > current) {
-				current = entry.getKey();
-			}
-		}
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			if (pM.getPlayerManagerID() == current) {
-				return pM;
-			}
-		}
-		/*Double max = this.balance.entrySet().stream().max((entry1, entry2) -> entry1.getValue() > entry2.getValue() ?
-				 1 : -1).get().getValue();*/
 	}
 
 	public void useCard() {
@@ -196,44 +187,43 @@ public class GameEngineImpl implements GameEngine {
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
 			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());  
 		}
-		Card card = tile.idPlayerWhoHasDrawID(this.turnManager.getCurrentPlayer())
+		Card card = tile.idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
 				.actualPlayersBalance(balance)
 				.actualPlayersPosition(position)
-				.actualBankBalance(this.bankManager.getBank().getBankBudget())
 				.draw();
-		this.cardManager = new CardManager(card.getDescription, card.getCardNumber, card.getOriginDeck);
-		monoopoly.game_engine.CardEffect effect = this.cardManager.knowCard(card);
-		if (effect == monoopoly.game_engine.CardEffect.MONEY_EXCHANGE) {
+		this.cardManager = new CardManagerImpl(card.getDescription, card.getCardNumber, card.getOriginDeck);
+		monoopoly.utilities.CardEffect effect = this.cardManager.knowCard(card);
+		if (effect == monoopoly.utilities.CardEffect.MONEY_EXCHANGE) {
 			Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get(); 
 			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
 				this.bankManager.giveMoney(entry.getValue(), this.turnManager.getPlayersList().get(entry.getKey()));
 			}
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
-			this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
-											 .getPlayer().setState(monoopoly.utilities.States.PRISONED);
+		else if (effect == monoopoly.utilities.CardEffect.JAIL_IN) {
+			this.playersList().get(this.turnManager.getCurrentPlayer())
+							  .getPlayer().setState(monoopoly.utilities.States.PRISONED);
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.JAIL_IN) {
-			this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
-											 .getPlayer().hasPrisonCard();
+		else if (effect == monoopoly.utilities.CardEffect.JAIL_OUT) {
+			thisplayersList().get(this.turnManager.getCurrentPlayer())
+							 .getPlayer().hasPrisonCard();
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.RELATIVE_MOVE) {
+		else if (effect == monoopoly.utilities.CardEffect.RELATIVE_MOVE) {
 			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-				Integer currentPos = this.turnManager.getPlayersList().get(entry.getKey())
-																	  .getPlayer().getPosition();
-				this.turnManager.getPlayersList().get(entry.getKey())			
-												 .getPlayer().setPosition(currentPos + entry.getValue());
+				Integer currentPos = this.playersList().get(entry.getKey())
+													   .getPlayer().getPosition();
+				this.playersList().get(entry.getKey())			
+								  .getPlayer().setPosition(currentPos + entry.getValue());
 			}
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE) {
+		else if (effect == monoopoly.utilities.CardEffect.ABSOLUTE_MOVE) {
 			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-				this.turnManager.getPlayersList().get(entry.getKey())
-												 .getPlayer().setPosition(entry.getValue());
+				this.playersList().get(entry.getKey())
+								  .getPlayer().setPosition(entry.getValue());
 			}
 		}
-		else if (effect == monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS) {
+		else if (effect == monoopoly.utilities.CardEffect.REMOVE_BUILDINGS) {
 			Map<Integer, Integer> map = card.getNumberOfBuildingsToRemove().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()){
 				Property tileDet = (Property) this.table.getTile(entry.getKey());

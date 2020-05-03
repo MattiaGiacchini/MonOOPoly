@@ -29,8 +29,7 @@ public class StartGameImpl implements StartGame {
 	}
 	
 	/**
-	 * setters used to initialize the player list, every player with his own credentials (not finished)
-	 * @param name
+	 * setters used to initialize the player list, every player with his own credentials
 	 */
 	public void setName(Map<Integer, String> name) {
 		this.name = name;

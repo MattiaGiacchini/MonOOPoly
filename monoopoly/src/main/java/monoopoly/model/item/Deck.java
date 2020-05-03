@@ -55,11 +55,13 @@ public interface Deck extends Tile {
 	 * this method is used to flip a new card from the deck.
 	 * 
 	 * @return {@link Card} 
-	 * @throws IllegalStateException this method must be invoked after: 
-	 * {@link #idPlayerWhoHasDraw(Integer)}, 
-	 * {@link #actualPlayersBalance(Map)}, 
-	 * {@link #actualPlayersPosition(Map)};
+	 * @throws NullPointerException this method must be invoked after: <br>
+	 * {@link #idPlayerWhoHasDraw(Integer)},<br>
+	 * {@link #actualPlayersBalance(Map)},<br>
+	 * {@link #actualPlayersPosition(Map)};<br>
 	 * or it will throw the exception
+	 * @throws IllegalArgumentException if the Player's identifier isn't
+	 * inside the map of players balance or players position 
 	 */
 	public Card draw();
 }

@@ -188,13 +188,22 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 			this.emptyInfo.toFront();
 			this.property.toFront();
 		}
-
 	}
 
+	/**
+	 * This method updates the informations displayed about the chosen society
+	 * 
+	 * @param info
+	 */
 	private void showSocietyInfo(TileInfo info) {
 		this.society.toFront();
 	}
 
+	/**
+	 * This method updates the informations displayed about the chosen station
+	 * 
+	 * @param info
+	 */
 	private void showStationInfo(TileInfo info) {
 		this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentValue(1)));
 		this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentValue(2)));
@@ -203,6 +212,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 		this.station.toFront();
 	}
 
+	/**
+	 * This method updates the informations displayed about the chosen property
+	 * 
+	 * @param info
+	 */
 	private void showPropertyInfo(TileInfo info) {
 		this.houseNumber.setText(String.valueOf(info.getNumHouses()));
 		this.hotelNumber.setText(info.getNumHouses() > 4 ? String.valueOf(1) : String.valueOf(0));

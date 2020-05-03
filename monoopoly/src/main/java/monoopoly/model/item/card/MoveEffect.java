@@ -80,7 +80,7 @@ public class MoveEffect extends AbstractCardDecorator {
 			return this;
 		}
 
-		public Builder setTileRetriverFromCategory(BiFunction<Integer,Category,Integer> biFunction) {
+		public Builder tileRetriverFromCategory(BiFunction<Integer,Category,Integer> biFunction) {
 			this.tileRetriverFromCategory = Optional.ofNullable(biFunction);
 			return this;
 		}

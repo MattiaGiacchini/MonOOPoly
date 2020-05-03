@@ -64,14 +64,14 @@ public interface GameEngine {
 	 * @param ID
 	 * @return int
 	 */
-	int getPosition(final int ID);
+//	int getPosition(final int ID);
 
 	/**
 	 * helpful for getting player's state by putting ID
 	 * @param ID
 	 * @return monoopoly.utilities.States
 	 */
-	monoopoly.utilities.States getState(final int ID);
+//	monoopoly.utilities.States getState(final int ID);
 
 	/**
 	 * You can call this method to pass your turn

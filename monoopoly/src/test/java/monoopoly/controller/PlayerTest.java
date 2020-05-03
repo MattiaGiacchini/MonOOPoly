@@ -8,7 +8,6 @@ import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.Before;
 
@@ -19,7 +18,6 @@ public class PlayerTest {
 	public void initialize() {
 		manager = new PlayerManagerImpl(5, new PlayerImpl.Builder().playerId(5).name("Mattia").balance(500.00)
 				.position(20).state(States.IN_GAME).build());
-
 	}
 
 	@Test
@@ -51,10 +49,9 @@ public class PlayerTest {
 
 		manager.collectMoney(500.00);
 		assertTrue(manager.getPlayer().getBalance().equals(0.00));
-		
+
 		manager.collectMoney(15000.00);
 		assertTrue(manager.getPlayer().getBalance().equals(15000.00));
-		
 	}
 
 	@Test

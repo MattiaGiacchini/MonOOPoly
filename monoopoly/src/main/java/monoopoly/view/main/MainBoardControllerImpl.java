@@ -20,6 +20,7 @@ import monoopoly.model.item.Tile.Category;
 import monoopoly.view.controller.BoardViewControllerImpl;
 import monoopoly.view.controller.DiceViewControllerImpl;
 import monoopoly.view.controller.PlayerViewControllerImpl;
+import monoopoly.view.controller.StockMarketViewControllerImpl;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoControllerImpl;
 import monoopoly.view.utilities.ViewUtilities;

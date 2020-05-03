@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import monoopoly.model.item.Tile.Category;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
@@ -28,6 +29,9 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 */
 	@FXML
 	private AnchorPane freeProperty;
+
+	@FXML
+	private Label purchasableValue;
 
 	@FXML
 	private Button buyPurchasable;
@@ -69,10 +73,88 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 * Empty property controller pane
 	 */
 	@FXML
-	private AnchorPane empty;
+	private AnchorPane emptyControl;
 
 	@FXML
-	private Label purchasableValue;
+	private AnchorPane emptyInfo;
+
+	/*
+	 * General tile info
+	 */
+	@FXML
+	private Label propertyOwner;
+
+	@FXML
+	private Label propertyValue;
+
+	@FXML
+	private Label mortgageValue;
+
+	@FXML
+	private Label unMortgageValue;
+
+	/*
+	 * Property information pane
+	 */
+	@FXML
+	private AnchorPane property;
+
+	@FXML
+	private Label houseNumber;
+
+	@FXML
+	private Label hotelNumber;
+
+	@FXML
+	private Label baseRent;
+
+	@FXML
+	private Label rentOneHouse;
+
+	@FXML
+	private Label rentTwoHouse;
+
+	@FXML
+	private Label rentThreeHouse;
+
+	@FXML
+	private Label rentFourHouse;
+
+	@FXML
+	private Label rentOneHotel;
+
+	@FXML
+	private Label houseCost;
+
+	/*
+	 * Station information pane
+	 */
+	@FXML
+	private AnchorPane station;
+
+	@FXML
+	private Label rentOneStation;
+
+	@FXML
+	private Label rentTwoStation;
+
+	@FXML
+	private Label rentThreeStation;
+
+	@FXML
+	private Label rentFourStation;
+
+	/*
+	 * Station information pane
+	 */
+	@FXML
+	private AnchorPane society;
+
+	@FXML
+	private Label rentOneSociety;
+
+	@FXML
+	private Label rentTwoSociety;
 
 	@Override
 	public void showPropertyPane(TileInfo info) {
@@ -87,6 +169,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 */
 	private void show(final TileInfo info) {
 		this.propertyName.setText(info.getTileName());
+		this.propertyOwner.setText(info.getOwner());
+		this.propertyValue.setText(this.utilities.toMoneyString(info.getTileValue()));
+		this.mortgageValue.setText(this.utilities.toMoneyString(info.getMortgageValue()));
+		this.unMortgageValue.setText(this.utilities.toMoneyString(info.getUnMortgageValue()));
+
 		if (info.getState().equals(PurchasableState.FREE_PROPERTY)) {
 			this.freePropertyButtonsLogic(info);
 		} else if (info.getState().equals(PurchasableState.MY_PROPERTY)) {
@@ -94,9 +181,46 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 		} else if (info.getState().equals(PurchasableState.OWNED_PROPERTY)) {
 			this.ownedPropertyButtonsLogic(info);
 		} else {
-			this.empty.toFront();
+			this.emptyControl.toFront();
 		}
 
+		if (info.getCategory().equals(Category.SOCIETY)) {
+			this.showSocietyInfo(info);
+		} else if (info.getCategory().equals(Category.STATION)) {
+			this.showStationInfo(info);
+		} else if (info.getCategory().equals(Category.PROPERTY)) {
+			this.showPropertyInfo(info);
+		} else {
+			this.emptyInfo.toFront();
+		}
+
+	}
+
+	private void showSocietyInfo(TileInfo info) {
+		this.rentOneSociety.setText(this.utilities.toMoneyString(info.getRentOne()));
+		this.rentTwoSociety.setText(this.utilities.toMoneyString(info.getRentTwo()));
+		this.society.toFront();
+	}
+
+	private void showStationInfo(TileInfo info) {
+		this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentOne()));
+		this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentTwo()));
+		this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentThree()));
+		this.rentFourStation.setText(this.utilities.toMoneyString(info.getRentFour()));
+		this.station.toFront();
+	}
+
+	private void showPropertyInfo(TileInfo info) {
+		this.houseNumber.setText(info.getHouseNumber().toString());
+		this.hotelNumber.setText(info.getHotelNumber().toString());
+		this.baseRent.setText(this.utilities.toMoneyString(info.getBaseRent()));
+		this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentOne()));
+		this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentTwo()));
+		this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentThree()));
+		this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentFour()));
+		this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentFive()));
+		this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
+		this.property.toFront();
 	}
 
 	/**

@@ -1,10 +1,12 @@
-package monoopoly.game_engine;
+package monoopoly.controllermanagers;
 
 import java.util.Map;
-import monoopoly.game_engine.CardEffect.*;
-import monoopoly.model.item.Tile;
 
-public class CardManager {
+import monoopoly.model.item.Tile;
+import monoopoly.utilities.CardEffect;
+import monoopoly.utilities.CardEffect.*;
+
+public class CardManagerImpl implements CardManager {
 	
 	private boolean isThisCardMaintainable;
 	
@@ -14,7 +16,7 @@ public class CardManager {
 	
 	private Tile.Category originDeck;
 	
-	public CardManager(final String description, final Integer cardNumber, final Tile.Category originDeck) {
+	public CardManagerImpl(final String description, final Integer cardNumber, final Tile.Category originDeck) {
 		this.isThisCardMaintainable = false;
 		this.Description = description;
 		this.cardNumber = cardNumber;
@@ -22,30 +24,27 @@ public class CardManager {
 	}
 	
 
-	public monoopoly.game_engine.CardEffect knowCard(final Card card) {
+	public monoopoly.utilities.CardEffect knowCard(final Card card) {
 		if (!card.getValueToApplyOnPlayersBalance().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.MONEY_EXCHANGE;
+			return monoopoly.utilities.CardEffect.MONEY_EXCHANGE;
 		}		
 		else if (card.mustThePlayerGoToJail) {
-			return monoopoly.game_engine.CardEffect.JAIL_IN;
+			return monoopoly.utilities.CardEffect.JAIL_IN;
 		}
 		else if (card.canThePlayerExitFromJail) {
 			this.setThisCardMaintainable(true);
-			return monoopoly.game_engine.CardEffect.JAIL_OUT;
+			return monoopoly.utilities.CardEffect.JAIL_OUT;
 		}
 		else if (!card.getRelativeMoveToPosition().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.RELATIVE_MOVE;
+			return monoopoly.utilities.CardEffect.RELATIVE_MOVE;
 		}
 		else if (!card.getAbsoluteMoveToPosition().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.ABSOLUTE_MOVE;
+			return monoopoly.utilities.CardEffect.ABSOLUTE_MOVE;
 		}
 		else if (!card.getNumberOfBuildingsToRemove().isEmpty()) {
-			return monoopoly.game_engine.CardEffect.REMOVE_BUILDINGS;
+			return monoopoly.utilities.CardEffect.REMOVE_BUILDINGS;
 		}
 	}
-	
-	/*ci sarà un metodo nel GameEngine che, a seconda di cos'ha restituito applyCard, 
-	 *va ad applicare ai giocatori */
 	
 	public boolean isThisCardMaintainable() {
 		return isThisCardMaintainable;

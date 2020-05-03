@@ -22,148 +22,247 @@
                   </Label>
                </children>
             </HBox>
-            <AnchorPane prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                <children>
-                  <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Label text="Owner:" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="owner" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <StackPane>
+               <children>
+                  <AnchorPane fx:id="society" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
-                        <VBox spacing="10.0">
+                        <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                              <VBox spacing="10.0" />
+                              <VBox>
                                  <children>
-                                    <Label text="Owner:" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="owner" text="Label" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="12.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Label text="House n.:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label text="1 Society:" textFill="WHITE" />
+                                          <Label fx:id="rentOneSociety" text="Label" textFill="WHITE" />
                                        </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
                                     </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Label text="Hotel n.:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label text="2 Society:" textFill="WHITE" />
+                                          <Label fx:id="rentTwoSociety" text="Label" textFill="WHITE" />
                                        </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
                                     </HBox>
                                  </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                        <VBox>
-                           <children>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="Base rent:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="1 House:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="2 Houses:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="3 Houses:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="4 Houses:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="1 Hotel:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="Property value:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label text="Build cost:" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="Mortgage" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                                 <children>
-                                    <Label text="Remove Mortgage" textFill="WHITE" />
-                                    <Label text="Label" textFill="WHITE" />
-                                 </children>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
-                              </HBox>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
+                  <AnchorPane fx:id="property" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                     <children>
+                        <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox spacing="10.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                             <children>
+                                                <Label text="House n.:" textFill="WHITE" />
+                                                <Label text="Label" textFill="WHITE" />
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                             <children>
+                                                <Label text="Hotel n.:" textFill="WHITE" />
+                                                <Label text="Label" textFill="WHITE" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="Base rent:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="1 House:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="2 Houses:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="3 Houses:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="4 Houses:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="1 Hotel:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="Build cost:" textFill="WHITE" />
+                                          <Label text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="station" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                     <children>
+                        <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <VBox spacing="10.0" />
+                              <VBox>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="1 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentOneStation" text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="2 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentTwoStation" text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="3 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentThreeStation" text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="4 Station" textFill="WHITE" />
+                                          <Label fx:id="rentFourStation" text="Label" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="emptyInfo" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
                </children>
-            </AnchorPane>
+            </StackPane>
+            <VBox prefHeight="150.0" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Label text="Property value:" textFill="WHITE" />
+                        <Label fx:id="tileValue" text="Label" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Label text="Mortgage:" textFill="WHITE" />
+                        <Label fx:id="mortgageValue" text="Label" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Label text="Remove Mortgage:" textFill="WHITE" />
+                        <Label fx:id="unMortgageValue" text="Label" textFill="WHITE" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
             <StackPane prefHeight="150.0" prefWidth="224.0">
                <children>
-                  <AnchorPane fx:id="empty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
+                  <AnchorPane fx:id="emptyControl" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
                   <AnchorPane fx:id="freeProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
                         <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
@@ -256,7 +355,7 @@
             </StackPane>
          </children>
          <padding>
-            <Insets bottom="10.0" left="10.0" top="10.0" />
+            <Insets left="10.0" top="40.0" />
          </padding>
       </VBox>
    </children>

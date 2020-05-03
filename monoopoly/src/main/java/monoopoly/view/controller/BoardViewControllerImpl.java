@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import monoopoly.utilities.Pair;
+import monoopoly.view.utilities.TileViewCategory;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 

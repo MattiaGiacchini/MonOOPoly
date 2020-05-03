@@ -72,13 +72,13 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@FXML
 	public void rollDicesButtonPressed() {
-		this.gameEngine.passPlayer();
 		this.nextTurn.setDisable(false);
 		this.rollDices.setDisable(true);
 	}
 
 	@FXML
 	public void nextTurnButtonPressed() {
+		this.gameEngine.passPlayer();
 		this.nextTurn.setDisable(true);
 		this.rollDices.setDisable(false);
 	}

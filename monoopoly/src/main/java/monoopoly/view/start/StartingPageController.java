@@ -10,9 +10,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import monoopoly.view.SceneManager;
-import monoopoly.view.SceneManagerImpl;
-import monoopoly.view.ScenePath;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
 
 public class StartingPageController implements Initializable {
 

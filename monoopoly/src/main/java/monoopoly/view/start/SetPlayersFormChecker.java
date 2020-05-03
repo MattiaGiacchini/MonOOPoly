@@ -16,8 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
-import monoopoly.view.SceneManager;
-import monoopoly.view.SceneManagerImpl;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and

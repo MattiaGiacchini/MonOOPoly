@@ -12,7 +12,7 @@ import org.junit.Test;
 import com.google.common.collect.Multiset.Entry;
 
 import monoopoly.controller.bank.BankManagerImpl;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controller.stockmarket.StockMarket;
 import monoopoly.controller.stockmarket.StockMarketImpl;
 import monoopoly.game_engine.GameEngine;

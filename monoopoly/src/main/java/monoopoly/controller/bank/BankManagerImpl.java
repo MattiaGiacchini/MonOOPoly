@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.Bank;
 import monoopoly.model.item.Property;

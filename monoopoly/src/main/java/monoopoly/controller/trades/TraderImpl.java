@@ -3,7 +3,7 @@ package monoopoly.controller.trades;
 import java.util.Optional;
 import java.util.Set;
 
-import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.trade.Trade;
 

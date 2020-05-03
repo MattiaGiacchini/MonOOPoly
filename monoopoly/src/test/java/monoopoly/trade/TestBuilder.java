@@ -10,8 +10,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import monoopoly.controller.player_manager.PlayerManager;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player.manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.trade.Trade;

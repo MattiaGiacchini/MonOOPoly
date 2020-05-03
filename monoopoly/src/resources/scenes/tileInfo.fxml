@@ -38,7 +38,7 @@
             </HBox>
             <StackPane>
                <children>
-                  <AnchorPane fx:id="society" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                  <AnchorPane fx:id="station" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
                         <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
@@ -47,8 +47,8 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Label text="1 Society:" textFill="WHITE" />
-                                          <Label fx:id="rentOneSociety" text="Label" textFill="WHITE" />
+                                          <Label text="1 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentOneStation" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -56,19 +56,27 @@
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
-                                          <Label text="2 Society:" textFill="WHITE" />
-                                          <Label fx:id="rentTwoSociety" text="Label" textFill="WHITE" />
+                                          <Label text="2 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentTwoStation" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="3 Station:" textFill="WHITE" />
+                                          <Label fx:id="rentThreeStation" text="Label" textFill="WHITE" />
+                                       </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                       <children>
+                                          <Label text="4 Station" textFill="WHITE" />
+                                          <Label fx:id="rentFourStation" text="Label" textFill="WHITE" />
+                                       </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
@@ -79,6 +87,7 @@
                         </VBox>
                      </children>
                   </AnchorPane>
+                  <AnchorPane fx:id="emptyInfo" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
                   <AnchorPane fx:id="property" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
                         <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -177,45 +186,37 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="station" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                  <AnchorPane fx:id="society" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
                         <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <VBox spacing="10.0" />
                               <VBox>
                                  <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                        <children>
-                                          <Label text="1 Station:" textFill="WHITE" />
-                                          <Label fx:id="rentOneStation" text="Label" textFill="WHITE" />
+                                          <Label text="1 Society:" textFill="WHITE" />
+                                          <Label text="4 times the dices value" textFill="WHITE" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="20.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                       <children>
+                                          <Label text="2 Society:" textFill="WHITE" />
+                                          <Label text="10 times the dices value" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                       <children>
-                                          <Label text="2 Station:" textFill="WHITE" />
-                                          <Label fx:id="rentTwoStation" text="Label" textFill="WHITE" />
-                                       </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                       <children>
-                                          <Label text="3 Station:" textFill="WHITE" />
-                                          <Label fx:id="rentThreeStation" text="Label" textFill="WHITE" />
-                                       </children>
-                                       <padding>
-                                          <Insets left="20.0" />
-                                       </padding>
-                                    </HBox>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                       <children>
-                                          <Label text="4 Station" textFill="WHITE" />
-                                          <Label fx:id="rentFourStation" text="Label" textFill="WHITE" />
-                                       </children>
                                        <padding>
                                           <Insets left="20.0" />
                                        </padding>
@@ -226,7 +227,6 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="emptyInfo" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
                </children>
             </StackPane>
             <VBox prefHeight="150.0" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
@@ -355,7 +355,7 @@
             </StackPane>
          </children>
          <padding>
-            <Insets left="10.0" top="10.0" />
+            <Insets bottom="10.0" left="10.0" top="10.0" />
          </padding>
       </VBox>
    </children>

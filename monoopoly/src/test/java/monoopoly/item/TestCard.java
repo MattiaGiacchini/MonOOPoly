@@ -266,7 +266,7 @@ public class TestCard {
 							 .playersPosition(playersPosition)
 							 .idDrawers(idDrawer)
 							 .applyToPlayer(true)
-							 .setTileRetriverFromCategory(biFunction)
+							 .tileRetriverFromCategory(biFunction)
 							 .nextTileCategoryToReach(Category.CALAMITY)
 							 .build();
 		assertEquals(card.getRelativeMoveToPosition().get().get(idDrawer), 
@@ -320,7 +320,6 @@ public class TestCard {
 							 .build();		
 		assertFalse(card.getAbsoluteMoveToPosition().get().containsKey(idDrawer));
 		assertTrue(card.getRelativeMoveToPosition().isEmpty());
-		
 	}
 	
 	private boolean doubleEqualsWithTollerance(Double a, Double b) {

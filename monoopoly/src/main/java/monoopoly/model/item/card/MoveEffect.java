@@ -182,10 +182,10 @@ public class MoveEffect extends AbstractCardDecorator {
 				}); 
 			}
 			
-			var eddai = absoluteMove.entrySet().stream().filter(x->x.getValue().equals(builder.playersPosition.get(x.getKey())))
+			var tmpSet = absoluteMove.entrySet().stream().filter(x->x.getValue().equals(builder.playersPosition.get(x.getKey())))
 														.map(x->x.getKey())
 													    .collect(Collectors.toSet());
-			for(Integer value : eddai) {
+			for(Integer value : tmpSet) {
 				absoluteMove.remove(value);
 			}
 			

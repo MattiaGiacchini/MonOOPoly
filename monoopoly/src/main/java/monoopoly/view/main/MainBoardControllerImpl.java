@@ -135,8 +135,8 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	}
 
 	@Override
-	public void updateDices(int dice1, int dice2) {
-		this.diceController.updateDices(dice1, dice2, Optional.empty());
+	public void updateDices(Map<Integer, Integer> dices) {
+		this.diceController.updateDices(dices.get(0), dices.get(1), Optional.empty());
 	}
 
 	@Override

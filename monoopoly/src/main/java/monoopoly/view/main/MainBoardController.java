@@ -79,10 +79,9 @@ public interface MainBoardController {
 	/**
 	 * This method displays the dices rolled.
 	 * 
-	 * @param dice1
-	 * @param dice2
+	 * @param dices a map of dices
 	 */
-	public void updateDices(final int dice1, final int dice2);
+	void updateDices(Map<Integer, Integer> dices);
 
 	/**
 	 * This method shows the property chosen by the {@link Player} or the tile where

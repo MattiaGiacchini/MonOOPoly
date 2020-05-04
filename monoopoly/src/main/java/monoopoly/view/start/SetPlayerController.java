@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -90,9 +93,10 @@ public class SetPlayerController implements Initializable {
 	@FXML
 	public void btnStartGameClicked(ActionEvent event) {
 		if (this.checkFields()) {
-			new Alert(AlertType.ERROR, "Game starts in 3... 2... 1.. \n GO").show();
-			// this.start.createEngine();
-			// TODO add elaboration method
+			this.removeEmptyPlayer();
+			this.start = new StartGameImpl();
+			this.start.setName(this.playerMap);
+			this.start.setBalance(this.setBalanceMap());
 		} else {
 			new Alert(AlertType.ERROR, "You have to set at least two players").show();
 		}
@@ -129,26 +133,6 @@ public class SetPlayerController implements Initializable {
 	}
 
 	/**
-	 * This method checks if the balance is lower then the minimum balance value
-	 */
-	private void checkBalanceLowerBound() {
-		if (this.balance < MIN_BALANCE) {
-			this.balance = MIN_BALANCE;
-			this.setBalanceField();
-		}
-	}
-
-	/**
-	 * This method checks if the balance is greater then the maximum balance value
-	 */
-	private void checkBalanceUpperBound() {
-		if (this.balance > MAX_BALANCE) {
-			this.balance = MAX_BALANCE;
-			this.setBalanceField();
-		}
-	}
-
-	/**
 	 * This method increases the balance by a set value
 	 */
 	@FXML
@@ -171,17 +155,35 @@ public class SetPlayerController implements Initializable {
 	@FXML
 	public void btnDecreaseBalanceClicked() {
 		this.updatedBalance();
-		
-		if (!this.balance.)
-		
+
 		if (this.balance - BALANCE_INCREASE_VALUE >= MIN_BALANCE) {
 			this.balance = this.balance - BALANCE_INCREASE_VALUE;
 		} else {
 			new Alert(AlertType.ERROR, "Balance should be at least " + MIN_BALANCE.toString()).show();
 			this.balance = MIN_BALANCE;
 		}
-		
+
 		this.setBalanceField();
+	}
+
+	/**
+	 * This method checks if the balance is lower then the minimum balance value
+	 */
+	private void checkBalanceLowerBound() {
+		if (this.balance < MIN_BALANCE) {
+			this.balance = MIN_BALANCE;
+			this.setBalanceField();
+		}
+	}
+
+	/**
+	 * This method checks if the balance is greater then the maximum balance value
+	 */
+	private void checkBalanceUpperBound() {
+		if (this.balance > MAX_BALANCE) {
+			this.balance = MAX_BALANCE;
+			this.setBalanceField();
+		}
 	}
 
 	/**
@@ -202,6 +204,31 @@ public class SetPlayerController implements Initializable {
 	 */
 	private void setBalanceField() {
 		this.startingBalance.setText(String.valueOf(this.balance));
+	}
+
+	/**
+	 * This method sets the initial balance map to set in {@link StartGame}
+	 * 
+	 * @return the map of balances
+	 */
+	private Map<Integer, Double> setBalanceMap() {
+		Map<Integer, Double> balanceMap = new HashMap<Integer, Double>();
+		this.playerMap.forEach((K, V) -> {
+			balanceMap.put(K, this.balance);
+		});
+
+		return balanceMap;
+	}
+
+	/**
+	 * This method removes the empty strings from player names map
+	 */
+	private void removeEmptyPlayer() {
+		this.playerMap.forEach((K, V) -> {
+			if (V.isBlank()) {
+				this.playerMap.remove(K);
+			}
+		});
 	}
 
 }

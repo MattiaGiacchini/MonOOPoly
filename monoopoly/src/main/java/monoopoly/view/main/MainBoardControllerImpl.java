@@ -63,6 +63,12 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+	}
+
+	@FXML
+	public void endGameButtonPressed() {
+		this.gameEngine.endGame();
 	}
 
 	@FXML
@@ -94,6 +100,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		deckCard.setHeaderText(cardCategory.toUpperCase());
 		deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
 		deckCard.initModality(Modality.APPLICATION_MODAL);
+		deckCard.setTitle(cardCategory);
 		deckCard.showAndWait();
 	}
 

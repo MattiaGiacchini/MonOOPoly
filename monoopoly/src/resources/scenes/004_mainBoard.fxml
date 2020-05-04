@@ -74,7 +74,7 @@
                <top>
                   <VBox alignment="CENTER" spacing="20.0">
                      <children>
-                        <Label fx:id="timer" alignment="CENTER" minHeight="20.0" minWidth="50.0" prefHeight="80.0" prefWidth="202.0" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 6;" stylesheets="@main.css" text="30:00" textAlignment="CENTER" textFill="WHITE">
+                        <Label fx:id="timer" alignment="CENTER" minHeight="17.0" minWidth="50.0" prefHeight="80.0" prefWidth="202.0" style="-fx-background-color: none; -fx-border-color: white; -fx-border-width: 6;" stylesheets="@main.css" text="30:00" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="40.0" />
                            </font>
@@ -82,16 +82,21 @@
                               <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
                            </padding>
                         </Label>
-                        <HBox alignment="CENTER" spacing="30.0">
+                        <HBox alignment="CENTER" spacing="20.0">
                            <children>
+                              <Button mnemonicParsing="false" onAction="#endGameButtonPressed" stylesheets="@main.css" text="END GAME">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Button>
                               <Button mnemonicParsing="false" stylesheets="@main.css" text="SAVE">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Button>
                               <Button mnemonicParsing="false" onAction="#quitButtonPressed" stylesheets="@main.css" text="QUIT">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font size="18.0" />
                                  </font>
                               </Button>
                            </children>
@@ -105,7 +110,7 @@
                <bottom>
                   <VBox alignment="CENTER" prefWidth="480.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
                      <children>
-                        <Button fx:id="rollDices" alignment="CENTER" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#rollDicesButtonPressed" prefHeight="150.0" prefWidth="350.0" stylesheets="@main.css" text="ROLL DICES">
+                        <Button fx:id="rollDices" alignment="CENTER" minHeight="50.0" minWidth="100.0" mnemonicParsing="false" onAction="#rollDicesButtonPressed" prefHeight="120.0" prefWidth="350.0" stylesheets="@main.css" text="ROLL DICES">
                            <font>
                               <Font size="30.0" />
                            </font></Button>

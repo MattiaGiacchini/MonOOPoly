@@ -1,6 +1,6 @@
 package monoopoly.controller.bank;
 
-import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.Bank;
 import monoopoly.model.item.Tile;
 

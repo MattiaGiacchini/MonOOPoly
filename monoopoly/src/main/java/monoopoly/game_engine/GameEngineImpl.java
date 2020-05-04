@@ -4,8 +4,8 @@ import java.util.*;
 
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
-import monoopoly.controller.player_manager.PlayerManager;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
+import monoopoly.controller.player.manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controllermanagers.CardManagerImpl;
 import monoopoly.controllermanagers.TurnManager;
 import monoopoly.controllermanagers.TurnManagerImpl;

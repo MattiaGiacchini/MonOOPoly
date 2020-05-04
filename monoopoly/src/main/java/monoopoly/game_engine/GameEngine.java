@@ -2,7 +2,7 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
-import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
 

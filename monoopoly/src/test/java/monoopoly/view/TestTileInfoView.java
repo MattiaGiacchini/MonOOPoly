@@ -40,7 +40,7 @@ public class TestTileInfoView {
 		button = logic.minHouses(0);
 		assertFalse(button);
 		controller.showPropertyControlPane(new TileInfo.Builder().currentPlayerBalance(5200.00).housePrice(20.00)
-				.mortgage(false).numHouses(4).purchasableValue(250.00).rentValue(47000.00)
+				.mortgage(false).housesAmount(4).purchasableValue(250.00).rentToPay(47000.00)
 				.tileName("Parco della Vittoria").purchasableState(PurchasableState.FREE_PROPERTY).build());
 	}
 

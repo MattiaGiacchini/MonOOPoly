@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import monoopoly.game_engine.GameEngine;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
@@ -149,10 +150,17 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 */
 	@FXML
 	private AnchorPane society;
+	
+	private GameEngine gameEngine;
 
 	@Override
 	public void showPropertyPane(TileInfo info) {
 		this.show(info);
+	}
+	
+	@Override
+	public void setGameEngine(final GameEngine gameEngine) {
+		this.gameEngine = gameEngine;
 	}
 
 	/**

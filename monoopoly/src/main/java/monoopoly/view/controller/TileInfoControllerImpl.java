@@ -37,9 +37,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	@FXML
 	private Button buyPurchasable;
 
-	@FXML
-	private Button onAuctionPurchasable;
-
 	/*
 	 * My property controller pane
 	 */
@@ -150,14 +147,44 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	 */
 	@FXML
 	private AnchorPane society;
-	
+
 	private GameEngine gameEngine;
+
+	@FXML
+	public void buildHouseButtonPressed() {
+		this.gameEngine.buildHouse();
+	}
+
+	@FXML
+	public void sellHouseButtonPressed() {
+		this.gameEngine.sellHouse();
+	}
+
+	@FXML
+	public void mortgageButtonPressed() {
+		this.gameEngine.mortgage();
+	}
+
+	@FXML
+	public void removeMortgageButtonPressed() {
+		this.gameEngine.unMortgage();
+	}
+
+	@FXML
+	public void buyPurchasableButtonPressed() {
+		this.gameEngine.buyPurchasable();
+	}
+
+	@FXML
+	public void payRentButtonPressed() {
+		this.gameEngine.payRent();
+	}
 
 	@Override
 	public void showPropertyPane(TileInfo info) {
 		this.show(info);
 	}
-	
+
 	@Override
 	public void setGameEngine(final GameEngine gameEngine) {
 		this.gameEngine = gameEngine;

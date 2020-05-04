@@ -75,7 +75,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
 	@FXML
 	public void displayPlayerPropertiesButtonClicked(MouseEvent event) {
-		// TODO
+		//TODO
 	}
 
 	public void setPlayerNames(final Map<Integer, String> names) {
@@ -88,6 +88,12 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 	public void updateBalances(final Map<Integer, Double> balances) {
 		balances.forEach((K, V) -> {
 			this.playerBalances.get(K).setText(this.utilities.toMoneyString(V));
+			//TODO try to change color
+//			if (V <= 0) {
+//				ColorAdjust colorAdjust = new ColorAdjust();
+//				colorAdjust.setSaturation(0.5);
+//				this.playerBalances.get(K).getParent().setEffect(colorAdjust);
+//			}
 		});
 	}
 

@@ -18,7 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.utilities.Pair;
-import monoopoly.view.utilities.TileViewCategory;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
@@ -75,21 +74,24 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	@FXML
 	public void cellButtonPressed(ActionEvent event) {
 
+		/*
+		 * TODO UN esempio da rimuovere
+		 */
 		Map<Integer, Integer> prova = new HashMap<>(playerPositions);
-
 		Random random = new Random();
-
 		prova.forEach((K, V) -> {
 			prova.put(K, (((V + random.nextInt(12)) % 40)));
-
 		});
+		prova.remove(2);
+		prova.remove(4);
+		this.updatePlayerPositions(prova);
+		/*
+		 * TODO l'esempio termina qui
+		 */
 
-		this.playerPositions = prova;
-		this.updatePlayerPositions(this.playerPositions);
-
-		Button myButton = (Button) event.getSource();
-
-		int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(myButton), GridPane.getRowIndex(myButton),
+		Button tileButton = (Button) event.getSource();
+		int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(tileButton),
+				GridPane.getRowIndex(tileButton),
 				(this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
 		this.gameEngine.giveTileInfoToView(index);
 		System.out.println("\t " + index);
@@ -99,6 +101,12 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	@Override
 	public void updatePlayerPositions(final Map<Integer, Integer> positions) {
 		this.playerPositions.putAll(positions);
+		this.playerPositions.keySet().forEach(K -> {
+			if (!positions.containsKey(K)) {
+				this.circles.get(K).setVisible(false);
+			}
+		});
+
 		this.updatePawn();
 	}
 
@@ -112,6 +120,7 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	 */
 	private void updatePawn() {
 		playerPositions.forEach((K, V) -> {
+
 			this.pawns.put(K, this.utilities.getCoords(V, gridPane));
 			GridPane.setColumnIndex(this.circles.get(K), this.pawns.get(K).getX());
 			GridPane.setRowIndex(this.circles.get(K), this.pawns.get(K).getY());

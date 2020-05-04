@@ -23,7 +23,7 @@ import monoopoly.view.utilities.SceneManagerImpl;
  * This class checks the parameters set in the setPlayers JavaFX scene and
  * starts the game
  */
-public class SetPlayersFormChecker implements Initializable {
+public class SetPlayerController implements Initializable {
 
 	/**
 	 * These constants defines the balance bounds, the balance increase step for the

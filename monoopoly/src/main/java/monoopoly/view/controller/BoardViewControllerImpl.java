@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+import monoopoly.game_engine.GameEngine;
 import monoopoly.utilities.Pair;
 import monoopoly.view.utilities.TileViewCategory;
 import monoopoly.view.utilities.ViewUtilities;
@@ -44,6 +45,8 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	@FXML
 	private Circle player5;
 
+	private GameEngine gameEngine;
+
 	// This is the map with players positions initialized to 0
 	private Map<Integer, Integer> playerPositions = IntStream.range(0, 6).boxed()
 			.collect(Collectors.toMap(Function.identity(), i -> Integer.valueOf(0)));
@@ -64,8 +67,14 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 		this.updatePawn();
 	}
 
+	@Override
+	public void setGameEngine(final GameEngine gameEngine) {
+		this.gameEngine = gameEngine;
+	}
+
 	@FXML
 	public void cellButtonPressed(ActionEvent event) {
+
 		Map<Integer, Integer> prova = new HashMap<>(playerPositions);
 
 		Random random = new Random();
@@ -82,6 +91,7 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 
 		int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(myButton), GridPane.getRowIndex(myButton),
 				(this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
+		this.gameEngine.giveTileInfoToView(index);
 		System.out.println("\t " + index);
 		System.out.println("\t" + this.utilities.getCoords(index, gridPane));
 	}

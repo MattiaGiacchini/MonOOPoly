@@ -17,7 +17,7 @@ public interface Dices {
 	 * @param playerManager the manager of the player.
 	 * @param table the table.
 	 */
-	void roll(PlayerManager playerManager, Table table);
+	void roll(PlayerManager playerManager);
 	
 	/**
 	 * This method changes the player who's currently playing

@@ -135,6 +135,11 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	}
 
 	@Override
+	public void updateDices(int dice1, int dice2) {
+		this.diceController.updateDices(dice1, dice2, Optional.empty());
+	}
+
+	@Override
 	public void showPropertyPane(TileInfo info) {
 		this.tileInfoController.showPropertyPane(info);
 	}

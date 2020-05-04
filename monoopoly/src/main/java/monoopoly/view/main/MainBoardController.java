@@ -68,13 +68,21 @@ public interface MainBoardController {
 	void showPlayerProperties(Set<String> properties);
 
 	/**
-	 * This method displays the dices rolled.
+	 * This method displays the normal dices rolled and the speedyDice, if present.
 	 * 
 	 * @param dice1
 	 * @param dice2
 	 * @param dice3
 	 */
 	public void updateDices(final int dice1, final int dice2, final Optional<Integer> dice3);
+
+	/**
+	 * This method displays the dices rolled.
+	 * 
+	 * @param dice1
+	 * @param dice2
+	 */
+	public void updateDices(final int dice1, final int dice2);
 
 	/**
 	 * This method shows the property chosen by the {@link Player} or the tile where

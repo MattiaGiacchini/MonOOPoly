@@ -72,7 +72,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@FXML
 	public void rollDicesButtonPressed() {
-		this.nextTurn.setDisable(false);
+		this.gameEngine.rollDices();
 		this.rollDices.setDisable(true);
 	}
 
@@ -95,12 +95,13 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
 		deckCard.initModality(Modality.APPLICATION_MODAL);
 		deckCard.showAndWait();
-
 	}
 
 	@Override
 	public void setGameEngine(final GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
+		this.boardController.setGameEngine(gameEngine);
+		this.tileInfoController.setGameEngine(gameEngine);
 	}
 
 	@Override

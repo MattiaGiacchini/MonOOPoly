@@ -34,7 +34,7 @@ public class SetPlayerController implements Initializable {
 	private static final Double BALANCE_INCREASE_VALUE = 500.00;
 	private static final int MIN_PLAYERS = 2;
 
-	private StartGame start = new StartGameImpl();
+	private StartGame start;
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
 	private Double balance = 1000.00;
@@ -94,7 +94,7 @@ public class SetPlayerController implements Initializable {
 			// this.start.createEngine();
 			// TODO add elaboration method
 		} else {
-			new Alert(AlertType.ERROR, "Too few players").show();
+			new Alert(AlertType.ERROR, "You have to set at least two players").show();
 		}
 	}
 
@@ -119,6 +119,8 @@ public class SetPlayerController implements Initializable {
 	public void updatedBalance() {
 		if (this.startingBalance.getText().isEmpty()) {
 			this.startingBalance.setText(this.balance.toString());
+		} else if (!this.startingBalance.getText().matches("\\d*")) {
+			this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d]", ""));
 		}
 
 		this.balance = Double.valueOf(this.startingBalance.getText().trim());
@@ -169,12 +171,16 @@ public class SetPlayerController implements Initializable {
 	@FXML
 	public void btnDecreaseBalanceClicked() {
 		this.updatedBalance();
+		
+		if (!this.balance.)
+		
 		if (this.balance - BALANCE_INCREASE_VALUE >= MIN_BALANCE) {
 			this.balance = this.balance - BALANCE_INCREASE_VALUE;
 		} else {
 			new Alert(AlertType.ERROR, "Balance should be at least " + MIN_BALANCE.toString()).show();
 			this.balance = MIN_BALANCE;
 		}
+		
 		this.setBalanceField();
 	}
 

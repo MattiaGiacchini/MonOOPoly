@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
 
@@ -20,6 +21,7 @@ public class TradeViewControllerImpl implements Initializable {
 	ObservableList<String> available = FXCollections.observableArrayList();
 	ObservableList<String> selected = FXCollections.observableArrayList();
 	private GameEngine gameEngine;
+	private Stage stage;
 
 	@FXML
 	private Label headerLabel;
@@ -39,6 +41,10 @@ public class TradeViewControllerImpl implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "BOIA", "NON FUNZIONA!!",
+				"OK ORA VA");
+		this.availableProperties.setItems(available);
+		this.selectedProperties.setItems(selected);
 	}
 
 	@FXML
@@ -63,7 +69,7 @@ public class TradeViewControllerImpl implements Initializable {
 
 	@FXML
 	public void close() {
-		Main.getPrimaryStage().close();
+		this.stage.close();
 	}
 
 	@FXML
@@ -117,4 +123,9 @@ public class TradeViewControllerImpl implements Initializable {
 		this.availableProperties.setItems(available);
 		this.selectedProperties.setItems(selected);
 	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
+	}
+
 }

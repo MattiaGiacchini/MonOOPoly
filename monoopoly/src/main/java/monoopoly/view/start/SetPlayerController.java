@@ -41,7 +41,6 @@ public class SetPlayerController implements Initializable {
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
 	private Double balance = 1000.00;
-	private SceneManager manager = new SceneManagerImpl();
 
 	/**
 	 * Fields and buttons in .fxml file reference
@@ -97,6 +96,7 @@ public class SetPlayerController implements Initializable {
 			this.start = new StartGameImpl();
 			this.start.setName(this.playerMap);
 			this.start.setBalance(this.setBalanceMap());
+			System.out.println(this.player1.getScene());
 		} else {
 			new Alert(AlertType.ERROR, "You have to set at least two players").show();
 		}

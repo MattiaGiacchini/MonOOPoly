@@ -41,29 +41,29 @@ public class TradeViewControllerImpl implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "BOIA", "NON FUNZIONA!!",
+		this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "NON FUNZIONA!!",
 				"OK ORA VA");
-		this.availableProperties.setItems(available);
-		this.selectedProperties.setItems(selected);
+		this.availableProperties.setItems(this.available);
+		this.selectedProperties.setItems(this.selected);
 	}
 
 	@FXML
 	public void removeProperty() {
 		String tile = selectedProperties.getSelectionModel().getSelectedItem();
 		if (tile != null) {
-			selectedProperties.getSelectionModel().clearSelection();
-			selected.remove(tile);
-			available.add(tile);
+			this.selectedProperties.getSelectionModel().clearSelection();
+			this.selected.remove(tile);
+			this.available.add(tile);
 		}
 	}
 
 	@FXML
 	public void addProperty() {
-		String tile = availableProperties.getSelectionModel().getSelectedItem();
+		String tile = this.availableProperties.getSelectionModel().getSelectedItem();
 		if (tile != null) {
-			availableProperties.getSelectionModel().clearSelection();
-			available.remove(tile);
-			selected.add(tile);
+			this.availableProperties.getSelectionModel().clearSelection();
+			this.available.remove(tile);
+			this.selected.add(tile);
 		}
 	}
 

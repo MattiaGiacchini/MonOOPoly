@@ -35,7 +35,6 @@ public class SceneManagerImpl implements SceneManager {
 		try {
 			this.stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.stage.centerOnScreen();

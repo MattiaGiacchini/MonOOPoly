@@ -1,5 +1,6 @@
 package monoopoly.view.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -10,19 +11,26 @@ import org.davidmoten.text.utils.WordWrap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.view.controller.BoardViewControllerImpl;
 import monoopoly.view.controller.DiceViewControllerImpl;
+import monoopoly.view.controller.PlayerPropertiesControllerImpl;
 import monoopoly.view.controller.PlayerViewControllerImpl;
 import monoopoly.view.controller.StockMarketViewControllerImpl;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoControllerImpl;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 

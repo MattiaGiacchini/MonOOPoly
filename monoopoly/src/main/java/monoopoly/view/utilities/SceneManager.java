@@ -2,6 +2,7 @@ package monoopoly.view.utilities;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import monoopoly.view.main.MainBoardControllerImpl;
 
 /**
  * This interface is used to manage scenes swap and to set a stage.
@@ -38,5 +39,7 @@ public interface SceneManager {
 	 * @return the current scene
 	 */
 	Scene getScene();
+
+	MainBoardControllerImpl getMainController();
 
 }

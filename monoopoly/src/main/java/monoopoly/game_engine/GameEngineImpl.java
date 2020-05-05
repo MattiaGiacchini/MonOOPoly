@@ -4,6 +4,13 @@ import java.util.*;
 
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
+import monoopoly.controller.dices.Dices;
+import monoopoly.controller.dices.DicesImpl;
+import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.managers.TurnManager;
+import monoopoly.controller.managers.TurnManagerImpl;
+import monoopoly.controller.player_manager.PlayerManager;
+import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controllermanagers.CardManagerImpl;
@@ -14,8 +21,13 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
+import monoopoly.view.controller.TileInfo;
+import monoopoly.view.main.MainBoardController;
+import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.utilities.PurchasableState;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -25,22 +37,17 @@ public class GameEngineImpl implements GameEngine {
 	private static final int FIRST_PLAYER = 0;
 
 	private Map<Integer, String> name = new HashMap<>();
-
 	private Map<Integer, Double> balance = new HashMap<>();
-
 	private Map<Integer, Integer> position = new HashMap<>();
-
-	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>();
-
+	private Map<Integer, States> state = new HashMap<>();
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
-
-	private Map<Integer, Integer> dices;
-
+	//private Map<Integer, Integer> dices;
 	private Table table;
-
 	private CardManagerImpl cardManager;
-	
-	//private BankManager bankManager = new BankManagerImpl(this);
+	private BankManager bankManager = new BankManagerImpl(this);
+	private Dices dicesUse = new DicesImpl(2, this.table);
+	private MainBoardController mainBoardController;
+	private Integer tileHit;
 
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -59,6 +66,7 @@ public class GameEngineImpl implements GameEngine {
 		this.balance = balance;
 		this.position = position;
 		this.state = state;
+		this.tileHit = 0;
 	}
 
 	public Table createTable() {
@@ -137,24 +145,20 @@ public class GameEngineImpl implements GameEngine {
 	public Map<Integer, Integer> getPosition() {
 		return position;
 	}*/
-	
+
 	public Table getTable() {
 		return this.table;
 	}
 
-	@Override
-	public Map<Integer, Integer> getDices() {
-		return this.dices;
-	}
-
 	public PlayerManager passPlayer() {
+		this.dicesUse.resetDices();
 		return this.turnManager.nextTurn();
 	}
-	
+
 	@Override
-	public void updateDices(Map<Integer, Integer> dices) {
+	/*public void updateDices(Map<Integer, Integer> dices) {
 		this.dices = dices;
-	}
+	}*/
 
 	public PlayerManager getGameWinner() {
 		Integer winner = -1;
@@ -166,7 +170,7 @@ public class GameEngineImpl implements GameEngine {
 			for (Purchasable p: pM.getProperties()) {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
-			quotationsMap.put(pM.getPlayer().getID(), quotationProperties + pM.getPlayer().getBalance());	
+			quotationsMap.put(pM.getPlayer().getID(), quotationProperties + pM.getPlayer().getBalance());
 		}
 		for (Map.Entry<Integer, Double> entry: quotationsMap.entrySet()) {
 			if (entry.getValue() > greatest) {
@@ -177,16 +181,17 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void useCard() {
-		Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())								   
+		Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
 									   								    .getPlayer().getPosition());
 		Map<Integer, Double> balance = new HashMap<>();
 		Map<Integer, Integer> position = new HashMap<>();
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());  
+			balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
 		}
 		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());  
+			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
 		}
+
 		Card card = tile.idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
 				.actualPlayersBalance(balance)
 				.actualPlayersPosition(position)
@@ -194,7 +199,7 @@ public class GameEngineImpl implements GameEngine {
 		this.cardManager = new CardManagerImpl(card.getDescription, card.getCardNumber, card.getOriginDeck);
 		monoopoly.utilities.CardEffect effect = this.cardManager.knowCard(card);
 		if (effect == monoopoly.utilities.CardEffect.MONEY_EXCHANGE) {
-			Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get(); 
+			Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get();
 			for (Map.Entry<Integer, Double> entry: map.entrySet()) {
 				this.bankManager.giveMoney(entry.getValue(), this.turnManager.getPlayersList().get(entry.getKey()));
 			}
@@ -212,7 +217,7 @@ public class GameEngineImpl implements GameEngine {
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
 				Integer currentPos = this.playersList().get(entry.getKey())
 													   .getPlayer().getPosition();
-				this.playersList().get(entry.getKey())			
+				this.playersList().get(entry.getKey())
 								  .getPlayer().setPosition(currentPos + entry.getValue());
 			}
 		}
@@ -234,12 +239,146 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
+	public Map<Integer, Integer> rollDices() {
+		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()), this.table);
+		return this.dicesUse.getDices();
+	}
+
+	public Set<String> givePropertiesToView(Integer ID) {
+		Set<String> properties = new HashSet<>();
+		for (Purchasable p: this.playersList().get(ID).getProperties()) {
+			properties.add(p.getName());
+		}
+		return properties;
+	}
+
+	public void giveTileInfoToView(Integer tileNum) {
+		this.tileHit = tileNum;
+		Tile tile = this.table.getTile(tileNum);
+		PurchasableState state;
+        if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+            state = PurchasableState.MY_PROPERTY;
+        }
+        else if (((Purchasable) tile).getOwner().isEmpty()) {
+            state = PurchasableState.FREE_PROPERTY;
+        }
+        else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+            state = PurchasableState.OWNED_PROPERTY;
+        }
+         else {
+            state = PurchasableState.OTHER;
+        }
+
+        TileInfo tileInfo;
+		if (tile.isBuildable()) { //property
+			tileInfo = new TileInfo().tileName(tile.getName())
+											  .purchasableState(state)
+											  .purchasableCategory(tile.getCategory())
+											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
+													  								  .getPlayer().getBalance())
+											  .housesAmount(((Property)tile).getNumberOfHouseBuilt() +
+													  		((Property)tile).getNumberOfHotelBuilt())
+											  .housePrice(((Property)tile).getCostToBuildHouse())
+											  .mortgageState(((Purchasable)tile).isMortgage())
+											  .rentToPay(((Purchasable)tile).getLeaseValue())
+											  .purchasableValue(((Purchasable)tile).getSalesValue())
+											  .owner(((Purchasable)tile).getOwner())
+											  .rentValues(((Purchasable)tile).getLeaseList())
+											  .mortgageValue(((Purchasable)tile).getMortgageValue())
+											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
+											  .build();
+		}
+		else if (tile.getCategory() == Category.STATION) { //station
+			tileInfo = new TileInfo().tileName(tile.getName())
+											  .purchasableState(state)
+											  .purchasableCategory(tile.getCategory())
+											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
+													  								  .getPlayer().getBalance())
+											  .mortgageState(((Purchasable)tile).isMortgage())
+											  .rentToPay(((Purchasable)tile).getLeaseValue())
+											  .purchasableValue(((Purchasable)tile).getSalesValue())
+											  .owner(((Purchasable)tile).getOwner())
+											  .rentValues(((Purchasable)tile).getLeaseList())
+											  .mortgageValue(((Purchasable)tile).getMortgageValue())
+											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
+											  .build();
+
+		}
+		else if (tile.getCategory() == Category.SOCIETY) { //SOCIETY
+			tileInfo = new TileInfo().tileName(tile.getName())
+											  .purchasableState(state)
+											  .purchasableCategory(tile.getCategory())
+											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
+													  								  .getPlayer().getBalance())
+											  .mortgageState(((Purchasable)tile).isMortgage())
+											  .rentToPay(((Purchasable)tile).getLeaseValue())
+											  .purchasableValue(((Purchasable)tile).getSalesValue())
+											  .owner(((Purchasable)tile).getOwner())
+											  .mortgageValue(((Purchasable)tile).getMortgageValue())
+											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
+											  .build();
+
+		}
+		else { //other
+			tileInfo = new TileInfo().tileName(tile.getName())
+											  .purchasableState(state)
+											  .purchasableCategory(tile.getCategory())
+											  .build();
+		}
+		this.mainBoardController.showPropertyPane(tileInfo);
+	}
+
+	public void buildHouseFromView() {
+		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+														 .getPlayer()
+														 .getPosition());
+		this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+	}
+
+	public void sellHouseFromView() {
+		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+														 .getPlayer()
+														 .getPosition());
+		this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+	}
+
+	public void mortgageFromView() {
+		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+														 .getPlayer()
+														 .getPosition());
+		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+	}
+
+	public void unMortgageFromView() {
+		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+														 .getPlayer()
+														 .getPosition());
+		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));	}
+
+	public void buyPurchasableFromView() {
+		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+														 .getPlayer()
+														 .getPosition());
+		this.bankManager.buyProperty(tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
+	}
+
+	public void payRent() {
+		Purchasable tile = (Purchasable)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+															   .getPlayer()
+															   .getPosition());
+		//toglie soldi al debitore
+		this.bankManager.giveMoney(-tile.getLeaseValue(), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		//li da al proprietario
+		this.bankManager.giveMoney(tile.getLeaseValue(), this.playersList().get(tile.getOwner().get()));
+	}
 
 
 
-		
 
-	
+
+
+
+
 
 
 }

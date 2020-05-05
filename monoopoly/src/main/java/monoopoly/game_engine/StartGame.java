@@ -4,7 +4,7 @@ import java.util.Map;
 
 public interface StartGame {
 	
-	GameEngine createEngine();
+	void createEngine();
 	
 	GameEngine openRecentGame(final int game);
 	
@@ -12,9 +12,9 @@ public interface StartGame {
 	
 	void setBalance(Map<Integer, Double> balance);
 	
-	void setPosition(Map<Integer, Integer> position);
+	/*void setPosition(Map<Integer, Integer> position);
 	
-	void setState(Map<Integer, monoopoly.utilities.States> state);
+	void setState(Map<Integer, monoopoly.utilities.States> state);*/
 	
 	
 

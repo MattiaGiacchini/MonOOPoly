@@ -9,13 +9,11 @@ import monoopoly.controller.dices.DicesImpl;
 import monoopoly.controller.managers.CardManagerImpl;
 import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
-import monoopoly.controller.player_manager.PlayerManager;
-import monoopoly.controller.player_manager.PlayerManagerImpl;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
-import monoopoly.controllermanagers.CardManagerImpl;
-import monoopoly.controllermanagers.TurnManager;
-import monoopoly.controllermanagers.TurnManagerImpl;
+import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.managers.TurnManager;
+import monoopoly.controller.managers.TurnManagerImpl;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
@@ -41,7 +39,6 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, Integer> position = new HashMap<>();
 	private Map<Integer, States> state = new HashMap<>();
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
-	//private Map<Integer, Integer> dices;
 	private Table table;
 	private CardManagerImpl cardManager;
 	private BankManager bankManager = new BankManagerImpl(this);
@@ -59,9 +56,9 @@ public class GameEngineImpl implements GameEngine {
 	 * @param state
 	 */
 	public GameEngineImpl(final Map<Integer, String> name,
-						  final Map<Integer, Double> balance,
-						  final Map<Integer, Integer> position,
-						  final Map<Integer, monoopoly.utilities.States> state) {
+						  final Map<Integer, Double> balance
+						  /*final Map<Integer, Integer> position,
+						  final Map<Integer, monoopoly.utilities.States> state*/) {
 		this.name = name;
 		this.balance = balance;
 		this.position = position;
@@ -209,7 +206,7 @@ public class GameEngineImpl implements GameEngine {
 							  .getPlayer().setState(monoopoly.utilities.States.PRISONED);
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_OUT) {
-			thisplayersList().get(this.turnManager.getCurrentPlayer())
+			this.playersList().get(this.turnManager.getCurrentPlayer())
 							 .getPlayer().hasPrisonCard();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.RELATIVE_MOVE) {
@@ -240,11 +237,11 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public Map<Integer, Integer> rollDices() {
-		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()), this.table);
+		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
 		return this.dicesUse.getDices();
 	}
 
-	public Set<String> givePropertiesToView(Integer ID) {
+	public Set<String> giveProperties(Integer ID) {
 		Set<String> properties = new HashSet<>();
 		for (Purchasable p: this.playersList().get(ID).getProperties()) {
 			properties.add(p.getName());
@@ -252,7 +249,7 @@ public class GameEngineImpl implements GameEngine {
 		return properties;
 	}
 
-	public void giveTileInfoToView(Integer tileNum) {
+	public void giveTileInfo(Integer tileNum) {
 		this.tileHit = tileNum;
 		Tile tile = this.table.getTile(tileNum);
 		PurchasableState state;
@@ -328,34 +325,34 @@ public class GameEngineImpl implements GameEngine {
 		this.mainBoardController.showPropertyPane(tileInfo);
 	}
 
-	public void buildHouseFromView() {
+	public void buildHouse() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 	}
 
-	public void sellHouseFromView() {
+	public void sellHouse() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 	}
 
-	public void mortgageFromView() {
+	public void mortgage() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 	}
 
-	public void unMortgageFromView() {
+	public void unMortgage() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));	}
 
-	public void buyPurchasableFromView() {
+	public void buyPurchasable() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());

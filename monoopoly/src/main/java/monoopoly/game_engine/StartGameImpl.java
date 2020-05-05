@@ -17,9 +17,8 @@ public class StartGameImpl implements StartGame {
 	}
 
 	@Override
-	public GameEngine createEngine() {
-		final GameEngine newGM = new GameEngineImpl(this.name, this.balance, this.position, this.state);
-		return newGM;
+	public void createEngine() {
+		final GameEngine newGM = new GameEngineImpl(this.name, this.balance/*, this.position, this.state*/);
 	}
 
 	@Override
@@ -39,12 +38,12 @@ public class StartGameImpl implements StartGame {
 		this.balance = balance;
 	}
 	
-	public void setPosition(Map<Integer, Integer> position) {
+	/*public void setPosition(Map<Integer, Integer> position) {
 		this.position = position;
 	}
 	
 	public void setState(Map<Integer, monoopoly.utilities.States> state) {
 		this.state = state;
-	}
+	}*/
 
 }

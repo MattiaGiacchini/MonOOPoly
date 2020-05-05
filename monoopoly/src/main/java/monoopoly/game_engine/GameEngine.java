@@ -108,45 +108,45 @@ public interface GameEngine {
 	Map<Integer, Integer> rollDices();
 
 	/**
-	 * usefull to get the names of players' properties
+	 * Useful to get the names of players' properties
 	 * @param ID
 	 * @return a set of String
 	 */
-	Set<String> givePropertiesToView(Integer ID);
+	Set<String> giveProperties(Integer ID);
 	
 	/**
-	 * usefull to get the names of the tile you hit on
+	 * Useful to get the names of the tile you hit on
 	 * @param tileNum
 	 */
-	void giveTileInfoToView(Integer tileNum);
+	void giveTileInfo(Integer tileNum);
 	
 	/**
-	 * usefull to build an house 
+	 * Useful to build an house 
 	 */
-	public void buildHouseFromView();
+	public void buildHouse();
 	
 	/**
-	 * usefull to sell an house 
+	 * Useful to sell an house 
 	 */
-	public void sellHouseFromView();
+	public void sellHouse();
 	
 	/**
-	 * usefull to mortgage 
+	 * Useful to mortgage 
 	 */
-	public void mortgageFromView();
+	public void mortgage();
 	
 	/**
-	 * usefull to un-mortgage 
+	 * Useful to un-mortgage 
 	 */
-	public void unMortgageFromView();
+	public void unMortgage();
 	
 	/**
-	 * usefull to buy a purchasable 
+	 * Useful to buy a purchasable 
 	 */
-	public void buyPurchasableFromView();
+	public void buyPurchasable();
 	
 	/**
-	 * usefull to pay to the owner 
+	 * Useful to pay to the owner 
 	 */
 	public void payRent();
 	

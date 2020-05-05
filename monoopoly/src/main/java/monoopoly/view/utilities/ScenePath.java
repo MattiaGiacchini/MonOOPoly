@@ -30,29 +30,19 @@ public enum ScenePath {
 	BOARD("004_mainBoard.fxml"),
 
 	/**
-	 * Scene that shows you the informations of a chosen card
-	 */
-	PROPERTY("005_propertyCard.fxml"),
-
-	/**
-	 * Scene that shows the probability, unexpected or calamity card you drawn
-	 */
-	CARD("006_cardPopup.fxml"),
-
-	/**
 	 * Scene that shows all the properties of a chosen player
 	 */
-	PLAYER_PROPERTIES("007_playerProperties.fxml"),
+	PLAYER_PROPERTIES("005_playerProperties.fxml"),
 
 	/**
 	 * Scene that makes you compile a trade with a specific player
 	 */
-	TRADE("008_trade.fxml"),
+	TRADE("006_trade.fxml"),
 
 	/**
 	 * Final scene with the score board
 	 */
-	SCOREBOARD("009_scoreboard.fxml");
+	SCOREBOARD("007_scoreboard.fxml");
 
 	private final String name;
 	private final String path = "/scenes/";

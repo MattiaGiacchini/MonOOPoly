@@ -69,7 +69,6 @@ public class GameEngineImpl implements GameEngine {
 		this.position = position;
 		this.state = state;
 		this.tileHit = 0;
-		this.initializeView();
 	}
 
 	public Table createTable() {
@@ -88,6 +87,7 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void createPlayers() {
+		this.initializeView();
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while (it.hasNext()) {
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));

@@ -305,7 +305,6 @@ public class TestCard {
 							 .tilePositionToGo(10)
 							 .build();		
 		assertTrue(card.getAbsoluteMoveToPosition().get().entrySet().stream().allMatch(x->x.getValue() == 10));
-		assertTrue(card.getAbsoluteMoveToPosition().get().size() == this.playersPosition.size());
 		assertTrue(card.getRelativeMoveToPosition().isEmpty());
 
 

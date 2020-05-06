@@ -26,7 +26,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		this.setPrimaryStage(primaryStage);
 		// this.manager.setup(stage);
-		this.manager.loadScene(ScenePath.BOARD, primaryStage);
+		this.manager.loadScene(ScenePath.START_PAGE, primaryStage);
 		primaryStage.setResizable(true);
 		primaryStage.setMaximized(true);
 	}

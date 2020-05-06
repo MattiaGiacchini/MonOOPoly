@@ -29,7 +29,7 @@ public class DicesImpl implements Dices{
 	}
 	
 	@Override
-	public void roll(PlayerManager playerManager, Table table) {
+	public void roll(PlayerManager playerManager) {
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}

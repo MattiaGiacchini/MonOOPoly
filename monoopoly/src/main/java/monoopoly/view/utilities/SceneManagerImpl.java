@@ -2,9 +2,9 @@ package monoopoly.view.utilities;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import monoopoly.view.main.MainBoardControllerImpl;
 
 public class SceneManagerImpl implements SceneManager {
 
@@ -23,26 +23,20 @@ public class SceneManagerImpl implements SceneManager {
 	public void loadScene(ScenePath scene, Stage stage) {
 		try {
 			this.setup(stage);
-			Parent root = FXMLLoader.load(getClass().getResource(scene.getPath()));// resources)
-																					// (getClass().getResource(scene.getPath()).toExternalForm());
-			Scene newScene = new Scene(root);
-			this.stage.setScene(newScene);
+			this.swapScene(scene);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		this.stage.centerOnScreen();
-		this.stage.show();
 	}
 
 	@Override
 	public void swapScene(ScenePath scene) {
+		this.loader.setLocation(getClass().getResource(scene.getPath()));
 		try {
-			this.stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(scene.getPath()))));
+			this.stage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		this.stage.centerOnScreen();
 		this.stage.show();
 	}
@@ -50,6 +44,11 @@ public class SceneManagerImpl implements SceneManager {
 	@Override
 	public Scene getScene() {
 		return this.stage.getScene();
+	}
+
+	@Override
+	public MainBoardControllerImpl getMainController() {
+		return (MainBoardControllerImpl) this.loader.getController();
 	}
 
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -29,7 +30,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label fx:id="owner" text="Label" textFill="WHITE">
+                  <Label fx:id="propertyOwner" text="Label" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -87,7 +88,6 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="emptyInfo" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
                   <AnchorPane fx:id="property" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
                         <VBox layoutX="43.0" layoutY="44.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -102,13 +102,13 @@
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                              <children>
                                                 <Label text="House n.:" textFill="WHITE" />
-                                                <Label text="Label" textFill="WHITE" />
+                                                <Label fx:id="houseNumber" text="Label" textFill="WHITE" />
                                              </children>
                                           </HBox>
                                           <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                              <children>
                                                 <Label text="Hotel n.:" textFill="WHITE" />
-                                                <Label text="Label" textFill="WHITE" />
+                                                <Label fx:id="hotelNumber" text="Label" textFill="WHITE" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -120,7 +120,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="Base rent:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="baseRent" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -129,7 +129,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="1 House:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="rentOneHouse" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -138,7 +138,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="2 Houses:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="rentTwoHouse" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -147,7 +147,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="3 Houses:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="rentThreeHouse" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -156,7 +156,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="4 Houses:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="rentFourHouse" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -165,7 +165,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="1 Hotel:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="rentOneHotel" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -174,7 +174,7 @@
                                     <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                                        <children>
                                           <Label text="Build cost:" textFill="WHITE" />
-                                          <Label text="Label" textFill="WHITE" />
+                                          <Label fx:id="houseCost" text="Label" textFill="WHITE" />
                                        </children>
                                        <padding>
                                           <Insets left="20.0" />
@@ -227,6 +227,10 @@
                         </VBox>
                      </children>
                   </AnchorPane>
+                  <AnchorPane fx:id="emptyInfo" prefWidth="224.0" style="-fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                     <children>
+                        <Pane prefHeight="252.0" prefWidth="224.0" style="-fx-background-color: #424242;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
                </children>
             </StackPane>
             <VBox prefHeight="150.0" prefWidth="224.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
@@ -234,7 +238,7 @@
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <Label text="Property value:" textFill="WHITE" />
-                        <Label fx:id="tileValue" text="Label" textFill="WHITE" />
+                        <Label fx:id="propertyValue" text="Label" textFill="WHITE" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -263,32 +267,20 @@
             <StackPane prefHeight="150.0" prefWidth="224.0">
                <children>
                   <AnchorPane fx:id="emptyControl" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;" />
-                  <AnchorPane fx:id="freeProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                  <AnchorPane fx:id="myProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
-                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                        <VBox alignment="CENTER" layoutX="-23.0" layoutY="79.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Label text="Value:" textFill="WHITE">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="purchasableValue" text="€ ###.##" textFill="WHITE">
-                                       <font>
-                                          <Font size="20.0" />
-                                       </font>
-                                    </Label>
+                                    <Button fx:id="buildHouse" mnemonicParsing="false" onAction="#buildHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Build House" />
+                                    <Button fx:id="sellHouse" mnemonicParsing="false" onAction="#sellHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Sell House" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="buyPurchasable" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Buy" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Button fx:id="onAuctionPurchasable" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="on Auction" />
+                                    <Button fx:id="mortgage" mnemonicParsing="false" onAction="#mortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Mortgage" />
+                                    <Button fx:id="unMortgage" mnemonicParsing="false" onAction="#removeMortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="un Mortgage" />
                                  </children>
                               </HBox>
                            </children>
@@ -318,7 +310,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="payRent" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Pay" />
+                                    <Button fx:id="payRent" mnemonicParsing="false" onAction="#payRentButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Pay" />
                                  </children>
                               </HBox>
                            </children>
@@ -328,20 +320,32 @@
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="myProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
+                  <AnchorPane fx:id="freeProperty" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #424242; -fx-border-color: #FFFFFF; -fx-border-width: 5;">
                      <children>
-                        <VBox alignment="CENTER" layoutX="-23.0" layoutY="79.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <children>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="buildHouse" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Build House" />
-                                    <Button fx:id="sellHouse" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Sell House" />
+                                    <Label text="Value:" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="purchasableValue" text="€ ###.##" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="mortgage" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Mortgage" />
-                                    <Button fx:id="unMortgage" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="un Mortgage" />
+                                    <Button fx:id="buyPurchasable" mnemonicParsing="false" onAction="#buyPurchasableButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Buy" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="on Auction" />
                                  </children>
                               </HBox>
                            </children>

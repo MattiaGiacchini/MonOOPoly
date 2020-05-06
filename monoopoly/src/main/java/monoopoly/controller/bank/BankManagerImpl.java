@@ -33,10 +33,10 @@ public class BankManagerImpl implements BankManager {
 		this.bank.giveMoney(toGive);
 		player.collectMoney(toGive);
 		if (this.bank.isBankBroken()) {
-			/* THIS METHOD RETURNS THE PLAYER THAT HAS WON THE GAME
-			 * final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
+			/*
+			 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
 			 */
-			System.out.println("THE BANK IS BROKEN");
+			 System.out.println("THE BANK IS BROKEN");
 		}
 	}
 
@@ -102,27 +102,8 @@ public class BankManagerImpl implements BankManager {
 	}
 	@Override
 	public void buyProperty(Tile property, PlayerManager player) {
-		/*final BankCommand command = new BankCommand() {
-			
-			@Override
-			public void execute(Bank bank) {
-				checkPurchasability(property);
-				Purchasable purchasable = (Purchasable)property;
-				if(purchasable.getOwner().isEmpty()) {
-					double money = purchasable.getSalesValue();
-					purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
-					bank.getAssignedProperties().put(property, player.getPlayer());
-					bank.giveMoney(money);
-					player.collectMoney(-money);
-				} else {
-					throw new IllegalStateException("Property already bought!");
-				}
-			}
-			
-		command.execute();
-		};*/
 		
-		/*final BankCommand command =*/ new BankCommandAbstractImpl(this.bank, player, property) {
+		new BankCommandAbstractImpl(this.bank, player, property) {
 
 			@Override
 			public void execute() {

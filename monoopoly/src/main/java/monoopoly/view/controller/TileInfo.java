@@ -35,7 +35,14 @@ public class TileInfo {
 
 		private String tileName;
 		private String owner = "NONE";
+		/**
+		 * State means if the property is owned by the current {@link Player}, if is
+		 * free or if is already owned.
+		 */
 		private PurchasableState state;
+		/**
+		 * Category indicates the typology of the tile to display
+		 */
 		private TileViewCategory category;
 		private double currentPlayerBalance;
 
@@ -45,6 +52,9 @@ public class TileInfo {
 		private Double rentToPay = 0.00;
 		private Double purchasableValue = 0.00;
 
+		/**
+		 * A map with the number of houses or stations ant the relative rent to pay
+		 */
 		private Optional<Map<Integer, Double>> rentValues = Optional.empty();
 		private Double mortgageValue = 0.00;
 		private Double unMortgageValue = 0.00;
@@ -63,7 +73,7 @@ public class TileInfo {
 			return this;
 		}
 
-		public Builder purchasableState(final TileViewCategory category) {
+		public Builder purchasableCategory(final TileViewCategory category) {
 			this.category = category;
 			return this;
 		}
@@ -83,7 +93,7 @@ public class TileInfo {
 			return this;
 		}
 
-		public Builder mortgage(final boolean isMortgaged) {
+		public Builder mortgageState(final boolean isMortgaged) {
 			this.isMortgaged = isMortgaged;
 			return this;
 		}
@@ -98,8 +108,10 @@ public class TileInfo {
 			return this;
 		}
 
-		public Builder owner(final String name) {
-			this.owner = name;
+		public Builder owner(final Optional<String> name) {
+			if (!name.isEmpty()) {
+				this.owner = name.get();
+			}
 			return this;
 		}
 
@@ -121,7 +133,7 @@ public class TileInfo {
 		public TileInfo build() {
 
 			if (this.state.equals(null)
-					|| (!this.state.equals(null) && (this.tileName.equals("") || this.owner.equals("")))) {
+					|| (!this.category.equals(TileViewCategory.OTHER) && (this.tileName.equals("")))) {
 				throw new IllegalStateException("Base tile info faulting");
 			}
 

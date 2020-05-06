@@ -2,6 +2,7 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
+import monoopoly.Main;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;

@@ -96,7 +96,7 @@ public class SetPlayerController implements Initializable {
 			this.start = new StartGameImpl();
 			this.start.setName(this.playerMap);
 			this.start.setBalance(this.setBalanceMap());
-			System.out.println(this.player1.getScene());
+			this.start.createEngine();
 		} else {
 			new Alert(AlertType.ERROR, "You have to set at least two players").show();
 		}

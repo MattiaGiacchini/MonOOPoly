@@ -5,6 +5,7 @@ import java.util.*;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
+import monoopoly.view.main.MainBoardController;
 
 /**
  * Interface representing the brain behind
@@ -44,6 +45,8 @@ public interface GameEngine {
 	 * @return a list of {@link PlayerManager}
 	 */
 	List<PlayerManager> playersList();
+	
+	void setMainBoardController(MainBoardController mainBoardController);
 
 	/**
 	 * helpful for getting player's name by putting ID

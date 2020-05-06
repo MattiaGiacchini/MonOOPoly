@@ -53,7 +53,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	private TileInfoControllerImpl tileInfoController;
 
 	@FXML
-	private DiceViewControllerImpl diceController;
+	private DiceViewControllerImpl dicesImageController;
 
 	@FXML
 	private StockMarketViewControllerImpl stockMarketController;
@@ -69,8 +69,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	@FXML
 	public void endGameButtonPressed() {
 		/*
-		 * TODO 
-		 * this.gameEngine.endGame();
+		 * TODO this.gameEngine.endGame();
 		 */
 	}
 
@@ -143,12 +142,12 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@Override
 	public void updateDices(int dice1, int dice2, Optional<Integer> dice3) {
-		this.diceController.updateDices(dice1, dice2, dice3);
+		this.dicesImageController.updateDices(dice1, dice2, dice3);
 	}
 
 	@Override
 	public void updateDices(Map<Integer, Integer> dices) {
-		this.diceController.updateDices(dices.get(0), dices.get(1), Optional.empty());
+		this.updateDices(dices.get(0), dices.get(1), Optional.empty());
 	}
 
 	@Override

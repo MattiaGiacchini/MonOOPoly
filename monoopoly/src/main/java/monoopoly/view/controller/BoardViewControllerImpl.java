@@ -73,27 +73,11 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 
 	@FXML
 	public void cellButtonPressed(ActionEvent event) {
-
-		/*
-		 * TODO UN esempio da rimuovere
-		 */
-		Map<Integer, Integer> prova = new HashMap<>(playerPositions);
-		Random random = new Random();
-		prova.forEach((K, V) -> {
-			prova.put(K, (((V + random.nextInt(12)) % 40)));
-		});
-		prova.remove(2);
-		prova.remove(4);
-		this.updatePlayerPositions(prova);
-		/*
-		 * TODO l'esempio termina qui
-		 */
-
 		Button tileButton = (Button) event.getSource();
 		int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(tileButton),
 				GridPane.getRowIndex(tileButton),
 				(this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
-		this.gameEngine.giveTileInfoToView(index);
+		this.gameEngine.giveTileInfo(index);
 		System.out.println("\t " + index);
 		System.out.println("\t" + this.utilities.getCoords(index, gridPane));
 	}

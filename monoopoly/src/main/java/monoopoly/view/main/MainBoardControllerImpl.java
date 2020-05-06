@@ -1,5 +1,6 @@
 package monoopoly.view.main;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -10,19 +11,26 @@ import org.davidmoten.text.utils.WordWrap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.view.controller.BoardViewControllerImpl;
 import monoopoly.view.controller.DiceViewControllerImpl;
+import monoopoly.view.controller.PlayerPropertiesControllerImpl;
 import monoopoly.view.controller.PlayerViewControllerImpl;
 import monoopoly.view.controller.StockMarketViewControllerImpl;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoControllerImpl;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
@@ -63,6 +71,12 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+	}
+
+	@FXML
+	public void endGameButtonPressed() {
+		this.gameEngine.endGame();
 	}
 
 	@FXML
@@ -72,13 +86,13 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@FXML
 	public void rollDicesButtonPressed() {
-		this.gameEngine.passPlayer();
-		this.nextTurn.setDisable(false);
+		this.updateDices(this.gameEngine.rollDices());
 		this.rollDices.setDisable(true);
 	}
 
 	@FXML
 	public void nextTurnButtonPressed() {
+		this.gameEngine.passPlayer();
 		this.nextTurn.setDisable(true);
 		this.rollDices.setDisable(false);
 	}
@@ -94,13 +108,16 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		deckCard.setHeaderText(cardCategory.toUpperCase());
 		deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
 		deckCard.initModality(Modality.APPLICATION_MODAL);
+		deckCard.setTitle(cardCategory);
 		deckCard.showAndWait();
-
 	}
 
 	@Override
 	public void setGameEngine(final GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
+		this.boardController.setGameEngine(gameEngine);
+		this.tileInfoController.setGameEngine(gameEngine);
+		this.playerInfoController.setGameEngine(gameEngine);
 	}
 
 	@Override
@@ -132,6 +149,11 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	@Override
 	public void updateDices(int dice1, int dice2, Optional<Integer> dice3) {
 		this.diceController.updateDices(dice1, dice2, dice3);
+	}
+
+	@Override
+	public void updateDices(Map<Integer, Integer> dices) {
+		this.diceController.updateDices(dices.get(0), dices.get(1), Optional.empty());
 	}
 
 	@Override

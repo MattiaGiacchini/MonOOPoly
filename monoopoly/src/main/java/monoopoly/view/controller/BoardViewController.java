@@ -3,6 +3,8 @@ package monoopoly.view.controller;
 import java.util.List;
 import java.util.Map;
 
+import monoopoly.game_engine.GameEngine;
+
 /**
  * This interface represents the view controller for the game board
  */
@@ -21,5 +23,12 @@ public interface BoardViewController {
 	 * @param tileNames the names of all the board tiles
 	 */
 	void initializeBoard(List<String> tileNames);
+	
+	/**
+	 * This method sets the game controller
+	 * 
+	 * @param gameEngine
+	 */
+	void setGameEngine(GameEngine gameEngine);
 
 }

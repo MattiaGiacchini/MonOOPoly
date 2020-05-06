@@ -1,5 +1,6 @@
 package monoopoly.view.controller;
 
+import monoopoly.game_engine.GameEngine;
 import monoopoly.view.controller.TileInfo;
 
 public interface TileInfoController {
@@ -11,5 +12,12 @@ public interface TileInfoController {
 	 * @param {@link TileInfo} to be displayed
 	 */
 	void showPropertyPane(TileInfo info);
+
+	/**
+	 * This method sets the game controller
+	 * 
+	 * @param gameEngine
+	 */
+	void setGameEngine(GameEngine gameEngine);
 
 }

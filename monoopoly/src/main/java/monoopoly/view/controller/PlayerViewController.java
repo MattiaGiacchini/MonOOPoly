@@ -3,6 +3,8 @@ package monoopoly.view.controller;
 import java.util.Map;
 import java.util.Set;
 
+import monoopoly.game_engine.GameEngine;
+
 public interface PlayerViewController {
 
 	/**
@@ -33,5 +35,12 @@ public interface PlayerViewController {
 	 * @param properties owned by the player chosen
 	 */
 	void showPlayerProperties(Set<String> properties);
+
+	/**
+	 * This method sets the gameEngine for the playerInfo controller
+	 * 
+	 * @param gameEngine
+	 */
+	void setGameEngine(GameEngine gameEngine);
 
 }

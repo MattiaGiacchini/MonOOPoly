@@ -2,12 +2,16 @@ package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import monoopoly.game_engine.GameEngine;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
@@ -35,9 +39,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
 	@FXML
 	private Button buyPurchasable;
-
-	@FXML
-	private Button onAuctionPurchasable;
 
 	/*
 	 * My property controller pane
@@ -150,9 +151,46 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 	@FXML
 	private AnchorPane society;
 
+	private GameEngine gameEngine;
+
+	@FXML
+	public void buildHouseButtonPressed() {
+		this.gameEngine.buildHouse();
+	}
+
+	@FXML
+	public void sellHouseButtonPressed() {
+		this.gameEngine.sellHouse();
+	}
+
+	@FXML
+	public void mortgageButtonPressed() {
+		this.gameEngine.mortgage();
+	}
+
+	@FXML
+	public void removeMortgageButtonPressed() {
+		this.gameEngine.unMortgage();
+	}
+
+	@FXML
+	public void buyPurchasableButtonPressed() {
+		this.gameEngine.buyPurchasable();
+	}
+
+	@FXML
+	public void payRentButtonPressed() {
+		this.gameEngine.payRent();
+	}
+
 	@Override
 	public void showPropertyPane(TileInfo info) {
 		this.show(info);
+	}
+
+	@Override
+	public void setGameEngine(final GameEngine gameEngine) {
+		this.gameEngine = gameEngine;
 	}
 
 	/**
@@ -186,7 +224,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 			this.showPropertyInfo(info);
 		} else {
 			this.emptyInfo.toFront();
-			this.property.toFront();
+			this.emptyControl.toFront();
 		}
 	}
 

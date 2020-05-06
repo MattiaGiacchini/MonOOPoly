@@ -2,6 +2,7 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
+import javafx.fxml.FXML;
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.dices.Dices;
@@ -26,6 +27,7 @@ import monoopoly.view.controller.TileInfo;
 import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
 import monoopoly.view.utilities.PurchasableState;
+import monoopoly.view.utilities.TileViewCategory;
 
 public class GameEngineImpl implements GameEngine {
 
@@ -77,15 +79,17 @@ public class GameEngineImpl implements GameEngine {
 
 	public PlayerManager createPlayer(final int ID) {
 		String name = this.getName(ID);
-		return new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
-																 .name(this.getName(ID))
-												    			 .balance(this.getBalance(ID))
-												    			 .build());
+		PlayerManager pM = new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
+																			 .name(this.getName(ID))
+															    			 .balance(this.getBalance(ID))
+															    			 .build());
+		pM.setTable(this.table);
+		return pM;
 	}
 
 	public void createPlayers() {
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
 	}
@@ -105,6 +109,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
 		this.mainBoardController = mainBoardController;
+		this.initializeView();
 	}
 	
 	public String getName(final int ID) {
@@ -271,76 +276,66 @@ public class GameEngineImpl implements GameEngine {
 		this.tileHit = tileNum;
 		Tile tile = this.table.getTile(tileNum);
 		PurchasableState state;
-        if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
-            state = PurchasableState.MY_PROPERTY;
-        }
-        else if (((Purchasable) tile).getOwner().isEmpty()) {
+		if (((Purchasable) tile).getOwner().isEmpty()) {
             state = PurchasableState.FREE_PROPERTY;
-        }
-        else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+        } else if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+            state = PurchasableState.MY_PROPERTY;
+        } else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
             state = PurchasableState.OWNED_PROPERTY;
-        }
-         else {
+        } else {
             state = PurchasableState.OTHER;
         }
-
+ 
         TileInfo tileInfo;
-		if (tile.isBuildable()) { //property
-			tileInfo = new TileInfo().tileName(tile.getName())
-											  .purchasableState(state)
-											  .purchasableCategory(tile.getCategory())
-											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
-													  								  .getPlayer().getBalance())
-											  .housesAmount(((Property)tile).getNumberOfHouseBuilt() +
-													  		((Property)tile).getNumberOfHotelBuilt())
-											  .housePrice(((Property)tile).getCostToBuildHouse())
-											  .mortgageState(((Purchasable)tile).isMortgage())
-											  .rentToPay(((Purchasable)tile).getLeaseValue())
-											  .purchasableValue(((Purchasable)tile).getSalesValue())
-											  .owner(((Purchasable)tile).getOwner())
-											  .rentValues(((Purchasable)tile).getLeaseList())
-											  .mortgageValue(((Purchasable)tile).getMortgageValue())
-											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
-											  .build();
-		}
-		else if (tile.getCategory() == Category.STATION) { //station
-			tileInfo = new TileInfo().tileName(tile.getName())
-											  .purchasableState(state)
-											  .purchasableCategory(tile.getCategory())
-											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
-													  								  .getPlayer().getBalance())
-											  .mortgageState(((Purchasable)tile).isMortgage())
-											  .rentToPay(((Purchasable)tile).getLeaseValue())
-											  .purchasableValue(((Purchasable)tile).getSalesValue())
-											  .owner(((Purchasable)tile).getOwner())
-											  .rentValues(((Purchasable)tile).getLeaseList())
-											  .mortgageValue(((Purchasable)tile).getMortgageValue())
-											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
-											  .build();
-
-		}
-		else if (tile.getCategory() == Category.SOCIETY) { //SOCIETY
-			tileInfo = new TileInfo().tileName(tile.getName())
-											  .purchasableState(state)
-											  .purchasableCategory(tile.getCategory())
-											  .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer())
-													  								  .getPlayer().getBalance())
-											  .mortgageState(((Purchasable)tile).isMortgage())
-											  .rentToPay(((Purchasable)tile).getLeaseValue())
-											  .purchasableValue(((Purchasable)tile).getSalesValue())
-											  .owner(((Purchasable)tile).getOwner())
-											  .mortgageValue(((Purchasable)tile).getMortgageValue())
-											  .unMortgageValue(((Purchasable)tile).getCostToRemoveMortgage())
-											  .build();
-
-		}
-		else { //other
-			tileInfo = new TileInfo().tileName(tile.getName())
-											  .purchasableState(state)
-											  .purchasableCategory(tile.getCategory())
-											  .build();
-		}
-		this.mainBoardController.showPropertyPane(tileInfo);
+        if (tile.isBuildable()) { // property
+            tileInfo = new TileInfo.Builder().tileName(tile.getName())
+            								 .purchasableState(state)
+						                     .purchasableCategory(TileViewCategory.PROPERTY)
+						                     .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getBalance())
+						                     .housesAmount(((Property) tile).getNumberOfHouseBuilt() + ((Property) tile).getNumberOfHotelBuilt())
+						                     .housePrice(((Property) tile).getCostToBuildHouse())
+						                     .mortgageState(((Purchasable) tile).isMortgage()).rentToPay(((Purchasable) tile).getLeaseValue())
+						                     .purchasableValue(((Purchasable) tile).getSalesValue())
+						                     .owner(Optional.of(((Purchasable) tile).getOwner().isEmpty() ? "NONE"
+						                            : this.playersList().get(((Purchasable) tile).getOwner().get()).getPlayer().getName()))
+						                     .rentValues(Optional.of(((Purchasable) tile).getLeaseList()))
+						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
+						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .build();
+        } else if (tile.getCategory() == Category.STATION) { // station
+            tileInfo = new TileInfo.Builder().tileName(tile.getName())
+						            		 .purchasableState(state)
+						                     .purchasableCategory(TileViewCategory.STATION)
+						                     .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getBalance())
+						                     .mortgageState(((Purchasable) tile).isMortgage()).rentToPay(((Purchasable) tile).getLeaseValue())
+						                     .purchasableValue(((Purchasable) tile).getSalesValue())
+						                     .owner(Optional.of(((Purchasable) tile).getOwner().isEmpty() ? "NONE"
+						                            : this.playersList().get(((Purchasable) tile).getOwner().get()).getPlayer().getName()))
+						                     .rentValues(Optional.of(((Purchasable) tile).getLeaseList()))
+						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
+						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .build();
+ 
+        } else if (tile.getCategory() == Category.SOCIETY) { // SOCIETY
+            tileInfo = new TileInfo.Builder().tileName(tile.getName())
+						            		 .purchasableState(state)
+						                     .purchasableCategory(TileViewCategory.SOCIETY)
+						                     .currentPlayerBalance(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getBalance())
+						                     .mortgageState(((Purchasable) tile).isMortgage()).rentToPay(((Purchasable) tile).getLeaseValue())
+						                     .purchasableValue(((Purchasable) tile).getSalesValue())
+						                     .owner(Optional.of(((Purchasable) tile).getOwner().isEmpty() ? "NONE"
+						                            : this.playersList().get(((Purchasable) tile).getOwner().get()).getPlayer().getName()))
+						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
+						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .build();
+ 
+        } else { // other
+            tileInfo = new TileInfo.Builder().tileName(tile.getName())
+            								 .purchasableState(state)
+            								 .purchasableCategory(TileViewCategory.OTHER)
+            								 .build();
+        }
+        this.mainBoardController.showPropertyPane(tileInfo);
 		this.updateAlways();
 	}
 

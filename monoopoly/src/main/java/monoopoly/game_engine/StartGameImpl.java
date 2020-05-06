@@ -27,6 +27,7 @@ public class StartGameImpl implements StartGame {
 		SceneManager manager = new SceneManagerImpl();
 		manager.loadScene(ScenePath.BOARD, Main.getPrimaryStage());
 		newGM.setMainBoardController(manager.getMainController());
+		newGM.createPlayers();
 	}
 
 	@Override

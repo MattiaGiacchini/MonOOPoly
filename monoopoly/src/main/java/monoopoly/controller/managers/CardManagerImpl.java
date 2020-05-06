@@ -1,4 +1,4 @@
-package monoopoly.controllermanagers;
+package monoopoly.controller.managers;
 
 import java.util.Map;
 

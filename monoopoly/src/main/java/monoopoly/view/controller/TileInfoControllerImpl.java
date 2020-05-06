@@ -2,6 +2,9 @@ package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -221,7 +224,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 			this.showPropertyInfo(info);
 		} else {
 			this.emptyInfo.toFront();
-			this.property.toFront();
+			this.emptyControl.toFront();
 		}
 	}
 

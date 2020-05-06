@@ -67,15 +67,6 @@ public class SetPlayerController implements Initializable {
 	private TextField startingBalance;
 
 	@FXML
-	private Button decreaseBalance;
-
-	@FXML
-	private Button increaseBalance;
-
-	@FXML
-	private Button startGameBtn;
-
-	@FXML
 	private ImageView logo;
 
 	/**
@@ -123,8 +114,8 @@ public class SetPlayerController implements Initializable {
 	public void updatedBalance() {
 		if (this.startingBalance.getText().isEmpty()) {
 			this.startingBalance.setText(this.balance.toString());
-		} else if (!this.startingBalance.getText().matches("\\d*")) {
-			this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d]", ""));
+	} else if (!this.startingBalance.getText().matches("\\d*\\.\\d{2}$")) {
+			this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d\\.]", ""));
 		}
 
 		this.balance = Double.valueOf(this.startingBalance.getText().trim());

@@ -39,11 +39,13 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, Integer> position = new HashMap<>();
 	private Map<Integer, States> state = new HashMap<>();
 	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
-	private Table table;
+	private Table table = new TableImpl();
 	private CardManagerImpl cardManager;
 	private BankManager bankManager = new BankManagerImpl(this);
 	private Dices dicesUse = new DicesImpl(2, this.table);
-	private MainBoardController mainBoardController;
+	
+	@FXML
+	private MainBoardControllerImpl mainBoardController;
 
 	private Integer tileHit;
 
@@ -65,6 +67,7 @@ public class GameEngineImpl implements GameEngine {
 		this.position = position;
 		this.state = state;
 		this.tileHit = 0;
+		this.initializeView();
 	}
 
 	public Table createTable() {
@@ -100,7 +103,7 @@ public class GameEngineImpl implements GameEngine {
 		return this.turnManager.getPlayersList();
 	}
 	
-	public void setMainBoardController(MainBoardController mainBoardController) {
+	public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
 		this.mainBoardController = mainBoardController;
 	}
 	
@@ -152,9 +155,16 @@ public class GameEngineImpl implements GameEngine {
 		return this.table;
 	}
 
-	public PlayerManager passPlayer() {
+	public void passPlayer() {
 		this.dicesUse.resetDices();
-		return this.turnManager.nextTurn();
+		this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
+																	   .getPlayer()
+																	   .getName(), 
+													 this.playersList().get(this.turnManager.getCurrentPlayer())
+													 				   .getPlayer()
+													 				   .getBalance());
+		this.updateAlways();
+		this.turnManager.nextTurn();
 	}
 
 	@Override
@@ -239,10 +249,12 @@ public class GameEngineImpl implements GameEngine {
 				}
 			}
 		}
+		this.updateAlways();
 	}
 
 	public Map<Integer, Integer> rollDices() {
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
 		return this.dicesUse.getDices();
 	}
 
@@ -251,6 +263,7 @@ public class GameEngineImpl implements GameEngine {
 		for (Purchasable p: this.playersList().get(ID).getProperties()) {
 			properties.add(p.getName());
 		}
+		this.updateAlways();
 		return properties;
 	}
 
@@ -328,6 +341,7 @@ public class GameEngineImpl implements GameEngine {
 											  .build();
 		}
 		this.mainBoardController.showPropertyPane(tileInfo);
+		this.updateAlways();
 	}
 
 	public void buildHouse() {
@@ -335,6 +349,7 @@ public class GameEngineImpl implements GameEngine {
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
 	}
 
 	public void sellHouse() {
@@ -342,6 +357,7 @@ public class GameEngineImpl implements GameEngine {
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
 	}
 
 	public void mortgage() {
@@ -349,19 +365,23 @@ public class GameEngineImpl implements GameEngine {
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
 	}
 
 	public void unMortgage() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
-		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));	}
+		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
+	}
 
 	public void buyPurchasable() {
 		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
 		this.bankManager.buyProperty(tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.updateAlways();
 	}
 
 	public void payRent() {
@@ -372,10 +392,32 @@ public class GameEngineImpl implements GameEngine {
 		this.bankManager.giveMoney(-tile.getLeaseValue(), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		//li da al proprietario
 		this.bankManager.giveMoney(tile.getLeaseValue(), this.playersList().get(tile.getOwner().get()));
+		this.updateAlways();
 	}
+	
+	private void initializeView() {
+		List<String> properties = new ArrayList<String>();
+		for (int i = 0; i < 40; i++) {
+		     properties.add(i, table.getTile(i).getName());
+		}
+		this.mainBoardController.setGameEngine(this);
+		this.mainBoardController.setTileNames(properties);
+		this.mainBoardController.setPlayerNames(this.name);
+	}
+	
+	private void updateAlways() {
+		Map<Integer, Integer> positions = new HashMap<>();
+		Map<Integer, Double> balances = new HashMap<>();
+		for (PlayerManager pM: this.playersList()) {
+			positions.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
+			balances.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
+		}
+		this.mainBoardController.updatePlayers(positions, balances);
+	}
+	
 
-
-
+	
+	
 
 
 

@@ -6,6 +6,7 @@ import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
 import monoopoly.view.main.MainBoardController;
+import monoopoly.view.main.MainBoardControllerImpl;
 
 /**
  * Interface representing the brain behind
@@ -46,7 +47,7 @@ public interface GameEngine {
 	 */
 	List<PlayerManager> playersList();
 	
-	void setMainBoardController(MainBoardController mainBoardController);
+	void setMainBoardController(MainBoardControllerImpl mainBoardController);
 
 	/**
 	 * helpful for getting player's name by putting ID
@@ -80,7 +81,7 @@ public interface GameEngine {
 	 * You can call this method to pass your turn
 	 * @return successive {@link PlayerManager}
 	 */
-	PlayerManager passPlayer();
+	void passPlayer();
 
 	/**
 	 *

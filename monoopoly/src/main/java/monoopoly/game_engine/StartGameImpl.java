@@ -2,6 +2,10 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
+
 public class StartGameImpl implements StartGame {
 	
 	private Map<Integer, String> name = new HashMap<>(); 
@@ -19,6 +23,9 @@ public class StartGameImpl implements StartGame {
 	@Override
 	public void createEngine() {
 		final GameEngine newGM = new GameEngineImpl(this.name, this.balance/*, this.position, this.state*/);
+		SceneManager manager = new SceneManagerImpl();
+		manager.loadScene(ScenePath.BOARD, Main.getPrimaryStage());
+		newGM.setMainBoardController(manager.getMainController());
 	}
 
 	@Override

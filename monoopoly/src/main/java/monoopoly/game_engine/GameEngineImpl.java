@@ -44,6 +44,7 @@ public class GameEngineImpl implements GameEngine {
 	private BankManager bankManager = new BankManagerImpl(this);
 	private Dices dicesUse = new DicesImpl(2, this.table);
 	private MainBoardController mainBoardController;
+
 	private Integer tileHit;
 
 	/**
@@ -98,7 +99,11 @@ public class GameEngineImpl implements GameEngine {
 	public List<PlayerManager> playersList(){
 		return this.turnManager.getPlayersList();
 	}
-
+	
+	public void setMainBoardController(MainBoardController mainBoardController) {
+		this.mainBoardController = mainBoardController;
+	}
+	
 	public String getName(final int ID) {
 		if (this.name.keySet().contains(ID)) {
 			return this.name.get(ID);

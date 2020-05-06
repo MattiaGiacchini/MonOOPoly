@@ -1,37 +1,81 @@
 package monoopoly.model.item;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import monoopoly.model.item.card.*;
-import monoopoly.model.item.decks.TypeDeck;
+import monoopoly.model.item.deck.Deck;
 
-public class DeckImpl extends AbstractTileDecorator implements Deck {
+public class TileDeckImpl extends AbstractTileDecorator implements TileDeck {
 
-	private final TypeDeck typeDeck;
+	private final Deck deck;
 	private final Table table;
 	private Integer idDrawer;
 	private Map<Integer, Double> playersBalance;
 	private Map<Integer, Integer> playersPosition;
+	
+	public static class Builder{
+		private Tile tileToDecore;
+		private Deck deck;
+		private Table table;
+		
+		public Builder() {
+			this.deck = null;
+			this.tileToDecore = null;
+			this.table = null;
+		}
+		
+		public Builder tileToDecore(Tile tile) {
+			Objects.requireNonNull(tile, "the tile to decore cannot has null value");
+			if(!tile.isDeck()) {
+				throw new IllegalArgumentException("the tile hasn't a deck Category");
+			}
+			this.tileToDecore = tile;
+			return this;
+		}
+		
+		public Builder deck(Deck deck) {
+			Objects.requireNonNull(deck, "the deck cannot has null value");
+			this.deck = deck;
+			return this;
+		}
+		
+		public Builder table(Table table) {
+			Objects.requireNonNull(table, "the table cannot has null value");
+			this.table = table;
+			return this;
+		}
+		
+		public TileDeckImpl build() {
+			Objects.requireNonNull(this.tileToDecore, "there is no tile to decore setted!");
+			Objects.requireNonNull(this.deck, "there is no deck setted!");
+			Objects.requireNonNull(this.table, "there is table setted!");
+			return new TileDeckImpl(this);
+		}
+		
+	}
 
-	public DeckImpl(Tile decorated, TypeDeck typeDeck, Table table) {
-		super(decorated);
-		this.typeDeck = typeDeck;
-		this.table = table;
+	private TileDeckImpl(Builder builder) {
+		super(builder.tileToDecore);
+		this.deck = builder.deck;
+		this.table = builder.table;
 	}
 
 	@Override
-	public Deck idPlayerWhoHasDraw(Integer idDrawer) {
+	public TileDeck idPlayerWhoHasDraw(Integer idDrawer) {
 		Objects.requireNonNull(idDrawer, "the IdDrawer cannot has null value");
 		this.idDrawer = idDrawer;
 		return this;
 	}
 
 	@Override
-	public Deck actualPlayersBalance(Map<Integer, Double> playersBalance) {
+	public TileDeck actualPlayersBalance(Map<Integer, Double> playersBalance) {
 		Objects.requireNonNull(playersBalance, "The Players Balance cannot has null value");
 		playersBalance.entrySet().forEach(entry -> {
 			if (entry.getValue().isNaN() || entry.getValue().isInfinite()) {
@@ -43,7 +87,7 @@ public class DeckImpl extends AbstractTileDecorator implements Deck {
 	}
 
 	@Override
-	public Deck actualPlayersPosition(Map<Integer, Integer> playersPosition) {
+	public TileDeck actualPlayersPosition(Map<Integer, Integer> playersPosition) {
 		Objects.requireNonNull(playersPosition, "The Players Position cannot has null value");
 		this.playersPosition = Collections.unmodifiableMap(playersPosition);
 		return this;
@@ -74,23 +118,23 @@ public class DeckImpl extends AbstractTileDecorator implements Deck {
 	}
 
 	private Card generateNewCard() {
-		this.typeDeck.draw();
+		this.deck.draw(super.getCategory());
 		Card card = this.generateBaseCard();
 
-		if (this.typeDeck.hasMoneyEffect()) {
+		if (this.deck.hasMoneyEffect()) {
 			card = this.decoreWithMoneyEffect(card);
 		}
 
-		if (this.typeDeck.hasStatusEffect()) {
+		if (this.deck.hasStatusEffect()) {
 			card = this.decoreWithStatusEffect(card);
 		}
 
-		if (this.typeDeck.hasMovementEffect()) {
-			card = this.decoreWithMovementEffect(card);
+		if (this.deck.hasPropertyEffect()) {
+			card = this.decoreWithPropertyEffect(card);
 		}
 
-		if (this.typeDeck.hasPropertyEffect()) {
-			card = this.decoreWithPropertyEffect(card);
+		if (this.deck.hasMovementEffect()) {
+			card = this.decoreWithMovementEffect(card);
 		}
 
 		return card;
@@ -99,8 +143,8 @@ public class DeckImpl extends AbstractTileDecorator implements Deck {
 	private Card generateBaseCard() {
 		return new CardImpl.Builder()
 						   .originDeck(super.getCategory())
-						   .cardNumber(this.typeDeck.getNumberCard())
-						   .description(this.typeDeck.getDescription())
+						   .cardNumber(this.deck.getNumberCard())
+						   .description(this.deck.getDescription())
 						   .build();
 	}
 
@@ -109,24 +153,24 @@ public class DeckImpl extends AbstractTileDecorator implements Deck {
 							  .actualPlayersBalance(this.playersBalance)
 							  .cardToDecore(card)
 							  .idDrawer(this.idDrawer)
-							  .exchangePlayerToOthers(this.typeDeck.getPlayersToOthers())
-							  .exchangePlayerToBank(this.typeDeck.getPlayerToBank())
+							  .exchangePlayerToOthers(this.deck.getPlayersToOthers())
+							  .exchangePlayerToBank(this.deck.getPlayerToBank())
 							  .playerNumberOfHotel(this.actualNumberPlayerHotel())
 							  .playerNumberOfHouse(this.actualNumberPlayerHouse())
-							  .exchangeValueHouseToBank(this.typeDeck.getValueHouseToBank())
-							  .exchangeValueHotelToBank(this.typeDeck.getValueHotelToBank())
-							  .exchangeAllToBank(this.typeDeck.getAllToBank())
-							  .exchangeAllToBankPercentage(this.typeDeck.getAllToBankPercentage())
-							  .makeTheAvaragePlayersBalance(this.typeDeck.getMakeTheAvaragePlayersBalance())
+							  .exchangeValueHouseToBank(this.deck.getValueHouseToBank())
+							  .exchangeValueHotelToBank(this.deck.getValueHotelToBank())
+							  .exchangeAllToBank(this.deck.getAllToBank())
+							  .exchangeAllToBankPercentage(this.deck.getAllToBankPercentage())
+							  .makeTheAvaragePlayersBalance(this.deck.getMakeTheAveragePlayersBalance())
 							  .build();
 	}
 
 	private Card decoreWithStatusEffect(Card card) {
 		return new StatusEffect.Builder()
 							   .cardToDecore(card)
-							   .goToJail(this.typeDeck.goToJail())
-							   .exitFromJail(this.typeDeck.exitFromJail())
-							   .maintainable(this.typeDeck.isMaintainable())
+							   .goToJail(this.deck.goToJail())
+							   .exitFromJail(this.deck.exitFromJail())
+							   .maintainable(this.deck.isMaintainable())
 							   .build();
 	}
 
@@ -143,26 +187,34 @@ public class DeckImpl extends AbstractTileDecorator implements Deck {
 							 .idDrawers(this.idDrawer)
 							 .playersPosition(this.playersPosition)
 							 .tableSize(this.table.getTableSize())
-							 .stepToDo(this.typeDeck.getStepsToDo())
-							 .tilePositionToGo(this.typeDeck.getTilePositionToGo())
-							 .nextTileCategoryToReach(this.typeDeck.getTileCategoryToReach())
-							 .tileRetriverFromCategory(this.typeDeck.getTileRetriver(this.getMapOfCategory()))
-							 .generateRandomStep(this.typeDeck.isGenerateRandomSteps())
-							 .applyToPlayer(this.typeDeck.isMoveToApplyToPlayer())
-							 .applyToOthers(this.typeDeck.isMoveToApplyToOthers())
+							 .stepToDo(this.deck.getStepsToDo())
+							 .tilePositionToGo(this.deck.getTilePositionToGo())
+							 .nextTileCategoryToReach(this.deck.getTileCategoryToReach())
+							 .tileRetriverFromCategory(Objects.isNull(this.deck.getTileCategoryToReach())
+									 				   ? null : this.getCategoryTileRetriver())
+							 .generateRandomStep(this.deck.isGenerateRandomSteps())
+							 .applyToPlayer(this.deck.isMoveToApplyToPlayer())
+							 .applyToOthers(this.deck.isMoveToApplyToOthers())
 							 .build();
 	}
 
-	private Map<Integer,Category> getMapOfCategory() {
-		return Collections.unmodifiableMap(
-			   this.table.getFilteredTiles(Tile.class, x->true)
-			   			 .stream()
-						 .collect(
-								 ()->new HashMap<>(),
-						  		 (map,el)->map.put(table.getTilePosition(el),
-						  				           el.getCategory()),
-								 (map1,map2)->map1.putAll(map2)
-								));
+	private BiFunction<Integer,Category,Integer> getCategoryTileRetriver() {
+		return (x,y)->{
+			Set<Integer> possiblePosition = 
+			this.table.getFilteredTiles(Tile.class, el->el.getCategory() == y)
+					  .stream()
+					  .map(el->this.table.getTilePosition(el))
+					  .collect(Collectors.toSet());
+			
+			if(possiblePosition.stream().anyMatch(el->el > x)) {
+				return possiblePosition.stream()
+									   .filter(el -> el > x)
+									   .min(Comparator.comparing(Integer::valueOf))
+									   .get() - x;	
+			}
+			return possiblePosition.stream().min(Comparator.comparing(Integer::valueOf)).get()
+				   + this.table.getTableSize() - x;									
+		};
 	}
 
 	private Map<Integer, Integer> getMapOfProperty() {

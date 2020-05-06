@@ -9,7 +9,7 @@ import monoopoly.model.item.card.Card;
  * with this you can draw a special effect to
  * apply on the
  */
-public interface Deck extends Tile {
+public interface TileDeck extends Tile {
 	
 	/**
 	 * this method must be used every time
@@ -18,10 +18,10 @@ public interface Deck extends Tile {
 	 * card
 	 *  
 	 * @param idDrawer the player's identifier 
-	 * @return the same {@link Deck} on you call this
+	 * @return the same {@link TileDeck} on you call this
 	 * method. Useful for a fluent programming.
 	 */
-	public Deck idPlayerWhoHasDraw(Integer idDrawer);
+	public TileDeck idPlayerWhoHasDraw(Integer idDrawer);
 	
 	/**
 	 * this method must be used every time
@@ -32,10 +32,10 @@ public interface Deck extends Tile {
 	 * @param playersBalance it is a {@link Map} where 
 	 * the keys are the player's identifiers and the values
 	 * are the respective player's balance 
-	 * @return the same {@link Deck} on you call this
+	 * @return the same {@link TileDeck} on you call this
 	 * method. Useful for a fluent programming.
 	 */
-	public Deck actualPlayersBalance(Map<Integer,Double> playersBalance);
+	public TileDeck actualPlayersBalance(Map<Integer,Double> playersBalance);
 	
 	/**
 	 * this method must be used every time
@@ -46,10 +46,10 @@ public interface Deck extends Tile {
 	 * @param playersPosition it is a {@link Map} where 
 	 * the keys are the player's identifiers and the values
 	 * are the respective player's position 
-	 * @return the same {@link Deck} on you call this
+	 * @return the same {@link TileDeck} on you call this
 	 * method. Useful for a fluent programming.
 	 */
-	public Deck actualPlayersPosition(Map<Integer,Integer> playersPosition);
+	public TileDeck actualPlayersPosition(Map<Integer,Integer> playersPosition);
 	
 	/**
 	 * this method is used to flip a new card from the deck.

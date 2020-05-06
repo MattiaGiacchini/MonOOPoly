@@ -1,5 +1,7 @@
 package monoopoly.view.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,7 +17,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import monoopoly.game_engine.GameEngine;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
@@ -73,6 +77,8 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 	private List<Label> playerBalances = new ArrayList<Label>(Arrays.asList(playerBalance0, playerBalance1,
 			playerBalance2, playerBalance3, playerBalance4, playerBalance5));
 
+	private GameEngine gameEngine;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -80,7 +86,9 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
 	@FXML
 	public void displayPlayerPropertiesButtonClicked(MouseEvent event) {
-		// TODO
+		HBox playerBox = (HBox) event.getSource();
+		this.showPlayerProperties(
+				this.gameEngine.giveProperties(Integer.valueOf(playerBox.getId().replaceAll("[^\\d]", ""))));
 	}
 
 	public void setPlayerNames(final Map<Integer, String> names) {
@@ -122,6 +130,11 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		}
 		propertiesController.setStage(propertiesStage);
 		propertiesController.show(properties);
+	}
+
+	@Override
+	public void setGameEngine(GameEngine gameEngine) {
+		this.gameEngine = gameEngine;
 	}
 
 }

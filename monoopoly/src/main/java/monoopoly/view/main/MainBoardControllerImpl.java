@@ -117,6 +117,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		this.gameEngine = gameEngine;
 		this.boardController.setGameEngine(gameEngine);
 		this.tileInfoController.setGameEngine(gameEngine);
+		this.playerInfoController.setGameEngine(gameEngine);
 	}
 
 	@Override

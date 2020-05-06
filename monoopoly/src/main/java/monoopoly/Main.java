@@ -25,7 +25,7 @@ public class Main extends Application {
 		this.manager.setup(primaryStage);
 		primaryStage.setResizable(true);
 		primaryStage.setMaximized(true);
-		this.manager.swapScene(ScenePath.BOARD);
+		this.manager.swapScene(ScenePath.START_PAGE);
 
 	}
 

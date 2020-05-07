@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.view.utilities.ScenePath;
@@ -37,7 +38,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 	 */
 	@FXML
 	private List<Label> nameList;
-	
+
 	@FXML
 	private List<Label> balanceList;
 
@@ -61,8 +62,8 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 			System.out.println(K + ",   " + V);
 			this.nameList.get(K).setText(V);
 		});
-		
-		nameList.forEach(X->{
+
+		nameList.forEach(X -> {
 			if (X.getText().equals("Label")) {
 				X.setText("");
 			}
@@ -101,7 +102,10 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 			e.printStackTrace();
 		}
 		propertiesController.setStage(propertiesStage);
+		propertiesStage.initModality(Modality.APPLICATION_MODAL);
 		propertiesController.show(properties);
+		propertiesStage.setResizable(false);
+		propertiesStage.showAndWait();
 	}
 
 	@Override

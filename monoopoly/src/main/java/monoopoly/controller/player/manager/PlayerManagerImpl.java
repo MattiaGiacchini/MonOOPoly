@@ -2,6 +2,8 @@ package monoopoly.controller.player.manager;
 
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
+
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
 import monoopoly.model.item.Purchasable;
@@ -16,13 +18,18 @@ import monoopoly.utilities.States;
  */
 public class PlayerManagerImpl implements PlayerManager {
 
+	private static final int TURN_IN_PRISON = 3;
+
 	private final int playerManagerID;
+	private final BooleanSupplier isTwice;
 	private Player player;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private Table table;
+
+	private int turnCounter = 0;
 
 	/**
 	 * This constructor creates an instance of {@link PlayerManager}
@@ -31,13 +38,14 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @param player          's ID
 	 * @throws Exception if IDs are different
 	 */
-	public PlayerManagerImpl(final int playerManagerID, final Player player) {
+	public PlayerManagerImpl(final int playerManagerID, final Player player, final BooleanSupplier twiceDices) {
 		if (playerManagerID == player.getID()) {
 			this.player = player;
 			this.playerManagerID = playerManagerID;
 		} else {
 			throw new IllegalStateException("Player and manager's IDs are different");
 		}
+		this.isTwice = twiceDices;
 	}
 
 	@Override
@@ -57,7 +65,8 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void movePlayer(int steps) {
-		if (!this.isInPrison()) {
+		if (!this.isInPrison() || this.isTwice.getAsBoolean()) {
+			this.leavePrison();
 			this.goToPosition(this.nextPosition(steps));
 		}
 	}
@@ -180,6 +189,7 @@ public class PlayerManagerImpl implements PlayerManager {
 		if (this.player.hasPrisonCard()) {
 			this.player.setPrisonCard(false);
 		} else {
+			this.turnCounter = 0;
 			this.player.setState(States.PRISONED);
 		}
 		this.player.setPosition(this.table.getJailPosition());
@@ -193,5 +203,13 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public Set<Purchasable> getProperties() {
 		return this.table.getPurchasableTilesforSpecificPlayer(this.playerManagerID);
+	}
+
+	@Override
+	public void newTurn() {
+		this.turnCounter = this.turnCounter + 1;
+		if (this.turnCounter >= 3) {
+			this.leavePrison();
+		}
 	}
 }

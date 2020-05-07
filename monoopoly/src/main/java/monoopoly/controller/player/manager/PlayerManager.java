@@ -15,28 +15,28 @@ import monoopoly.model.trade.Trade;
  * and estates management.
  *
  */
-public interface PlayerManager {
+interface PlayerManager {
 
 	/**
 	 * Return the {@link PlayerManager} identifier.
 	 *
 	 * @return the {@link PlayerManager} identifier
 	 */
-	public int getPlayerManagerID();
+	int getPlayerManagerID();
 
 	/**
 	 * Returns the {@link Player} associated to the {@link PlayerManager}.
 	 *
 	 * @return a {@link Player} instance
 	 */
-	public Player getPlayer();
+	Player getPlayer();
 
 	/**
 	 * This method sets the {@link Table} inside of the PlayerManager.
 	 * 
 	 * @param table Game table instance
 	 */
-	public void setTable(final Table table);
+	void setTable(final Table table);
 
 	/*
 	 * /** This method return a manager to manage the {@link Player}'s {@link
@@ -44,14 +44,14 @@ public interface PlayerManager {
 	 *
 	 * @return the {@link PlayerPropertyManager}
 	 */
-	/* public PlayerPropertyManager getPropertyManager(); */
+	/* PlayerPropertyManager getPropertyManager(); */
 
 	/**
 	 * Moves the {@link Player} forward or backward on the game board.
 	 *
 	 * @param steps number got from dices or card
 	 */
-	public void movePlayer(int steps);
+	void movePlayer(int steps);
 
 	/**
 	 * Moves the {@link Player} to a precise position on the game board.
@@ -59,27 +59,27 @@ public interface PlayerManager {
 	 * @param position position on the board
 	 * @throws IllegalArgumentException if the position is out of the table bounds
 	 */
-	public void goToPosition(int position);
+	void goToPosition(int position);
 
 	/**
 	 * Let a {@link Player} surrender his game TODO all his money and properties
 	 * will go to the {@link Bank}.
 	 */
-	public void giveUp();
+	void giveUp();
 
 	/**
 	 * Deduct money to the {@link Player}'s balance.
 	 *
 	 * @param amount of money to withdraw from the balance
 	 */
-	public void payMoney(Double amount);
+	void payMoney(Double amount);
 
 	/**
 	 * Add money to the {@link Player}'s balance.
 	 *
 	 * @param amount of money to add from the balance
 	 */
-	public void collectMoney(Double amount);
+	void collectMoney(Double amount);
 
 	/**
 	 * Creates the offerer {@link Player}'s offer for an exchange of
@@ -90,7 +90,7 @@ public interface PlayerManager {
 	 * @param offererMoney      amount of money offered by the offerer
 	 *                          {@link Player} in order to balance the offer value
 	 */
-	public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney);
+	void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney);
 
 	/**
 	 * Creates the contractor {@link Player}'s request made by the offerer
@@ -102,8 +102,7 @@ public interface PlayerManager {
 	 * @param contractorMoney      additional money to give in order to balance the
 	 *                             offer value
 	 */
-	public void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate,
-			Double contractorMoney);
+	void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate, Double contractorMoney);
 
 	/**
 	 * Creates an exchange of {@link Purchasable}s and eventually an addition of
@@ -112,34 +111,34 @@ public interface PlayerManager {
 	 * @return a {@link Trade} with offerer {@link Player} and contractor
 	 *         {@link Player}
 	 */
-	public Trade createTradeOffer();
+	Trade createTradeOffer();
 
 	/**
 	 * Accepts the trade offer made by the offerer {@link Player}.
 	 */
-	public void acceptTrade();
+	void acceptTrade();
 
 	/**
 	 * Declines the trade offer made by the offerer {@link Player}.
 	 */
-	public void declineTrade();
+	void declineTrade();
 
 	/**
 	 * This method modifies the existing trade setting new fields
 	 */
-	public void modifyTrade();
+	void modifyTrade();
 
 	/**
 	 * Updates the {@link Player}'s state setting it to "IN GAME"
 	 */
-	public void leavePrison();
+	void leavePrison();
 
 	/**
 	 * Checks if the {@link Player} is or not in prison
 	 *
 	 * @return true if {@link Player} is in prison
 	 */
-	public boolean isInPrison();
+	boolean isInPrison();
 
 	/**
 	 * This method returns the set of {@link Purchasable}s owned by the
@@ -147,6 +146,11 @@ public interface PlayerManager {
 	 *
 	 * @return the set of {@link Purchasable}s owned by the {@link Player}
 	 */
-	public Set<Purchasable> getProperties();
+	Set<Purchasable> getProperties();
+
+	/**
+	 * This method notifies to the {@link PlayerManager} a new turn.
+	 */
+	void newTurn();
 
 }

@@ -83,7 +83,6 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(ScenePath.PLAYER_PROPERTIES.getPath()));
 		PlayerPropertiesControllerImpl propertiesController = new PlayerPropertiesControllerImpl();
-		loader.setController(propertiesController);
 		try {
 			propertiesStage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
@@ -91,6 +90,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		}
 		propertiesController.setStage(propertiesStage);
 		propertiesController.show(properties);
+		propertiesStage.showAndWait();
 	}
 
 	@Override

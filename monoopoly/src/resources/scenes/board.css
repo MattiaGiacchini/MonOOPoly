@@ -31,27 +31,36 @@
 }
 
 #station{
+	
+}
 
+#calamity{
+     -fx-opacity: 1;
+}
+
+#probabilities{
+     -fx-opacity: 1;
+}
+
+#unexpected{
+     -fx-opacity: 1;
 }
 
 #society{
-
+     -fx-opacity: 1;
 }
 
 #start{
-
+     -fx-opacity: 1;
 }
 
-#goToPrison{
-
-}
 
 #prison{
-
+     -fx-opacity: 1;
 }
 
-#freePark{
-
+#freeParking{
+     -fx-opacity: 1;
 }
 
 .button{

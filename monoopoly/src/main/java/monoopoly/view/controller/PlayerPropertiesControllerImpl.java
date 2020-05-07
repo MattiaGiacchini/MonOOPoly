@@ -40,10 +40,11 @@ public class PlayerPropertiesControllerImpl {
 	 * @param properties
 	 */
 	private void setProperties(Set<String> properties) {
+		this.properties.clear();
 		for (String tile : properties) {
 			this.properties.add(tile);
 		}
-
+		System.out.println(this.properties);
 		this.playerProperties.setItems(this.properties);
 	}
 

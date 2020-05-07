@@ -138,7 +138,7 @@ public class BankManagerImpl implements BankManager {
 				Purchasable purchasable = (Purchasable)property;
 				checkOwned(purchasable);
 				Property toSell = (Property)purchasable;
-				if (toSell.getNumberOfHouseBuilt() == 0) {
+				if (toSell.getNumberOfHouseBuilt() != 0) {
 					double money = toSell.sellBuilding();
 					player.collectMoney(money);
 				}

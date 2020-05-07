@@ -148,11 +148,6 @@ public class GameEngineImpl implements GameEngine {
 		this.updateAlways();
 	}
 
-	@Override
-	/*public void updateDices(Map<Integer, Integer> dices) {
-		this.dices = dices;
-	}*/
-
 	public PlayerManager getGameWinner() {
 		Integer winner = -1;
 		Double greatest = 0.0;

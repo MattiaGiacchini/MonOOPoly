@@ -40,7 +40,7 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Integer, Double> balance = new HashMap<>();
 	private Map<Integer, Integer> position = new HashMap<>();
 	private Map<Integer, States> state = new HashMap<>();
-	private TurnManager turnManager = new TurnManagerImpl(this.FIRST_PLAYER);
+	private TurnManager turnManager = new TurnManagerImpl();
 	private Table table = new TableImpl();
 	private CardManagerImpl cardManager;
 	private BankManager bankManager = new BankManagerImpl(this);
@@ -87,11 +87,13 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void createPlayers() {
-		this.initializeView();
+		this.turnManager.setCurrentID(this.name.values().size() - 1);
 		Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
 		while (it.hasNext()) {
 			this.turnManager.getPlayersList().add(this.createPlayer(it.next().getKey()));
 		}
+		this.initializeView();
+		this.passPlayer();
 	}
 
 	public PlayerManager currentPlayer() {
@@ -109,7 +111,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
 		this.mainBoardController = mainBoardController;
-		this.initializeView();
+	//	this.initializeView();
 	}
 	
 	public String getName(final int ID) {
@@ -130,38 +132,13 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 
-	/*public int getPosition(final int ID) {
-		if (this.name.keySet().contains(ID)) {
-			return this.position.get(ID);
-		}
-		else {
-			throw new java.lang.IllegalArgumentException("No player found");
-		}
-	}
-
-	public monoopoly.utilities.States getState(final int ID){
-		if (this.name.keySet().contains(ID)) {
-			return this.state.get(ID);
-		}
-		else {
-			throw new java.lang.IllegalArgumentException("No player found");
-		}
-	}*/
-
-	/*public Map<Integer, Double> getBalance() {
-		return balance;
-	}
-
-	public Map<Integer, Integer> getPosition() {
-		return position;
-	}*/
-
 	public Table getTable() {
 		return this.table;
 	}
 
 	public void passPlayer() {
 		this.dicesUse.resetDices();
+		this.turnManager.nextTurn();
 		this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
 																	   .getPlayer()
 																	   .getName(), 
@@ -169,7 +146,6 @@ public class GameEngineImpl implements GameEngine {
 													 				   .getPlayer()
 													 				   .getBalance());
 		this.updateAlways();
-		this.turnManager.nextTurn();
 	}
 
 	@Override
@@ -260,7 +236,8 @@ public class GameEngineImpl implements GameEngine {
 	public Map<Integer, Integer> rollDices() {
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
-		//this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
+		System.out.println();
+		this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
 		return this.dicesUse.getDices();
 	}
 
@@ -276,16 +253,16 @@ public class GameEngineImpl implements GameEngine {
 	public void giveTileInfo(Integer tileNum) {
 		this.tileHit = tileNum;
 		Tile tile = this.table.getTile(tileNum);
-		PurchasableState state;
-		if (((Purchasable) tile).getOwner().isEmpty()) {
-            state = PurchasableState.FREE_PROPERTY;
-        } else if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
-            state = PurchasableState.MY_PROPERTY;
-        } else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
-            state = PurchasableState.OWNED_PROPERTY;
-        } else {
-            state = PurchasableState.OTHER;
-        }
+		PurchasableState state = PurchasableState.OTHER;
+		if (tile.isPurchasable()) {
+			if (((Purchasable) tile).getOwner().isEmpty()) {
+	            state = PurchasableState.FREE_PROPERTY;
+	        } else if (this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+	            state = PurchasableState.MY_PROPERTY;
+	        } else if (!this.turnManager.getCurrentPlayer().equals(((Purchasable) tile).getOwner().get())) {
+	            state = PurchasableState.OWNED_PROPERTY;
+	        } 
+		}
  
         TileInfo tileInfo;
         if (tile.isBuildable()) { // property
@@ -364,7 +341,7 @@ public class GameEngineImpl implements GameEngine {
 		Purchasable tile = (Purchasable)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
-		this.bankManager.buyProperty((Property)tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.bankManager.buyProperty(tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 
@@ -387,6 +364,7 @@ public class GameEngineImpl implements GameEngine {
 		this.mainBoardController.setGameEngine(this);
 		this.mainBoardController.setTileNames(properties);
 		this.mainBoardController.setPlayerNames(this.name);
+		this.updateAlways();
 	}
 	
 	private void updateAlways() {

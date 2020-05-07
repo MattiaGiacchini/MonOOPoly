@@ -82,6 +82,8 @@ public interface GameEngine {
 	 * @return successive {@link PlayerManager}
 	 */
 	void passPlayer();
+	
+	public void incRound();
 
 	/**
 	 *

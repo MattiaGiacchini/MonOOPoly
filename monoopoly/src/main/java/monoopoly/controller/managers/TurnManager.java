@@ -29,7 +29,9 @@ public interface TurnManager {
 	 * 
 	 * @return Inter
 	 */
-	Integer getNumberOfRound();
+	public Integer getRound();
+	
+	public void setRound();
 	
 	public Integer getCurrentPlayer();
 	

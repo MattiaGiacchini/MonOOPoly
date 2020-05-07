@@ -146,6 +146,16 @@ public class GameEngineImpl implements GameEngine {
 													 				   .getPlayer()
 													 				   .getBalance());
 		this.updateAlways();
+		if (this.turnManager.getCurrentPlayer() == 0) {
+			this.incRound();
+			for (PlayerManager pM: this.playersList()) {
+				pM.newTurn();
+			}
+		}
+	}
+	
+	public void incRound() {
+		this.turnManager.setRound();
 	}
 
 	public PlayerManager getGameWinner() {
@@ -230,8 +240,10 @@ public class GameEngineImpl implements GameEngine {
 
 	public Map<Integer, Integer> rollDices() {
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
+		if (this.dicesUse.areEquals()) {
+			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
+		}
 		this.updateAlways();
-		System.out.println();
 		this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
 		return this.dicesUse.getDices();
 	}

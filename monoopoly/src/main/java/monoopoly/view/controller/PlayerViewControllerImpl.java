@@ -1,11 +1,7 @@
 package monoopoly.view.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -58,14 +54,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
 	public void setPlayerNames(final Map<Integer, String> names) {
 		names.forEach((K, V) -> {
-			System.out.println(K + ",   " + V);
 			this.nameList.get(K).setText(V);
-		});
-		
-		nameList.forEach(X->{
-			if (X.getText().equals("Label")) {
-				X.setText("");
-			}
 		});
 	}
 
@@ -94,7 +83,6 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource(ScenePath.PLAYER_PROPERTIES.getPath()));
 		PlayerPropertiesControllerImpl propertiesController = new PlayerPropertiesControllerImpl();
-		loader.setController(propertiesController);
 		try {
 			propertiesStage.setScene(new Scene(loader.load()));
 		} catch (IOException e) {
@@ -102,6 +90,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		}
 		propertiesController.setStage(propertiesStage);
 		propertiesController.show(properties);
+		propertiesStage.showAndWait();
 	}
 
 	@Override

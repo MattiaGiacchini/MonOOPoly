@@ -34,4 +34,6 @@ public interface TurnManager {
 	public Integer getCurrentPlayer();
 	
 	public List<PlayerManager> getPlayersList();
+	
+	void setCurrentID(final Integer ID);
 }

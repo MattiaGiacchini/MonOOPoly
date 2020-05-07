@@ -1,11 +1,7 @@
 package monoopoly.view.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -58,14 +54,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
 	public void setPlayerNames(final Map<Integer, String> names) {
 		names.forEach((K, V) -> {
-			System.out.println(K + ",   " + V);
 			this.nameList.get(K).setText(V);
-		});
-		
-		nameList.forEach(X->{
-			if (X.getText().equals("Label")) {
-				X.setText("");
-			}
 		});
 	}
 

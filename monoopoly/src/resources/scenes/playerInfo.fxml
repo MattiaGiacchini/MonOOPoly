@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import java.util.ArrayList?>
 
 <VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.PlayerViewControllerImpl">
    <children>

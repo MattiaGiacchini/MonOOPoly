@@ -4,17 +4,12 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-
-<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketControllerImpl">
+<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketViewControllerImpl">
    <children>
-      <BarChart fx:id="chart" title="Stock Market">
+      <BarChart fx:id="chart" barGap="0.0" categoryGap="0.0" prefHeight="400.0" prefWidth="608.0" styleClass="stockMarket.css" title="Stock Market">
         <xAxis>
-          <CategoryAxis label="TILE CATEGORY" side="BOTTOM" style="-fx-background-color: none;">
-               <tickLabelFont>
-                  <Font name="System Bold" size="16.0" />
-               </tickLabelFont>
+          <CategoryAxis label="TILE CATEGORY" side="BOTTOM" tickLabelsVisible="false">
             </CategoryAxis>
         </xAxis>
         <yAxis>

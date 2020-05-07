@@ -67,7 +67,7 @@
                      <children>
                         <HBox alignment="CENTER">
                            <children>
-                              <Pane fx:id="dice" prefHeight="127.0" prefWidth="338.0">
+                              <Pane prefHeight="127.0" prefWidth="338.0">
                                  <children>
                                     <fx:include fx:id="dicesImage" source="dices.fxml" />
                                  </children>
@@ -80,7 +80,7 @@
                      <children>
                         <HBox alignment="BOTTOM_CENTER" prefHeight="419.0" prefWidth="704.0">
                            <children>
-                              <fx:include source="stockMarketChart.fxml" />
+                              <fx:include fx:id="stockMarket" source="stockMarketChart.fxml" />
                            </children>
                         </HBox>
                      </children>

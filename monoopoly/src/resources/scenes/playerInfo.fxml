@@ -10,12 +10,12 @@
    <children>
       <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName0" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName0" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -30,12 +30,12 @@
       </HBox>
       <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName1" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName1" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance1" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance1" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -50,12 +50,12 @@
       </HBox>
       <HBox id="player2" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName2" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName2" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance2" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance2" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -70,12 +70,12 @@
       </HBox>
       <HBox id="player3" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName3" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName3" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance3" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance3" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -90,12 +90,12 @@
       </HBox>
       <HBox id="player4" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName4" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName4" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance4" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance4" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -110,12 +110,12 @@
       </HBox>
       <HBox id="player5" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
-            <Label fx:id="playerName5" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerName5" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="playerBalance5" stylesheets="@main.css" text="Label">
+            <Label fx:id="playerBalance5" stylesheets="@main.css">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>

@@ -7,3 +7,5 @@ build
 bin/
 
 ./.metadata
+/replay_pid12212.log
+/hs_err_pid12212.log

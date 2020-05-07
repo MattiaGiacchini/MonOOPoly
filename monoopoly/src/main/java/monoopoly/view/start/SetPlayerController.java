@@ -1,26 +1,21 @@
 package monoopoly.view.start;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and
@@ -114,7 +109,7 @@ public class SetPlayerController implements Initializable {
 	public void updatedBalance() {
 		if (this.startingBalance.getText().isEmpty()) {
 			this.startingBalance.setText(this.balance.toString());
-	} else if (!this.startingBalance.getText().matches("\\d*\\.\\d{2}$")) {
+		} else if (!this.startingBalance.getText().matches("\\d*\\.\\d{2}$")) {
 			this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d\\.]", ""));
 		}
 
@@ -220,6 +215,14 @@ public class SetPlayerController implements Initializable {
 				this.playerMap.remove(K);
 			}
 		});
+
+		List<String> tmpPlayers = new ArrayList<>(playerMap.values());
+		playerMap.clear();
+		int i = 0;
+		for (String x : tmpPlayers) {
+			playerMap.put(i, x);
+			i++;
+		}
 	}
 
 }

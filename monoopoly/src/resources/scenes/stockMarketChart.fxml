@@ -9,7 +9,7 @@
 
 <Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketControllerImpl">
    <children>
-      <BarChart style="-fx-background-color: white;" title="Stock Market">
+      <BarChart fx:id="chart" title="Stock Market">
         <xAxis>
           <CategoryAxis label="TILE CATEGORY" side="BOTTOM" style="-fx-background-color: none;">
                <tickLabelFont>

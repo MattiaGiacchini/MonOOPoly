@@ -134,8 +134,8 @@ public class MoneyEffect extends AbstractCardDecorator {
 		
 		private void doubleChecker(Double value) {
 			if(Objects.nonNull(value) && 
-			   value.isInfinite() || 
-			   value.isNaN()) {
+			   (value.isInfinite() || 
+			   value.isNaN())) {
 				throw new IllegalArgumentException("The double value hasn't a correnct format");
 			}
 		}

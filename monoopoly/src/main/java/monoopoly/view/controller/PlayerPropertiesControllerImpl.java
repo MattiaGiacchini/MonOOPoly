@@ -23,7 +23,7 @@ public class PlayerPropertiesControllerImpl {
 
 	@FXML
 	void startTrade() {
-
+		//TODO
 	}
 
 	public void show(Set<String> properties) {

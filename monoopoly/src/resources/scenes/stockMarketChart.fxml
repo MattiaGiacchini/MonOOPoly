@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketControllerImpl">
+   <children>
+      <BarChart style="-fx-background-color: white;" title="Stock Market">
+        <xAxis>
+          <CategoryAxis label="TILE CATEGORY" side="BOTTOM" style="-fx-background-color: none;">
+               <tickLabelFont>
+                  <Font name="System Bold" size="16.0" />
+               </tickLabelFont>
+            </CategoryAxis>
+        </xAxis>
+        <yAxis>
+          <NumberAxis label="STOCK MARKET VALUE" lowerBound="-100.0" side="LEFT" upperBound="160.0" />
+        </yAxis>
+      </BarChart>
+   </children>
+</Pane>

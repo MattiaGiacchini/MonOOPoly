@@ -260,6 +260,7 @@ public class GameEngineImpl implements GameEngine {
 	public Map<Integer, Integer> rollDices() {
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+		//this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
 		return this.dicesUse.getDices();
 	}
 
@@ -340,42 +341,30 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void buildHouse() {
-		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
-														 .getPlayer()
-														 .getPosition());
 		this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 
 	public void sellHouse() {
-		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
-														 .getPlayer()
-														 .getPosition());
 		this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 
 	public void mortgage() {
-		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
-														 .getPlayer()
-														 .getPosition());
 		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 
 	public void unMortgage() {
-		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
-														 .getPlayer()
-														 .getPosition());
 		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 
 	public void buyPurchasable() {
-		Property tile = (Property)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+		Purchasable tile = (Purchasable)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 														 .getPlayer()
 														 .getPosition());
-		this.bankManager.buyProperty(tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.bankManager.buyProperty((Property)tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 	}
 

@@ -4,6 +4,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +26,7 @@ import monoopoly.view.utilities.SceneManagerImpl;
  * This class checks the parameters set in the setPlayers JavaFX scene and
  * starts the game
  */
-public class SetPlayersFormChecker implements Initializable {
+public class SetPlayerController implements Initializable {
 
 	/**
 	 * These constants defines the balance bounds, the balance increase step for the
@@ -34,11 +37,10 @@ public class SetPlayersFormChecker implements Initializable {
 	private static final Double BALANCE_INCREASE_VALUE = 500.00;
 	private static final int MIN_PLAYERS = 2;
 
-	private StartGame start = new StartGameImpl();
+	private StartGame start;
 
 	private Map<Integer, String> playerMap = new HashMap<Integer, String>();
 	private Double balance = 1000.00;
-	private SceneManager manager = new SceneManagerImpl();
 
 	/**
 	 * Fields and buttons in .fxml file reference
@@ -65,15 +67,6 @@ public class SetPlayersFormChecker implements Initializable {
 	private TextField startingBalance;
 
 	@FXML
-	private Button decreaseBalance;
-
-	@FXML
-	private Button increaseBalance;
-
-	@FXML
-	private Button startGameBtn;
-
-	@FXML
 	private ImageView logo;
 
 	/**
@@ -90,11 +83,13 @@ public class SetPlayersFormChecker implements Initializable {
 	@FXML
 	public void btnStartGameClicked(ActionEvent event) {
 		if (this.checkFields()) {
-			new Alert(AlertType.ERROR, "Game starts in 3... 2... 1.. \n GO").show();
-			// this.start.createEngine();
-			// TODO add elaboration method
+			this.removeEmptyPlayer();
+			this.start = new StartGameImpl();
+			this.start.setName(this.playerMap);
+			this.start.setBalance(this.setBalanceMap());
+			this.start.createEngine();
 		} else {
-			new Alert(AlertType.ERROR, "Too few players").show();
+			new Alert(AlertType.ERROR, "You have to set at least two players").show();
 		}
 	}
 
@@ -119,31 +114,13 @@ public class SetPlayersFormChecker implements Initializable {
 	public void updatedBalance() {
 		if (this.startingBalance.getText().isEmpty()) {
 			this.startingBalance.setText(this.balance.toString());
+	} else if (!this.startingBalance.getText().matches("\\d*\\.\\d{2}$")) {
+			this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d\\.]", ""));
 		}
 
 		this.balance = Double.valueOf(this.startingBalance.getText().trim());
 		this.checkBalanceUpperBound();
 		this.checkBalanceLowerBound();
-	}
-
-	/**
-	 * This method checks if the balance is lower then the minimum balance value
-	 */
-	private void checkBalanceLowerBound() {
-		if (this.balance < MIN_BALANCE) {
-			this.balance = MIN_BALANCE;
-			this.setBalanceField();
-		}
-	}
-
-	/**
-	 * This method checks if the balance is greater then the maximum balance value
-	 */
-	private void checkBalanceUpperBound() {
-		if (this.balance > MAX_BALANCE) {
-			this.balance = MAX_BALANCE;
-			this.setBalanceField();
-		}
 	}
 
 	/**
@@ -169,13 +146,35 @@ public class SetPlayersFormChecker implements Initializable {
 	@FXML
 	public void btnDecreaseBalanceClicked() {
 		this.updatedBalance();
+
 		if (this.balance - BALANCE_INCREASE_VALUE >= MIN_BALANCE) {
 			this.balance = this.balance - BALANCE_INCREASE_VALUE;
 		} else {
 			new Alert(AlertType.ERROR, "Balance should be at least " + MIN_BALANCE.toString()).show();
 			this.balance = MIN_BALANCE;
 		}
+
 		this.setBalanceField();
+	}
+
+	/**
+	 * This method checks if the balance is lower then the minimum balance value
+	 */
+	private void checkBalanceLowerBound() {
+		if (this.balance < MIN_BALANCE) {
+			this.balance = MIN_BALANCE;
+			this.setBalanceField();
+		}
+	}
+
+	/**
+	 * This method checks if the balance is greater then the maximum balance value
+	 */
+	private void checkBalanceUpperBound() {
+		if (this.balance > MAX_BALANCE) {
+			this.balance = MAX_BALANCE;
+			this.setBalanceField();
+		}
 	}
 
 	/**
@@ -196,6 +195,31 @@ public class SetPlayersFormChecker implements Initializable {
 	 */
 	private void setBalanceField() {
 		this.startingBalance.setText(String.valueOf(this.balance));
+	}
+
+	/**
+	 * This method sets the initial balance map to set in {@link StartGame}
+	 * 
+	 * @return the map of balances
+	 */
+	private Map<Integer, Double> setBalanceMap() {
+		Map<Integer, Double> balanceMap = new HashMap<Integer, Double>();
+		this.playerMap.forEach((K, V) -> {
+			balanceMap.put(K, this.balance);
+		});
+
+		return balanceMap;
+	}
+
+	/**
+	 * This method removes the empty strings from player names map
+	 */
+	private void removeEmptyPlayer() {
+		this.playerMap.forEach((K, V) -> {
+			if (V.isBlank()) {
+				this.playerMap.remove(K);
+			}
+		});
 	}
 
 }

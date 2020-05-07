@@ -2,6 +2,7 @@ package monoopoly.game_engine;
 
 import java.util.*;
 
+import monoopoly.Main;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
@@ -26,6 +27,7 @@ public class StartGameImpl implements StartGame {
 		SceneManager manager = new SceneManagerImpl();
 		manager.loadScene(ScenePath.BOARD, Main.getPrimaryStage());
 		newGM.setMainBoardController(manager.getMainController());
+		newGM.createPlayers();
 	}
 
 	@Override

@@ -36,7 +36,8 @@ public class DicesImpl implements Dices{
 		//this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
 		//TODO logica prigione
-		this.currentPlayer.movePlayer(diceSum);
+		playerManager.movePlayer(diceSum);
+		//this.currentPlayer.movePlayer(diceSum);
 		this.gameTable.notifyDices(diceSum);
 	}
 

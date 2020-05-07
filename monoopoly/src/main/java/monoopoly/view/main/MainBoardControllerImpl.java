@@ -53,7 +53,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 	private TileInfoControllerImpl tileInfoController;
 
 	@FXML
-	private DiceViewControllerImpl diceController;
+	private DiceViewControllerImpl dicesImageController;
 
 	@FXML
 	private StockMarketViewControllerImpl stockMarketController;
@@ -63,6 +63,14 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+	}
+
+	@FXML
+	public void endGameButtonPressed() {
+		/*
+		 * TODO this.gameEngine.endGame();
+		 */
 	}
 
 	@FXML
@@ -72,13 +80,13 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@FXML
 	public void rollDicesButtonPressed() {
-		this.gameEngine.passPlayer();
-		this.nextTurn.setDisable(false);
+		this.updateDices(this.gameEngine.rollDices());
 		this.rollDices.setDisable(true);
 	}
 
 	@FXML
 	public void nextTurnButtonPressed() {
+		this.gameEngine.passPlayer();
 		this.nextTurn.setDisable(true);
 		this.rollDices.setDisable(false);
 	}
@@ -94,13 +102,16 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		deckCard.setHeaderText(cardCategory.toUpperCase());
 		deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
 		deckCard.initModality(Modality.APPLICATION_MODAL);
+		deckCard.setTitle(cardCategory);
 		deckCard.showAndWait();
-
 	}
 
 	@Override
 	public void setGameEngine(final GameEngine gameEngine) {
 		this.gameEngine = gameEngine;
+		this.boardController.setGameEngine(gameEngine);
+		this.tileInfoController.setGameEngine(gameEngine);
+		this.playerInfoController.setGameEngine(gameEngine);
 	}
 
 	@Override
@@ -131,7 +142,12 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
 	@Override
 	public void updateDices(int dice1, int dice2, Optional<Integer> dice3) {
-		this.diceController.updateDices(dice1, dice2, dice3);
+		this.dicesImageController.updateDices(dice1, dice2, dice3);
+	}
+
+	@Override
+	public void updateDices(Map<Integer, Integer> dices) {
+		this.updateDices(dices.get(0), dices.get(1), Optional.empty());
 	}
 
 	@Override

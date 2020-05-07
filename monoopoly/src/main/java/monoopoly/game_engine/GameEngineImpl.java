@@ -149,7 +149,7 @@ public class GameEngineImpl implements GameEngine {
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
 			for (PlayerManager pM: this.playersList()) {
-				pM.newTurn();
+				//pM.newTurn();
 			}
 		}
 	}

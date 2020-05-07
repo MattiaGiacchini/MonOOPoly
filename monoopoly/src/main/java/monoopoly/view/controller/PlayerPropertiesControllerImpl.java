@@ -43,7 +43,7 @@ public class PlayerPropertiesControllerImpl {
 		for (String tile : properties) {
 			this.properties.add(tile);
 		}
-
+		
 		this.playerProperties.setItems(this.properties);
 	}
 

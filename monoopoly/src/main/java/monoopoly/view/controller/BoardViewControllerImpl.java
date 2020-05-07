@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -78,8 +77,6 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 				GridPane.getRowIndex(tileButton),
 				(this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
 		this.gameEngine.giveTileInfo(index);
-		System.out.println("\t " + index);
-		System.out.println("\t" + this.utilities.getCoords(index, gridPane));
 	}
 
 	@Override
@@ -104,7 +101,6 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
 	 */
 	private void updatePawn() {
 		playerPositions.forEach((K, V) -> {
-
 			this.pawns.put(K, this.utilities.getCoords(V, gridPane));
 			GridPane.setColumnIndex(this.circles.get(K), this.pawns.get(K).getX());
 			GridPane.setRowIndex(this.circles.get(K), this.pawns.get(K).getY());

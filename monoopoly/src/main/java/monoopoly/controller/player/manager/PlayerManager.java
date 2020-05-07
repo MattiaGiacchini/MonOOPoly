@@ -15,7 +15,7 @@ import monoopoly.model.trade.Trade;
  * and estates management.
  *
  */
-interface PlayerManager {
+public interface PlayerManager {
 
 	/**
 	 * Return the {@link PlayerManager} identifier.

@@ -2,7 +2,6 @@ package monoopoly.controller.player.manager;
 
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
@@ -21,7 +20,6 @@ public class PlayerManagerImpl implements PlayerManager {
 	private static final int TURN_IN_PRISON = 3;
 
 	private final int playerManagerID;
-	private final BooleanSupplier isTwice;
 	private Player player;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
 
@@ -38,14 +36,13 @@ public class PlayerManagerImpl implements PlayerManager {
 	 * @param player          's ID
 	 * @throws Exception if IDs are different
 	 */
-	public PlayerManagerImpl(final int playerManagerID, final Player player, final BooleanSupplier twiceDices) {
+	public PlayerManagerImpl(final int playerManagerID, final Player player) {
 		if (playerManagerID == player.getID()) {
 			this.player = player;
 			this.playerManagerID = playerManagerID;
 		} else {
 			throw new IllegalStateException("Player and manager's IDs are different");
 		}
-		this.isTwice = twiceDices;
 	}
 
 	@Override
@@ -65,7 +62,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void movePlayer(int steps) {
-		if (!this.isInPrison() || this.isTwice.getAsBoolean()) {
+		if (!this.isInPrison()) {
 			this.leavePrison();
 			this.goToPosition(this.nextPosition(steps));
 		}
@@ -207,9 +204,12 @@ public class PlayerManagerImpl implements PlayerManager {
 
 	@Override
 	public void newTurn() {
-		this.turnCounter = this.turnCounter + 1;
-		if (this.turnCounter >= 3) {
-			this.leavePrison();
+		if (this.isInPrison()) {
+			this.turnCounter = this.turnCounter + 1;
+			if (this.turnCounter >= TURN_IN_PRISON) {
+				this.leavePrison();
+			}
 		}
 	}
+
 }

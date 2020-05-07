@@ -83,6 +83,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 		this.updateDices(this.gameEngine.rollDices());
 		this.rollDices.setDisable(true);
 		this.nextTurn.setDisable(false);
+
 	}
 
 	@FXML

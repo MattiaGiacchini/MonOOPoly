@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -175,7 +180,7 @@ public class SetPlayerController implements Initializable {
 	/**
 	 * This method checks if there are at least MIN_PLAYERS in game and if the
 	 * balance is between the bounds
-	 * 
+	 *
 	 * @return true if the game is ready to start
 	 */
 	private boolean checkFields() {
@@ -194,7 +199,7 @@ public class SetPlayerController implements Initializable {
 
 	/**
 	 * This method sets the initial balance map to set in {@link StartGame}
-	 * 
+	 *
 	 * @return the map of balances
 	 */
 	private Map<Integer, Double> setBalanceMap() {

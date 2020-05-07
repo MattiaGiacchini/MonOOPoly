@@ -35,7 +35,7 @@
       <RowConstraints minHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <Button id="freeParking" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -47,7 +47,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+      <Button id="unexpected" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -83,7 +83,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="0">
+      <Button id="society" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="0">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -95,13 +95,13 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="0">
+      <Button id="prison" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="0">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10">
+      <Button id="prison" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -119,7 +119,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="10">
+      <Button id="unexpected" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="10">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -137,7 +137,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="10">
+      <Button id="calamity" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.rowIndex="10">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -149,7 +149,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="10">
+      <Button id="probabilities" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.rowIndex="10">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -161,7 +161,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="10">
+      <Button id="start" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="10">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -179,7 +179,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3">
+      <Button id="probabilities" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="3">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -209,7 +209,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
+      <Button id="society" alignment="CENTER" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -233,7 +233,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="3">
+      <Button id="probabilities" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="3">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -251,7 +251,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="6">
+      <Button id="unexpected" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="6">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />
@@ -263,7 +263,7 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Button alignment="CENTER" mnemonicParsing="false" onAction="#cellButtonPressed" prefHeight="500.0" prefWidth="500.0" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="8">
+      <Button id="calamity" alignment="CENTER" disable="true" mnemonicParsing="false" prefHeight="500.0" prefWidth="500.0" style="-fx-opacity: 1;" text="" textAlignment="CENTER" GridPane.columnIndex="10" GridPane.rowIndex="8">
          <stylesheets>
             <URL value="@board.css" />
             <URL value="@main.css" />

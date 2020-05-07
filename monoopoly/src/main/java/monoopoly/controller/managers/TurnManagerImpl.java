@@ -13,10 +13,6 @@ public class TurnManagerImpl implements TurnManager {
 	
 	private List<PlayerManager> playersList = new ArrayList<>();
 
-	public TurnManagerImpl(final int firstPlayer) {
-		this.currentPlayerID = firstPlayer;
-	}	
-
 	@Override
 	public PlayerManager nextTurn() {
 		int flag = 0;
@@ -59,6 +55,10 @@ public class TurnManagerImpl implements TurnManager {
 	
 	public List<PlayerManager> getPlayersList() {
 		return playersList;
+	}
+	
+	public void setCurrentID(final Integer ID) {
+		this.currentPlayerID = ID;
 	}
 
 

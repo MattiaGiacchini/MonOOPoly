@@ -136,7 +136,7 @@ public class DeckImpl implements Deck {
 		});
 		
 		// add all card inside the list
-		for(CardProperties x : CardProperties.values()) {
+ 		for(CardProperties x : CardProperties.values()) {
 			if(this.deckMap.containsKey(x.originDeck)) {
 				this.deckMap.get(x.originDeck).addLast(x);
 			}
@@ -148,7 +148,7 @@ public class DeckImpl implements Deck {
 												+ entry.getKey());
 			}
 		});
-		
+
 		// shuffling of all decks
 		this.deckMap.values().forEach(x->Collections.shuffle(x));
 
@@ -184,9 +184,8 @@ public class DeckImpl implements Deck {
 
 	@Override
 	public boolean hasStatusEffect() {
-		return  this.cardDrawn.statusExitFromJail ||
-				this.cardDrawn.statusGoToJail &&
-				this.cardDrawn.statusItIsMaintainable;
+		return  this.cardDrawn.statusGoToJail ||
+				this.cardDrawn.statusExitFromJail;
 	}
 
 	@Override
@@ -289,7 +288,7 @@ public class DeckImpl implements Deck {
 
 	private void categoryInputCheck(Category category) {
 		Objects.requireNonNull(category, "the category of the deck to be drawn cannot have a null value");
-		if(this.allTypeOfDeck.contains(category)) {
+		if(!this.allTypeOfDeck.contains(category)) {
 			throw new IllegalArgumentException("The category isn't a Deck");
 		}
 	}

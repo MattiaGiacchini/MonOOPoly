@@ -213,7 +213,6 @@ public class PlayerManagerImpl implements PlayerManager {
             this.prisonTurnCounter = this.prisonTurnCounter + 1;
             if (this.prisonTurnCounter >= TURN_IN_PRISON) {
                 this.leavePrison();
-                this.prisonTurnCounter = 0;
             }
         }
     }

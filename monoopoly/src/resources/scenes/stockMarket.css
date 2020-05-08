@@ -1,0 +1,39 @@
+.data0.chart-bar{     
+    -fx-bar-fill: #795548;
+}
+
+.data1.chart-bar{     
+	-fx-bar-fill: #4FC3F7;
+}
+
+.data2.chart-bar{     
+	-fx-bar-fill: #F06292;
+}
+
+.data3.chart-bar{     
+	-fx-bar-fill: #FF9800;
+}
+
+.data4.chart-bar{     
+	-fx-bar-fill: #FF5722;
+}
+
+.data5.chart-bar{     
+	-fx-bar-fill: #FFEB3B;
+}
+
+.data6.chart-bar{     
+	-fx-bar-fill: #4CAF50;
+}
+
+.data7.chart-bar{   
+	-fx-bar-fill: #1976D2;
+}
+
+.data8.chart-bar{	
+	-fx-bar-fill: black;		
+}
+.data9.chart-bar{
+	-fx-bar-fill: grey;
+}
+

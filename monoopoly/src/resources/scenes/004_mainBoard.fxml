@@ -61,11 +61,35 @@
          </children></AnchorPane>
       <AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="961.0" prefWidth="1056.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
          <children>
-            <Pane fx:id="dice" layoutX="183.0" layoutY="129.0" prefHeight="127.0" prefWidth="338.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="129.0">
+            <VBox alignment="CENTER" layoutY="90.0" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <fx:include fx:id="dicesImage" source="dices.fxml" />
+                  <VBox alignment="TOP_CENTER" prefHeight="141.0" prefWidth="704.0">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Pane prefHeight="127.0" prefWidth="338.0">
+                                 <children>
+                                    <fx:include fx:id="dicesImage" source="dices.fxml" />
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="BOTTOM_CENTER">
+                     <children>
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="419.0" prefWidth="704.0">
+                           <children>
+                              <fx:include fx:id="stockMarket" source="stockMarketChart.fxml" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
-            </Pane>
+               <padding>
+                  <Insets bottom="90.0" top="90.0" />
+               </padding>
+            </VBox>
             <fx:include fx:id="board" prefHeight="720.0" prefWidth="705.0" source="board.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
       <AnchorPane prefHeight="1280.0" prefWidth="171.0" GridPane.columnIndex="2">

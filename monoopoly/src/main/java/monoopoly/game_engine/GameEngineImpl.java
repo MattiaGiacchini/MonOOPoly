@@ -152,7 +152,7 @@ public class GameEngineImpl implements GameEngine {
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
 			this.stockMarket.setNewMarketValue();
-			this.mainBoardController.updateStockMarket(this.stockMarket.getMarket(), null /*TODO*/);
+			this.mainBoardController.updateStockMarket(this.stockMarket.getMarket(), this.stockMarket.getStockHistory());
 			for (PlayerManager pM: this.playersList()) {
 	            if (pM.getPrisonTurnCounter() == 3) {
 	                this.bankManager.giveMoney(-150, pM);

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import monoopoly.model.item.Purchasable;
@@ -29,14 +30,14 @@ public class StockMarketImpl implements StockMarket {
 	
 	public StockMarketImpl(Table table) {
 		this.purchasables = table.getFilteredTiles(Purchasable.class, x -> x.isPurchasable());
-		this.purchasableCategories = this.purchasables.stream().map(x -> x.getCategory()).collect(Collectors.toSet());
+		this.purchasableCategories = this.purchasables.stream().map(x -> x.getCategory()).collect(Collectors.toSet());;
 		this.stockHistory = new ArrayList<Map<Category,Double>>();
 		this.actualMarket = initMarket();
 		this.random = new Random();
 	}
 	
 	private Map<Category, Double> initMarket() {
-		this.actualMarket = new HashMap<>();
+		this.actualMarket = new TreeMap<>();
 		for (Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, INIT_QUOTATION);
 		}
@@ -52,7 +53,7 @@ public class StockMarketImpl implements StockMarket {
 
 	@Override
 	public void setNewMarketValue() {
-		this.actualMarket = new HashMap<>();
+		this.actualMarket = new TreeMap<>();
 		for (Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, getPercentile());
 		}

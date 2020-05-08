@@ -12,6 +12,8 @@ import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
+import monoopoly.controller.stockmarket.StockMarket;
+import monoopoly.controller.stockmarket.StockMarketImpl;
 import monoopoly.controller.managers.CardManagerImpl;
 import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
@@ -45,6 +47,7 @@ public class GameEngineImpl implements GameEngine {
 	private CardManagerImpl cardManager;
 	private BankManager bankManager = new BankManagerImpl(this);
 	private Dices dicesUse = new DicesImpl(2, this.table);
+	private StockMarket stockMarket = new StockMarketImpl(this.table);
 	
 	@FXML
 	private MainBoardControllerImpl mainBoardController;
@@ -137,7 +140,6 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void passPlayer() {
-	    final int turn = 3;
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
 		this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
@@ -149,6 +151,8 @@ public class GameEngineImpl implements GameEngine {
 		this.updateAlways();
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
+			this.stockMarket.setNewMarketValue();
+			this.mainBoardController.updateStockMarket(this.stockMarket.getMarket(), null /*TODO*/);
 			for (PlayerManager pM: this.playersList()) {
 	            if (pM.getPrisonTurnCounter == 3) {
 	                this.bankManager.giveMoney(-150, pM);

@@ -7,7 +7,7 @@
 
 <Pane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketViewControllerImpl">
    <children>
-      <BarChart fx:id="chart" barGap="5.0" categoryGap="5.0" prefHeight="400.0" prefWidth="528.0" stylesheets="@stockMarket.css" title="Stock Market">
+      <BarChart fx:id="chart" animated="false" barGap="5.0" categoryGap="5.0" prefHeight="400.0" prefWidth="528.0" stylesheets="@stockMarket.css" title="Stock Market">
         <xAxis>
           <CategoryAxis label="TILE CATEGORY" side="BOTTOM" tickLabelsVisible="false">
             </CategoryAxis>

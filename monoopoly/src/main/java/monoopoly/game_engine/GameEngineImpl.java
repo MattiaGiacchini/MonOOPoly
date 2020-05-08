@@ -1,5 +1,5 @@
 package monoopoly.game_engine;
-
+//getPrisonTurnCounter
 import java.util.*;
 
 import javafx.fxml.FXML;
@@ -137,6 +137,7 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void passPlayer() {
+	    final int turn = 3;
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
 		this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
@@ -149,7 +150,10 @@ public class GameEngineImpl implements GameEngine {
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
 			for (PlayerManager pM: this.playersList()) {
-				//pM.newTurn();
+	            if (pM.getPrisonTurnCounter == 3) {
+	                this.bankManager.giveMoney(-150, pM);
+	            }
+			    pM.newTurn();
 			}
 		}
 	}

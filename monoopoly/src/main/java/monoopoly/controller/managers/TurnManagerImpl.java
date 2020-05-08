@@ -16,7 +16,7 @@ public class TurnManagerImpl implements TurnManager {
 	public TurnManagerImpl() {
 		this.round = -1;
 	}
-
+	
 	@Override
 	public PlayerManager nextTurn() {
 		int flag = 0;

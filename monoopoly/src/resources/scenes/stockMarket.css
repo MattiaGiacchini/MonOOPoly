@@ -1,4 +1,4 @@
-.default-color0.chart-bar{
+.data0.chart-bar{     
     -fx-bar-fill: #795548;
 }
 
@@ -31,10 +31,9 @@
 }
 
 .data8.chart-bar{	
-	-fx-bar-fill: grey;
-	
+	-fx-bar-fill: black;		
 }
 .data9.chart-bar{
-	-fx-bar-fill: black;	
+	-fx-bar-fill: grey;
 }
 

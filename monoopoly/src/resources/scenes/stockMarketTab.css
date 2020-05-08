@@ -1,0 +1,38 @@
+#brownTab{
+    -fx-background-color: #795548;
+}
+
+#lightBlueTab{
+	-fx-background-color: #4FC3F7;
+}
+
+#pinkTab{
+	-fx-background-color: #F06292;
+}
+
+#orangeTab{
+	-fx-background-color: #FF9800;
+}
+
+#redTab{
+	-fx-background-color: #FF5722;
+}
+
+#yellowTab{
+	-fx-background-color: #FFEB3B;
+}
+
+#greenTab{
+	-fx-background-color: #4CAF50;
+}
+
+#blueTab{
+	-fx-background-color: #1976D2;
+}
+
+#stationTab{
+	-fx-background-color: black;
+}
+#societyTab{
+	-fx-background-color: grey;
+}

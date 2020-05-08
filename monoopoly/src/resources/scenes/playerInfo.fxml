@@ -26,7 +26,7 @@
             <Insets />
          </VBox.margin>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
       </HBox>
       <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
@@ -43,7 +43,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
          <VBox.margin>
             <Insets />
@@ -63,7 +63,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
          <VBox.margin>
             <Insets />
@@ -83,7 +83,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
          <VBox.margin>
             <Insets />
@@ -103,7 +103,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
          <VBox.margin>
             <Insets />
@@ -123,7 +123,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="20.0" />
+            <Insets left="30.0" />
          </padding>
          <VBox.margin>
             <Insets />
@@ -133,7 +133,7 @@
    <padding>
       <Insets bottom="30.0" left="20.0" top="40.0" />
    </padding>
-   
+
    <fx:define>
    		<ArrayList fx:id="nameList">
    			<fx:reference source="playerName0" />
@@ -144,7 +144,7 @@
    			<fx:reference source="playerName5" />
    		</ArrayList>
    </fx:define>
-   
+
    <fx:define>
    		<ArrayList fx:id="balanceList">
    			<fx:reference source="playerBalance0" />

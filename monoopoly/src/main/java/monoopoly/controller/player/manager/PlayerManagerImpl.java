@@ -2,6 +2,7 @@ package monoopoly.controller.player.manager;
 
 import java.util.Optional;
 import java.util.Set;
+
 import monoopoly.controller.trades.Trader;
 import monoopoly.model.trade.*;
 import monoopoly.model.item.Purchasable;
@@ -16,6 +17,8 @@ import monoopoly.utilities.States;
  */
 public class PlayerManagerImpl implements PlayerManager {
 
+	private static final int TURN_IN_PRISON = 3;
+
 	private final int playerManagerID;
 	private Player player;
 	private PlayerBalanceManager balanceManager = new PlayerBalanceManagerImpl();
@@ -23,6 +26,8 @@ public class PlayerManagerImpl implements PlayerManager {
 	private TradeBuilder tradeBuilder;
 	private Trader trader;
 	private Table table;
+
+	private int turnCounter = 0;
 
 	/**
 	 * This constructor creates an instance of {@link PlayerManager}
@@ -58,6 +63,7 @@ public class PlayerManagerImpl implements PlayerManager {
 	@Override
 	public void movePlayer(int steps) {
 		if (!this.isInPrison()) {
+			this.leavePrison();
 			this.goToPosition(this.nextPosition(steps));
 		}
 	}
@@ -180,6 +186,7 @@ public class PlayerManagerImpl implements PlayerManager {
 		if (this.player.hasPrisonCard()) {
 			this.player.setPrisonCard(false);
 		} else {
+			this.turnCounter = 0;
 			this.player.setState(States.PRISONED);
 		}
 		this.player.setPosition(this.table.getJailPosition());
@@ -194,4 +201,15 @@ public class PlayerManagerImpl implements PlayerManager {
 	public Set<Purchasable> getProperties() {
 		return this.table.getPurchasableTilesforSpecificPlayer(this.playerManagerID);
 	}
+
+	@Override
+	public void newTurn() {
+		if (this.isInPrison()) {
+			this.turnCounter = this.turnCounter + 1;
+			if (this.turnCounter >= TURN_IN_PRISON) {
+				this.leavePrison();
+			}
+		}
+	}
+
 }

@@ -1,10 +1,15 @@
 package monoopoly.model.item;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.deck.Deck;
+import monoopoly.model.item.deck.DeckImpl;
 
 final class TableFactory {
 
@@ -91,8 +96,14 @@ final class TableFactory {
 		this.map = new HashMap<>();
 	}
 
-	protected Map<Integer, Tile> createTable(ObserverPurchasable table) {
+	protected Map<Integer, Tile> createTable(Table table) {
 		Tile tile;
+		
+		Deck deck = new DeckImpl(Collections.unmodifiableSet(
+								 Stream.of(Category.values())
+				                       .filter(x->this.isDeck(x))
+				                       .collect(Collectors.toSet())));
+		
 		for(TableTile value : TableTile.values()) {
 			 tile = new TileImpl.Builder()
 					   		   	.name(value.name)
@@ -107,7 +118,7 @@ final class TableFactory {
 					 case SOCIETY:
 						 tile = new Society.Builder()
 						 				   .tile(tile)
-						 				   .table(table)
+						 				   .table((ObserverPurchasable)table)
 						 				   .mortgage(value.mortgage)
 						 				   .sales(value.saleValue)
 						 				   .multiplierLevelOne(value.leaseValueLevel0)
@@ -117,7 +128,7 @@ final class TableFactory {
 					 case STATION:
 						 tile = new Station.Builder()
 						                   .tile(tile)
-						                   .table(table)
+						                   .table((ObserverPurchasable)table)
 						                   .mortgage(value.mortgage)
 						                   .sales(value.saleValue)
 						                   .leaseOneStation(value.leaseValueLevel0)
@@ -126,7 +137,7 @@ final class TableFactory {
 					 default:
 						 tile = new PropertyImpl.Builder()
 						 						.tile(tile)
-						 						.table(table)
+						 						.table((ObserverPurchasable)table)
 						 						.mortgage(value.mortgage)
 						 						.sales(value.saleValue)
 						 						.valueToBuildHouse(value.costToBuildHouse)
@@ -140,6 +151,12 @@ final class TableFactory {
 						 						.build();
 						 break;
 				 }
+			 } else if (this.isDeck(value.category)) {
+				 tile = new TileDeckImpl.Builder()
+						 				.tileToDecore(tile)
+						 				.deck(deck)
+						 				.table(table)
+						 				.build();
 			 }
 			
 			map.put(value.position, tile);

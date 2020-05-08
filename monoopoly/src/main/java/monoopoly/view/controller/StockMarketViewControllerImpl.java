@@ -12,6 +12,8 @@ import monoopoly.model.item.Tile.Category;
 
 public class StockMarketViewControllerImpl implements StockMarketViewController, Initializable {
 
+    private static final double PERCENTAGE_VALUE = 100.00;
+
     @FXML
     private BarChart<String, Double> chart;
 
@@ -23,9 +25,9 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
         stockMarketSeries.getData().clear();
 
         stockMarket.forEach((K, V) -> {
-            stockMarketSeries.getData().add(new XYChart.Data<String, Double>(K.toString(), V));
+            stockMarketSeries.getData().add(new XYChart.Data<String, Double>(K.toString(), V*PERCENTAGE_VALUE - PERCENTAGE_VALUE));
         });
-        
+
         chart.getData().add(stockMarketSeries);
     }
 

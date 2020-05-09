@@ -1,7 +1,6 @@
 package monoopoly.game_engine;
 //getPrisonTurnCounter
 import java.util.*;
-
 import javafx.fxml.FXML;
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
@@ -23,6 +22,8 @@ import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.TileDeck;
+import monoopoly.model.item.card.Card;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
@@ -137,16 +138,19 @@ public class GameEngineImpl implements GameEngine {
 	public Table getTable() {
 		return this.table;
 	}
+	
+	private void updateCurrentPlayer() {
+	    this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
+                                                                       .getPlayer()
+                                                                       .getName(), 
+                                                     this.playersList().get(this.turnManager.getCurrentPlayer())
+                                                                       .getPlayer()
+                                                                       .getBalance());
+	}
 
 	public void passPlayer() {
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
-		this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
-																	   .getPlayer()
-																	   .getName(), 
-													 this.playersList().get(this.turnManager.getCurrentPlayer())
-													 				   .getPlayer()
-													 				   .getBalance());
 		this.updateAlways();
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
@@ -198,11 +202,12 @@ public class GameEngineImpl implements GameEngine {
 			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
 		}
 
-		Card card = tile.idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
-				.actualPlayersBalance(balance)
-				.actualPlayersPosition(position)
-				.draw();
-		this.cardManager = new CardManagerImpl(card.getDescription, card.getCardNumber, card.getOriginDeck);
+		Card card = ((TileDeck)tile).idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
+                    				.actualPlayersBalance(balance)
+                    				.actualPlayersPosition(position)
+                    				.draw();
+        this.mainBoardController.showDeckCard(card.getOriginDeck().toString(), card.getDescription());
+		this.cardManager = new CardManagerImpl(card.getDescription(), card.getCardNumber(), card.getOriginDeck());
 		monoopoly.utilities.CardEffect effect = this.cardManager.knowCard(card);
 		if (effect == monoopoly.utilities.CardEffect.MONEY_EXCHANGE) {
 			Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get();
@@ -328,6 +333,9 @@ public class GameEngineImpl implements GameEngine {
             								 .purchasableState(state)
             								 .purchasableCategory(TileViewCategory.OTHER)
             								 .build();
+            if (tile.isDeck()) {
+                this.useCard();
+            }
         }
         this.mainBoardController.showPropertyPane(tileInfo);
 		this.updateAlways();
@@ -397,6 +405,7 @@ public class GameEngineImpl implements GameEngine {
 			balances.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
 		}
 		this.mainBoardController.updatePlayers(positions, balances);
+		this.updateCurrentPlayer();
 	}
 	
 

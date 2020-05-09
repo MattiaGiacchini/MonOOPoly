@@ -27,15 +27,15 @@ public class SetPlayerController implements Initializable {
      * These constants defines the balance bounds, the balance increase step for the
      * "spinner" and the minimum player number
      */
-    private static final Double MIN_BALANCE = 200.00;
-    private static final Double MAX_BALANCE = 10000.00;
+    private static final Double MIN_BALANCE = 1500.00;
+    private static final Double MAX_BALANCE = 15000.00;
     private static final Double BALANCE_INCREASE_VALUE = 500.00;
     private static final int MIN_PLAYERS = 2;
 
     private StartGame start;
 
     private Map<Integer, String> playerMap = new HashMap<Integer, String>();
-    private Double balance = 1000.00;
+    private Double balance = 3000.00;
 
     /**
      * Fields and buttons in .fxml file reference

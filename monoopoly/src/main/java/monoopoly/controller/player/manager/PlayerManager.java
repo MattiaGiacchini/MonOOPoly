@@ -167,4 +167,9 @@ public interface PlayerManager {
      */
     boolean isBroken();
 
+    /**
+     * This method resets the counter of the turn remained in prison;
+     */
+    void resetPrisonCounter();
+
 }

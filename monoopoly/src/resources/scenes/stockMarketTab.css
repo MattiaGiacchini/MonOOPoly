@@ -36,3 +36,45 @@
 #societyTab{
 	-fx-background-color: grey;
 }
+
+
+
+/*These are the colors for the stock history Chart .chart-series-lines*/
+#brownChart .chart-series-line{
+    -fx-stroke: #795548;
+}
+
+#lightBlueChart .chart-series-line{
+	-fx-stroke: #4FC3F7;
+}
+
+#pinkChart .chart-series-line{
+	-fx-stroke: #F06292;
+}
+
+#orangeChart .chart-series-line{
+	-fx-stroke: #FF9800;
+}
+
+#redChart .chart-series-line{
+	-fx-stroke: #FF5722;
+}
+
+#yellowChart .chart-series-line{
+	-fx-stroke: #FFEB3B;
+}
+
+#greenChart .chart-series-line{
+	-fx-stroke: #4CAF50;
+}
+
+#blueChart .chart-series-line{
+	-fx-stroke: #1976D2;
+}
+
+#stationChart .chart-series-line{
+	-fx-stroke: black;
+}
+#societyChart .chart-series-line{
+	-fx-stroke: grey;
+}

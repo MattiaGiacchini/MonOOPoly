@@ -74,7 +74,7 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
 
     @Override
     public void updateStockMarket(Map<Category, Double> stockMarket) {
-        
+
         this.tabPane.getSelectionModel().select(0);
 
         XYChart.Series<String, Double> stockMarketSeries = new XYChart.Series<String, Double>();
@@ -126,7 +126,6 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
         this.lineChartSeriesMap.put(Category.BLUE, this.blueSeries);
         this.lineChartSeriesMap.put(Category.STATION, this.stationSeries);
         this.lineChartSeriesMap.put(Category.SOCIETY, this.societySeries);
-        
 
     }
 

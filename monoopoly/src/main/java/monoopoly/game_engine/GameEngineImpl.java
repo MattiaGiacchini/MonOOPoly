@@ -250,6 +250,7 @@ public class GameEngineImpl implements GameEngine {
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
 		if (this.dicesUse.areEquals()) {
 			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
+			this.playersList().get(this.turnManager.getCurrentPlayer()).resetPrisonCounter();
 		}
 		this.updateAlways();
 		this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());

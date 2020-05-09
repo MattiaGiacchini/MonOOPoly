@@ -16,6 +16,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
+import monoopoly.view.utilities.ViewUtilities;
+import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and
@@ -27,42 +29,31 @@ public class SetPlayerController implements Initializable {
      * These constants defines the balance bounds, the balance increase step for the
      * "spinner" and the minimum player number
      */
+
+    private static final Double STARTING_BALANCE = 3000.00;
     private static final Double MIN_BALANCE = 1500.00;
     private static final Double MAX_BALANCE = 15000.00;
     private static final Double BALANCE_INCREASE_VALUE = 500.00;
     private static final int MIN_PLAYERS = 2;
+    private static final int MAX_NAME_LENGHT = 15;
 
     private StartGame start;
 
     private Map<Integer, String> playerMap = new HashMap<Integer, String>();
-    private Double balance = 3000.00;
+    private Double balance = STARTING_BALANCE;
+    private ViewUtilities utilities = new ViewUtilitiesImpl();
 
-    /**
-     * Fields and buttons in .fxml file reference
-     */
-    @FXML
-    private TextField player1;
-
-    @FXML
-    private TextField player2;
-
-    @FXML
-    private TextField player3;
-
-    @FXML
-    private TextField player4;
-
-    @FXML
-    private TextField player5;
-
-    @FXML
-    private TextField player6;
-
-    @FXML
-    private TextField startingBalance;
-
+   /*
+    * Displayed logo
+    */
     @FXML
     private ImageView logo;
+
+    /*
+     * List of player names fields
+     */
+    @FXML
+    private ArrayList<TextField> namesList;
 
     /**
      * {@inheritDoc}
@@ -93,12 +84,13 @@ public class SetPlayerController implements Initializable {
      */
     @FXML
     public void updatedText() {
-        this.playerMap.put(0, player1.getText().trim());
-        this.playerMap.put(1, player2.getText().trim());
-        this.playerMap.put(2, player3.getText().trim());
-        this.playerMap.put(3, player4.getText().trim());
-        this.playerMap.put(4, player5.getText().trim());
-        this.playerMap.put(5, player6.getText().trim());
+
+        this.namesList.forEach(x -> {
+            if (x.getLength() > MAX_NAME_LENGHT) {
+                x.setText(x.getText().substring(0, MAX_NAME_LENGHT));
+            }
+            this.playerMap.put(this.namesList.indexOf(x), x.getText().trim());
+        });
     }
 
     /**
@@ -109,8 +101,12 @@ public class SetPlayerController implements Initializable {
     public void updatedBalance() {
         if (this.startingBalance.getText().isEmpty()) {
             this.startingBalance.setText(this.balance.toString());
-        } else if (!this.startingBalance.getText().matches("\\d*\\.\\d{2}$")) {
-            this.startingBalance.setText(this.startingBalance.getText().replaceAll("[^\\d\\.]", ""));
+        } else if (!this.startingBalance.getText().matches("\\d+(.\\d+)?")) {
+            this.balance = Double.valueOf(
+                    this.startingBalance.toString().replaceAll("[^0-9.]", "").isEmpty() ? STARTING_BALANCE.toString()
+                            : this.startingBalance.toString());
+            this.startingBalance
+                    .setText(this.balance.toString().isBlank() ? STARTING_BALANCE.toString() : this.balance.toString());
         }
 
         this.balance = Double.valueOf(this.startingBalance.getText().trim());

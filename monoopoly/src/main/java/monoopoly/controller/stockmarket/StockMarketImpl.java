@@ -102,7 +102,6 @@ public class StockMarketImpl implements StockMarket {
 		while (toReturn < 5.0 && toReturn > 250.0) {
 			toReturn = random.nextGaussian() * RANDOM_DEVIATION + RANDOM_MEAN;
 		}
-		System.out.println(toReturn);
 		return toReturn / RANDOM_DIVIDER;
 		
 		

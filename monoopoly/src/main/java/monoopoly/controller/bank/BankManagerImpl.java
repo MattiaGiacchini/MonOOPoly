@@ -1,6 +1,5 @@
 package monoopoly.controller.bank;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,7 +10,6 @@ import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
-import monoopoly.model.player.Player;
 
 public class BankManagerImpl implements BankManager {
 
@@ -20,32 +18,32 @@ public class BankManagerImpl implements BankManager {
 	private final Table table;
 	private Set<Tile> purchaseableProperties;
 	private GameEngine gameEngine;
+	private BankCommandExecutor executor;
 	
 	public BankManagerImpl(GameEngine engine) {
 		this.gameEngine = engine;
 		this.table = this.gameEngine.getTable();
 		this.purchaseableProperties = this.table.getFilteredTiles(Tile.class, x -> x.isPurchasable());
 		this.bank = new Bank(this.purchaseableProperties);
+		this.executor = new BankCommandExecutor();
 	}
 	
 	@Override
 	public void giveMoney(double toGive, PlayerManager player) {
+		
 		this.bank.giveMoney(toGive);
 		player.collectMoney(toGive);
 		if (this.bank.isBankBroken()) {
-			/*
 			 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
-			 */
-			 System.out.println("THE BANK IS BROKEN");
+			 System.out.println("THE BANK IS BROKEN, game has been won by player " + winningPlayer.getPlayerManagerID());
 		}
+		
 	}
 
 	@Override
 	public void assignHouse(Tile property, PlayerManager player) {
-		new BankCommandAbstractImpl(this.bank, player, property) {
-
-			@Override
-			public void execute() {
+		
+		executor.executeCommand(() -> {
 				checkPurchasability(property);
 				Property toBuild = (Property)property;
 				if (toBuild.getNumberOfHotelBuilt() < 1) {
@@ -54,39 +52,36 @@ public class BankManagerImpl implements BankManager {
 					player.payMoney(moneyPaid);
 					bank.giveMoney(-moneyPaid);
 				}
-			}
+			});
 		
-		}.execute();
 	}
 
 	@Override
 	public Bank getBank() {
 		return this.bank;
 	}
+	
 	@Override
 	public void mortgageProperty(Tile property, PlayerManager player) {
-		new BankCommandAbstractImpl(this.bank, player, property) {
-			
-			@Override
-			public void execute() {
-				checkPurchasability(property);
-				Purchasable purchasable = (Purchasable)property;
-				Property toRemove = (Property)purchasable;
-				if (!purchasable.isMortgage() && toRemove.getNumberOfHouseBuilt() == 0) {
-					double money = purchasable.mortgage();
-					bank.giveMoney(money);
-					player.collectMoney(money);
-					bank.getMortgagedProperties().put(property, player.getPlayer());
-				}
+		
+		executor.executeCommand(() -> {
+			checkPurchasability(property);
+			Purchasable purchasable = (Purchasable)property;
+			Property toRemove = (Property)purchasable;
+			if (!purchasable.isMortgage() && toRemove.getNumberOfHouseBuilt() == 0) {
+				double money = purchasable.mortgage();
+				bank.giveMoney(money);
+				player.collectMoney(money);
+				bank.getMortgagedProperties().put(property, player.getPlayer());
 			}
-		}.execute();
+		});
+		
 	}
+	
 	@Override
 	public void unmortgageProperty(Tile property, PlayerManager player) {
-		final BankCommand command = new BankCommand() {
-			
-			@Override
-			public void execute(/*Bank bank*/) {
+		
+		executor.executeCommand(() -> {
 				checkPurchasability(property);
 				Purchasable purchasable = (Purchasable)property;
 				if (purchasable.isMortgage()) {
@@ -96,31 +91,26 @@ public class BankManagerImpl implements BankManager {
 					player.payMoney(money);
 					bank.getMortgagedProperties().remove(property);
 				}
-			}
-		};
-		command.execute(/*this.bank*/);
+			});
+		
 	}
 	@Override
 	public void buyProperty(Tile property, PlayerManager player) {
 		
-		new BankCommandAbstractImpl(this.bank, player, property) {
-
-			@Override
-			public void execute() {
-				checkPurchasability(property);
-				Purchasable purchasable = (Purchasable)property;
-				if(purchasable.getOwner().isEmpty()) {
-					double money = purchasable.getSalesValue();
-					purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
-					bank.getAssignedProperties().put(property, player.getPlayer());
-					bank.giveMoney(money);
-					player.collectMoney(-money);
-				} else {
-					throw new IllegalStateException("Property already bought!");
-				}
+		executor.executeCommand(() -> {
+			checkPurchasability(property);
+			Purchasable purchasable = (Purchasable)property;
+			if(purchasable.getOwner().isEmpty()) {
+				double money = purchasable.getSalesValue();
+				purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
+				bank.getAssignedProperties().put(property, player.getPlayer());
+				bank.giveMoney(money);
+				player.collectMoney(-money);
+			} else {
+				throw new IllegalStateException("Property already bought!");
 			}
-			
-		}.execute();
+		});
+		
 	}
 	
 	private void checkPurchasability(Tile property) {
@@ -131,10 +121,8 @@ public class BankManagerImpl implements BankManager {
 	
 	@Override
 	public void sellHouse(Tile property, PlayerManager player) {
-		new BankCommandAbstractImpl(this.bank, player, property) {
-			
-			@Override
-			public void execute() {
+		
+		executor.executeCommand(() -> {
 				Purchasable purchasable = (Purchasable)property;
 				checkOwned(purchasable);
 				Property toSell = (Property)purchasable;
@@ -142,8 +130,7 @@ public class BankManagerImpl implements BankManager {
 					double money = toSell.sellBuilding();
 					player.collectMoney(money);
 				}
-			}	
-		}.execute();
+			});
 		
 	}
 

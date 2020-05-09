@@ -3,8 +3,6 @@ package monoopoly.controller.stockmarket;
 import java.util.List;
 import java.util.Map;
 
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
 
 /**

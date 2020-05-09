@@ -3,7 +3,6 @@ package monoopoly.controller.dices;
 import java.util.Map;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.Table;
 
 /**
  *	This interface represents the dices involved in a game of monoopoly.

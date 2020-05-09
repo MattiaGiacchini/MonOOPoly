@@ -15,6 +15,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
+import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.view.controller.BoardViewControllerImpl;
@@ -112,6 +114,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
         deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
         deckCard.initModality(Modality.APPLICATION_MODAL);
         deckCard.setTitle(cardCategory);
+        deckCard.initOwner(Main.getPrimaryStage().getScene().getWindow());
         deckCard.showAndWait();
     }
 

@@ -35,17 +35,22 @@ public class SetPlayerController implements Initializable {
     private static final Double MAX_BALANCE = 15000.00;
     private static final Double BALANCE_INCREASE_VALUE = 500.00;
     private static final int MIN_PLAYERS = 2;
-    private static final int MAX_NAME_LENGHT = 15;
+    private static final int MAX_NAME_LENGHT = 10;
 
     private StartGame start;
 
     private Map<Integer, String> playerMap = new HashMap<Integer, String>();
     private Double balance = STARTING_BALANCE;
-    private ViewUtilities utilities = new ViewUtilitiesImpl();
 
-   /*
-    * Displayed logo
-    */
+    /*
+     * Text field with the balance chosen by the user
+     */
+    @FXML
+    private TextField startingBalance;
+
+    /*
+     * Displayed logo
+     */
     @FXML
     private ImageView logo;
 
@@ -61,6 +66,7 @@ public class SetPlayerController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.logo.setImage(new Image(this.getClass().getResourceAsStream("/logoMonoopoly500.png")));
+        this.startingBalance.setText(STARTING_BALANCE.toString());
     }
 
     /**

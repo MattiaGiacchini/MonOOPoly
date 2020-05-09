@@ -25,7 +25,7 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
     private TabPane tabPane;
 
     @FXML
-    private BarChart<String, Double> chart;
+    private BarChart<String, Double> barChart;
 
     @FXML
     private LineChart<String, Double> brownChart;
@@ -74,9 +74,11 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
 
     @Override
     public void updateStockMarket(Map<Category, Double> stockMarket) {
+        
+        this.tabPane.getSelectionModel().select(0);
 
         XYChart.Series<String, Double> stockMarketSeries = new XYChart.Series<String, Double>();
-        chart.getData().clear();
+        barChart.getData().clear();
         stockMarketSeries.getData().clear();
 
         stockMarket.forEach((K, V) -> {
@@ -84,7 +86,7 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
                     .add(new XYChart.Data<String, Double>(K.toString(), V * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
         });
 
-        chart.getData().add(stockMarketSeries);
+        barChart.getData().add(stockMarketSeries);
     }
 
     @Override

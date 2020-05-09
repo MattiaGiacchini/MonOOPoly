@@ -1,8 +1,12 @@
 package monoopoly.model.item;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,8 +17,13 @@ import monoopoly.model.item.deck.DeckImpl;
 
 final class TableFactory {
 
-	private final Map<Integer, Tile> map;
-	
+//    private interface SerializableFunction<X, Y> extends Function<X, Y>,
+//                                                         Serializable{}
+//    private interface SerializableBiFunction<X,Y,Z> extends BiFunction<X,Y,Z>,
+//                                                            Serializable{}
+    private interface SerializableBiPredicate<X,Y> extends BiPredicate<X,Y>,
+                                                           Serializable{}
+    
 	private enum TableTile{
 		//	  								name						sale 	mort	O		I		II		III		IV		V		houVal	hotVal	
 		TILE00(0,  Category.START,			"START",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
@@ -72,9 +81,12 @@ final class TableFactory {
 		private final double costToBuildHouse;
 		private final double costToBuildHotel;
 
-		private TableTile(int position, Category category, String name,  double saleValue, double mortgage,
-				double leaseValueLeve0, double leaseValueLevelI, double leaseValueLevelII, double leaseValueLevelIII,
-				double leaseValueLevelIV, double leaseValueLevelV, double costToBuildHouse, double costToBuildHotel) {
+		private TableTile(int position, Category category, String name,  
+		                  double saleValue, double mortgage,
+		                  double leaseValueLeve0, double leaseValueLevelI, 
+		                  double leaseValueLevelII, double leaseValueLevelIII,
+		                  double leaseValueLevelIV, double leaseValueLevelV, 
+		                  double costToBuildHouse, double costToBuildHotel) {
 			this.position = position;
 			this.category = category;
 			this.name = name;
@@ -92,115 +104,218 @@ final class TableFactory {
 	}
 	
 	public TableFactory() {
-		super();	
-		this.map = new HashMap<>();
+	    super();	
 	}
 
 	protected Map<Integer, Tile> createTable(Table table) {
-		Tile tile;
 		
-		Deck deck = new DeckImpl(Collections.unmodifiableSet(
-								 Stream.of(Category.values())
-				                       .filter(x->this.isDeck(x))
-				                       .collect(Collectors.toSet())));
-		
-		for(TableTile value : TableTile.values()) {
-			 tile = new TileImpl.Builder()
-					   		   	.name(value.name)
-					   		   	.category(value.category)
-					   		   	.deck(this.isDeck(value.category))
-					   		   	.purchasable(this.isPurchasable(value.category))
-					   		   	.buildable(this.isBuildable(value.category))
-					   		   	.build();
+		Map<Integer, Tile> map = new HashMap<>();
+		Deck deck = generateNewDeck();
 
-			 if(this.isPurchasable(value.category)) {
-				 switch (value.category){
-					 case SOCIETY:
-						 tile = new Society.Builder()
-						 				   .tile(tile)
-						 				   .table((ObserverPurchasable)table)
-						 				   .mortgage(value.mortgage)
-						 				   .sales(value.saleValue)
-						 				   .multiplierLevelOne(value.leaseValueLevel0)
-						 				   .multiplierLevelTwo(value.leaseValueLevelI)
-						 				   .build();
-						 break;
-					 case STATION:
-						 tile = new Station.Builder()
-						                   .tile(tile)
-						                   .table((ObserverPurchasable)table)
-						                   .mortgage(value.mortgage)
-						                   .sales(value.saleValue)
-						                   .leaseOneStation(value.leaseValueLevel0)
-						                   .build();
-						 break;
-					 default:
-						 tile = new PropertyImpl.Builder()
-						 						.tile(tile)
-						 						.table((ObserverPurchasable)table)
-						 						.mortgage(value.mortgage)
-						 						.sales(value.saleValue)
-						 						.valueToBuildHouse(value.costToBuildHouse)
-						 						.valueToBuildHotel(value.costToBuildHotel)
-						 						.leaseWithNoBuildings(value.leaseValueLevel0)
-						 						.leaseWithOneHouse(value.leaseValueLevelI)
-						 						.leaseWithTwoHouse(value.leaseValueLevelII)
-						 						.leaseWithThreeHouse(value.leaseValueLevelIII)
-						 						.leaseWithFourHouse(value.leaseValueLevelIV)
-						 						.leaseWithOneHotel(value.leaseValueLevelV)
-						 						.build();
-						 break;
-				 }
-			 } else if (this.isDeck(value.category)) {
-				 tile = new TileDeckImpl.Builder()
-						 				.tileToDecore(tile)
-						 				.deck(deck)
-						 				.table(table)
-						 				.build();
-			 }
-			
-			map.put(value.position, tile);
+		for(TableTile value : TableTile.values()) {
+			map.put(value.position, this.generateNewTile(value, deck, table));
 		}
+		
 		return map;
 	}
 	
-	private boolean isPurchasable(Tile.Category category) {
-		if(category == Category.BROWN 		||
-		   category == Category.LIGHT_BLUE	||
-		   category == Category.PINK		||
-		   category == Category.ORANGE 		||
-		   category == Category.RED			||
-		   category == Category.YELLOW 		||
-		   category == Category.GREEN		||
-		   category == Category.BLUE		||
-		   category == Category.SOCIETY		||
-		   category == Category.STATION) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isDeck(Category category) {
-		if(category == Category.PROBABILITY	||
-		   category == Category.CALAMITY	||
-		   category == Category.UNEXPECTED) {
-			return true;
-		}
-		return false;
-	}
-	
-	private boolean isBuildable(Category category) {
-		if(category == Category.BROWN 		||
-		   category == Category.LIGHT_BLUE	||
-		   category == Category.PINK		||
-		   category == Category.ORANGE 		||
-		   category == Category.RED			||
-		   category == Category.YELLOW 		||
-		   category == Category.GREEN		||
-		   category == Category.BLUE) {
-			return true;
-		}
-		return false;
+	private Tile generateNewTile(final TableTile value, 
+								 final Deck deck, 
+								 final Table table) {
+		 switch (value.category){
+		 	// the categories forward represents general tiles
+			case START:
+			case JAIL:
+			case GO_TO_JAIL:
+			case FREE_PARKING: return this.generateTileBase(value);
+
+			// the categories forward represents property
+			case BROWN:
+			case LIGHT_BLUE:
+			case PINK:
+			case ORANGE:
+			case RED:
+			case YELLOW:
+			case GREEN:
+			case BLUE:			return this.generateTileProperty(value,table);
+			
+			// the categories forward represents deck
+			case UNEXPECTED:
+			case PROBABILITY:
+			case CALAMITY:		return this.generateTileDeck(value,deck,table);
+			
+			// the next category represents a societies
+			case SOCIETY:		return this.generateTileSociety(value,table);
+			
+			// the next category represents the stations
+			case STATION:		return this.generateTileStation(value,table);
+			
+			// wrong configuration
+			default: 			throw new IllegalArgumentException(
+					 				"TableFactory: invalid Category format");
+		 }
+		 
 	}
 
+	private Tile generateTileBase(final TableTile value) {
+		return new TileImpl.Builder()
+			   		   	   .name(value.name)
+			   		   	   .category(value.category)
+				   		   .deck(this.isDeck(value.category))
+				   		   .purchasable(this.isPurchasable(value.category))
+				   		   .buildable(this.isBuildable(value.category))
+				   		   .build();
+	}
+
+	private Tile generateTileStation(final TableTile value, 
+									 final Table table) {
+		return new Station.Builder()
+	                	  .tile(this.generateTileBase(value))
+	                	  .table((ObserverPurchasable)table)
+	                	  .mortgage(value.mortgage)
+	                	  .sales(value.saleValue)
+	                	  .leaseOneStation(value.leaseValueLevel0)
+	                	  .build();
+	}
+
+	private Tile generateTileSociety(final TableTile value, 
+									 final Table table) {
+		return new Society.Builder()
+					      .tile(this.generateTileBase(value))
+					      .table((ObserverPurchasable)table)
+					      .mortgage(value.mortgage)
+					      .sales(value.saleValue)
+					      .multiplierLevelOne(value.leaseValueLevel0)
+					      .multiplierLevelTwo(value.leaseValueLevelI)
+					      .build();
+	}
+
+	private Tile generateTileDeck(final TableTile value,
+								  final Deck deck,
+								  final Table table) {
+		return new TileDeckImpl.Builder()
+			 				   .tileToDecore(this.generateTileBase(value))
+			 				   .deck(deck)
+			 				   .table(table)
+			 				   .build();
+	}
+
+	private Tile generateTileProperty(final TableTile value,
+									  final Table table) {
+		return new PropertyImpl.Builder()
+							   .tile(this.generateTileBase(value))
+							   .mortgage(value.mortgage)
+							   .sales(value.saleValue)
+							   .valueToBuildHouse(value.costToBuildHouse)
+							   .valueToBuildHotel(value.costToBuildHotel)
+							   .leaseWithNoBuildings(value.leaseValueLevel0)
+							   .leaseWithOneHouse(value.leaseValueLevelI)
+							   .leaseWithTwoHouse(value.leaseValueLevelII)
+							   .leaseWithThreeHouse(value.leaseValueLevelIII)
+							   .leaseWithFourHouse(value.leaseValueLevelIV)
+							   .leaseWithOneHotel(value.leaseValueLevelV)
+                               .bipred(this.genLambdaAllCategoryOwned(table))
+							   .build();
+	}
+
+	private DeckImpl generateNewDeck() {
+		return new DeckImpl(Collections.unmodifiableSet(
+						    Stream.of(Category.values())
+		                       	  .filter(x->this.isDeck(x))
+		                       	  .collect(Collectors.toSet())));
+	}
+	
+	private boolean isPurchasable(final Category category) {
+		switch (category){
+			 case BROWN:
+			 case LIGHT_BLUE:
+			 case PINK:
+			 case ORANGE:
+			 case RED:
+			 case YELLOW:
+			 case GREEN:
+			 case BLUE:
+			 case SOCIETY:
+			 case STATION: 	return true;
+			 default: 		return false;
+		}
+	}
+
+	private boolean isDeck(final Category category) {
+		switch (category){
+			case PROBABILITY:
+			case UNEXPECTED:
+			case CALAMITY:	return true;
+			default: 		return false;
+		}
+	}
+	
+	private boolean isBuildable(final Category category) {
+		switch (category){
+			case BROWN:
+			case LIGHT_BLUE:
+			case PINK:
+			case ORANGE:
+			case RED:
+			case YELLOW:
+			case GREEN:
+			case BLUE:		return true;
+			default: 		return false;
+		}		
+	}
+
+//	private Function<Category, Integer> genLabmdaNumOfTileCat(Table board){
+//	    return new SerializableFunction<>(){
+//            private static final long serialVersionUID = 8786613279079437007L;
+//            private Table table = board;
+//            
+//            @Override
+//            public Integer apply(Category t) {
+//                return this.table
+//                           .getFilteredTiles(Tile.class, 
+//                                             x->x.getCategory().equals(t))
+//                           .size();
+//            }
+//	    };
+//	}
+//
+//    private BiFunction<Integer, Category, Integer> genLabmdaNumOfPurchOwned(Table board){
+//        return new SerializableBiFunction<>(){
+//            
+//            private static final long serialVersionUID = 4067971340364323254L;
+//            private Table table = board;
+//            
+//            @Override 
+//            public Integer apply(Integer idPlayer, Category category) {
+//                return this.table
+//                           .getFilteredTiles(Tile.class, 
+//                                             x->x.getCategory()
+//                                                 .equals(category) &&
+//                                             ((Purchasable)x).getOwner()
+//                                                             .isPresent() &&
+//                                             ((Purchasable)x).getOwner()
+//                                                             .get()
+//                                                             .equals(idPlayer))
+//                                            .size();
+//            }
+//        };
+//    }
+//    
+    private BiPredicate<Integer, Category> genLambdaAllCategoryOwned(Table board){
+        return new SerializableBiPredicate<>() {
+
+            private static final long serialVersionUID = 1L;
+            private final Table table = board;
+
+            @Override
+            public boolean test(Integer idPlayer, Category category) {
+                return this.table.getFilteredTiles(Purchasable.class, 
+                                                   x->x.getCategory()
+                                                       .equals(category))
+                                 .stream().allMatch(x->x.getOwner().isPresent()
+                                                    && x.getOwner().get()
+                                                        .equals(idPlayer));
+            }
+        };
+    }
 }

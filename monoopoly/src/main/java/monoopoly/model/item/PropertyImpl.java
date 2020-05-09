@@ -3,6 +3,8 @@ package monoopoly.model.item;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
+import java.util.function.BiPredicate;
 
 public class PropertyImpl extends AbstractPurchasable implements Property {
 
@@ -13,9 +15,9 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	private static final Integer MAX_NUMBER_OF_HOUSE = 4;
 	private static final Integer MAX_NUMBER_OF_HOTEL = 1;
 	private static final Integer SERIES_COMPLETE = 6;
-	
+
+    private final BiPredicate<Integer, Category> isCategoryAllOwned;
 	private final Map<Integer, Double> leaseListBaseValue;
-	private final ObserverPurchasable table;
 	private final Double valueTobuildHouse;
 	private final Double valueTobuildHotel;
 	
@@ -34,164 +36,192 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		private static final Double  MULTIPLIER_SERIES_COMPLETE = 2.0;
 		
 		private Tile decorated;
-		private ObserverPurchasable table;
 		private Double mortgageValue;
 		private Double salesValue;
 		private Double valueToBuildHouse;
 		private Double valueToBuildHotel;
 		private Map<Integer,Double> leaseMap;
+        private BiPredicate<Integer, Category> allCategoryOwned;
 		
 		public Builder(){
 			this.leaseMap = new HashMap<>();
 			this.valueToBuildHouse = null;
 			this.valueToBuildHotel = null;
+			this.decorated = null;
+		    this.allCategoryOwned = null;
+		    this.mortgageValue = null;
+		    this.salesValue = null;
 		}
 		
 		public Builder tile(Tile decorated) {
+		    Objects.requireNonNull(decorated, 
+		                        "the tile to decore cannot has null value!");
 			if(!decorated.isBuildable()) {
 				throw new IllegalArgumentException("the Tile isn't Buildable");
 			}
 			this.decorated = decorated;
 			return this;
 		}
-		
-		public Builder table(ObserverPurchasable table) {
-			this.table = table;
-			return this;
-		}
-		
-		public Builder mortgage(double mortgageValue) {
-			if(this.mortgageValue == null) {
-				this.mortgageValue = mortgageValue;
-			}
-			return this;
-		}
-		
-		public Builder sales(double salesValue) {
-			if(this.salesValue == null) {
-				this.salesValue = salesValue;
-			}
-			return this;
-		}
 
-		public Builder valueToBuildHouse(double value) {
-			if(this.valueToBuildHouse == null) {
-				this.valueToBuildHouse = value;
-			}
+        public Builder bipred(BiPredicate<Integer, Category> allCategoryOwned) {
+            Objects.requireNonNull(allCategoryOwned,
+                                "The function cannot has null value!");
+            this.allCategoryOwned = allCategoryOwned;
+            return this;
+        }
+		
+		public Builder mortgage(Double mortgageValue) {
+		    this.doubleChecker(mortgageValue, "Mortgage value");
+			this.mortgageValue = mortgageValue;
 			return this;
 		}
 		
-		public Builder valueToBuildHotel(double value) {
-			if(this.valueToBuildHotel == null) {
-				this.valueToBuildHotel = value;
-			}
+        public Builder sales(Double salesValue) {
+            this.doubleChecker(salesValue, "Sales value");
+			this.salesValue = salesValue;
+			return this;
+		}
+
+		public Builder valueToBuildHouse(Double value) {
+		    this.doubleChecker(value, "cost to build house");
+			this.valueToBuildHouse = value;
 			return this;
 		}
 		
-		public Builder leaseWithNoBuildings(double value) {
-			if(!this.leaseMap.containsKey(LEASE_NO_BUILDING)) {
-				this.leaseMap.put(LEASE_NO_BUILDING, value);
-			}
-			return this;
-		}
-
-		public Builder leaseWithOneHouse(double value) {
-			if(!this.leaseMap.containsKey(Builder.LEASE_ONE_HOUSE)) {
-				this.leaseMap.put(LEASE_ONE_HOUSE, value);
-			}
-			return this;
-		}
-
-		public Builder leaseWithTwoHouse(double value) {
-			if(!this.leaseMap.containsKey(Builder.LEASE_TWO_HOUSE)) {
-				this.leaseMap.put(LEASE_TWO_HOUSE, value);
-			}
-			return this;
-		}
-
-		public Builder leaseWithThreeHouse(double value) {
-			if(!this.leaseMap.containsKey(Builder.LEASE_THREE_HOUSE)) {
-				this.leaseMap.put(LEASE_THREE_HOUSE, value);
-			}
-			return this;
-		}
-
-		public Builder leaseWithFourHouse(double value) {
-			if(!this.leaseMap.containsKey(Builder.LEASE_FOUR_HOUSE)) {
-				this.leaseMap.put(LEASE_FOUR_HOUSE, value);
-			}
-			return this;
-		}
-
-		public Builder leaseWithOneHotel(double value) {
-			if(!this.leaseMap.containsKey(Builder.LEASE_ONE_HOTEL)) {
-				this.leaseMap.put(LEASE_ONE_HOTEL, value);
-			}
+		public Builder valueToBuildHotel(Double value) {
+            this.doubleChecker(value, "cost to build hotel");
+			this.valueToBuildHotel = value;
 			return this;
 		}
 		
-		public PropertyImpl build() throws IllegalStateException{
-			if(this.decorated == null ||
-			   this.table == null ||
-			   this.mortgageValue == null ||
-			   this.salesValue == null ||
-			   !this.leaseMap.containsKey(LEASE_NO_BUILDING) ||
-			   !this.leaseMap.containsKey(Builder.LEASE_ONE_HOUSE) ||
-			   !this.leaseMap.containsKey(Builder.LEASE_TWO_HOUSE) ||
-			   !this.leaseMap.containsKey(Builder.LEASE_THREE_HOUSE) ||
-			   !this.leaseMap.containsKey(Builder.LEASE_FOUR_HOUSE) ||
-			   !this.leaseMap.containsKey(Builder.LEASE_ONE_HOTEL)) {
-				throw new IllegalStateException("Wrong composition of Property!");
-			}
+		public Builder leaseWithNoBuildings(Double value) {
+		    this.doubleChecker(value, "lease without buildings");
+			this.leaseMap.put(LEASE_NO_BUILDING, value);
+			return this;
+		}
+
+		public Builder leaseWithOneHouse(Double value) {
+		    this.doubleChecker(value, "lease with one house");
+			this.leaseMap.put(LEASE_ONE_HOUSE, value);
+			return this;
+		}
+
+		public Builder leaseWithTwoHouse(Double value) {
+            this.doubleChecker(value, "lease with two house");
+			this.leaseMap.put(LEASE_TWO_HOUSE, value);
+			return this;
+		}
+
+		public Builder leaseWithThreeHouse(Double value) {
+            this.doubleChecker(value, "lease with three house");
+			this.leaseMap.put(LEASE_THREE_HOUSE, value);
+			return this;
+		}
+
+		public Builder leaseWithFourHouse(Double value) {
+            this.doubleChecker(value, "lease with four house");
+			this.leaseMap.put(LEASE_FOUR_HOUSE, value);
+			return this;
+		}
+
+		public Builder leaseWithOneHotel(Double value) {
+            this.doubleChecker(value, "lease with an hotel");
+			this.leaseMap.put(LEASE_ONE_HOTEL, value);
+			return this;
+		}
+		
+		public PropertyImpl build() {
+		    this.objectRequireNonNull(this.decorated, "Card to decore");
+		    this.objectRequireNonNull(this.allCategoryOwned, "bifunction");
+		    this.objectRequireNonNull(this.mortgageValue, "Mortgage value");
+		    this.objectRequireNonNull(this.salesValue, "Salses value");
+		    this.objectRequireNonNull(this.leaseMap.get(LEASE_NO_BUILDING), 
+		                              "Lease withoutBuildings");
+            this.objectRequireNonNull(this.leaseMap.get(LEASE_ONE_HOUSE), 
+                                      "Lease with one house");
+            this.objectRequireNonNull(this.leaseMap.get(LEASE_TWO_HOUSE), 
+                                      "Lease with two house");
+            this.objectRequireNonNull(this.leaseMap.get(LEASE_THREE_HOUSE), 
+                                      "Lease with three house");
+            this.objectRequireNonNull(this.leaseMap.get(LEASE_FOUR_HOUSE), 
+                                      "Lease with four house");
+            this.objectRequireNonNull(this.leaseMap.get(LEASE_ONE_HOTEL), 
+                                      "Lease with one hotel");
+            
+            // the series complete has double value of lease with no buildings
 			this.leaseMap.put(Builder.LEASE_SERIES_COMPLETE, 
-					this.leaseMap.get(Builder.LEASE_NO_BUILDING)*
-					Builder.MULTIPLIER_SERIES_COMPLETE);
+					          this.leaseMap.get(Builder.LEASE_NO_BUILDING) *
+					          Builder.MULTIPLIER_SERIES_COMPLETE);
+			
 			return new PropertyImpl(this);
 		}
-	}
+
+		private void objectRequireNonNull(Object obj, String string) {
+		    Objects.requireNonNull(obj, "PROPERTY: "+ string + " is unsetted!");
+		}
 		
+        private void doubleChecker(Double value, String string) {
+            Objects.requireNonNull(value, 
+                        "the " + string + " cannot has null value!");
+            if(value.isNaN() || value.isInfinite()) {
+                throw new IllegalArgumentException(
+                        "the "+ string + " hasn't a right format");
+            }
+            
+        }
+
+	}	
 
 	private PropertyImpl(Builder builder) {
 		super(builder.decorated, builder.mortgageValue, builder.salesValue);
-		this.numberOfConstructionBuilt = PropertyImpl.PROPERTY_WITHOUT_BUILDINGS;
+		this.numberOfConstructionBuilt = PropertyImpl.
+		                                 PROPERTY_WITHOUT_BUILDINGS;
 		this.leaseListBaseValue = builder.leaseMap;
 		this.valueTobuildHouse = builder.valueToBuildHouse;
 		this.valueTobuildHotel = builder.valueToBuildHotel;
-		this.table = builder.table;
+		this.isCategoryAllOwned = builder.allCategoryOwned;
 	}
 
 	@Override
 	public void buildOn(){
 		if(!this.isCategoryOfPropertiesAllOwned()) {
-			throw new IllegalStateException("The " + super.getCategory() + " Category hasn't the same owner in all properties");
-		} else if(PropertyImpl.MAX_NUMBER_OF_HOTEL + PropertyImpl.MAX_NUMBER_OF_HOUSE == this.numberOfConstructionBuilt) {
-			throw new IllegalStateException("Maximum number of buildings reached");
+			throw new IllegalStateException("The " + super.getCategory() + 
+			               " Category hasn't the same owner in all properties");
+		} else if(this.numberOfConstructionBuilt.equals((
+		           PropertyImpl.MAX_NUMBER_OF_HOTEL + 
+		           PropertyImpl.MAX_NUMBER_OF_HOUSE))) {
+			throw new IllegalStateException(
+			                             "Maximum number of buildings reached");
 		}
-		this.numberOfConstructionBuilt = this.numberOfConstructionBuilt + PropertyImpl.UNIT_TO_INCREASE_OR_DECREASE;
+		this.numberOfConstructionBuilt = this.numberOfConstructionBuilt + 
+		                              PropertyImpl.UNIT_TO_INCREASE_OR_DECREASE;
 	}
 
 	@Override
 	public double sellBuilding() {
-		if(this.numberOfConstructionBuilt == PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {
-			throw new IllegalStateException("The property hasn't buildings to sell"); 
+		if(this.numberOfConstructionBuilt.equals(
+		        PropertyImpl.PROPERTY_WITHOUT_BUILDINGS)) {
+			throw new IllegalStateException(
+			        "The property hasn't buildings to sell"); 
 		}
 		Double buildingsValue = this.getQuotationToSellActualBuildings();
-		this.numberOfConstructionBuilt = this.numberOfConstructionBuilt - PropertyImpl.UNIT_TO_INCREASE_OR_DECREASE;
+		this.numberOfConstructionBuilt = this.numberOfConstructionBuilt
+		                    - PropertyImpl.UNIT_TO_INCREASE_OR_DECREASE;
 		return buildingsValue;
 	}
 
 	@Override
 	public Integer getNumberOfHouseBuilt() {
-		return this.numberOfConstructionBuilt <= PropertyImpl.MAX_NUMBER_OF_HOUSE ? 
-			   this.numberOfConstructionBuilt :
-			   PropertyImpl.MAX_NUMBER_OF_HOUSE;
+		return this.numberOfConstructionBuilt <=PropertyImpl.MAX_NUMBER_OF_HOUSE
+		       ? this.numberOfConstructionBuilt
+		       : PropertyImpl.MAX_NUMBER_OF_HOUSE;
 	}
 
 	@Override
 	public Integer getNumberOfHotelBuilt() {
-		return this.numberOfConstructionBuilt > PropertyImpl.MAX_NUMBER_OF_HOUSE ?
-			   PropertyImpl.MAX_NUMBER_OF_HOTEL :
-			   PropertyImpl.PROPERTY_WITHOUT_BUILDINGS;
+		return this.numberOfConstructionBuilt > PropertyImpl.MAX_NUMBER_OF_HOUSE
+		       ? PropertyImpl.MAX_NUMBER_OF_HOTEL
+		       : PropertyImpl.PROPERTY_WITHOUT_BUILDINGS;
 	}
 
 	@Override
@@ -219,10 +249,15 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	@Override
 	public double getLeaseValue() {
 		if(super.getOwner().isPresent() && !super.isMortgage()) {
-			if(this.isCategoryOfPropertiesAllOwned() && this.numberOfConstructionBuilt == PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {
-				return this.leaseListBaseValue.get(PropertyImpl.SERIES_COMPLETE) * super.getQuotation();
+			if(this.isCategoryOfPropertiesAllOwned() && 
+			   this.numberOfConstructionBuilt.equals(
+			   PropertyImpl.PROPERTY_WITHOUT_BUILDINGS)){
+				return this.leaseListBaseValue.get(PropertyImpl.SERIES_COMPLETE)
+				       * super.getQuotation();
 			} else {
-				return this.leaseListBaseValue.get(this.numberOfConstructionBuilt) * super.getQuotation();
+				return this.leaseListBaseValue.get(
+				       this.numberOfConstructionBuilt)
+				       * super.getQuotation();
 			}
 		}
 		return PropertyImpl.VALUE_ZERO;
@@ -232,24 +267,24 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	public Map<Integer, Double> getLeaseList() {
 		Map<Integer,Double> listWithQuotationApplied = new HashMap<>();
 		for(Entry<Integer, Double> elem : this.leaseListBaseValue.entrySet()) {
-			listWithQuotationApplied.put(elem.getKey(), elem.getValue()*super.getQuotation());
+			listWithQuotationApplied.put(elem.getKey(), elem.getValue() *
+			                             super.getQuotation());
 		}
 		return listWithQuotationApplied;
 	}	
 	
 	private double getQuotationToSellActualBuildings() {
-		if(this.getNumberOfHotelBuilt() > PropertyImpl.PROPERTY_WITHOUT_BUILDINGS) {
+		if(this.getNumberOfHotelBuilt() > PropertyImpl.
+		                                  PROPERTY_WITHOUT_BUILDINGS) {
 			return this.getQuotationToSellHotel();
 		}
 		return this.getQuotationToSellHouse();
 	}
 	
 	private boolean isCategoryOfPropertiesAllOwned() {
-		return this.table.getTilesforSpecificCategoty(super.getCategory())
-						 .stream()
-						 .map(x->(Purchasable)x)						  
-						 .allMatch(x-> x.getOwner().isPresent() && 
-								       x.getOwner().get() == super.getOwner().get());
+		return super.getOwner().isEmpty() ? false :
+		       this.isCategoryAllOwned.test(super.getOwner().get(), 
+		                                    super.getCategory());
 	}
 
 }

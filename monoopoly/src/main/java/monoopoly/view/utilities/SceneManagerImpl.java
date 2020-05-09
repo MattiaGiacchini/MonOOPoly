@@ -1,8 +1,12 @@
 package monoopoly.view.utilities;
 
 import java.io.IOException;
+
+import com.sun.tools.javac.Main;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import monoopoly.view.main.MainBoardControllerImpl;
 
@@ -39,6 +43,7 @@ public class SceneManagerImpl implements SceneManager {
         }
         this.stage.centerOnScreen();
         this.checkScene(scene);
+        this.stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/logoMonoopoly500.png")));
         this.stage.show();
     }
 

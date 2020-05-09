@@ -10,9 +10,13 @@ import monoopoly.model.player.Player;
 public class TurnManagerImpl implements TurnManager {
 		
 	private int currentPlayerID;
-	
 	private List<PlayerManager> playersList = new ArrayList<>();
-
+	private Integer round;
+	
+	public TurnManagerImpl() {
+		this.round = -1;
+	}
+	
 	@Override
 	public PlayerManager nextTurn() {
 		int flag = 0;
@@ -39,10 +43,12 @@ public class TurnManagerImpl implements TurnManager {
 		return false;
 	}
 
-	@Override
-	public Integer getNumberOfRound() {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer getRound() {
+		return this.round;
+	}
+	
+	public void setRound() {
+		this.round = this.round + 1;
 	}
 	
 	public Integer getCurrentPlayer() {

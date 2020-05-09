@@ -14,16 +14,16 @@ public class PlayerPropertiesControllerImpl {
 	ObservableList<String> properties = FXCollections.observableArrayList();
 
 	@FXML
-	private ListView<String> playerProperties;
+	private ListView<String> playerProperties = new ListView<String>();
 
 	@FXML
-	void close() {
+	void closePopUp() {
 		this.stage.close();
 	}
 
 	@FXML
 	void startTrade() {
-
+		//TODO
 	}
 
 	public void show(Set<String> properties) {

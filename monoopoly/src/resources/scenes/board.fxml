@@ -275,11 +275,11 @@
             <URL value="@main.css" />
          </stylesheets>
       </Button>
-      <Circle fx:id="player0" fill="#ff8a65" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.rowIndex="10" GridPane.valignment="TOP" />
-      <Circle fx:id="player1" fill="#ffb74d" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
-      <Circle fx:id="player2" fill="#fff176" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
-      <Circle fx:id="player3" fill="#aed581" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="TOP" />
-      <Circle fx:id="player4" fill="#4fc3f7" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
-      <Circle fx:id="player5" fill="#9575cd" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+      <Circle fx:id="player0" fill="#ff8a65" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+      <Circle fx:id="player1" fill="#ffb74d" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+      <Circle fx:id="player2" fill="#fff176" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="5.0" GridPane.columnIndex="10" GridPane.halignment="LEFT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
+      <Circle fx:id="player3" fill="#aed581" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+      <Circle fx:id="player4" fill="#4fc3f7" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="CENTER" />
+      <Circle fx:id="player5" fill="#9575cd" mouseTransparent="true" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" translateX="-5.0" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="10" GridPane.valignment="BOTTOM" />
    </children>
 </GridPane>

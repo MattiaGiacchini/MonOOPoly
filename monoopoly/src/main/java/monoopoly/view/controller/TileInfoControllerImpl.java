@@ -18,6 +18,8 @@ import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 public class TileInfoControllerImpl implements TileInfoController, Initializable {
 
+    private static final int MAX_NUM_HOUSES = 4;
+    private static final int MAX_NUM_HOTEL = 1;
     private ButtonLogic logics = new ButtonLogicImpl();
     private ViewUtilities utilities = new ViewUtilitiesImpl();
 
@@ -277,8 +279,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
      * @param info
      */
     private void showPropertyInfo(TileInfo info) {
-        this.houseNumber.setText(String.valueOf(info.getHousesAmount()));
-        this.hotelNumber.setText(info.getHousesAmount() > 4 ? String.valueOf(1) : String.valueOf(0));
+        this.houseNumber.setText(
+                String.valueOf(info.getHousesAmount() <= MAX_NUM_HOUSES ? String.valueOf(info.getHousesAmount())
+                        : String.valueOf(MAX_NUM_HOUSES)));
+        this.hotelNumber
+                .setText(info.getHousesAmount() > MAX_NUM_HOUSES ? String.valueOf(MAX_NUM_HOTEL) : String.valueOf(0));
         this.baseRent.setText(this.utilities.toMoneyString(info.getRentValue(0)));
         this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentValue(1)));
         this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));

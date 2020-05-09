@@ -86,7 +86,6 @@ public class PlayerManagerImpl implements PlayerManager {
         } else {
             throw new IllegalArgumentException();
         }
-
     }
 
     @Override
@@ -141,6 +140,11 @@ public class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public boolean isInPrison() {
+        return this.player.getState().equals(States.PRISONED);
+    }
+    
+    @Override
+    public boolean isBroken() {
         return this.player.getState().equals(States.PRISONED);
     }
 

@@ -273,14 +273,14 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="buildHouse" mnemonicParsing="false" onAction="#buildHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Build House" />
-                                    <Button fx:id="sellHouse" mnemonicParsing="false" onAction="#sellHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Sell House" />
+                                    <Button fx:id="buildHouse" focusTraversable="false" mnemonicParsing="false" onAction="#buildHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Build House" />
+                                    <Button fx:id="sellHouse" focusTraversable="false" mnemonicParsing="false" onAction="#sellHouseButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Sell House" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="mortgage" mnemonicParsing="false" onAction="#mortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Mortgage" />
-                                    <Button fx:id="unMortgage" mnemonicParsing="false" onAction="#removeMortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="un Mortgage" />
+                                    <Button fx:id="mortgage" focusTraversable="false" mnemonicParsing="false" onAction="#mortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="Mortgage" />
+                                    <Button fx:id="unMortgage" focusTraversable="false" mnemonicParsing="false" onAction="#removeMortgageButtonPressed" prefHeight="40.0" prefWidth="90.0" text="un Mortgage" />
                                  </children>
                               </HBox>
                            </children>
@@ -310,7 +310,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Button fx:id="payRent" mnemonicParsing="false" onAction="#payRentButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Pay" />
+                                    <Button fx:id="payRent" focusTraversable="false" mnemonicParsing="false" onAction="#payRentButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Pay" />
                                  </children>
                               </HBox>
                            </children>
@@ -340,7 +340,7 @@
                               </HBox>
                               <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
                                  <children>
-                                    <Button fx:id="buyPurchasable" mnemonicParsing="false" onAction="#buyPurchasableButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Buy" />
+                                    <Button fx:id="buyPurchasable" focusTraversable="false" mnemonicParsing="false" onAction="#buyPurchasableButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Buy" />
                                  </children>
                               </HBox>
                            </children>

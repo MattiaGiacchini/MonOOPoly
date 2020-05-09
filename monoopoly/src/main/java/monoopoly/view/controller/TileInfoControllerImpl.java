@@ -198,6 +198,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     public void resetButtons() {
         this.payRent.setDisable(false);
         this.buyPurchasable.setDisable(false);
+        this.buildHouse.setDisable(false);
+        this.sellHouse.setDisable(false);
     }
 
     /**
@@ -229,8 +231,10 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         }
 
         if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
+            this.disableHouseBuildButtons();
             this.showSocietyInfo(info);
         } else if (info.getCategory().equals(TileViewCategory.STATION)) {
+            this.disableHouseBuildButtons();
             this.showStationInfo(info);
         } else if (info.getCategory().equals(TileViewCategory.PROPERTY)) {
             this.showPropertyInfo(info);
@@ -238,6 +242,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
             this.emptyInfo.toFront();
             this.emptyControl.toFront();
         }
+    }
+
+    private void disableHouseBuildButtons() {
+        this.buildHouse.setDisable(true);
+        this.sellHouse.setDisable(true);
     }
 
     /**

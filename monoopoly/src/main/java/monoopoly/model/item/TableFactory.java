@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
-import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,13 +17,13 @@ import monoopoly.model.item.deck.Deck;
 import monoopoly.model.item.deck.DeckImpl;
 
 final class TableFactory {
-
-//    private interface SerializableFunction<X, Y> extends Function<X, Y>,
-//                                                         Serializable{}
-//    private interface SerializableBiFunction<X,Y,Z> extends BiFunction<X,Y,Z>,
-//                                                            Serializable{}
+    
+    private interface SerializableBiFunction<X,Y,Z> extends BiFunction<X,Y,Z>,
+                                                            Serializable{}
     private interface SerializableBiPredicate<X,Y> extends BiPredicate<X,Y>,
                                                            Serializable{}
+    private interface SerializableSupplier<X> extends Supplier<X>,
+                                                        Serializable{}
     
 	private enum TableTile{
 		//	  								name						sale 	mort	O		I		II		III		IV		V		houVal	hotVal	
@@ -182,7 +183,9 @@ final class TableFactory {
 									 final Table table) {
 		return new Society.Builder()
 					      .tile(this.generateTileBase(value))
-					      .table((ObserverPurchasable)table)
+					      .supplierDiceResult(this.supplierDiceResult(table))
+					      .biFunNumOfCategoryOwned(
+					              this.biFunctionNumOfCategoryOwned(table))
 					      .mortgage(value.mortgage)
 					      .sales(value.saleValue)
 					      .multiplierLevelOne(value.leaseValueLevel0)
@@ -214,7 +217,7 @@ final class TableFactory {
 							   .leaseWithThreeHouse(value.leaseValueLevelIII)
 							   .leaseWithFourHouse(value.leaseValueLevelIV)
 							   .leaseWithOneHotel(value.leaseValueLevelV)
-                               .bipred(this.genLambdaAllCategoryOwned(table))
+                               .bipred(this.BiPredicateAllCategoryOwned(table))
 							   .build();
 	}
 
@@ -264,57 +267,60 @@ final class TableFactory {
 		}		
 	}
 
-//	private Function<Category, Integer> genLabmdaNumOfTileCat(Table board){
-//	    return new SerializableFunction<>(){
-//            private static final long serialVersionUID = 8786613279079437007L;
-//            private Table table = board;
-//            
-//            @Override
-//            public Integer apply(Category t) {
-//                return this.table
-//                           .getFilteredTiles(Tile.class, 
-//                                             x->x.getCategory().equals(t))
-//                           .size();
-//            }
-//	    };
-//	}
-//
-//    private BiFunction<Integer, Category, Integer> genLabmdaNumOfPurchOwned(Table board){
-//        return new SerializableBiFunction<>(){
-//            
-//            private static final long serialVersionUID = 4067971340364323254L;
-//            private Table table = board;
-//            
-//            @Override 
-//            public Integer apply(Integer idPlayer, Category category) {
-//                return this.table
-//                           .getFilteredTiles(Tile.class, 
-//                                             x->x.getCategory()
-//                                                 .equals(category) &&
-//                                             ((Purchasable)x).getOwner()
-//                                                             .isPresent() &&
-//                                             ((Purchasable)x).getOwner()
-//                                                             .get()
-//                                                             .equals(idPlayer))
-//                                            .size();
-//            }
-//        };
-//    }
-//    
-    private BiPredicate<Integer, Category> genLambdaAllCategoryOwned(Table board){
+	private Supplier<Integer> supplierDiceResult(Table board){
+	    return new SerializableSupplier<>(){
+	        
+            private static final long serialVersionUID = -5082802526818405282L;
+            private final Table table = board;
+            
+            @Override
+            public Integer get() {
+                return table.getNotifiedDices();
+            }
+	    };
+	}
+	
+    private BiPredicate<Integer, Category> BiPredicateAllCategoryOwned(
+                                                                  Table board){
         return new SerializableBiPredicate<>() {
 
-            private static final long serialVersionUID = 1L;
+            private static final long serialVersionUID = -3624186169928549214L;
             private final Table table = board;
 
             @Override
             public boolean test(Integer idPlayer, Category category) {
+                Objects.requireNonNull(idPlayer);
+                Objects.requireNonNull(category);
                 return this.table.getFilteredTiles(Purchasable.class, 
                                                    x->x.getCategory()
                                                        .equals(category))
                                  .stream().allMatch(x->x.getOwner().isPresent()
                                                     && x.getOwner().get()
                                                         .equals(idPlayer));
+            }
+        };
+    }
+    
+    private BiFunction<Integer, Category, Integer> 
+                                      biFunctionNumOfCategoryOwned(Table board){
+        return new SerializableBiFunction<>() {
+
+            private static final long serialVersionUID = -7384117543775718616L;
+            private final Table table = board;
+
+            @Override
+            public Integer apply(Integer idPlayer, Category category) {
+                Objects.requireNonNull(idPlayer);
+                Objects.requireNonNull(category);
+                return this.table
+                           .getFilteredTiles(Purchasable.class, 
+                                             x->x.isPurchasable() &&
+                                             ((Purchasable)x).getOwner()
+                                                             .isPresent() &&
+                                             ((Purchasable)x).getOwner()
+                                                             .get()
+                                                             .equals(idPlayer))
+                           .size();
             }
         };
     }

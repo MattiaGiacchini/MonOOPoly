@@ -15,7 +15,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.model.item.Tile.Category;

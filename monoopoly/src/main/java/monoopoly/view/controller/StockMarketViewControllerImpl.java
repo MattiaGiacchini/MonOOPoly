@@ -91,7 +91,6 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
     public void updateStockMarketHistory(List<Map<Category, Double>> stockHistory) {
         this.historyCharts.values().forEach(x -> x.getData().clear());
         stockHistory.get(this.stockHistoryCounter).forEach((K, V) -> {
-            System.out.println();
             this.lineChartSeriesMap.get(K).getData().add(new XYChart.Data<String, Double>(
                     String.valueOf(this.stockHistoryCounter), V * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
             this.historyCharts.get(K).getData().clear();
@@ -124,7 +123,6 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
         this.lineChartSeriesMap.put(Category.BLUE, this.blueSeries);
         this.lineChartSeriesMap.put(Category.STATION, this.stationSeries);
         this.lineChartSeriesMap.put(Category.SOCIETY, this.societySeries);
-
     }
 
 }

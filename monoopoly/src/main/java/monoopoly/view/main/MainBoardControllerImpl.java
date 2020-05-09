@@ -79,18 +79,25 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     }
 
     @FXML
-    public void rollDicesButtonPressed() {
+    public void rollDicesButtonPressed(ActionEvent event) {
         this.updateDices(this.gameEngine.rollDices());
         this.rollDices.setDisable(true);
         this.nextTurn.setDisable(false);
-
+        if (this.tileInfoController.playerPayedRent()) {
+            this.tileInfoController.resetButtons();
+        }
+        event.consume();
     }
 
     @FXML
-    public void nextTurnButtonPressed() {
-        this.gameEngine.passPlayer();
-        this.nextTurn.setDisable(true);
-        this.rollDices.setDisable(false);
+    public void nextTurnButtonPressed(ActionEvent event) {
+        if (this.tileInfoController.playerPayedRent()) {
+            this.gameEngine.passPlayer();
+            this.nextTurn.setDisable(true);
+            this.rollDices.setDisable(false);
+        } else {
+            event.consume();
+        }
     }
 
     @FXML

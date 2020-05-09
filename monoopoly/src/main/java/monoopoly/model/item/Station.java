@@ -3,6 +3,7 @@ package monoopoly.model.item;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 
 public class Station extends AbstractPurchasable {
 	
@@ -10,22 +11,25 @@ public class Station extends AbstractPurchasable {
 	private static final Integer ZERO = 0;
 	private static final Double BASE = 2.0;
 	private final Double leaseBase;
-	private final ObserverPurchasable table;
+    private final Integer numOfStations;
+    private final Function<Integer, Integer> funToRetriveNumOfStationOwned;
 
 	public static class Builder{
 		
 		private Tile decorated;
-		private ObserverPurchasable table;
 		private Double mortgageValue;
 		private Double salesValue;
 		private Double lease;
+        private Integer numOfStations;
+        private Function<Integer, Integer> funToRetriveNumOfStationOwned;
 		
 		public Builder(){
 		    this.decorated     = null;
-		    this.table         = null;
 		    this.mortgageValue = null;
 		    this.salesValue    = null;
 	        this.lease         = null;
+	        this.numOfStations = null;
+	        this.funToRetriveNumOfStationOwned = null;
 		}
 		
 		public Builder tile(Tile decorated) {
@@ -37,12 +41,15 @@ public class Station extends AbstractPurchasable {
 			this.decorated = decorated;
 			return this;
 		}
-		
-		public Builder table(ObserverPurchasable table) {
-		    Objects.requireNonNull(table, "Table cannot has null value");
-			this.table = table;
-			return this;
-		}
+
+        public Builder funNumOfCatOwned(Function<Integer, Integer> 
+                                        funToGetNumbOfTypeOwned) {
+            Objects.requireNonNull(funToGetNumbOfTypeOwned, 
+                    "The function to retrive the number of station owner "
+                    + "cannot has null value!");
+            this.funToRetriveNumOfStationOwned = funToGetNumbOfTypeOwned;
+            return this;
+        }
 		
 		public Builder mortgage(Double mortgageValue) {
 		    Objects.requireNonNull(mortgageValue, 
@@ -70,17 +77,27 @@ public class Station extends AbstractPurchasable {
 			return this;
 		}
 		
+        public Builder numOfStations(Integer numberOfStation) {
+            Objects.requireNonNull(numberOfStation, 
+                                "The number of station cannot has null value!");
+            this.numOfStations = numberOfStation;
+            return this;
+        }
+		
 		public Station build() {
 		    Objects.requireNonNull(this.decorated, 
 		                           "STATION: Card to decor is unsetted!");
-		    Objects.requireNonNull(this.table,
-		                           "STATION: The Table is unsetted!");
 		    Objects.requireNonNull(this.mortgageValue, 
 		                           "STATION: the mortgage value is unsetted!");
 		    Objects.requireNonNull(this.salesValue, 
 		                           "STATION: The sales Value is unsetted!");
 		    Objects.requireNonNull(this.lease,
 		                           "STATION: the lease value is Unsetted!");
+		    Objects.requireNonNull(this.numOfStations, 
+		                           "STATION: the num of stations is Unsetted!");
+		    Objects.requireNonNull(this.funToRetriveNumOfStationOwned, 
+		                            "STATION: the function to retrive the "
+		                            + "number of station owned is unsetted!");
 			return new Station(this);
 		}
         
@@ -95,8 +112,10 @@ public class Station extends AbstractPurchasable {
 	
 	private Station(Builder builder) {
 		super(builder.decorated, builder.mortgageValue, builder.salesValue);
-		this.table = builder.table;
 		this.leaseBase = builder.lease;
+		this.numOfStations = builder.numOfStations;
+		this.funToRetriveNumOfStationOwned = 
+		             builder.funToRetriveNumOfStationOwned;
 	}
 
 	@Override
@@ -113,9 +132,8 @@ public class Station extends AbstractPurchasable {
 
 	@Override
 	public Map<Integer, Double> getLeaseList() {
-		Integer numOfStation = getNumberOfStations();
 		Map<Integer, Double> map = new HashMap<>();
-		for(Integer i = Station.ZERO;  i < numOfStation; i++) {
+		for(Integer i = Station.ZERO;  i < this.numOfStations; i++) {
 			map.put(i+Station.CORRECTION, 
 			        this.leaseBase * Math.pow(Station.BASE, i));
 		}
@@ -123,20 +141,9 @@ public class Station extends AbstractPurchasable {
 	}
 
     private int getNumberOfStationOwned() {
-        return (int) this.table
-                         .getTilesforSpecificCategoty(this.getCategory())
-                         .stream()
-                         .map(x->(Purchasable)x)
-                         .filter(x->x.getOwner().isPresent() &&
-                                    super.getOwner().isPresent() &&
-                                    x.getOwner().get().equals(
-                                    super.getOwner().get()))
-                         .count();
-    }
-
-    private int getNumberOfStations() {
-        return this.table.getTilesforSpecificCategoty(super.getCategory())
-		                 .size();
+        return super.getOwner().isEmpty() ? Station.ZERO :
+                this.funToRetriveNumOfStationOwned.apply(
+                        super.getOwner().get());
     }
 
 }

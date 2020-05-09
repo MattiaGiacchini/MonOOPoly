@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,10 +19,15 @@ import monoopoly.model.item.deck.DeckImpl;
 
 final class TableFactory {
     
+    private interface SerializableFunction<X,Y> extends Function<X,Y>,
+                                                        Serializable{}
+    
     private interface SerializableBiFunction<X,Y,Z> extends BiFunction<X,Y,Z>,
                                                             Serializable{}
+    
     private interface SerializableBiPredicate<X,Y> extends BiPredicate<X,Y>,
                                                            Serializable{}
+    
     private interface SerializableSupplier<X> extends Supplier<X>,
                                                         Serializable{}
     
@@ -172,14 +178,18 @@ final class TableFactory {
 									 final Table table) {
 		return new Station.Builder()
 	                	  .tile(this.generateTileBase(value))
-	                	  .table((ObserverPurchasable)table)
 	                	  .mortgage(value.mortgage)
+	                	  .numOfStations(this.getNumberOfCategory(
+	                	                 value.category))
+	                	  .funNumOfCatOwned(
+	                	          this.funToGetNumbOfTypeOwned(table, 
+	                	                                       value.category))
 	                	  .sales(value.saleValue)
 	                	  .leaseOneStation(value.leaseValueLevel0)
 	                	  .build();
 	}
 
-	private Tile generateTileSociety(final TableTile value, 
+    private Tile generateTileSociety(final TableTile value, 
 									 final Table table) {
 		return new Society.Builder()
 					      .tile(this.generateTileBase(value))
@@ -266,7 +276,33 @@ final class TableFactory {
 			default: 		return false;
 		}		
 	}
+	
+	private Function<Integer,Integer> funToGetNumbOfTypeOwned(Table board, 
+	                                                         Category category){
+	    return new SerializableFunction<Integer,Integer>() {
+	        
+            private static final long serialVersionUID = 149054793696676323L;
+            private final Category cat = category;
+            private final Table table = board;
 
+            @Override
+            public Integer apply(Integer idPlayer) {
+                Objects.requireNonNull(idPlayer);
+                return this.table
+                           .getFilteredTiles(Purchasable.class, 
+                                             x->x.isPurchasable() &&
+                                             x.getCategory().equals(this.cat) &&
+                                             ((Purchasable)x).getOwner()
+                                                             .isPresent() &&
+                                             ((Purchasable)x).getOwner()
+                                                             .get()
+                                                             .equals(idPlayer))
+                           .size();
+            }
+	        
+	    };
+	}
+	
 	private Supplier<Integer> supplierDiceResult(Table board){
 	    return new SerializableSupplier<>(){
 	        
@@ -279,7 +315,7 @@ final class TableFactory {
             }
 	    };
 	}
-	
+
     private BiPredicate<Integer, Category> BiPredicateAllCategoryOwned(
                                                                   Table board){
         return new SerializableBiPredicate<>() {
@@ -291,7 +327,7 @@ final class TableFactory {
             public boolean test(Integer idPlayer, Category category) {
                 Objects.requireNonNull(idPlayer);
                 Objects.requireNonNull(category);
-                return this.table.getFilteredTiles(Purchasable.class, 
+                return this.table.getFilteredTiles(Purchasable.class,
                                                    x->x.getCategory()
                                                        .equals(category))
                                  .stream().allMatch(x->x.getOwner().isPresent()
@@ -323,5 +359,11 @@ final class TableFactory {
                            .size();
             }
         };
+    }
+
+    private int getNumberOfCategory(Category category) {
+        return (int) Stream.of(TableTile.values())
+                           .filter(x->x.category.equals(category))
+                           .count();
     }
 }

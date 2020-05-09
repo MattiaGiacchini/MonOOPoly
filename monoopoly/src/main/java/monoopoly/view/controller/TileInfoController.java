@@ -28,8 +28,8 @@ public interface TileInfoController {
     void resetButtons();
 
     /**
-     * This method return true if the current {@link Player} payed the rent he must pay to
-     * the {@link Purchasable} owner.
+     * This method return true if the current {@link Player} payed the rent he must
+     * pay to the {@link Purchasable} owner.
      * 
      * @return true id the current {@link Player} payed the rent.
      */

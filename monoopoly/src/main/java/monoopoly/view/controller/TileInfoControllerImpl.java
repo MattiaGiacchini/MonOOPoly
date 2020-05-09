@@ -303,8 +303,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
                 && this.logics.maxHouses(info.getHousesAmount())));
         this.sellHouse.setDisable(!this.logics.minHouses(info.getHousesAmount()));
 
-        this.mortgage.setDisable(!info.isMortgaged());
-        this.unMortgage.setDisable(info.isMortgaged());
+        this.mortgage.setDisable(info.isMortgaged());
+        this.unMortgage.setDisable(!info.isMortgaged());
 
         this.myProperty.toFront();
     }
@@ -324,7 +324,9 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.freeProperty.toFront();
+        this.emptyControl.toFront();
+        this.propertyName.setText("START");
     }
 
     @Override

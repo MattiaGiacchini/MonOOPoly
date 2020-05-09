@@ -160,4 +160,11 @@ public interface PlayerManager {
      */
     int getPrisonTurnCounter();
 
+    /**
+     * This methods checks if the {@link Player} is eliminated or if he gave up.
+     * 
+     * @return true if the {@link Player} have been eliminated.
+     */
+    boolean isBroken();
+
 }

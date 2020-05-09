@@ -35,6 +35,7 @@ public class SceneManagerImpl implements SceneManager {
 
     @Override
     public void swapScene(ScenePath scene) {
+        this.stage.setResizable(true);
         this.loader.setLocation(getClass().getResource(scene.getPath()));
         try {
             this.stage.setScene(new Scene(loader.load()));
@@ -50,7 +51,6 @@ public class SceneManagerImpl implements SceneManager {
     private void checkScene(ScenePath scene) {
         if (scene.equals(ScenePath.BOARD)) {
             this.stage.setMaximized(true);
-            this.stage.setResizable(true);
         }
 
     }

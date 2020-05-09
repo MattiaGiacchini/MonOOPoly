@@ -134,9 +134,10 @@ public class BankTest {
 		balance.put (0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
-		this.engine = new GameEngineImpl(names, balance, positions, states);
+		this.engine = new GameEngineImpl(names, balance);
 		this.engine.createTable();
-		this.playerOne = new PlayerManagerImpl(0, this.engine);
+		this.engine.createPlayers();
+		this.playerOne = this.engine.playersList().get(0);
 		this.bankManager = new BankManagerImpl(this.engine);
 	}
 }

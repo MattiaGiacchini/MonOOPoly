@@ -48,12 +48,11 @@ public class GameEngineImpl implements GameEngine {
 	private BankManager bankManager = new BankManagerImpl(this);
 	private Dices dicesUse = new DicesImpl(2, this.table);
 	private StockMarket stockMarket = new StockMarketImpl(this.table);
+	private Integer tileHit;
 	
 	@FXML
 	private MainBoardControllerImpl mainBoardController;
-
-	private Integer tileHit;
-
+	
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
 	 * every player's credentials
@@ -79,7 +78,7 @@ public class GameEngineImpl implements GameEngine {
 		return this.getTable();
 	}
 
-	public PlayerManager createPlayer(final int ID) {
+	private PlayerManager createPlayer(final int ID) {
 		String name = this.getName(ID);
 		PlayerManager pM = new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
 																			 .name(this.getName(ID))
@@ -156,6 +155,7 @@ public class GameEngineImpl implements GameEngine {
 			for (PlayerManager pM: this.playersList()) {
 	            if (pM.getPrisonTurnCounter() == 3) {
 	                this.bankManager.giveMoney(-150, pM);
+	                pM.resetPrisonCounter();
 	            }
 			    pM.newTurn();
 			}
@@ -335,21 +335,26 @@ public class GameEngineImpl implements GameEngine {
 	public void buildHouse() {
 		this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+		this.giveTileInfo(this.tileHit);
 	}
 
 	public void sellHouse() {
 		this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+		this.giveTileInfo(this.tileHit);
 	}
 
 	public void mortgage() {
 		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+		this.giveTileInfo(this.tileHit);
+        this.giveTileInfo(this.tileHit);
 	}
 
 	public void unMortgage() {
 		this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+	    this.giveTileInfo(this.tileHit);
 	}
 
 	public void buyPurchasable() {
@@ -358,6 +363,7 @@ public class GameEngineImpl implements GameEngine {
 														 .getPosition());
 		this.bankManager.buyProperty(tile, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
+	    this.giveTileInfo(this.tileHit);
 	}
 
 	public void payRent() {

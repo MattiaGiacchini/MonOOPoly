@@ -343,11 +343,6 @@
                                     <Button fx:id="buyPurchasable" mnemonicParsing="false" onAction="#buyPurchasableButtonPressed" prefHeight="40.0" prefWidth="150.0" text="Buy" />
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="on Auction" />
-                                 </children>
-                              </HBox>
                            </children>
                            <padding>
                               <Insets bottom="10.0" top="10.0" />

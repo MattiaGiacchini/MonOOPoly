@@ -142,7 +142,7 @@ public class PlayerManagerImpl implements PlayerManager {
     public boolean isInPrison() {
         return this.player.getState().equals(States.PRISONED);
     }
-    
+
     @Override
     public boolean isBroken() {
         return this.player.getState().equals(States.PRISONED);
@@ -195,7 +195,7 @@ public class PlayerManagerImpl implements PlayerManager {
         if (this.player.hasPrisonCard()) {
             this.player.setPrisonCard(false);
         } else {
-            this.prisonTurnCounter = 0;
+            this.resetPrisonCounter();
             this.player.setState(States.PRISONED);
         }
         this.player.setPosition(this.table.getJailPosition());
@@ -219,6 +219,11 @@ public class PlayerManagerImpl implements PlayerManager {
                 this.leavePrison();
             }
         }
+    }
+
+    @Override
+    public void resetPrisonCounter() {
+        this.prisonTurnCounter = 0;
     }
 
 }

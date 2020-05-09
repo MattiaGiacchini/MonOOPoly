@@ -6,13 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;

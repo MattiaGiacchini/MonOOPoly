@@ -22,14 +22,6 @@ public interface GameEngine {
 	Table createTable();
 
 	/**
-	 * Creating a single player by passing ID
-	 *
-	 * @param number as playerID
-	 * @return a {@link PlayerManager}
-	 */
-	PlayerManager createPlayer(final int ID);
-
-	/**
 	 * Creating all the players using all the IDs stored in maps
 	 */
 	void createPlayers();
@@ -82,6 +74,8 @@ public interface GameEngine {
 	 * @return successive {@link PlayerManager}
 	 */
 	void passPlayer();
+	
+	public void incRound();
 
 	/**
 	 *

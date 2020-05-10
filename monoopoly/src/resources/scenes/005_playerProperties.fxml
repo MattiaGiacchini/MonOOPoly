@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.PlayerPropertiesControllerImpl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,7 +15,7 @@
             <HBox alignment="CENTER_RIGHT" spacing="30.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#startTrade" prefHeight="35.0" text="START TRADE" />
-                  <Button mnemonicParsing="false" onAction="#close" prefHeight="35.0" text="CLOSE" />
+                  <Button mnemonicParsing="false" onAction="#closePopUp" prefHeight="35.0" text="CLOSE" />
                </children>
                <VBox.margin>
                   <Insets />

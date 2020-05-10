@@ -9,7 +9,7 @@
 
 <VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.PlayerViewControllerImpl">
    <children>
-      <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName0" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -29,7 +29,7 @@
             <Insets left="30.0" />
          </padding>
       </HBox>
-      <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player1" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFB74D; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName1" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -49,7 +49,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox id="player2" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player2" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFF176; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName2" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -69,7 +69,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox id="player3" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player3" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #AED581; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName3" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -89,7 +89,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox id="player4" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player4" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #4FC3F7; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName4" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -109,7 +109,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox id="player5" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
+      <HBox id="player5" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #9575CD; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>
             <Label fx:id="playerName5" minWidth="100.0" prefWidth="100.0" stylesheets="@main.css">
                <font>
@@ -133,7 +133,7 @@
    <padding>
       <Insets bottom="30.0" left="20.0" top="40.0" />
    </padding>
-   
+
    <fx:define>
    		<ArrayList fx:id="nameList">
    			<fx:reference source="playerName0" />
@@ -144,7 +144,7 @@
    			<fx:reference source="playerName5" />
    		</ArrayList>
    </fx:define>
-   
+
    <fx:define>
    		<ArrayList fx:id="balanceList">
    			<fx:reference source="playerBalance0" />

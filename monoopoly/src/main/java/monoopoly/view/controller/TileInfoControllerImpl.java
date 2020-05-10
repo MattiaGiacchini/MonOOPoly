@@ -2,10 +2,6 @@ package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,299 +18,329 @@ import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 public class TileInfoControllerImpl implements TileInfoController, Initializable {
 
-	private ButtonLogic logics = new ButtonLogicImpl();
-	private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private ButtonLogic logics = new ButtonLogicImpl();
+    private ViewUtilities utilities = new ViewUtilitiesImpl();
 
-	@FXML
-	private Label propertyName;
+    @FXML
+    private Label propertyName;
 
-	/*
-	 * Free property controller pane
-	 */
-	@FXML
-	private AnchorPane freeProperty;
+    /*
+     * Free property controller pane
+     */
+    @FXML
+    private AnchorPane freeProperty;
 
-	@FXML
-	private Label purchasableValue;
+    @FXML
+    private Label purchasableValue;
 
-	@FXML
-	private Button buyPurchasable;
+    @FXML
+    private Button buyPurchasable;
 
-	/*
-	 * My property controller pane
-	 */
-	@FXML
-	private AnchorPane myProperty;
+    /*
+     * My property controller pane
+     */
+    @FXML
+    private AnchorPane myProperty;
 
-	@FXML
-	private Button buildHouse;
+    @FXML
+    private Button buildHouse;
 
-	@FXML
-	private Button sellHouse;
+    @FXML
+    private Button sellHouse;
 
-	@FXML
-	private Button mortgage;
+    @FXML
+    private Button mortgage;
 
-	@FXML
-	private Button unMortgage;
+    @FXML
+    private Button unMortgage;
 
-	/*
-	 * Owned property controller pane
-	 */
-	@FXML
-	private AnchorPane ownedProperty;
+    /*
+     * Owned property controller pane
+     */
+    @FXML
+    private AnchorPane ownedProperty;
 
-	@FXML
-	private Label rentValue;
+    @FXML
+    private Label rentValue;
 
-	@FXML
-	private Button payRent;
+    @FXML
+    private Button payRent;
 
-	/*
-	 * Empty property controller pane
-	 */
-	@FXML
-	private AnchorPane emptyControl;
+    /*
+     * Empty property controller pane
+     */
+    @FXML
+    private AnchorPane emptyControl;
 
-	@FXML
-	private AnchorPane emptyInfo;
+    @FXML
+    private AnchorPane emptyInfo;
 
-	/*
-	 * General tile info
-	 */
-	@FXML
-	private Label propertyOwner;
+    /*
+     * General tile info
+     */
+    @FXML
+    private Label propertyOwner;
 
-	@FXML
-	private Label propertyValue;
+    @FXML
+    private Label propertyValue;
 
-	@FXML
-	private Label mortgageValue;
+    @FXML
+    private Label mortgageValue;
 
-	@FXML
-	private Label unMortgageValue;
+    @FXML
+    private Label unMortgageValue;
 
-	/*
-	 * Property information pane
-	 */
-	@FXML
-	private AnchorPane property;
+    /*
+     * Property information pane
+     */
+    @FXML
+    private AnchorPane property;
 
-	@FXML
-	private Label houseNumber;
+    @FXML
+    private Label houseNumber;
 
-	@FXML
-	private Label hotelNumber;
+    @FXML
+    private Label hotelNumber;
 
-	@FXML
-	private Label baseRent;
+    @FXML
+    private Label baseRent;
 
-	@FXML
-	private Label rentOneHouse;
+    @FXML
+    private Label rentOneHouse;
 
-	@FXML
-	private Label rentTwoHouse;
+    @FXML
+    private Label rentTwoHouse;
 
-	@FXML
-	private Label rentThreeHouse;
+    @FXML
+    private Label rentThreeHouse;
 
-	@FXML
-	private Label rentFourHouse;
+    @FXML
+    private Label rentFourHouse;
 
-	@FXML
-	private Label rentOneHotel;
+    @FXML
+    private Label rentOneHotel;
 
-	@FXML
-	private Label houseCost;
+    @FXML
+    private Label houseCost;
 
-	/*
-	 * Station information pane
-	 */
-	@FXML
-	private AnchorPane station;
+    /*
+     * Station information pane
+     */
+    @FXML
+    private AnchorPane station;
 
-	@FXML
-	private Label rentOneStation;
+    @FXML
+    private Label rentOneStation;
 
-	@FXML
-	private Label rentTwoStation;
+    @FXML
+    private Label rentTwoStation;
 
-	@FXML
-	private Label rentThreeStation;
+    @FXML
+    private Label rentThreeStation;
 
-	@FXML
-	private Label rentFourStation;
+    @FXML
+    private Label rentFourStation;
 
-	/*
-	 * Station information pane
-	 */
-	@FXML
-	private AnchorPane society;
+    /*
+     * Station information pane
+     */
+    @FXML
+    private AnchorPane society;
 
-	private GameEngine gameEngine;
+    private boolean playerPayedRent = true;
 
-	@FXML
-	public void buildHouseButtonPressed() {
-		this.gameEngine.buildHouse();
-	}
+    private GameEngine gameEngine;
 
-	@FXML
-	public void sellHouseButtonPressed() {
-		this.gameEngine.sellHouse();
-	}
+    @FXML
+    public void buildHouseButtonPressed() {
+        this.gameEngine.buildHouse();
+    }
 
-	@FXML
-	public void mortgageButtonPressed() {
-		this.gameEngine.mortgage();
-	}
+    @FXML
+    public void sellHouseButtonPressed() {
+        this.gameEngine.sellHouse();
+    }
 
-	@FXML
-	public void removeMortgageButtonPressed() {
-		this.gameEngine.unMortgage();
-	}
+    @FXML
+    public void mortgageButtonPressed() {
+        this.gameEngine.mortgage();
+    }
 
-	@FXML
-	public void buyPurchasableButtonPressed() {
-		this.gameEngine.buyPurchasable();
-	}
+    @FXML
+    public void removeMortgageButtonPressed() {
+        this.gameEngine.unMortgage();
+    }
 
-	@FXML
-	public void payRentButtonPressed() {
-		this.gameEngine.payRent();
-	}
+    @FXML
+    public void buyPurchasableButtonPressed() {
+        this.buyPurchasable.setDisable(true);
+        this.gameEngine.buyPurchasable();
+    }
 
-	@Override
-	public void showPropertyPane(TileInfo info) {
-		this.show(info);
-	}
+    @FXML
+    public void payRentButtonPressed() {
+        this.payRent.setDisable(true);
+        this.playerPayedRent = true;
+        this.gameEngine.payRent();
+    }
 
-	@Override
-	public void setGameEngine(final GameEngine gameEngine) {
-		this.gameEngine = gameEngine;
-	}
+    @Override
+    public void showPropertyPane(TileInfo info) {
+        this.show(info);
+    }
 
-	/**
-	 * This method shows the tile control pane based on the topology of tile where
-	 * the {@link Player} is standing on
-	 * 
-	 * @param info
-	 */
-	private void show(final TileInfo info) {
-		this.propertyName.setText(info.getTileName());
-		this.propertyOwner.setText(info.getOwner());
-		this.propertyValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
-		this.mortgageValue.setText(this.utilities.toMoneyString(info.getMortgageValue()));
-		this.unMortgageValue.setText(this.utilities.toMoneyString(info.getUnMortgageValue()));
+    @Override
+    public void setGameEngine(final GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
+    }
 
-		if (info.getState().equals(PurchasableState.FREE_PROPERTY)) {
-			this.freePropertyButtonsLogic(info);
-		} else if (info.getState().equals(PurchasableState.MY_PROPERTY)) {
-			this.myPropertyButtonsLogic(info);
-		} else if (info.getState().equals(PurchasableState.OWNED_PROPERTY)) {
-			this.ownedPropertyButtonsLogic(info);
-		} else {
-			this.emptyControl.toFront();
-		}
+    @Override
+    public void resetButtons() {
+        this.payRent.setDisable(false);
+        this.buyPurchasable.setDisable(false);
+        this.buildHouse.setDisable(false);
+        this.sellHouse.setDisable(false);
+    }
 
-		if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
-			this.showSocietyInfo(info);
-		} else if (info.getCategory().equals(TileViewCategory.STATION)) {
-			this.showStationInfo(info);
-		} else if (info.getCategory().equals(TileViewCategory.PROPERTY)) {
-			this.showPropertyInfo(info);
-		} else {
-			this.emptyInfo.toFront();
-			this.emptyControl.toFront();
-		}
-	}
+    /**
+     * This method shows the tile control pane based on the topology of tile where
+     * the {@link Player} is standing on
+     * 
+     * @param info
+     */
+    private void show(final TileInfo info) {
+        this.propertyName.setText(info.getTileName());
+        this.propertyOwner.setText(info.getOwner());
+        this.propertyValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
+        this.mortgageValue.setText(this.utilities.toMoneyString(info.getMortgageValue()));
+        this.unMortgageValue.setText(this.utilities.toMoneyString(info.getUnMortgageValue()));
 
-	/**
-	 * This method updates the informations displayed about the chosen society
-	 * 
-	 * @param info
-	 */
-	private void showSocietyInfo(TileInfo info) {
-		this.society.toFront();
-	}
+        /*
+         * Here is shown the right pane with property control from the stack pane
+         * depending on the PurchasableState.
+         */
+        if (info.getState().equals(PurchasableState.FREE_PROPERTY)) {
+            this.freePropertyButtonsLogic(info);
+        } else if (info.getState().equals(PurchasableState.MY_PROPERTY)) {
+            this.myPropertyButtonsLogic(info);
+        } else if (info.getState().equals(PurchasableState.OWNED_PROPERTY)) {
+            this.playerPayedRent = false;
+            this.ownedPropertyButtonsLogic(info);
+        } else {
+            this.emptyControl.toFront();
+        }
 
-	/**
-	 * This method updates the informations displayed about the chosen station
-	 * 
-	 * @param info
-	 */
-	private void showStationInfo(TileInfo info) {
-		this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentValue(1)));
-		this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentValue(2)));
-		this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentValue(3)));
-		this.rentFourStation.setText(this.utilities.toMoneyString(info.getRentValue(4)));
-		this.station.toFront();
-	}
+        if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
+            this.disableHouseBuildButtons();
+            this.showSocietyInfo(info);
+        } else if (info.getCategory().equals(TileViewCategory.STATION)) {
+            this.disableHouseBuildButtons();
+            this.showStationInfo(info);
+        } else if (info.getCategory().equals(TileViewCategory.PROPERTY)) {
+            this.showPropertyInfo(info);
+        } else {
+            this.emptyInfo.toFront();
+            this.emptyControl.toFront();
+        }
+    }
 
-	/**
-	 * This method updates the informations displayed about the chosen property
-	 * 
-	 * @param info
-	 */
-	private void showPropertyInfo(TileInfo info) {
-		this.houseNumber.setText(String.valueOf(info.getHousesAmount()));
-		this.hotelNumber.setText(info.getHousesAmount() > 4 ? String.valueOf(1) : String.valueOf(0));
-		this.baseRent.setText(this.utilities.toMoneyString(info.getRentValue(0)));
-		this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentValue(1)));
-		this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));
-		this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentValue(3)));
-		this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentValue(4)));
-		this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(5)));
-		this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
-		this.property.toFront();
-	}
+    private void disableHouseBuildButtons() {
+        this.buildHouse.setDisable(true);
+        this.sellHouse.setDisable(true);
+    }
 
-	/**
-	 * This method sets the buttons enabled or disabled based on {@link TileInfo}
-	 * values and updates the labels
-	 * 
-	 * @param info
-	 */
-	private void ownedPropertyButtonsLogic(TileInfo info) {
-		this.payRent.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getRentToPay()));
-		this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
-		this.ownedProperty.toFront();
-	}
+    /**
+     * This method updates the informations displayed about the chosen society
+     * 
+     * @param info
+     */
+    private void showSocietyInfo(TileInfo info) {
+        this.society.toFront();
+    }
 
-	/**
-	 * This method sets the buttons enabled or disabled based on {@link TileInfo}
-	 * values and updates the labels
-	 * 
-	 * @param info
-	 */
-	private void myPropertyButtonsLogic(TileInfo info) {
-		this.buildHouse.setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getHouseCost())
-				&& this.logics.maxHouses(info.getHousesAmount())));
-		this.sellHouse.setDisable(!this.logics.minHouses(info.getHousesAmount()));
+    /**
+     * This method updates the informations displayed about the chosen station
+     * 
+     * @param info
+     */
+    private void showStationInfo(TileInfo info) {
+        this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentValue(1)));
+        this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentValue(2)));
+        this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentValue(3)));
+        this.rentFourStation.setText(this.utilities.toMoneyString(info.getRentValue(4)));
+        this.station.toFront();
+    }
 
-		this.mortgage.setDisable(!info.isMortgaged());
-		this.unMortgage.setDisable(info.isMortgaged());
+    /**
+     * This method updates the informations displayed about the chosen property
+     * 
+     * @param info
+     */
+    private void showPropertyInfo(TileInfo info) {
+        this.houseNumber.setText(String.valueOf(info.getHousesAmount()));
+        this.hotelNumber.setText(info.getHousesAmount() > 4 ? String.valueOf(1) : String.valueOf(0));
+        this.baseRent.setText(this.utilities.toMoneyString(info.getRentValue(0)));
+        this.rentOneHouse.setText(this.utilities.toMoneyString(info.getRentValue(1)));
+        this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));
+        this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentValue(3)));
+        this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentValue(4)));
+        this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(5)));
+        this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
+        this.property.toFront();
+    }
 
-		this.myProperty.toFront();
-	}
+    /**
+     * This method sets the buttons enabled or disabled based on {@link TileInfo}
+     * values and updates the labels
+     * 
+     * @param info
+     */
+    private void ownedPropertyButtonsLogic(TileInfo info) {
+        this.payRent.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getRentToPay()));
+        this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
+        this.ownedProperty.toFront();
+    }
 
-	/**
-	 * This method sets the buttons enabled or disabled based on {@link TileInfo}
-	 * values and updates the labels
-	 * 
-	 * @param info
-	 */
-	private void freePropertyButtonsLogic(TileInfo info) {
-		this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
-		this.buyPurchasable
-				.setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue()));
-		this.freeProperty.toFront();
-	}
+    /**
+     * This method sets the buttons enabled or disabled based on {@link TileInfo}
+     * values and updates the labels
+     * 
+     * @param info
+     */
+    private void myPropertyButtonsLogic(TileInfo info) {
+        this.buildHouse.setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getHouseCost())
+                && this.logics.maxHouses(info.getHousesAmount())));
+        this.sellHouse.setDisable(!this.logics.minHouses(info.getHousesAmount()));
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-//		this.show(new TileInfo.Builder().currentPlayerBalance(5200.00).housePrice(20.00).mortgage(false).numHouses(4)
-//				.purchasableValue(250.00).rentValue(47000.00).tileName("Parco della Vittoria")
-//				.purchasableState(PurchasableState.FREE_PROPERTY).build());
-	}
+        this.mortgage.setDisable(info.isMortgaged());
+        this.unMortgage.setDisable(!info.isMortgaged());
+
+        this.myProperty.toFront();
+    }
+
+    /**
+     * This method sets the buttons enabled or disabled based on {@link TileInfo}
+     * values and updates the labels
+     * 
+     * @param info
+     */
+    private void freePropertyButtonsLogic(TileInfo info) {
+        this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
+        this.buyPurchasable
+                .setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue()));
+        this.freeProperty.toFront();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.freeProperty.toFront();
+        this.emptyControl.toFront();
+        this.propertyName.setText("START");
+    }
+
+    @Override
+    public boolean playerPayedRent() {
+        return this.playerPayedRent;
+    }
 
 }

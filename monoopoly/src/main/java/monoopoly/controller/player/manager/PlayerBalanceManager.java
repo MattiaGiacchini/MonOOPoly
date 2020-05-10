@@ -15,6 +15,6 @@ public interface PlayerBalanceManager {
 	 * @param amount money to add (positive amount value) or to remove (negative
 	 *               amount value) from balance
 	 */
-	public void updateBalance(Player player, Double amount);
+	void updateBalance(Player player, Double amount);
 
 }

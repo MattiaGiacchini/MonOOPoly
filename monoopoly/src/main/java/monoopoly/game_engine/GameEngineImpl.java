@@ -1,5 +1,5 @@
 package monoopoly.game_engine;
-//getPrisonTurnCounter
+
 import java.util.*;
 import javafx.fxml.FXML;
 import monoopoly.controller.bank.BankManager;
@@ -216,28 +216,28 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_IN) {
-			this.playersList().get(this.turnManager.getCurrentPlayer())
-							  .getPlayer().setState(monoopoly.utilities.States.PRISONED);
+			this.playersList().get(this.turnManager.getCurrentPlayer()).goToPrison();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_OUT) {
-			this.playersList().get(this.turnManager.getCurrentPlayer())
-							 .getPlayer().hasPrisonCard();
+			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.RELATIVE_MOVE) {
 			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-				Integer currentPos = this.playersList().get(entry.getKey())
-													   .getPlayer().getPosition();
-				this.playersList().get(entry.getKey())
-								  .getPlayer().setPosition(currentPos + entry.getValue());
+				this.playersList().get(entry.getKey()).movePlayer(entry.getValue());
 			}
+			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
+			                                    .getPlayer()
+			                                    .getPosition());
 		}
 		else if (effect == monoopoly.utilities.CardEffect.ABSOLUTE_MOVE) {
-			Map<Integer, Integer> map = card.getRelativeMoveToPosition().get();
+			Map<Integer, Integer> map = card.getAbsoluteMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
-				this.playersList().get(entry.getKey())
-								  .getPlayer().setPosition(entry.getValue());
+				this.playersList().get(entry.getKey()).goToPosition(entry.getValue());
 			}
+			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
+                    .getPlayer()
+                    .getPosition());
 		}
 		else if (effect == monoopoly.utilities.CardEffect.REMOVE_BUILDINGS) {
 			Map<Integer, Integer> map = card.getNumberOfBuildingsToRemove().get();
@@ -259,6 +259,9 @@ public class GameEngineImpl implements GameEngine {
 		}
 		this.updateAlways();
 		this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
+		if (this.tileHit == 0) {
+		    this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
+		}
 		return this.dicesUse.getDices();
 	}
 
@@ -300,6 +303,11 @@ public class GameEngineImpl implements GameEngine {
 						                     .rentValues(Optional.of(((Purchasable) tile).getLeaseList()))
 						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
 						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .buildHouseEnabled(((Property)tile).isBuildOnEnabled())
+						                     .sellHouseEnabled(((Property)tile).isSellBuildingsEnabled())
+						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+						                                                                    .getPlayer()
+						                                                                    .getPosition() == this.tileHit)
 						                     .build();
         } else if (tile.getCategory() == Category.STATION) { // station
             tileInfo = new TileInfo.Builder().tileName(tile.getName())
@@ -313,6 +321,9 @@ public class GameEngineImpl implements GameEngine {
 						                     .rentValues(Optional.of(((Purchasable) tile).getLeaseList()))
 						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
 						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+                                                                                            .getPlayer()
+                                                                                            .getPosition() == this.tileHit)
 						                     .build();
  
         } else if (tile.getCategory() == Category.SOCIETY) { // SOCIETY
@@ -326,6 +337,9 @@ public class GameEngineImpl implements GameEngine {
 						                            : this.playersList().get(((Purchasable) tile).getOwner().get()).getPlayer().getName()))
 						                     .mortgageValue(((Purchasable) tile).getMortgageValue())
 						                     .unMortgageValue(((Purchasable) tile).getCostToRemoveMortgage())
+						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+                                                                                            .getPlayer()
+                                                                                            .getPosition() == this.tileHit)
 						                     .build();
  
         } else { // other
@@ -408,14 +422,5 @@ public class GameEngineImpl implements GameEngine {
 		this.updateCurrentPlayer();
 	}
 	
-
-	
-	
-
-
-
-
-
-
 
 }

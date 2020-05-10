@@ -64,7 +64,8 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        this.nextTurn.setDisable(true);
+        this.surrender.setDisable(true);
     }
 
     @FXML
@@ -84,6 +85,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
         this.updateDices(this.gameEngine.rollDices());
         this.rollDices.setDisable(true);
         this.nextTurn.setDisable(false);
+        this.surrender.setDisable(false);
         if (this.tileInfoController.playerPayedRent()) {
             this.tileInfoController.resetButtons();
         }
@@ -93,8 +95,9 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     @FXML
     public void nextTurnButtonPressed(ActionEvent event) {
         if (this.tileInfoController.playerPayedRent()) {
-            this.gameEngine.passPlayer();
             this.nextTurn.setDisable(true);
+            this.surrender.setDisable(true);
+            this.gameEngine.passPlayer();
             this.rollDices.setDisable(false);
         } else {
             event.consume();
@@ -103,6 +106,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
     @FXML
     public void surrenderButtonPressed() {
+        this.surrender.setDisable(true);
         this.gameEngine.lose();
     }
 

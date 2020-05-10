@@ -103,14 +103,14 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
     @FXML
     public void surrenderButtonPressed() {
-        // TODO
+        this.gameEngine.lose();
     }
 
     @Override
     public void showDeckCard(String cardCategory, String message) {
         Alert deckCard = new Alert(Alert.AlertType.WARNING, cardCategory.toUpperCase());
         deckCard.setHeaderText(cardCategory.toUpperCase());
-        //deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
+        // deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
         deckCard.setContentText(message);
         System.out.println(message);
         deckCard.initModality(Modality.APPLICATION_MODAL);
@@ -172,6 +172,11 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     public void updateStockMarket(Map<Category, Double> actualStockMarket, List<Map<Category, Double>> stockHistory) {
         this.stockMarketController.updateStockMarket(actualStockMarket);
         this.stockMarketController.updateStockMarketHistory(stockHistory);
+    }
+
+    @Override
+    public void deletePlayer(final int playerID) {
+        this.boardController.removePawn(playerID);
     }
 
 }

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 public class PropertyImpl extends AbstractPurchasable implements Property {
 
@@ -16,7 +16,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	private static final Integer MAX_NUMBER_OF_HOTEL = 1;
 	private static final Integer SERIES_COMPLETE = 6;
 
-    private final BiPredicate<Integer, Category> isCategoryAllOwned;
+    private final Predicate<Integer> isCategoryAllOwned;
 	private final Map<Integer, Double> leaseListBaseValue;
 	private final Double valueTobuildHouse;
 	private final Double valueTobuildHotel;
@@ -41,7 +41,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		private Double valueToBuildHouse;
 		private Double valueToBuildHotel;
 		private Map<Integer,Double> leaseMap;
-        private BiPredicate<Integer, Category> allCategoryOwned;
+        private Predicate<Integer> allCategoryOwned;
 		
 		public Builder(){
 			this.leaseMap = new HashMap<>();
@@ -63,10 +63,10 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 			return this;
 		}
 
-        public Builder bipred(BiPredicate<Integer, Category> allCategoryOwned) {
-            Objects.requireNonNull(allCategoryOwned,
+        public Builder predAreAllPropOwned(Predicate<Integer> predicate) {
+            Objects.requireNonNull(predicate,
                                 "The function cannot has null value!");
-            this.allCategoryOwned = allCategoryOwned;
+            this.allCategoryOwned = predicate;
             return this;
         }
 		
@@ -187,9 +187,8 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		if(!this.isCategoryOfPropertiesAllOwned()) {
 			throw new IllegalStateException("The " + super.getCategory() + 
 			               " Category hasn't the same owner in all properties");
-		} else if(this.numberOfConstructionBuilt.equals((
-		           PropertyImpl.MAX_NUMBER_OF_HOTEL + 
-		           PropertyImpl.MAX_NUMBER_OF_HOUSE))) {
+		} else if(this.numberOfConstructionBuilt
+		              .equals(getMaxNumberOfBuildings())) {
 			throw new IllegalStateException(
 			                             "Maximum number of buildings reached");
 		}
@@ -272,7 +271,22 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		}
 		return listWithQuotationApplied;
 	}	
-	
+
+    @Override
+    public boolean isBuildOnEnabled() {
+        return super.getOwner().isPresent() && 
+               this.isCategoryAllOwned.test(super.getOwner().get()) &&
+               this.numberOfConstructionBuilt < getMaxNumberOfBuildings();
+    }
+
+    @Override
+    public boolean isSellBuildingsEnabled() {
+        return super.getOwner().isPresent() &&
+               this.numberOfConstructionBuilt > 
+               PropertyImpl.PROPERTY_WITHOUT_BUILDINGS;
+    }
+
+    
 	private double getQuotationToSellActualBuildings() {
 		if(this.getNumberOfHotelBuilt() > PropertyImpl.
 		                                  PROPERTY_WITHOUT_BUILDINGS) {
@@ -283,8 +297,11 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	
 	private boolean isCategoryOfPropertiesAllOwned() {
 		return super.getOwner().isEmpty() ? false :
-		       this.isCategoryAllOwned.test(super.getOwner().get(), 
-		                                    super.getCategory());
+		       this.isCategoryAllOwned.test(super.getOwner().get());
 	}
-
+	
+    private int getMaxNumberOfBuildings() {
+        return PropertyImpl.MAX_NUMBER_OF_HOTEL + 
+               PropertyImpl.MAX_NUMBER_OF_HOUSE;
+    }
 }

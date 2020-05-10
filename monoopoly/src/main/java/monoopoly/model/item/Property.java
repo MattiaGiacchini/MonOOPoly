@@ -28,9 +28,18 @@ public interface Property extends Purchasable {
 	public void buildOn();
 	
 	/**
+	 * This method is used to know if is possible to
+	 * {@link #buildOn()}
+	 * 
+	 * @return <code>true</code> if {@link #buildOn()} is
+	 *         enabled to use, <code>false</code> if not.
+	 */
+	public boolean isBuildOnEnabled();
+	
+	/**
 	 *  this method sell one building you already 
 	 *  built. if there is a building you'll give
-	 *  back the listed selling value nd decrease 
+	 *  back the listed selling value and decrease 
 	 *  the number of buildings, otherwise throws 
 	 *  Exception.<br><br>
 	 *  The sequence of state produced is:<br>
@@ -47,6 +56,15 @@ public interface Property extends Purchasable {
 	 *  		a build that you haven't
 	 */
 	public double sellBuilding();
+    
+    /**
+     * This method is used to know if is possible to
+     * {@link #sellBuilding()}
+     * 
+     * @return <code>true</code> if {@link #sellBuilding()} is
+     *         enabled to use, <code>false</code> if not.
+     */
+    public boolean isSellBuildingsEnabled();
 	
 	/**
 	 * this method is used to know how many house 

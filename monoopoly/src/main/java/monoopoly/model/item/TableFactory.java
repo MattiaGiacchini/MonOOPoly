@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -21,9 +20,6 @@ final class TableFactory {
     
     private interface SerializableFunction<X,Y> extends Function<X,Y>,
                                                         Serializable{}
-    
-    private interface SerializableBiPredicate<X,Y> extends BiPredicate<X,Y>,
-                                                           Serializable{}
     
     private interface SerializablePredicate<X> extends Predicate<X>,
                                                        Serializable{}
@@ -228,7 +224,8 @@ final class TableFactory {
 							   .leaseWithThreeHouse(value.leaseValueLevelIII)
 							   .leaseWithFourHouse(value.leaseValueLevelIV)
 							   .leaseWithOneHotel(value.leaseValueLevelV)
-                               .bipred(this.BiPredicateAllCategoryOwned(table))
+                               .predAreAllPropOwned(this.predicateAreAllPropertyOwned(table,
+                                                                value.category))
 							   .build();
 	}
 
@@ -337,27 +334,6 @@ final class TableFactory {
             }  
 	    };
 	}
-
-    private BiPredicate<Integer, Category> BiPredicateAllCategoryOwned(
-                                                                  Table board){
-        return new SerializableBiPredicate<>() {
-
-            private static final long serialVersionUID = -3624186169928549214L;
-            private final Table table = board;
-
-            @Override
-            public boolean test(Integer idPlayer, Category category) {
-                Objects.requireNonNull(idPlayer);
-                Objects.requireNonNull(category);
-                return this.table.getFilteredTiles(Purchasable.class,
-                                                   x->x.getCategory()
-                                                       .equals(category))
-                                 .stream().allMatch(x->x.getOwner().isPresent()
-                                                    && x.getOwner().get()
-                                                        .equals(idPlayer));
-            }
-        };
-    }
 
     private int getNumberOfCategory(Category category) {
         return (int) Stream.of(TableTile.values())

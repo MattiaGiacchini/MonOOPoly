@@ -2,8 +2,6 @@ package monoopoly.view.utilities;
 
 import java.io.IOException;
 
-import com.sun.tools.javac.Main;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -36,7 +34,7 @@ public class SceneManagerImpl implements SceneManager {
     @Override
     public void swapScene(ScenePath scene) {
         this.stage.setResizable(true);
-        this.loader.setLocation(getClass().getResource(scene.getPath()));
+        this.loader.setLocation(this.getClass().getResource(scene.getPath()));
         try {
             this.stage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
@@ -51,6 +49,8 @@ public class SceneManagerImpl implements SceneManager {
     private void checkScene(ScenePath scene) {
         if (scene.equals(ScenePath.BOARD)) {
             this.stage.setMaximized(true);
+        } else {
+            this.stage.setMaximized(false);
         }
 
     }

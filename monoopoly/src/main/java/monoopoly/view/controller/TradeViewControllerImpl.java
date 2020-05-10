@@ -74,7 +74,7 @@ public class TradeViewControllerImpl implements Initializable {
 
 	@FXML
 	public void setTradeOffer() {
-		this.gameEngine.setProposal(this.selected, Double.valueOf(this.monetaryField.getText().trim()));
+		//TODO
 	}
 
 	@FXML

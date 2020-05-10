@@ -62,8 +62,8 @@ public interface PlayerManager {
     void goToPosition(int position);
 
     /**
-     * Let a {@link Player} surrender his game TODO all his money and properties
-     * will go to the {@link Bank}.
+     * Let a {@link Player} surrender.All his properties are will be set as free
+     * {@link Purchasable}.
      */
     void giveUp();
 

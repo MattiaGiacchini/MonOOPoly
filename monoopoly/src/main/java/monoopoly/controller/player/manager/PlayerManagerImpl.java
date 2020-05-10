@@ -145,7 +145,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public boolean isBroken() {
-        return this.player.getState().equals(States.PRISONED);
+        return this.player.getState().equals(States.BROKE);
     }
 
     /**

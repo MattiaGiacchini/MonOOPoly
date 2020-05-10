@@ -172,4 +172,11 @@ public interface PlayerManager {
      */
     void resetPrisonCounter();
 
+    /**
+     * This private method updates the state of the {@link Player} to "PRISONED" and
+     * moves the {@link Player} to the prison tile. If the {@link Player} has got
+     * the "leave prison for free" card, it will be applied.
+     */
+    void goToPrison();
+
 }

@@ -151,6 +151,9 @@ public class GameEngineImpl implements GameEngine {
 	public void passPlayer() {
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
+		if (this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getState() == States.BROKE) {
+		    this.turnManager.nextTurn();
+		}
 		this.updateAlways();
 		if (this.turnManager.getCurrentPlayer() == 0) {
 			this.incRound();
@@ -414,12 +417,32 @@ public class GameEngineImpl implements GameEngine {
 	private void updateAlways() {
 		Map<Integer, Integer> positions = new HashMap<>();
 		Map<Integer, Double> balances = new HashMap<>();
+		if (this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getBalance() <= 0) {
+		    this.lose();
+		}
 		for (PlayerManager pM: this.playersList()) {
 			positions.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
 			balances.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
 		}
 		this.mainBoardController.updatePlayers(positions, balances);
 		this.updateCurrentPlayer();
+	}
+	
+	public void lose() {
+	    this.playersList().get(this.turnManager.getCurrentPlayer()).giveUp();
+	    this.mainBoardController.deletePlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
+	                                                            .getPlayerManagerID());
+	    for (Purchasable p: this.playersList().get(this.turnManager.getCurrentPlayer()).getProperties()) {	 
+	        if (p.getCategory() != Tile.Category.SOCIETY || p.getCategory() != Tile.Category.STATION || !p.isMortgage()) {
+	            for (int i=0; i<((Property)p).getNumberOfHouseBuilt() + ((Property)p).getNumberOfHotelBuilt(); i++) {
+	                ((Property)p).sellBuilding();
+	            }
+	        }
+	        if (p.isMortgage()) {
+	            p.removeMortgage();
+	        }
+	        p.setOwner(Optional.empty());
+	    }
 	}
 	
 

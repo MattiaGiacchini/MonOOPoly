@@ -2,6 +2,7 @@ package monoopoly.model.item;
 
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -24,13 +25,16 @@ public class TableImpl implements Table, ObserverPurchasable {
 	}
 	
 	@Override
-	public void setNewQuotationToSpecificPurchasableCategory(Category category, double quotation) {
+	public void setNewQuotationToSpecificPurchasableCategory(Category category, 
+	                                                         double quotation){
 		this.table.entrySet().stream()
 							 .filter(x->x.getValue().getCategory()==category)
 							 .peek(x->{
 								 if(!x.getValue().isPurchasable()) {
-									throw new IllegalArgumentException("The Tile[" + x.getKey() + "] isn't Purchasable");
-								 }	})
+									throw new ClassCastException("The Tile[" +
+									       x.getKey() + "] isn't Purchasable");
+								 }
+								 })
 							 .map(x->(Purchasable)x.getValue())
 							 .forEach(x->x.setQuotation(quotation));
 	}
@@ -43,12 +47,16 @@ public class TableImpl implements Table, ObserverPurchasable {
 	}
 
 	@Override
-	public Set<Purchasable> getPurchasableTilesforSpecificPlayer(Integer idPlayer) {
+	public Set<Purchasable>
+	                    getPurchasableTilesforSpecificPlayer(Integer idPlayer) {
 		this.inputCheckIntegerType(idPlayer);
-		return this.table.entrySet().stream().filter(x->x.getValue().isPurchasable() == true)
-											 .map(x->(Purchasable)x.getValue())
-											 .filter(x->!x.getOwner().isEmpty() && x.getOwner().get() == idPlayer)
-											 .collect(Collectors.toSet());
+		return this.table.entrySet().stream()
+		                            .filter(x->x.getValue().isPurchasable())
+									.map(x->(Purchasable)x.getValue())
+									.filter(x->!x.getOwner().isEmpty() && 
+									            x.getOwner().get()
+									             .equals(idPlayer))
+									.collect(Collectors.toSet());
 	}
 
 	@Override
@@ -73,8 +81,7 @@ public class TableImpl implements Table, ObserverPurchasable {
 				return(elem.getKey());
 			}
 		}
-		// TODO   trovare un errore adatto da tirare
-		return null;
+		throw new IllegalStateException("The jail does not exist!");
 	}
 	
 	@Override
@@ -85,24 +92,28 @@ public class TableImpl implements Table, ObserverPurchasable {
 	
 	@Override
 	public Set<Tile> getTilesforSpecificCategoty(Category category) {
-		return this.table.entrySet().stream().filter(x->x.getValue().getCategory()==category)
-											 .map(x->x.getValue())
-											 .collect(Collectors.toSet());
+		return this.table.entrySet().stream()
+		                            .filter(x->x.getValue()
+		                                        .getCategory()==category)
+									.map(x->x.getValue())
+									.collect(Collectors.toSet());
 	}
 
-	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type, Predicate<Tile> filter){
-		return this.table.entrySet().stream()
-									.filter(x->filter.test(x.getValue()))
-									.peek((x)->{
-										if(!type.isAssignableFrom(x.getValue().getClass())) {
-											throw new ClassCastException("the class " 
-																		 + type 
-																		 + " isn't a superClass of "
-																		 + x.getValue().getClass());
-										}
-									})
-									.map(x->type.cast(x.getValue()))
-									.collect(Collectors.toSet());
+	@Override
+	public <T extends Tile> Set<T> getFilteredTiles(Class<T> type,
+	                                                Predicate<Tile> filter){
+		return this.table
+		           .entrySet()
+		           .stream()
+					.filter(x->filter.test(x.getValue()))
+					.peek((x)->{
+					    if(!type.isAssignableFrom(x.getValue().getClass())) {
+					        throw new ClassCastException("the class " + 
+					                 type + " isn't a superClass of " +
+									 x.getValue().getClass());
+							}})
+					.map(x->type.cast(x.getValue()))
+					.collect(Collectors.toSet());
 	}
 	
 	@Override
@@ -115,15 +126,20 @@ public class TableImpl implements Table, ObserverPurchasable {
 		throw new IllegalArgumentException("The tile dosen't Exist!");
 	}
 
-	private void inputCheckIntegerType(Object elem) {
+	private void inputCheckIntegerType(Integer elem) {
+	    Objects.requireNonNull(elem);
 		if (!(elem instanceof Integer)) {
-			throw new IllegalArgumentException("The Parameter isn't an Integer Type");
+			throw new IllegalArgumentException(
+			        "The Parameter isn't an Integer Type");
 		}
 	}
 
 	private void indexCheckTableBounds(Integer position) {
-		if(position < TableImpl.BEGIN_POSITION || this.getTableSize() <= position) {
-			throw new IndexOutOfBoundsException("The Index is out of Table's Bounds");
+	    Objects.requireNonNull(position);
+		if(position < TableImpl.BEGIN_POSITION || 
+		   this.getTableSize() <= position) {
+			throw new IndexOutOfBoundsException(
+			        "The Index is out of Table's Bounds");
 		}
 	}
 }

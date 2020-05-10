@@ -3,11 +3,7 @@ package monoopoly.item;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.util.Optional;
-import java.util.Set;
-
 import org.junit.Test;
 
 import monoopoly.model.item.Property;
@@ -53,14 +49,15 @@ public class TestTile {
 	@Test
 	public void CreationTable() {
 		Table table = new TableImpl();
-		assertEquals(table.getTile(0).getCategory(),	Tile.Category.START);
-		assertEquals(table.getTile(5).getCategory(),	Tile.Category.STATION);
-		assertEquals(table.getTile(10).getCategory(),	Tile.Category.JAIL);
-		assertEquals(table.getTile(15).getCategory(),	Tile.Category.STATION);
-		assertEquals(table.getTile(20).getCategory(),	Tile.Category.FREE_PARKING);
-		assertEquals(table.getTile(25).getCategory(),	Tile.Category.STATION);
-		assertEquals(table.getTile(30).getCategory(),	Tile.Category.GO_TO_JAIL);
-		assertEquals(table.getTile(35).getCategory(),	Tile.Category.STATION);
+		assertEquals(table.getTile(0).getCategory(), Tile.Category.START);
+		assertEquals(table.getTile(5).getCategory(), Tile.Category.STATION);
+		assertEquals(table.getTile(10).getCategory(),Tile.Category.JAIL);
+		assertEquals(table.getTile(15).getCategory(),Tile.Category.STATION);
+		assertEquals(table.getTile(20).getCategory(),
+		                                            Tile.Category.FREE_PARKING);
+		assertEquals(table.getTile(25).getCategory(),Tile.Category.STATION);
+		assertEquals(table.getTile(30).getCategory(),Tile.Category.GO_TO_JAIL);
+		assertEquals(table.getTile(35).getCategory(),Tile.Category.STATION);
 	}
 
 	@Test
@@ -92,7 +89,8 @@ public class TestTile {
 		purch.setOwner(Optional.empty());
 		assertEquals(purchBase.getLeaseValue(),   100.0);
 		
-		table.setNewQuotationToSpecificPurchasableCategory(Tile.Category.STATION, 2.0);
+		table.setNewQuotationToSpecificPurchasableCategory
+		                                           (Tile.Category.STATION, 2.0);
 		assertEquals(purchBase.getLeaseValue(),   200.0);
 		assertEquals(purchBase.getSalesValue(),   400.0);
 	}
@@ -105,10 +103,12 @@ public class TestTile {
 
 		assertEquals(purch1.getSalesValue(), 150.0);
 		assertEquals(purch2.getSalesValue(), 150.0);
-		table.setNewQuotationToSpecificPurchasableCategory(Tile.Category.SOCIETY, 2.0);
+		table.setNewQuotationToSpecificPurchasableCategory
+		                                           (Tile.Category.SOCIETY, 2.0);
 		assertEquals(purch1.getSalesValue(), 300.0);
 		assertEquals(purch2.getSalesValue(), 300.0);
-		table.setNewQuotationToSpecificPurchasableCategory(Tile.Category.SOCIETY, 1.0);
+		table.setNewQuotationToSpecificPurchasableCategory
+		                                           (Tile.Category.SOCIETY, 1.0);
 		assertEquals(purch1.getLeaseValue(), 0.0);
 		assertEquals(purch2.getLeaseValue(), 0.0);		
 		table.notifyDices(5);
@@ -118,7 +118,8 @@ public class TestTile {
 		assertEquals(purch1.getLeaseValue(), 20.0);
 		purch2.setOwner(Optional.of(1));
 		assertEquals(purch1.getLeaseValue(), 50.0);
-		table.setNewQuotationToSpecificPurchasableCategory(Tile.Category.SOCIETY, 2.0);
+		table.setNewQuotationToSpecificPurchasableCategory
+		                                           (Tile.Category.SOCIETY, 2.0);
 		assertEquals(purch1.getLeaseValue(), 100.0);
 		purch1.setOwner(Optional.of(2));
 		assertEquals(purch1.getLeaseValue(), 40.0);
@@ -167,8 +168,7 @@ public class TestTile {
 	@Test()
 	public void specialGetterTableTest() {
 		Table table = new TableImpl();
-		Set<Purchasable> tmp1 = table.getFilteredTiles(Purchasable.class,
-														x->x.isPurchasable());
+		table.getFilteredTiles(Purchasable.class,x->x.isPurchasable());
 	}
 	
 	@Test()

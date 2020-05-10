@@ -292,7 +292,8 @@ public class TestCard {
 							 .applyToPlayer(true)
 							 .tilePositionToGo(10)
 							 .build();		
-		assertEquals(10, card.getAbsoluteMoveToPosition().get().get(this.idDrawer));
+		assertEquals(10, this.playersPosition.get(this.idDrawer) == 10 ? 10 :
+		                 card.getAbsoluteMoveToPosition().get().get(this.idDrawer));
 		assertTrue(card.getAbsoluteMoveToPosition().get().keySet().stream().allMatch(x->x==this.idDrawer));
 		assertTrue(card.getRelativeMoveToPosition().isEmpty());
 

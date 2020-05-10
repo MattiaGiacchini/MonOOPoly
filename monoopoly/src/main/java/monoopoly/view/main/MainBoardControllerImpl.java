@@ -110,7 +110,9 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     public void showDeckCard(String cardCategory, String message) {
         Alert deckCard = new Alert(Alert.AlertType.WARNING, cardCategory.toUpperCase());
         deckCard.setHeaderText(cardCategory.toUpperCase());
-        deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
+        //deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
+        deckCard.setContentText(message);
+        System.out.println(message);
         deckCard.initModality(Modality.APPLICATION_MODAL);
         deckCard.setTitle(cardCategory);
         deckCard.initOwner(Main.getPrimaryStage().getScene().getWindow());

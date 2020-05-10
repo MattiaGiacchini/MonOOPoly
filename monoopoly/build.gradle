@@ -12,16 +12,14 @@ plugins {
     id 'java-library'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-}
+    }
 
 repositories {
     jcenter()
     mavenCentral()
 }
 
-application {
-	mainClassName = 'monoopoly.Launcher'
-}
+mainClassName = 'monoopoly.Launcher'
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -45,27 +43,23 @@ dependencies {
 sourceSets {
   main {
     resources {
-        srcDirs = ["src/main/resources"]
-        includes = ["**/*.fxml", "**/*.png", "**/*.css"]       
+        srcDirs = ["src/main/java"]
+        includes = ["**/*.fxml"]
     }
   }
 }
 
-task fatJar(type: Jar) {
-	manifest {
-        	attributes 	('Main-Class': 'monoopoly.Launcher',
-        				'Implementation-Version' : '1.0',
-        				'Implementation-Title' : 'monoopoly')
-    }
-    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
 
-/**
- * Encoding UTF-8 during compilation in Java and Test classes
- */
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+/*
+jar{
+	mainfest{
+		attributes 'Main-Class': 'monoopoly.Launcher'
+	}
+	
+	from {
+		configuration.runtimeClasspath.collect{it.isDirectory ? it : zipTree(it)}
+	}
+}*/
 
 javafx {
 	version = "13"

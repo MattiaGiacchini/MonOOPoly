@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,11 +22,11 @@ final class TableFactory {
     private interface SerializableFunction<X,Y> extends Function<X,Y>,
                                                         Serializable{}
     
-    private interface SerializableBiFunction<X,Y,Z> extends BiFunction<X,Y,Z>,
-                                                            Serializable{}
-    
     private interface SerializableBiPredicate<X,Y> extends BiPredicate<X,Y>,
                                                            Serializable{}
+    
+    private interface SerializablePredicate<X> extends Predicate<X>,
+                                                       Serializable{}
     
     private interface SerializableSupplier<X> extends Supplier<X>,
                                                         Serializable{}
@@ -194,8 +194,9 @@ final class TableFactory {
 		return new Society.Builder()
 					      .tile(this.generateTileBase(value))
 					      .supplierDiceResult(this.supplierDiceResult(table))
-					      .biFunNumOfCategoryOwned(
-					              this.biFunctionNumOfCategoryOwned(table))
+					      .funNumOfCatOwned(
+					              this.funToGetNumbOfTypeOwned(table,
+					                                           value.category))
 					      .mortgage(value.mortgage)
 					      .sales(value.saleValue)
 					      .multiplierLevelOne(value.leaseValueLevel0)
@@ -315,6 +316,27 @@ final class TableFactory {
             }
 	    };
 	}
+	
+	private Predicate<Integer> predicateAreAllPropertyOwned(Table board, 
+	                                                     Category cat){
+	    return new SerializablePredicate<>() {
+
+            private static final long serialVersionUID = -1768505970520005072L;
+            private final Table table = board;
+            private final Category category = cat;
+
+            @Override
+            public boolean test(Integer idPlayer) {
+                Objects.requireNonNull(idPlayer);
+                return this.table.getFilteredTiles(Purchasable.class,
+                                                   x->x.getCategory()
+                                                       .equals(this.category))
+                                 .stream().allMatch(x->x.getOwner().isPresent()
+                                                    && x.getOwner().get()
+                                                        .equals(idPlayer));
+            }  
+	    };
+	}
 
     private BiPredicate<Integer, Category> BiPredicateAllCategoryOwned(
                                                                   Table board){
@@ -333,30 +355,6 @@ final class TableFactory {
                                  .stream().allMatch(x->x.getOwner().isPresent()
                                                     && x.getOwner().get()
                                                         .equals(idPlayer));
-            }
-        };
-    }
-    
-    private BiFunction<Integer, Category, Integer> 
-                                      biFunctionNumOfCategoryOwned(Table board){
-        return new SerializableBiFunction<>() {
-
-            private static final long serialVersionUID = -7384117543775718616L;
-            private final Table table = board;
-
-            @Override
-            public Integer apply(Integer idPlayer, Category category) {
-                Objects.requireNonNull(idPlayer);
-                Objects.requireNonNull(category);
-                return this.table
-                           .getFilteredTiles(Purchasable.class, 
-                                             x->x.isPurchasable() &&
-                                             ((Purchasable)x).getOwner()
-                                                             .isPresent() &&
-                                             ((Purchasable)x).getOwner()
-                                                             .get()
-                                                             .equals(idPlayer))
-                           .size();
             }
         };
     }

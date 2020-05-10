@@ -2,7 +2,7 @@ package monoopoly.model.item;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class Society extends AbstractPurchasable {
@@ -13,7 +13,7 @@ public final class Society extends AbstractPurchasable {
 	private final double multiplierLevelOne;
 	private final double multiplierLevelTwo;
     private Supplier<Integer> supplierDiceResult;
-    private BiFunction<Integer, Category, Integer> biFunGetNumOfCatOwned;
+    private Function<Integer, Integer> functionGetNumOfSocietyOwned;
 	
 	public static class Builder{
 		
@@ -23,7 +23,7 @@ public final class Society extends AbstractPurchasable {
 		private Double multiplierLevelOne;
 		private Double multiplierLevelTwo;
         private Supplier<Integer> supplierDiceResult;
-        private BiFunction<Integer, Category, Integer> biFunGetNumOfCatOwned;
+        private Function<Integer, Integer> functionGetNumOfSocietyOwned;
 		
 		public Builder() {
             super();
@@ -33,7 +33,7 @@ public final class Society extends AbstractPurchasable {
             this.multiplierLevelOne     = null;
             this.multiplierLevelTwo     = null;
             this.supplierDiceResult     = null;
-            this.biFunGetNumOfCatOwned  = null;
+            this.functionGetNumOfSocietyOwned  = null;
         }
 
         public Builder tile(Tile decorated) {
@@ -51,11 +51,11 @@ public final class Society extends AbstractPurchasable {
             return this;
         }
 
-        public Builder biFunNumOfCategoryOwned(
-               BiFunction<Integer, Category, Integer> biFun) {
-            Objects.requireNonNull(biFun, 
+        public Builder funNumOfCatOwned(
+               Function<Integer, Integer> function) {
+            Objects.requireNonNull(function, 
                     "the BiFunction of category Owned cannot has null value");
-            this.biFunGetNumOfCatOwned = biFun;
+            this.functionGetNumOfSocietyOwned = function;
             return this;
         }
 		
@@ -104,7 +104,7 @@ public final class Society extends AbstractPurchasable {
                                 "SOCIETY: the multiplier two is Unsetted!");
             Objects.requireNonNull(this.supplierDiceResult,
                                 "SOCIETY: the multiplier two is Unsetted!");
-            Objects.requireNonNull(this.biFunGetNumOfCatOwned, 
+            Objects.requireNonNull(this.functionGetNumOfSocietyOwned, 
                                 "SOCIETY: the BiFunction to get the "
                                 + "number of Society owned is unsetted!");
 			return new Society(this);
@@ -122,7 +122,8 @@ public final class Society extends AbstractPurchasable {
 		this.multiplierLevelOne    = builder.multiplierLevelOne;
 		this.multiplierLevelTwo    = builder.multiplierLevelTwo;
 		this.supplierDiceResult    = builder.supplierDiceResult;
-		this.biFunGetNumOfCatOwned = builder.biFunGetNumOfCatOwned;
+		this.functionGetNumOfSocietyOwned = 
+		                             builder.functionGetNumOfSocietyOwned;
 	}
 	
 	@Override
@@ -136,8 +137,8 @@ public final class Society extends AbstractPurchasable {
 	@Override
 	public double getLeaseValue() {
 		if(super.getOwner().isPresent()) {
-			int nSociety = this.biFunGetNumOfCatOwned.apply
-			                   (super.getOwner().get(), super.getCategory());
+			int nSociety = this.functionGetNumOfSocietyOwned.apply(
+			                                           super.getOwner().get());
 			
 			if(Society.LEVEL_ONE.equals(nSociety)) {
 				return this.multiplierLevelOne * 

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -18,6 +19,8 @@ import monoopoly.model.item.deck.DeckImpl;
 
 final class TableFactory {
     
+    private static final Integer ZERO = 0;
+    
     private interface SerializableFunction<X,Y> extends Function<X,Y>,
                                                         Serializable{}
     
@@ -28,45 +31,45 @@ final class TableFactory {
                                                         Serializable{}
     
 	private enum TableTile{
-		//	  								name						sale 	mort	O		I		II		III		IV		V		houVal	hotVal	
-		TILE00(0,  Category.START,			"START",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE01(1,  Category.BROWN, 			"Vicolo Corto",				 60.0,	 30.0,	  2.0,	 10.0,	 30.0,	  90.0,	 160.0,	 250.0,	 50.0,	 50.0),	
-		TILE02(2,  Category.PROBABILITY,	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE03(3,  Category.BROWN, 			"Vicolo Stretto",			 60.0,	 30.0,	  4.0,	 20.0,	 60.0,	 180.0,	 320.0,	 450.0,	 50.0,	 50.0),	
-		TILE04(4,  Category.CALAMITY,		"Calamità",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE05(5,  Category.STATION,		"Stazione Sud",				200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE06(6,  Category.LIGHT_BLUE,		"Bastioni Gran Sasso",		100.0,	 50.0,	  6.0,	 30.0,	 90.0,	 270.0,	 400.0,	 550.0,	 50.0,	 50.0),	
-		TILE07(7,  Category.UNEXPECTED,		"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE08(8,  Category.LIGHT_BLUE,		"Viale Monte Rosa",			100.0,	 50.0,	  6.0,	 30.0,	 90.0,	 270.0,	 400.0,	 550.0,	 50.0,	 50.0),	
-		TILE09(9,  Category.LIGHT_BLUE,		"Viale Vesuvio",			120.0,	 60.0,	  8.0,	 40.0,	100.0,	 300.0,	 450.0,	 600.0,	 50.0,	 50.0),	
-		TILE10(10, Category.JAIL,			"Prigione",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE11(11, Category.PINK, 			"Via Accademia",			140.0,	 70.0,	 10.0,	 50.0,	150.0,	 450.0,	 625.0,	 750.0,	100.0,	100.0),		
+		//	  								name						sale 	mort	O		I		II		III		IV		V		houVal	hotVal
+		TILE00(0,  Category.START,			"START",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE01(1,  Category.BROWN, 			"Vicolo Corto",				 60.0,	 30.0,	  2.0,	 10.0,	 30.0,	  90.0,	 160.0,	 250.0,	 50.0,	 50.0),
+		TILE02(2,  Category.PROBABILITY,	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE03(3,  Category.BROWN, 			"Vicolo Stretto",			 60.0,	 30.0,	  4.0,	 20.0,	 60.0,	 180.0,	 320.0,	 450.0,	 50.0,	 50.0),
+		TILE04(4,  Category.CALAMITY,		"Calamità",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE05(5,  Category.STATION,		"Stazione Sud",				200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE06(6,  Category.LIGHT_BLUE,		"Bastioni Gran Sasso",		100.0,	 50.0,	  6.0,	 30.0,	 90.0,	 270.0,	 400.0,	 550.0,	 50.0,	 50.0),
+		TILE07(7,  Category.UNEXPECTED,		"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE08(8,  Category.LIGHT_BLUE,		"Viale Monte Rosa",			100.0,	 50.0,	  6.0,	 30.0,	 90.0,	 270.0,	 400.0,	 550.0,	 50.0,	 50.0),
+		TILE09(9,  Category.LIGHT_BLUE,		"Viale Vesuvio",			120.0,	 60.0,	  8.0,	 40.0,	100.0,	 300.0,	 450.0,	 600.0,	 50.0,	 50.0),
+		TILE10(10, Category.JAIL,			"Prigione",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE11(11, Category.PINK, 			"Via Accademia",			140.0,	 70.0,	 10.0,	 50.0,	150.0,	 450.0,	 625.0,	 750.0,	100.0,	100.0),
 		TILE12(12, Category.SOCIETY, 		"Società Elettrica",		150.0,	 75.0,	  4.0,	 10.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
-		TILE13(13, Category.PINK, 			"Corso Ateneo",				140.0,	 70.0,	 10.0,	 50.0,	150.0,	 450.0,	 625.0,	 750.0,	100.0,	100.0),	
-		TILE14(14, Category.PINK, 			"Piazza Università",		200.0,	 80.0,	 12.0,	 60.0,	180.0,	 500.0,	 700.0,	 900.0,	100.0,	100.0),	
-		TILE15(15, Category.STATION, 		"Stazione Ovest",			200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE16(16, Category.ORANGE,			"Via Verdi",				180.0,	 90.0,	 14.0,	 70.0,	200.0,	 550.0,	 750.0,	 950.0,	100.0,	100.0),	
-		TILE17(17, Category.PROBABILITY, 	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE18(18, Category.ORANGE, 		"Corso Raffaello",			180.0,	 90.0,	 14.0,	 70.0,	200.0,	 550.0,	 750.0,	 950.0,	100.0,	100.0),	
-		TILE19(19, Category.ORANGE, 		"Piazza Dante",				200.0,	100.0,	 16.0,	 80.0,	220.0,	 600.0,	 800.0,	1000.0,	100.0,	100.0),	
-		TILE20(20, Category.FREE_PARKING,	"Parcheggio Gratuito",		  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE21(21, Category.RED, 			"Via Marco Polo",			220.0,	110.0,	 18.0,	 90.0,	250.0,	 700.0,	 875.0,	1050.0,	150.0,	150.0),	
-		TILE22(22, Category.UNEXPECTED, 	"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE23(23, Category.RED, 			"Corso Magellano",			220.0,	110.0,	 18.0,	 90.0,	250.0,	 700.0,	 875.0,	1050.0,	150.0,	150.0),	
-		TILE24(24, Category.RED, 			"Largo Colombo",			240.0,	120.0,	 20.0,	100.0,	300.0,	 750.0,	 925.0,	1100.0,	150.0,	150.0),	
-		TILE25(25, Category.STATION, 		"Stazione Nord",			200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE26(26, Category.YELLOW,			"Viale Costantino",			260.0,	130.0,	 22.0,	110.0,	330.0,	 800.0,	 975.0,	1150.0,	150.0,	150.0),	
-		TILE27(27, Category.YELLOW, 		"Viale Traiano",			260.0,	130.0,	 22.0,	110.0,	330.0,	 800.0,	 975.0,	1150.0,	150.0,	150.0),	
-		TILE28(28, Category.SOCIETY, 		"Società Acqua Potabile",	150.0,	 75.0,	  4.0,	 10.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE29(29, Category.YELLOW, 		"Piazza Giulio Cesare",		280.0,	140.0,	 24.0,	120.0,	360.0,	 850.0,	1025.0,	1200.0,	150.0,	150.0),	
-		TILE30(30, Category.GO_TO_JAIL,		"In Prigione!",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE31(31, Category.GREEN, 			"Via Roma",					300.0,	150.0,	 26.0,	130.0,	390.0,	 900.0,	1100.0,	1275.0,	200.0,	200.0),	
-		TILE32(32, Category.GREEN, 			"Corso Impero",				300.0,	150.0,	 26.0,	130.0,	390.0,	 900.0,	1100.0,	1275.0,	200.0,	200.0),	
-		TILE33(33, Category.PROBABILITY, 	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE34(34, Category.GREEN, 			"Largo Augusto",			320.0,	160.0,	 28.0,	150.0,	450.0,	1000.0,	1200.0,	1400.0,	200.0,	200.0),	
-		TILE35(35, Category.STATION, 		"Stazione Est",				200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE36(36, Category.UNEXPECTED,		"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),	
-		TILE37(37, Category.BLUE, 			"Viale Dei Giardini",		350.0,	175.0,	 35.0,	175.0,	500.0,	1100.0,	1300.0,	1500.0,	200.0,	200.0),	
+		TILE13(13, Category.PINK, 			"Corso Ateneo",				140.0,	 70.0,	 10.0,	 50.0,	150.0,	 450.0,	 625.0,	 750.0,	100.0,	100.0),
+		TILE14(14, Category.PINK, 			"Piazza Università",		200.0,	 80.0,	 12.0,	 60.0,	180.0,	 500.0,	 700.0,	 900.0,	100.0,	100.0),
+		TILE15(15, Category.STATION, 		"Stazione Ovest",			200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE16(16, Category.ORANGE,			"Via Verdi",				180.0,	 90.0,	 14.0,	 70.0,	200.0,	 550.0,	 750.0,	 950.0,	100.0,	100.0),
+		TILE17(17, Category.PROBABILITY, 	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE18(18, Category.ORANGE, 		"Corso Raffaello",			180.0,	 90.0,	 14.0,	 70.0,	200.0,	 550.0,	 750.0,	 950.0,	100.0,	100.0),
+		TILE19(19, Category.ORANGE, 		"Piazza Dante",				200.0,	100.0,	 16.0,	 80.0,	220.0,	 600.0,	 800.0,	1000.0,	100.0,	100.0),
+		TILE20(20, Category.FREE_PARKING,	"Parcheggio Gratuito",		  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE21(21, Category.RED, 			"Via Marco Polo",			220.0,	110.0,	 18.0,	 90.0,	250.0,	 700.0,	 875.0,	1050.0,	150.0,	150.0),
+		TILE22(22, Category.UNEXPECTED, 	"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE23(23, Category.RED, 			"Corso Magellano",			220.0,	110.0,	 18.0,	 90.0,	250.0,	 700.0,	 875.0,	1050.0,	150.0,	150.0),
+		TILE24(24, Category.RED, 			"Largo Colombo",			240.0,	120.0,	 20.0,	100.0,	300.0,	 750.0,	 925.0,	1100.0,	150.0,	150.0),
+		TILE25(25, Category.STATION, 		"Stazione Nord",			200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE26(26, Category.YELLOW,			"Viale Costantino",			260.0,	130.0,	 22.0,	110.0,	330.0,	 800.0,	 975.0,	1150.0,	150.0,	150.0),
+		TILE27(27, Category.YELLOW, 		"Viale Traiano",			260.0,	130.0,	 22.0,	110.0,	330.0,	 800.0,	 975.0,	1150.0,	150.0,	150.0),
+		TILE28(28, Category.SOCIETY, 		"Società Acqua Potabile",	150.0,	 75.0,	  4.0,	 10.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE29(29, Category.YELLOW, 		"Piazza Giulio Cesare",		280.0,	140.0,	 24.0,	120.0,	360.0,	 850.0,	1025.0,	1200.0,	150.0,	150.0),
+		TILE30(30, Category.GO_TO_JAIL,		"In Prigione!",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE31(31, Category.GREEN, 			"Via Roma",					300.0,	150.0,	 26.0,	130.0,	390.0,	 900.0,	1100.0,	1275.0,	200.0,	200.0),
+		TILE32(32, Category.GREEN, 			"Corso Impero",				300.0,	150.0,	 26.0,	130.0,	390.0,	 900.0,	1100.0,	1275.0,	200.0,	200.0),
+		TILE33(33, Category.PROBABILITY, 	"Probabilità",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE34(34, Category.GREEN, 			"Largo Augusto",			320.0,	160.0,	 28.0,	150.0,	450.0,	1000.0,	1200.0,	1400.0,	200.0,	200.0),
+		TILE35(35, Category.STATION, 		"Stazione Est",				200.0,	100.0,	 25.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE36(36, Category.UNEXPECTED,		"Imprevisti",				  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
+		TILE37(37, Category.BLUE, 			"Viale Dei Giardini",		350.0,	175.0,	 35.0,	175.0,	500.0,	1100.0,	1300.0,	1500.0,	200.0,	200.0),
 		TILE38(38, Category.CALAMITY, 		"Calamità",					  0.0,	  0.0,	  0.0,	  0.0,	  0.0,	   0.0,	   0.0,	   0.0,	  0.0,	  0.0),
 		TILE39(39, Category.BLUE,			"Parco Della Vittoria",		400.0,	200.0,	 50.0,	200.0,	600.0,	1400.0,	1700.0,	2000.0,	200.0,	200.0);
 		
@@ -157,7 +160,6 @@ final class TableFactory {
 			default: 			throw new IllegalArgumentException(
 					 				"TableFactory: invalid Category format");
 		 }
-		 
 	}
 
 	private Tile generateTileBase(final TableTile value) {
@@ -206,7 +208,16 @@ final class TableFactory {
 		return new TileDeckImpl.Builder()
 			 				   .tileToDecore(this.generateTileBase(value))
 			 				   .deck(deck)
-			 				   .table(table)
+                               .retriverNumberHouseOfPlayer(
+                                       this.funNumOfHouseOwnedBy(table))
+                               .retriverNumberHotelOfPlayer(
+                                       this.funNumOfHotelOwnedBy(table))
+			 				   .tableSize(this.getTableSize())
+			 				   .supplierNumOfPropertyOnTheTable(
+			 				           this.supplierMapOfPositionBuildings
+			 				           (table))
+			 				   .retriverSetOfPositionforSpecificCategory(
+			 				           this.funPosOfCategoryOnTable(table))
 			 				   .build();
 	}
 
@@ -224,7 +235,8 @@ final class TableFactory {
 							   .leaseWithThreeHouse(value.leaseValueLevelIII)
 							   .leaseWithFourHouse(value.leaseValueLevelIV)
 							   .leaseWithOneHotel(value.leaseValueLevelV)
-                               .predAreAllPropOwned(this.predicateAreAllPropertyOwned(table,
+                               .predAreAllPropOwned(
+                                       this.predicateAreAllPropertyOwned(table,
                                                                 value.category))
 							   .build();
 	}
@@ -335,6 +347,105 @@ final class TableFactory {
 	    };
 	}
 
+	private Function<Category,Set<Integer>> funPosOfCategoryOnTable(Table board)
+	{
+	    return new SerializableFunction<>() {
+
+            private static final long serialVersionUID = 5129355904133057757L;
+            private final Table table = board;
+
+            @Override
+            public Set<Integer> apply(Category category) {
+                Objects.requireNonNull(category);
+                return Collections.unmodifiableSet(
+                       this.table.getFilteredTiles(Tile.class, 
+                                                    el->el.getCategory()
+                                                          .equals(category))
+                                 .stream()
+                                 .map(el->this.table.getTilePosition(el))
+                                 .collect(Collectors.toSet()));
+            }
+	        
+	    };
+	}
+    
+    private Function<Integer,Integer> funNumOfHouseOwnedBy(Table board){
+        return new SerializableFunction<>() {
+
+            private static final long serialVersionUID = -6496892717327938853L;
+            private final Table table = board;
+            
+            @Override
+            public Integer apply(Integer idPlayer) {
+                Objects.requireNonNull(idPlayer);
+                Set<Property> properties = this.table.getFilteredTiles(
+                                                Property.class,
+                                                x->x.isBuildable()
+                                                && ((Purchasable)x).getOwner()
+                                                                   .isPresent() 
+                                                && ((Purchasable)x).getOwner()
+                                                                   .get()
+                                                                   .equals(
+                                                                    idPlayer)); 
+                return properties.isEmpty() ? TableFactory.ZERO :
+                       properties.stream()
+                                 .mapToInt(x->x.getNumberOfHouseBuilt())
+                                 .sum();
+            }
+        };
+    }
+    
+    private Function<Integer,Integer> funNumOfHotelOwnedBy(Table board){
+        return new SerializableFunction<>() {
+
+            private static final long serialVersionUID = -5688002642461152575L;
+            private final Table table = board;
+            
+            @Override
+            public Integer apply(Integer idPlayer) {
+                Set<Property> properties = this.table.getFilteredTiles(
+                                                Property.class,
+                                                x->x.isBuildable()
+                                                && ((Purchasable)x).getOwner()
+                                                                   .isPresent() 
+                                                && ((Purchasable)x).getOwner()
+                                                                   .get()
+                                                             .equals(idPlayer)); 
+                return properties.isEmpty() ? TableFactory.ZERO :
+                       properties.stream()
+                                 .mapToInt(x->x.getNumberOfHotelBuilt())
+                                 .sum();
+            }
+        };   
+    }
+    
+    private Supplier<Map<Integer,Integer>> supplierMapOfPositionBuildings
+            (Table board){
+        return new SerializableSupplier<>() {
+
+            private static final long serialVersionUID = -6023467527604135655L;
+            private final Table table = board;
+            @Override
+            
+            public Map<Integer, Integer> get() {
+                return Collections.unmodifiableMap(
+                        this.table.getFilteredTiles(Property.class,
+                                                    x->x.isBuildable())
+                        .stream()
+                        .collect(()-> new HashMap<Integer,Integer>(),
+                                 (map,el)->map.put(table.getTilePosition(el),
+                                                   el.getNumberOfHotelBuilt() + 
+                                                   el.getNumberOfHouseBuilt()),
+                                 (map1,map2)->map1.putAll(map2)));
+            }
+            
+        };
+    }
+    
+    private int getTableSize() {
+        return TableTile.values().length;
+    }
+	
     private int getNumberOfCategory(Category category) {
         return (int) Stream.of(TableTile.values())
                            .filter(x->x.category.equals(category))

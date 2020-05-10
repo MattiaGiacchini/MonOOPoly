@@ -233,11 +233,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         }
 
         if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
-            this.disableHouseBuildButtons();
             this.showSocietyInfo(info);
-        } else if (info.getCategory().equals(TileViewCategory.STATION)) {
             this.disableHouseBuildButtons();
+        } else if (info.getCategory().equals(TileViewCategory.STATION)) {
             this.showStationInfo(info);
+            this.disableHouseBuildButtons();
         } else if (info.getCategory().equals(TileViewCategory.PROPERTY)) {
             this.showPropertyInfo(info);
         } else {
@@ -246,6 +246,10 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         }
     }
 
+    /**
+     * This method sets disabled the buttons to buy or sell houses for stations and
+     * societies.
+     */
     private void disableHouseBuildButtons() {
         this.buildHouse.setDisable(true);
         this.sellHouse.setDisable(true);
@@ -291,6 +295,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentValue(4)));
         this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(5)));
         this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
+
         this.property.toFront();
     }
 
@@ -314,11 +319,12 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
      */
     private void myPropertyButtonsLogic(TileInfo info) {
         this.buildHouse.setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getHouseCost())
-                && this.logics.maxHouses(info.getHousesAmount())));
-        this.sellHouse.setDisable(!this.logics.minHouses(info.getHousesAmount()));
+                && info.isBuildHouseEnabled()));
+        this.sellHouse.setDisable(!info.isSellHouseEnabled());
 
         this.mortgage.setDisable(info.isMortgaged());
-        this.unMortgage.setDisable(!info.isMortgaged());
+        this.unMortgage.setDisable(!info.isMortgaged()
+                && this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getUnMortgageValue()));
 
         this.myProperty.toFront();
     }
@@ -332,7 +338,9 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     private void freePropertyButtonsLogic(TileInfo info) {
         this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
         this.buyPurchasable
-                .setDisable(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue()));
+                .setDisable(!(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue())
+
+                        || info.isCurrentPlayerOnSelectedTile()));
         this.freeProperty.toFront();
     }
 

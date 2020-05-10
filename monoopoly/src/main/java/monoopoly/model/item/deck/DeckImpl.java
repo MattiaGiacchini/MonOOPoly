@@ -53,7 +53,7 @@ public class DeckImpl implements Deck {
 		CARD14U( Category.UNEXPECTED,	"Andate avanti fino a Via Accademia.",																			null,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	11,		null,				false,	true,	false,	false	),
 		CARD15U( Category.UNEXPECTED,	"Eseguite lavori di manutenzione su tutti i vostri edifici. Pagate 25€ per ogni casa e 100€ per ogni hotel",	null,	null,	25.0,	100.0,	null,	null,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
 
-		// CALAMITY DECK
+		// CALAMITY DECK                                                                                                                                p2o     p2b     vOc     vOh     a2b     a2bp    avara   gotoj   exitj   maint   step    posT    catToReach          rndSt   mDraw   mOthe   propD
 		CARD00( Category.CALAMITY,	"TASSA PATRIMONIALE\n"
 								  + " Il governo ha passato la patrimoniale. Tutti devono dare il 15% del loro conto corrente alla banca",				null,	null,	null,	null,	null,	0.15,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
 		CARD01( Category.CALAMITY,	"AIUTI DAL GOVERNO\n"
@@ -63,14 +63,14 @@ public class DeckImpl implements Deck {
 		CARD03( Category.CALAMITY,	"ROBIN HOOD\n"
 				                  + "Un ladro gentiluomo prende ai ricchi per dare ai poveri. I conti correnti dei giocatori vengono pareggiati.",		null,	null,	null,	null,	null,	null,	true,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
 		CARD04( Category.CALAMITY,	"URAGANO\n"
-				                  + "Un uragano sta attraversando il monoopoly! tutti i giocatori vengono scaraventati su un'altra casella",			null,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	null,	null,				true,	false,	false,	false	),
+				                  + "Un uragano sta attraversando il monoopoly! tutti i giocatori vengono scaraventati su un'altra casella",			null,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	null,	null,				true,	true,	true,	false	),
 		CARD05( Category.CALAMITY,	"THE WOLF OF WALL STREET\n"
 								  + "Hai seguito un corso di Jordan Belfort sulla speculazione selvaggia e sei diventato esageratamente bravo. "
 								  + "Ricevi 600 euro da tutti.",																						-600.0,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
 		CARD06( Category.CALAMITY,	"SCOMMESSA ANDATA MALE\nHai perso una scommessa. Devi dare 200 euro a tutti gli altri.",							200.0,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
 		CARD07( Category.CALAMITY,	"FESTA\n"
-				                  + "Decidete di fare una festa e vi incontrate. "
-				                  + "Andate tutti a Parco della Vittoria, e pagate il 10% del conto come caparra.",										null,	null,	null,	null,	null,	0.10,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	),
+				                  + "Decidete di tutti di fare una festa, ma all'ultimo i tuoi compagni ti lasciano a casa!"
+				                  + "tutti trante te vanno al parco della vittoria!",							                                        null,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	39,	    null,				false,	false,	true,	false	),
 		CARD08( Category.CALAMITY,	"ROTTURA DELLA QUARTA PARETE\nAvete consegnato il progetto di OOP, si festeggia, ma ognuno deve dare 180 euro.",	null,	null,	null,	null,	180.0,	null,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	);
 		
 		private final Category	originDeck;
@@ -93,13 +93,16 @@ public class DeckImpl implements Deck {
 		private final boolean 	movementMoveTheOthers;
 		private final boolean	propertyDestroy;
 		
-		private CardProperties(Category originDeck, String description, Double moneyPlayerToOthers, 
-				Double moneyPlayerToBank,
-				Double moneyValueOfHouse, Double moneyValueOfHotel, Double moneyAllToBank,
-				Double moneyAllToBankPercentage, boolean moneyAllMakeAvarage, boolean statusGoToJail,
-				boolean statusExitFromJail, boolean statusItIsMaintainable, Integer movementStepsToDo,
-				Integer movementTilePositionToGo, Category movementCategoryToReach, boolean movementRandomSteps,
-				boolean movementMoveTheDrawer, boolean movementMoveTheOthers, boolean propertyDestroy) {
+		private CardProperties(Category originDeck, String description,
+		        Double moneyPlayerToOthers, Double moneyPlayerToBank,
+		        Double moneyValueOfHouse, Double moneyValueOfHotel,
+		        Double moneyAllToBank, Double moneyAllToBankPercentage, 
+                boolean moneyAllMakeAvarage, boolean statusGoToJail,
+                boolean statusExitFromJail, boolean statusItIsMaintainable,
+	            Integer movementStepsToDo, Integer movementTilePositionToGo, 
+	            Category movementCategoryToReach, boolean movementRandomSteps,
+	            boolean movementMoveTheDrawer, boolean movementMoveTheOthers,
+	            boolean propertyDestroy) {
 			this.originDeck = originDeck;
 			this.description = description;
 			this.moneyPlayerToOthers = moneyPlayerToOthers;
@@ -144,8 +147,8 @@ public class DeckImpl implements Deck {
 		
 		this.deckMap.entrySet().forEach(entry->{
 			if(entry.getValue().isEmpty()) {
-				throw new IllegalStateException("there aren't cards for the deck "
-												+ entry.getKey());
+				throw new IllegalStateException("there aren't cards for the "
+				                                + "deck " + entry.getKey());
 			}
 		});
 
@@ -287,7 +290,8 @@ public class DeckImpl implements Deck {
 	}
 
 	private void categoryInputCheck(Category category) {
-		Objects.requireNonNull(category, "the category of the deck to be drawn cannot have a null value");
+		Objects.requireNonNull(category, "the category of the deck to be drawn"
+		        + " cannot have a null value");
 		if(!this.allTypeOfDeck.contains(category)) {
 			throw new IllegalArgumentException("The category isn't a Deck");
 		}

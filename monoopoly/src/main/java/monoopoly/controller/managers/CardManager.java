@@ -1,5 +1,7 @@
 package monoopoly.controller.managers;
 
+import monoopoly.model.item.card.Card;
+
 public interface CardManager {
 
 	/**

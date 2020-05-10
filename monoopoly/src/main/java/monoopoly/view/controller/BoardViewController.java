@@ -31,4 +31,11 @@ public interface BoardViewController {
 	 */
 	void setGameEngine(GameEngine gameEngine);
 
+    /**
+     * This method removes the specified pawn from the board.
+     * 
+     * @param playerID
+     */
+    void removePawn(int playerID);
+
 }

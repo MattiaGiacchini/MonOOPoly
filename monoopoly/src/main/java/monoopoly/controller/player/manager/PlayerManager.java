@@ -62,8 +62,8 @@ public interface PlayerManager {
     void goToPosition(int position);
 
     /**
-     * Let a {@link Player} surrender his game TODO all his money and properties
-     * will go to the {@link Bank}.
+     * Let a {@link Player} surrender.All his properties are will be set as free
+     * {@link Purchasable}.
      */
     void giveUp();
 
@@ -171,5 +171,12 @@ public interface PlayerManager {
      * This method resets the counter of the turn remained in prison;
      */
     void resetPrisonCounter();
+
+    /**
+     * This private method updates the state of the {@link Player} to "PRISONED" and
+     * moves the {@link Player} to the prison tile. If the {@link Player} has got
+     * the "leave prison for free" card, it will be applied.
+     */
+    void goToPrison();
 
 }

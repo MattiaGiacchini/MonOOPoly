@@ -1,5 +1,6 @@
 package monoopoly.controller.bank;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 
 public class BankManagerImpl implements BankManager {
 
@@ -31,12 +33,14 @@ public class BankManagerImpl implements BankManager {
 	@Override
 	public void giveMoney(double toGive, PlayerManager player) {
 		
-		this.bank.giveMoney(toGive);
-		player.collectMoney(toGive);
-		if (this.bank.isBankBroken()) {
-			 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
-			 System.out.println("THE BANK IS BROKEN, game has been won by player " + winningPlayer.getPlayerManagerID());
-		}
+		executor.executeCommand(() -> {
+			this.bank.giveMoney(toGive);
+			player.collectMoney(toGive);
+			if (this.bank.isBankBroken()) {
+				 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
+				 System.out.println("THE BANK IS BROKEN, game has been won by player " + winningPlayer.getPlayerManagerID());
+			}
+		});
 		
 	}
 
@@ -68,11 +72,13 @@ public class BankManagerImpl implements BankManager {
 			checkPurchasability(property);
 			Purchasable purchasable = (Purchasable)property;
 			Property toRemove = (Property)purchasable;
-			if (!purchasable.isMortgage() && toRemove.getNumberOfHouseBuilt() == 0) {
-				double money = purchasable.mortgage();
-				bank.giveMoney(money);
-				player.collectMoney(money);
-				bank.getMortgagedProperties().put(property, player.getPlayer());
+			if (!purchasable.isMortgage() && (Arrays.asList(Category.SOCIETY, Category.STATION)
+													.contains(purchasable.getCategory())
+					|| toRemove.getNumberOfHouseBuilt() == 0)) {
+					double money = purchasable.mortgage();
+					bank.giveMoney(money);
+					player.collectMoney(money);
+					bank.getMortgagedProperties().put(property, player.getPlayer());
 			}
 		});
 		

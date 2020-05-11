@@ -30,7 +30,7 @@ import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.main.ScoreboardViewControllerImpl;
+import monoopoly.view.controller.ScoreboardViewControllerImpl;
 import monoopoly.view.utilities.PurchasableState;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;

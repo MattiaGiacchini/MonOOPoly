@@ -89,10 +89,10 @@ public interface GameEngine {
 	 */
 //	void updateDices(Map<Integer, Integer> dices);
 
-	/** You can use this method to get the player with the higher balance
+	/** The game ends with a I,II,III leaderboard
 	 * @return {@link PlayerManager}
 	 */
-	PlayerManager getGameWinner();
+	void getGameWinner();
 
 	/**
 	 * method to use the effect of a card

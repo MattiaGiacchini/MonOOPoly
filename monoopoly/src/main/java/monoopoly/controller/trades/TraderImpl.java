@@ -35,15 +35,6 @@ public class TraderImpl implements Trader {
 		final Set<Purchasable> setTwo = this.trade.get().getPlayerTwoTradeProperty();
 		final double moneyOne = this.trade.get().getPlayerOneTradeMoney();
 		final double moneyTwo = this.trade.get().getPlayerTwoTradeMoney();
-		/*
-		final Set<Purchasable> tempSet = setTwo;
-		final double tempMoney = moneyTwo;*/
-		
-		/*this.playerTwo.getProperties().removeAll(setTwo);
-		this.playerTwo.getProperties().addAll(setOne);
-		
-		this.playerOne.getProperties().removeAll(setOne);
-		this.playerOne.getProperties().addAll(setTwo);*/
 		
 		for(Purchasable property : setOne) {
 			property.setOwner(Optional.of(this.playerTwo.getPlayerManagerID()));

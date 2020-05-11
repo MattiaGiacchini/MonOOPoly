@@ -4,37 +4,38 @@ import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.player.Player;
 
 /**
- * This interface builds a Trade, with different fields.
+ * This interface builds a {@link Trade}, with different fields.
  */
 public interface TradeBuilder {
 	/**
-	 * This sets the player proposing the trade. This is obligatory.
+	 * This sets the {@link Player} proposing the {@link Trade}. This is obligatory.
 	 * @param player the player.
 	 */
 	TradeBuilder setPlayerOne(PlayerManager player);
 	
 	/**
-	 * This sets the player that has to accept the trade. This is obligatory.
+	 * This sets the {@link Player} that has to accept the {@link Trade}. This is obligatory.
 	 * @param player
 	 */
 	TradeBuilder setPlayerTwo(PlayerManager player);
 	
 	/**
-	 * This sets what player one offers, in properties.
-	 * @param properties the list of properties
+	 * This sets what {@link Player} one offers, in {@link Purchasable}.
+	 * @param properties the list of purchasables
 	 */
 	TradeBuilder setPlayerOneProperties(Set<Purchasable> properties);
 	
 	/**
-	 * This sets what is wanted back, in properties.
-	 * @param properties the list of properties.
+	 * This sets what is wanted back, in {@link Purchasable}.
+	 * @param properties the list of purchasables.
 	 */
 	TradeBuilder setPlayerTwoProperties(Set<Purchasable> properties);
 	
 	/**
-	 * This sets what player one offers, in money.
+	 * This sets what {@link Player} one offers, in money.
 	 * @param money the money offered.
 	 */
 	TradeBuilder setPlayerOneMoney(double money);
@@ -46,7 +47,7 @@ public interface TradeBuilder {
 	TradeBuilder setPlayerTwoMoney(double money);
 	
 	/**
-	 * Builds the trade.
+	 * Builds the {@link Trade}.
 	 * @return the trade.
 	 */
 	TradeImpl build();

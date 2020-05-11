@@ -30,6 +30,7 @@ import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.main.ScoreboardViewControllerImpl;
 import monoopoly.view.utilities.PurchasableState;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
@@ -59,7 +60,7 @@ public class GameEngineImpl implements GameEngine {
 	@FXML
 	private MainBoardControllerImpl mainBoardController;
 	@FXML
-	private ScoreboardViewContollerImpl sCoreboardViewContollerImpl;
+	private ScoreboardViewControllerImpl sCoreboardViewContollerImpl;
 	
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -467,7 +468,6 @@ public class GameEngineImpl implements GameEngine {
 	        p.setOwner(Optional.empty());
 	    }
 	    this.bankManager.removeAssignmentsFromPlayer(this.currentPlayer());
-	    this.passPlayer();
 	}
 	
 }

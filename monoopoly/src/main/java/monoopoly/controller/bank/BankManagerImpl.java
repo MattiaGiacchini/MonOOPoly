@@ -1,6 +1,8 @@
 package monoopoly.controller.bank;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
+import monoopoly.model.player.Player;
 
 public class BankManagerImpl implements BankManager {
 
@@ -38,7 +41,6 @@ public class BankManagerImpl implements BankManager {
 			player.collectMoney(toGive);
 			if (this.bank.isBankBroken()) {
 				 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
-				 System.out.println("THE BANK IS BROKEN, game has been won by player " + winningPlayer.getPlayerManagerID());
 			}
 		});
 		
@@ -155,6 +157,25 @@ public class BankManagerImpl implements BankManager {
 	private void checkOwned(Purchasable property) {
 		if(property.getOwner().isEmpty()) {
 			throw new IllegalStateException("Property doesn't have an owner");
+		}
+	}
+
+	@Override
+	public void removeAssignmentsFromPlayer(PlayerManager player) {
+		removePlayerFromMap(this.bank.getAssignedProperties(), player);
+		removePlayerFromMap(this.bank.getMortgagedProperties(), player);
+	}
+
+	/**
+	 * Removes all the {@link Tile} referring to a {@link Player} in a {@link Map} Tile - Player.
+	 * @param map the map.
+	 * @param player the player.
+	 */
+	private void removePlayerFromMap(Map<Tile, Player> map, PlayerManager player) {
+		for (Entry<Tile, Player> entry : map.entrySet()) {
+			if (entry.getValue().equals(player.getPlayer())) {
+				map.remove(entry.getKey());
+			}
 		}
 	}
 }

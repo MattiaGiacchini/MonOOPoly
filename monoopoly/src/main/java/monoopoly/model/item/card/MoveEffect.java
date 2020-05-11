@@ -213,11 +213,13 @@ public class MoveEffect extends AbstractCardDecorator {
                                      .stream()
                                      .filter(x->x.getValue()
                                                  .equals(builder.playersPosition
-                                                              .get(x.getKey())))
+                                                                .get(x.getKey())
+                                                         )
+                                             )
                                      .map(x->x.getKey())
                                      .collect(Collectors.toSet());
 
-            for(Integer value : tmpSet) {
+            for(var value : tmpSet) {
                 absoluteMove.remove(value);
             }
 

@@ -110,7 +110,7 @@ public interface GameEngine {
 	 * @param ID
 	 * @return a set of String
 	 */
-	Set<String> giveProperties(Integer ID);
+	void giveProperties(Integer ID);
 	
 	/**
 	 * Useful to get the names of the tile you hit on

@@ -5,12 +5,10 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoController;
 import monoopoly.view.controller.TileInfoControllerImpl;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
-import monoopoly.view.utilities.PurchasableState;
 
 public class TestTileInfoView {
 
@@ -27,19 +25,6 @@ public class TestTileInfoView {
         assertFalse(button);
         button = (logic.enoughMoney(500.00, 50.00));
         assertTrue(button);
-
-        button = logic.maxHouses(4);
-        assertTrue(button);
-
-        button = logic.maxHouses(5);
-        assertFalse(button);
-
-        button = logic.minHouses(2);
-        assertTrue(button);
-
-        button = logic.minHouses(0);
-        assertFalse(button);
-
     }
 
 }

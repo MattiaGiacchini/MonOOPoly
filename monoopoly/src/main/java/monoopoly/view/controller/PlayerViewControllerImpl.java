@@ -24,84 +24,78 @@ import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 public class PlayerViewControllerImpl implements PlayerViewController, Initializable {
 
-	@FXML
-	private Label currentPlayer;
+    @FXML
+    private Label currentPlayer;
 
-	@FXML
-	private Label currentPlayerBalance;
+    @FXML
+    private Label currentPlayerBalance;
 
-	/*
-	 * Player's data fields list (name and balance)
-	 */
-	@FXML
-	private List<Label> nameList;
+    /*
+     * Player's data fields list (name and balance)
+     */
+    @FXML
+    private List<Label> nameList;
 
-	@FXML
-	private List<Label> balanceList;
+    @FXML
+    private List<Label> balanceList;
 
-	private ViewUtilities utilities = new ViewUtilitiesImpl();
-	private GameEngine gameEngine;
+    private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private GameEngine gameEngine;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-	}
+    }
 
-	@FXML
-	public void displayPlayerPropertiesButtonClicked(MouseEvent event) {
-		HBox playerBox = (HBox) event.getSource();
-		this.showPlayerProperties(
-				this.gameEngine.giveProperties(Integer.valueOf(playerBox.getId().replaceAll("[^\\d]", ""))));
-	}
+    @FXML
+    public void displayPlayerPropertiesButtonClicked(MouseEvent event) {
+        HBox playerBox = (HBox) event.getSource();
+        this.gameEngine.giveProperties(Integer.valueOf(playerBox.getId().replaceAll("[^\\d]", "")));
+    }
 
-	public void setPlayerNames(final Map<Integer, String> names) {
-		names.forEach((K, V) -> {
-			this.nameList.get(K).setText(V);
-		});
-	}
+    public void setPlayerNames(final Map<Integer, String> names) {
+        names.forEach((K, V) -> {
+            this.nameList.get(K).setText(V);
+        });
+    }
 
-	@Override
-	public void updateBalances(final Map<Integer, Double> balances) {
-		balances.forEach((K, V) -> {
-			this.balanceList.get(K).setText(this.utilities.toMoneyString(V));
-			// TODO try to change color
-//			if (V <= 0) {
-//				ColorAdjust colorAdjust = new ColorAdjust();
-//				colorAdjust.setSaturation(0.5);
-//				this.balanceList.get(K).getParent().setEffect(colorAdjust);
-//			}
-		});
-	}
+    @Override
+    public void updateBalances(final Map<Integer, Double> balances) {
+        balances.forEach((K, V) -> {
+            this.balanceList.get(K).setText(this.utilities.toMoneyString(V));
+        });
+    }
 
-	@Override
-	public void updateCurrentPlayer(final String name, final Double balance) {
-		this.currentPlayer.setText(name);
-		this.currentPlayerBalance.setText(this.utilities.toMoneyString(balance));
-	}
+    @Override
+    public void updateCurrentPlayer(final String name, final Double balance) {
+        this.currentPlayer.setText(name);
+        this.currentPlayerBalance.setText(this.utilities.toMoneyString(balance));
+    }
 
-	@Override
-	public void showPlayerProperties(Set<String> properties) {
-		Stage propertiesStage = new Stage();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource(ScenePath.PLAYER_PROPERTIES.getPath()));
-		PlayerPropertiesControllerImpl propertiesController = new PlayerPropertiesControllerImpl();
-		loader.setController(propertiesController);
-		try {
-			propertiesStage.setScene(new Scene(loader.load()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		propertiesController.setStage(propertiesStage);
-		propertiesStage.initModality(Modality.APPLICATION_MODAL);
-		propertiesController.show(properties);
-		propertiesStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/logoMonoopoly.png")));
-		propertiesStage.setResizable(false);
-		propertiesStage.showAndWait();
-	}
+    @Override
+    public void showPlayerProperties(Set<String> properties, String playerName) {
+        Stage propertiesStage = new Stage();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(ScenePath.PLAYER_PROPERTIES.getPath()));
+        PlayerPropertiesControllerImpl propertiesController = new PlayerPropertiesControllerImpl();
+        loader.setController(propertiesController);
+        try {
+            propertiesStage.setScene(new Scene(loader.load()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        propertiesController.setStage(propertiesStage);
+        propertiesStage.initModality(Modality.APPLICATION_MODAL);
+        propertiesController.show(properties);
+        propertiesStage.setTitle(playerName.toUpperCase());
+        propertiesStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/logoMonoopoly.png")));
+        propertiesStage.setResizable(false);
+        propertiesStage.showAndWait();
+    }
 
-	@Override
-	public void setGameEngine(GameEngine gameEngine) {
-		this.gameEngine = gameEngine;
-	}
+    @Override
+    public void setGameEngine(GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
+    }
 
 }

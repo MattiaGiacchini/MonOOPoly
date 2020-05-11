@@ -315,7 +315,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     private void ownedPropertyButtonsLogic(TileInfo info) {
         this.playerPayedRent = false || info.rentPayed();
         this.payRent.setDisable(info.rentPayed());
-        System.out.println("rent payed " + info.rentPayed());
         this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
         this.ownedProperty.toFront();
     }

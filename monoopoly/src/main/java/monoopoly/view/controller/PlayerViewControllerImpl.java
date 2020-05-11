@@ -17,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
@@ -88,6 +89,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
         propertiesStage.initModality(Modality.APPLICATION_MODAL);
         propertiesController.show(properties);
         propertiesStage.setTitle(playerName.toUpperCase());
+        propertiesStage.initOwner(Main.getPrimaryStage());
         propertiesStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/logoMonoopoly.png")));
         propertiesStage.setResizable(false);
         propertiesStage.showAndWait();

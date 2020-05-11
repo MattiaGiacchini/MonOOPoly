@@ -45,7 +45,6 @@ public class StockMarketImpl implements StockMarket {
 		for (final Purchasable purchasable : this.purchasables) {
 			purchasable.setQuotation(this.actualMarket.get(purchasable.getCategory()));
 		}
-		System.out.println(this.actualMarket);
 		this.stockHistory.add(this.actualMarket);
 		return this.actualMarket;
 		

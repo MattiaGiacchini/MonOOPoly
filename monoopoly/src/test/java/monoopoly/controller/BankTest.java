@@ -1,7 +1,7 @@
 package monoopoly.controller;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,39 +10,23 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.google.common.util.concurrent.Service.State;
-
-import javafx.fxml.FXML;
-import javafx.stage.Stage;
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
-import monoopoly.controller.managers.TurnManager;
-import monoopoly.controller.managers.TurnManagerImpl;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.game_engine.GameEngine;
 import monoopoly.game_engine.GameEngineImpl;
-import monoopoly.game_engine.StartGame;
-import monoopoly.game_engine.StartGameImpl;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.Tile;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
-import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
-import monoopoly.view.utilities.ScenePath;
 
 public class BankTest {
 
-	private GameEngine engine;
-	private Table table;
+	private GameEngine engine;;
 	private BankManager bankManager;
 	private PlayerManager playerOne;
 	private Property tileBuilt;
-	private TurnManager tM;
 	
 	private static final double A_LITTLE_MONEY = 150.0;
 	private static final double A_TON_OF_MONEY = 1500000.0;
@@ -167,7 +151,6 @@ public class BankTest {
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		this.engine = new GameEngineImpl(names, balance);
-		this.tM = new TurnManagerImpl();
 		this.playerOne = new PlayerManagerImpl(0, new PlayerImpl.Builder().playerId(0).name("test").balance(0.0).build());
 		this.bankManager = new BankManagerImpl(this.engine);
 	}

@@ -40,7 +40,11 @@ public class BankManagerImpl implements BankManager {
 			this.bank.giveMoney(toGive);
 			player.collectMoney(toGive);
 			if (this.bank.isBankBroken()) {
-				 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
+				/*
+				 * Suppressed the warning because I only need to call gameEngine.getGameWinner
+				 */
+				 @SuppressWarnings("unused")
+				final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
 			}
 		});
 		

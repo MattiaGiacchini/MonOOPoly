@@ -71,10 +71,12 @@ public class BankManagerImpl implements BankManager {
 		executor.executeCommand(() -> {
 			checkPurchasability(property);
 			Purchasable purchasable = (Purchasable)property;
-			Property toRemove = (Property)purchasable;
-			if (!purchasable.isMortgage() && (Arrays.asList(Category.SOCIETY, Category.STATION)
-													.contains(purchasable.getCategory())
-					|| toRemove.getNumberOfHouseBuilt() == 0)) {
+			Optional<Property> toRemove = Optional.empty();
+			if (!checkStationOrSociety(purchasable)) {
+				toRemove = Optional.of((Property)purchasable);
+			}
+			if (!purchasable.isMortgage() && toRemove.isPresent()?
+					toRemove.get().getNumberOfHouseBuilt() == 0 : true) {
 					double money = purchasable.mortgage();
 					bank.giveMoney(money);
 					player.collectMoney(money);
@@ -82,6 +84,15 @@ public class BankManagerImpl implements BankManager {
 			}
 		});
 		
+	}
+	
+	/**
+	 * checks if a {@link Purchasable} is of {@link Category} society or station.
+	 * @param purch The purchasable.
+	 * @return if is a society or a station.
+	 */
+	private boolean checkStationOrSociety(Purchasable purch) {
+		return (Arrays.asList(Category.SOCIETY, Category.STATION).contains(purch.getCategory()));
 	}
 	
 	@Override

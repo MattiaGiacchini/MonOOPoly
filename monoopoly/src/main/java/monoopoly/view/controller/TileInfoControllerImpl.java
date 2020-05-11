@@ -198,8 +198,18 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     @Override
     public void resetButtons() {
-        this.buyPurchasable.setDisable(false);
+      this.buyPurchasable.setDisable(false);
 
+    }
+    
+    @Override
+    public void lockButtons() {
+        this.buyPurchasable.setDisable(true);
+        this.payRent.setDisable(true);
+        this.buildHouse.setDisable(true);
+        this.sellHouse.setDisable(true);
+        this.mortgage.setDisable(true);
+        this.unMortgage.setDisable(true);
     }
 
     /**
@@ -338,7 +348,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
         this.buyPurchasable
                 .setDisable(!(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue())
-
                         || info.isCurrentPlayerOnSelectedTile()));
         this.freeProperty.toFront();
     }

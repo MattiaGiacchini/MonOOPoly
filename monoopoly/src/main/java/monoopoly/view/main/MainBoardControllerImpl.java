@@ -98,6 +98,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
             this.nextTurn.setDisable(true);
             this.surrender.setDisable(true);
             this.gameEngine.passPlayer();
+            this.tileInfoController.lockButtons();
             this.rollDices.setDisable(false);
         } else {
             event.consume();

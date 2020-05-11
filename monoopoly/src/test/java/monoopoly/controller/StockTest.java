@@ -9,10 +9,6 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-import com.google.common.collect.Multiset.Entry;
-
-import monoopoly.controller.bank.BankManagerImpl;
-import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controller.stockmarket.StockMarket;
 import monoopoly.controller.stockmarket.StockMarketImpl;
 import monoopoly.game_engine.GameEngine;
@@ -84,7 +80,7 @@ public class StockTest {
 		balance.put (0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
-		this.engine = new GameEngineImpl(names, balance, positions, states);
+		this.engine = new GameEngineImpl(names, balance);
 		this.engine.createTable();
 	}
 }

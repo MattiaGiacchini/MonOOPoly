@@ -177,19 +177,27 @@ public class GameEngineImpl implements GameEngine {
 		Integer winner = -1;
 		Double greatest = 0.0;
 		Map<Integer, Double> quotationsMap = new HashMap<>();
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+		if (!this.turnManager.areThereOtherPlayersInGame()) {
+		    for (PlayerManager pM: this.playersList()) {
+		        if (pM.getPlayer().getState() != States.BROKE) {
+		            return pM;
+		        }
+		    }
+		}
+		for (PlayerManager pM: this.playersList()) {
 			pM.setTable(this.table);
 			double quotationProperties = 0;
 			for (Purchasable p: pM.getProperties()) {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
-			quotationsMap.put(pM.getPlayer().getID(), quotationProperties + pM.getPlayer().getBalance());
+			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
 		}
 		for (Map.Entry<Integer, Double> entry: quotationsMap.entrySet()) {
 			if (entry.getValue() > greatest) {
 				winner = entry.getKey();
 			}
 		}
+		this.mainBoardController.showLeaderboard(this.name, quotationsMap);
 		return this.turnManager.getPlayersList().get(winner);
 	}
 

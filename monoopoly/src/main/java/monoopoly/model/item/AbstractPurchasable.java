@@ -3,7 +3,8 @@ package monoopoly.model.item;
 import java.util.Map;
 import java.util.Optional;
 
-public abstract class AbstractPurchasable extends AbstractTileDecorator implements Purchasable {
+public abstract class AbstractPurchasable extends AbstractTileDecorator
+                                          implements Purchasable {
 
 	private final static double PERCENTAGE_TO_REMOVE_MORTGAGE = 1.1;
 	private final static double BASE_QUOTATION = 1.0;
@@ -12,12 +13,12 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator implemen
 	private final double salesValue;
 	
 	private Optional<Integer> ownerIdentify;
-	private double quotation;
+	private Double quotation;
 	private boolean mortgageStatus;
 	
-	protected AbstractPurchasable(Tile decorated,
- 								  double mortgageValue,
- 								  double salesValue) {
+	protected AbstractPurchasable(final Tile decorated,
+ 								  final double mortgageValue,
+ 								  final double salesValue) {
 		super(decorated);
 		if(!decorated.isPurchasable()) {
 			throw new IllegalStateException("The Tile isn't Purchasable");
@@ -30,18 +31,18 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator implemen
 	}
 	
 	@Override
-	public double mortgage() {
+	public final double mortgage() {
 		this.mortgageStatus = true;
 		return this.morgageValue;
 	}
 
 	@Override
-	public boolean isMortgage() {
+	public final boolean isMortgage() {
 		return this.mortgageStatus;
 	}
 
 	@Override
-	public void removeMortgage() {
+	public final void removeMortgage() {
 		this.mortgageStatus = false;
 	}
 
@@ -49,39 +50,44 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator implemen
 	public abstract double getLeaseValue();
 
 	@Override
-	public double getSalesValue() {
+	public final double getSalesValue() {
 		return this.salesValue * this.getQuotation();
 	}
 
 	@Override
-	public double getMortgageValue() {
+	public final double getMortgageValue() {
 		return this.morgageValue * this.quotation;
 	}
 
 	@Override
-	public double getCostToRemoveMortgage() {
-		return this.morgageValue * AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE;
+	public final double getCostToRemoveMortgage() {
+		return this.morgageValue * 
+		       AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE;
 	}
 
 	@Override
-	public double getQuotation() {
+	public final double getQuotation() {
 		return this.quotation;
 	}
 
 	@Override
-	public void setQuotation(double quotation) {
+	public final void setQuotation(final double quotation) {
 		this.quotation = quotation;
 	}
 
 	@Override
-	public void setOwner(final Optional<Integer> newOwnerIdentify) {
+	public final void setOwner(final Optional<Integer> newOwnerIdentify) {
 		this.ownerIdentify = newOwnerIdentify;
 	}
 
 	@Override
-	public Optional<Integer> getOwner() {
+	public final Optional<Integer> getOwner() {
 		return this.ownerIdentify;
 	}
 
 	abstract public Map<Integer, Double> getLeaseList();
+	
+	protected final Double applyQuotationOnValue(final Double value) {
+        return value * this.getQuotation();
+	}
 }

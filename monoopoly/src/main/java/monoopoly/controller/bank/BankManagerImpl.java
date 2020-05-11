@@ -40,7 +40,7 @@ public class BankManagerImpl implements BankManager {
 			this.bank.giveMoney(toGive);
 			player.collectMoney(toGive);
 			if (this.bank.isBankBroken()) {
-				this.gameEngine.getGameWinner();
+				this.gameEngine.endGame();
 			}
 		});
 		

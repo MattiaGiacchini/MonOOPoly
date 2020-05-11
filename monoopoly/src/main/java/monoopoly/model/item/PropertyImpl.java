@@ -33,7 +33,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		private final static Integer LEASE_FOUR_HOUSE = 4;
 		private final static Integer LEASE_ONE_HOTEL = 5;
 		private final static Integer LEASE_SERIES_COMPLETE = 6;
-		private static final Double  MULTIPLIER_SERIES_COMPLETE = 2.0;
+		private final static Double  MULTIPLIER_SERIES_COMPLETE = 2.0;
 		
 		private Tile decorated;
 		private Double mortgageValue;
@@ -53,7 +53,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 		    this.salesValue = null;
 		}
 		
-		public Builder tile(Tile decorated) {
+		public Builder tile(final Tile decorated) {
 		    Objects.requireNonNull(decorated, 
 		                        "the tile to decore cannot has null value!");
 			if(!decorated.isBuildable()) {
@@ -63,68 +63,68 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 			return this;
 		}
 
-        public Builder predAreAllPropOwned(Predicate<Integer> predicate) {
+        public Builder predAreAllPropOwned(final Predicate<Integer> predicate) {
             Objects.requireNonNull(predicate,
                                 "The function cannot has null value!");
             this.allCategoryOwned = predicate;
             return this;
         }
 		
-		public Builder mortgage(Double mortgageValue) {
+		public Builder mortgage(final Double mortgageValue) {
 		    this.doubleChecker(mortgageValue, "Mortgage value");
 			this.mortgageValue = mortgageValue;
 			return this;
 		}
 		
-        public Builder sales(Double salesValue) {
+        public Builder sales(final Double salesValue) {
             this.doubleChecker(salesValue, "Sales value");
 			this.salesValue = salesValue;
 			return this;
 		}
 
-		public Builder valueToBuildHouse(Double value) {
+		public Builder valueToBuildHouse(final Double value) {
 		    this.doubleChecker(value, "cost to build house");
 			this.valueToBuildHouse = value;
 			return this;
 		}
 		
-		public Builder valueToBuildHotel(Double value) {
+		public Builder valueToBuildHotel(final Double value) {
             this.doubleChecker(value, "cost to build hotel");
 			this.valueToBuildHotel = value;
 			return this;
 		}
 		
-		public Builder leaseWithNoBuildings(Double value) {
+		public Builder leaseWithNoBuildings(final Double value) {
 		    this.doubleChecker(value, "lease without buildings");
 			this.leaseMap.put(LEASE_NO_BUILDING, value);
 			return this;
 		}
 
-		public Builder leaseWithOneHouse(Double value) {
+		public Builder leaseWithOneHouse(final Double value) {
 		    this.doubleChecker(value, "lease with one house");
 			this.leaseMap.put(LEASE_ONE_HOUSE, value);
 			return this;
 		}
 
-		public Builder leaseWithTwoHouse(Double value) {
+		public Builder leaseWithTwoHouse(final Double value) {
             this.doubleChecker(value, "lease with two house");
 			this.leaseMap.put(LEASE_TWO_HOUSE, value);
 			return this;
 		}
 
-		public Builder leaseWithThreeHouse(Double value) {
+		public Builder leaseWithThreeHouse(final Double value) {
             this.doubleChecker(value, "lease with three house");
 			this.leaseMap.put(LEASE_THREE_HOUSE, value);
 			return this;
 		}
 
-		public Builder leaseWithFourHouse(Double value) {
+		public Builder leaseWithFourHouse(final Double value) {
             this.doubleChecker(value, "lease with four house");
 			this.leaseMap.put(LEASE_FOUR_HOUSE, value);
 			return this;
 		}
 
-		public Builder leaseWithOneHotel(Double value) {
+		public Builder leaseWithOneHotel(final Double value) {
             this.doubleChecker(value, "lease with an hotel");
 			this.leaseMap.put(LEASE_ONE_HOTEL, value);
 			return this;
@@ -156,11 +156,12 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 			return new PropertyImpl(this);
 		}
 
-		private void objectRequireNonNull(Object obj, String string) {
+		private void objectRequireNonNull(final Object obj, 
+		                                  final String string) {
 		    Objects.requireNonNull(obj, "PROPERTY: "+ string + " is unsetted!");
 		}
 		
-        private void doubleChecker(Double value, String string) {
+        private void doubleChecker(final Double value, final String string) {
             Objects.requireNonNull(value, 
                         "the " + string + " cannot has null value!");
             if(value.isNaN() || value.isInfinite()) {
@@ -172,7 +173,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 
 	}	
 
-	private PropertyImpl(Builder builder) {
+	private PropertyImpl(final Builder builder) {
 		super(builder.decorated, builder.mortgageValue, builder.salesValue);
 		this.numberOfConstructionBuilt = PropertyImpl.
 		                                 PROPERTY_WITHOUT_BUILDINGS;
@@ -188,7 +189,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 			throw new IllegalStateException("The " + super.getCategory() + 
 			               " Category hasn't the same owner in all properties");
 		} else if(this.numberOfConstructionBuilt
-		              .equals(getMaxNumberOfBuildings())) {
+		              .equals(this.getMaxNumberOfBuildings())) {
 			throw new IllegalStateException(
 			                             "Maximum number of buildings reached");
 		}
@@ -225,24 +226,24 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 
 	@Override
 	public double getCostToBuildHouse() {
-		return super.getQuotation() * this.valueTobuildHouse;
+		return super.applyQuotationOnValue(this.valueTobuildHouse);
 	}
 
 	@Override
 	public double getCostToBuildHotel() {
-		return super.getQuotation() * this.valueTobuildHotel;
+		return super.applyQuotationOnValue(this.valueTobuildHotel);
 	}
 
 	@Override
 	public double getQuotationToSellHouse() {
-		return this.getCostToBuildHouse() *
-			   PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING;
+		return super.applyQuotationOnValue(this.getCostToBuildHouse() *
+			   PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING);
 	}
 
 	@Override
 	public double getQuotationToSellHotel() {
-		return this.getCostToBuildHotel() *
-			   PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING;
+		return super.applyQuotationOnValue(this.getCostToBuildHotel() *
+			   PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING);
 	}
 
 	@Override
@@ -251,12 +252,13 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 			if(this.isCategoryOfPropertiesAllOwned() && 
 			   this.numberOfConstructionBuilt.equals(
 			   PropertyImpl.PROPERTY_WITHOUT_BUILDINGS)){
-				return this.leaseListBaseValue.get(PropertyImpl.SERIES_COMPLETE)
-				       * super.getQuotation();
+				return super.applyQuotationOnValue(
+				       this.leaseListBaseValue
+				           .get(PropertyImpl.SERIES_COMPLETE));
 			} else {
-				return this.leaseListBaseValue.get(
-				       this.numberOfConstructionBuilt)
-				       * super.getQuotation();
+				return super.applyQuotationOnValue(
+				       this.leaseListBaseValue.get(
+				       this.numberOfConstructionBuilt));
 			}
 		}
 		return PropertyImpl.VALUE_ZERO;
@@ -266,8 +268,9 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
 	public Map<Integer, Double> getLeaseList() {
 		Map<Integer,Double> listWithQuotationApplied = new HashMap<>();
 		for(Entry<Integer, Double> elem : this.leaseListBaseValue.entrySet()) {
-			listWithQuotationApplied.put(elem.getKey(), elem.getValue() *
-			                             super.getQuotation());
+			listWithQuotationApplied.put(elem.getKey(), 
+			                             super.applyQuotationOnValue(
+			                             elem.getValue()));
 		}
 		return listWithQuotationApplied;
 	}	
@@ -276,7 +279,7 @@ public class PropertyImpl extends AbstractPurchasable implements Property {
     public boolean isBuildOnEnabled() {
         return super.getOwner().isPresent() && 
                this.isCategoryAllOwned.test(super.getOwner().get()) &&
-               this.numberOfConstructionBuilt < getMaxNumberOfBuildings();
+               this.numberOfConstructionBuilt < this.getMaxNumberOfBuildings();
     }
 
     @Override

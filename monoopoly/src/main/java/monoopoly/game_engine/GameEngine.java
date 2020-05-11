@@ -92,7 +92,7 @@ public interface GameEngine {
 	/** The game ends with a I,II,III leaderboard
 	 * @return {@link PlayerManager}
 	 */
-	void getGameWinner();
+	void endGame();
 
 	/**
 	 * method to use the effect of a card

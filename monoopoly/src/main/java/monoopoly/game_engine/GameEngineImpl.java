@@ -2,6 +2,7 @@ package monoopoly.game_engine;
 
 import java.util.*;
 import javafx.fxml.FXML;
+import monoopoly.Main;
 import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.dices.Dices;
@@ -30,6 +31,9 @@ import monoopoly.view.controller.TileInfo;
 import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
 import monoopoly.view.utilities.PurchasableState;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.TileViewCategory;
 
 public class GameEngineImpl implements GameEngine {
@@ -50,9 +54,12 @@ public class GameEngineImpl implements GameEngine {
 	private Dices dicesUse = new DicesImpl(2, this.table);
 	private StockMarket stockMarket = new StockMarketImpl(this.table);
 	private Integer tileHit;
+	private SceneManager sceneManager = new SceneManagerImpl();
 	
 	@FXML
 	private MainBoardControllerImpl mainBoardController;
+	@FXML
+	private ScoreboardViewContollerImpl sCoreboardViewContollerImpl;
 	
 	/**
 	 * constructor, so that when StartGame creates GameEngine, it passes
@@ -153,7 +160,7 @@ public class GameEngineImpl implements GameEngine {
 		this.turnManager.nextTurn();
 		if (this.currentPlayer().getPlayer().getState() == States.BROKE) {
 		    if (!this.turnManager.areThereOtherPlayersInGame()) {
-		        this.getGameWinner();
+		        this.endGame();
 		    }
 		    this.passPlayer();
 		}
@@ -176,8 +183,7 @@ public class GameEngineImpl implements GameEngine {
 		this.turnManager.setRound();
 	}
 
-	public void getGameWinner() {
-	    System.out.println("pissout bitch");
+	public void endGame() {
 		Map<Integer, Double> quotationsMap = new HashMap<>();
 		for (PlayerManager pM: this.playersList()) {
 			pM.setTable(this.table);
@@ -186,8 +192,11 @@ public class GameEngineImpl implements GameEngine {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
 			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
+			System.out.println(quotationsMap.get(pM.getPlayerManagerID()));
 		}
-		this.mainBoardController.showLeaderboard(this.name, quotationsMap);
+		this.sceneManager.loadScene(ScenePath.SCOREBOARD, Main.getPrimaryStage());
+		this.sCoreboardViewContollerImpl = this.sceneManager.getLeaderboardController();
+		this.sCoreboardViewContollerImpl.showLeaderboard(this.name, quotationsMap);
 	}
 
 	public void useCard() {
@@ -252,14 +261,15 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public Map<Integer, Integer> rollDices() {
+	    int prevPos = this.currentPlayer().getPlayer().getPosition();
 		this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
 		if (this.dicesUse.areEquals()) {
 			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
 			this.playersList().get(this.turnManager.getCurrentPlayer()).resetPrisonCounter();
 		}
 		this.updateAlways();
-		this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getPosition());
-		if (this.tileHit == 0) {
+		this.giveTileInfo(this.currentPlayer().getPlayer().getPosition());
+		if (prevPos + this.dicesUse.getDices().get(0) + this.dicesUse.getDices().get(1) > 39) {
 		    this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		}
 		return this.dicesUse.getDices();
@@ -382,7 +392,7 @@ public class GameEngineImpl implements GameEngine {
 		this.giveTileInfo(this.tileHit);
 	}
 
-	public void mortgage() {
+	public void mortgage() { 
 		this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
 		this.updateAlways();
 		this.giveTileInfo(this.tileHit);

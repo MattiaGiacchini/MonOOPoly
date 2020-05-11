@@ -8,12 +8,14 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import org.davidmoten.text.utils.WordWrap;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
@@ -115,9 +117,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     public void showDeckCard(String cardCategory, String message) {
         Alert deckCard = new Alert(Alert.AlertType.WARNING, cardCategory.toUpperCase());
         deckCard.setHeaderText(cardCategory.toUpperCase());
-        // deckCard.setContentText(WordWrap.from(message).maxWidth(60).wrap());
-        deckCard.setContentText(message);
-        System.out.println(message);
+        deckCard.getDialogPane().setContent(this.createDeckCardMessage(message));
         deckCard.initModality(Modality.APPLICATION_MODAL);
         deckCard.setTitle(cardCategory);
         deckCard.initOwner(Main.getPrimaryStage().getScene().getWindow());
@@ -182,6 +182,19 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     @Override
     public void deletePlayer(final int playerID) {
         this.boardController.removePawn(playerID);
+    }
+
+    /**
+     * This method transform a string in a textArea
+     * 
+     * @param message to display
+     * @return a textArea with the message
+     */
+    private TextArea createDeckCardMessage(final String message) {
+        TextArea messageBox = new TextArea(message);
+        messageBox.setWrapText(true);
+        messageBox.setEditable(false);
+        return messageBox;
     }
 
 }

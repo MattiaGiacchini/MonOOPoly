@@ -151,7 +151,10 @@ public class GameEngineImpl implements GameEngine {
 	public void passPlayer() {
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
-		if (this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getState() == States.BROKE) {
+		if (this.currentPlayer().getPlayer().getState() == States.BROKE) {
+		    if (!this.turnManager.areThereOtherPlayersInGame()) {
+		        this.getGameWinner();
+		    }
 		    this.passPlayer();
 		}
 		this.updateAlways();
@@ -173,17 +176,9 @@ public class GameEngineImpl implements GameEngine {
 		this.turnManager.setRound();
 	}
 
-	public PlayerManager getGameWinner() {
-		Integer winner = -1;
-		Double greatest = 0.0;
+	public void getGameWinner() {
+	    System.out.println("pissout bitch");
 		Map<Integer, Double> quotationsMap = new HashMap<>();
-		if (!this.turnManager.areThereOtherPlayersInGame()) {
-		    for (PlayerManager pM: this.playersList()) {
-		        if (pM.getPlayer().getState() != States.BROKE) {
-		            return pM;
-		        }
-		    }
-		}
 		for (PlayerManager pM: this.playersList()) {
 			pM.setTable(this.table);
 			double quotationProperties = 0;
@@ -192,13 +187,7 @@ public class GameEngineImpl implements GameEngine {
 			}
 			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
 		}
-		for (Map.Entry<Integer, Double> entry: quotationsMap.entrySet()) {
-			if (entry.getValue() > greatest) {
-				winner = entry.getKey();
-			}
-		}
 		this.mainBoardController.showLeaderboard(this.name, quotationsMap);
-		return this.turnManager.getPlayersList().get(winner);
 	}
 
 	public void useCard() {
@@ -453,6 +442,7 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public void lose() {
+	    this.bankManager.giveMoney(-this.currentPlayer().getPlayer().getBalance(), this.currentPlayer());
 	    this.currentPlayer().giveUp();
 	    this.mainBoardController.deletePlayer(this.currentPlayer().getPlayerManagerID());
 	    for (Purchasable p: this.currentPlayer().getProperties()) {	 

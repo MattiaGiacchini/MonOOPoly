@@ -4,14 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+
 import com.google.common.collect.Maps;
 
 public class MoneyEffect extends AbstractCardDecorator {
-	
-	private static final Double ZERO_VALUE = 0.0;
-	
+
+	private static final int ONE = 1;
+    private static final Double ZERO_VALUE = 0.0;
+
 	private Optional<Map<Integer, Double>> valueToApplyOnPlayersBalance;
-	
+
  	public static class Builder {
 		private Card cardToDecore;
 		private Integer idDrawer;
@@ -42,80 +44,83 @@ public class MoneyEffect extends AbstractCardDecorator {
 			this.makeTheAvarage      	= false;
 		}
 
-		public Builder cardToDecore(Card card) {
-			Objects.requireNonNull(card,"The decorator cannot decor a null pointer");
+		public Builder cardToDecore(final Card card) {
+			Objects.requireNonNull(card,
+			        "The decorator cannot decor a null pointer");
 			this.cardToDecore = card;
 			return this;
 		}
-		
-		public Builder idDrawer(Integer value) {
-			Objects.requireNonNull(value, "the IdDrawer cannot has a null value");
+
+		public Builder idDrawer(final Integer value) {
+			Objects.requireNonNull(value,
+			        "the IdDrawer cannot has a null value");
 			this.idDrawer = value;
 			return this;
 		}
-		
-		public Builder actualPlayersBalance(Map<Integer,Double> map){
-			Objects.requireNonNull(map, "the IdDrawer cannot has a null value");
+
+		public Builder actualPlayersBalance(final Map<Integer,Double> map){
+			Objects.requireNonNull(map,
+			        "the IdDrawer cannot has a null value");
 			for(Double value : map.values()) {
 				this.doubleChecker(value);
 			}
 			this.ActualPlayersBalance = map;
 			return this;
-		}		
-		
-		public Builder exchangePlayerToOthers(Double value) {
+		}
+
+		public Builder exchangePlayerToOthers(final Double value) {
 			this.doubleChecker(value);
 			this.playerToOthers = Optional.ofNullable(value);
 			return this;
 		}
-		
-		public Builder exchangePlayerToBank(Double value) {
+
+		public Builder exchangePlayerToBank(final Double value) {
 			this.doubleChecker(value);
 			this.playerToBank = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder exchangeValueHouseToBank(Double value) {
+		public Builder exchangeValueHouseToBank(final Double value) {
 			this.doubleChecker(value);
 			this.playerValueHouseToBank = Optional.ofNullable(value);
 			return this;
 		}
-		
-		public Builder exchangeValueHotelToBank(Double value) {
+
+		public Builder exchangeValueHotelToBank(final Double value) {
 			this.doubleChecker(value);
 			this.playerValueHotelToBank = Optional.ofNullable(value);
 			return this;
 		}
-		
-		public Builder playerNumberOfHouse(Integer value) {
+
+		public Builder playerNumberOfHouse(final Integer value) {
 			this.playerNumberHouse = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder playerNumberOfHotel(Integer value) {
+		public Builder playerNumberOfHotel(final Integer value) {
 			this.playerNumberHotel = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder exchangeAllToBank(Double value) {
+		public Builder exchangeAllToBank(final Double value) {
 			this.doubleChecker(value);
 			this.allToBank = Optional.ofNullable(value);
 			return this;
 		}
 
-		public Builder exchangeAllToBankPercentage(Double value) {
+		public Builder exchangeAllToBankPercentage(final Double value) {
 			this.doubleChecker(value);
 			this.allToBankPercentage = Optional.ofNullable(value);
 			return this;
 		}
-		
-		public Builder makeTheAvaragePlayersBalance(boolean value) {
+
+		public Builder makeTheAvaragePlayersBalance(final boolean value) {
 			this.makeTheAvarage = value;
 			return this;
 		}
-		
+
 		public MoneyEffect build() {
-			if((this.makeTheAvarage == true || 
+			if((this.makeTheAvarage == true ||
 				this.allToBank.isPresent() ||
 				this.playerToBank.isPresent() ||
 				this.playerToOthers.isPresent() ||
@@ -125,50 +130,57 @@ public class MoneyEffect extends AbstractCardDecorator {
 				  this.playerValueHouseToBank.isPresent() &&
 				  this.playerValueHotelToBank.isPresent())) &&
 			   !Objects.isNull(this.cardToDecore) &&
-			   !Objects.isNull(this.idDrawer) && 
+			   !Objects.isNull(this.idDrawer) &&
 			   !Objects.isNull(this.ActualPlayersBalance)) {
 				return new MoneyEffect(this);
 			}
 			throw new IllegalStateException("Wrong build sequence");
 		}
-		
-		private void doubleChecker(Double value) {
-			if(Objects.nonNull(value) && 
-			   (value.isInfinite() || 
+
+		private void doubleChecker(final Double value) {
+			if(Objects.nonNull(value) &&
+			   (value.isInfinite() ||
 			   value.isNaN())) {
-				throw new IllegalArgumentException("The double value hasn't a correnct format");
+				throw new IllegalArgumentException(
+				        "The double value hasn't a correnct format");
 			}
 		}
 	}
-	
+
 	private MoneyEffect(final Builder builder) {
 		super(builder.cardToDecore);
 
-		Map<Integer,Double> copyActPlayersBal = Maps.newHashMap(builder.ActualPlayersBalance);
+		Map<Integer,Double> copyActPlayersBal = Maps.newHashMap(
+		        builder.ActualPlayersBalance);
 		Integer numPlayers = copyActPlayersBal.size();
-		
+
 		Map<Integer,Double> result = new HashMap<>();
-		copyActPlayersBal.keySet().forEach(x->result.put(x, MoneyEffect.ZERO_VALUE));
+		copyActPlayersBal.keySet()
+		                 .forEach(x->result.put(x, MoneyEffect.ZERO_VALUE));
 
 		if(super.getValueToApplyOnPlayersBalance().isPresent()) {
-			super.getValueToApplyOnPlayersBalance().get().entrySet().stream().forEach(el->{
+			super.getValueToApplyOnPlayersBalance().get()
+			                                       .entrySet()
+			                                       .forEach(el->{
 				if(!result.get(el.getKey()).equals(el.getValue())){
 					result.put(el.getKey(), el.getValue());
 				}
-				
 			});
 		}
-		
-		// generate the value 		
+
+		// generate the value
 		if(builder.playerToOthers.isPresent()) {
 			result.entrySet().forEach(el->{
 				if(el.getKey().equals( builder.idDrawer)) {
-					result.put(el.getKey(), el.getValue() - ((numPlayers - 1) * builder.playerToOthers.get()));
+					result.put(el.getKey(),
+					           el.getValue() - ((numPlayers - ONE)
+					           * builder.playerToOthers.get()));
 				} else {
-					result.put(el.getKey(), el.getValue() + builder.playerToOthers.get());
+					result.put(el.getKey(),
+					           el.getValue() + builder.playerToOthers.get());
 				}
 			});
-			
+
 		} else if(builder.playerToBank.isPresent()) {
 			Double el = result.get(builder.idDrawer);
 			result.put(builder.idDrawer, (el - builder.playerToBank.get()));
@@ -177,56 +189,76 @@ public class MoneyEffect extends AbstractCardDecorator {
 				  builder.playerValueHouseToBank.isPresent() &&
 				  builder.playerNumberHotel.isPresent() &&
 				  builder.playerNumberHouse.isPresent()) {
-			Double moneyToPay = builder.playerValueHotelToBank.get() * 
+			Double moneyToPay = builder.playerValueHotelToBank.get() *
 					 			builder.playerNumberHotel.get() +
-								builder.playerValueHouseToBank.get() * 
+								builder.playerValueHouseToBank.get() *
 								builder.playerNumberHouse.get();
 			Double el = result.get(builder.idDrawer);
 			result.put(builder.idDrawer, el - moneyToPay);
-			 
+
 		} else if (builder.allToBank.isPresent()) {
 			result.entrySet().forEach(el->{
-				result.put(el.getKey(), el.getValue() - builder.allToBank.get());
+				result.put(el.getKey(),
+				           el.getValue() - builder.allToBank.get());
 			});
-			
-		} else if (builder.allToBankPercentage.isPresent()) { 
+
+		} else if (builder.allToBankPercentage.isPresent()) {
 			copyActPlayersBal.entrySet().forEach(el->{
-				copyActPlayersBal.put(el.getKey(), result.get(el.getKey())+el.getValue());
+				copyActPlayersBal.put(el.getKey(),
+				                      result.get(el.getKey())+el.getValue());
 			});
-			
-			result.entrySet().forEach(el->{
-				result.put(el.getKey(), 
-						   el.getValue() - (copyActPlayersBal.get(el.getKey()) * builder.allToBankPercentage.get()));
-			});
-			
-		} else if (builder.makeTheAvarage) {			 
-			copyActPlayersBal.entrySet().forEach(el->{
-				copyActPlayersBal.put(el.getKey(), result.get(el.getKey())+el.getValue());
-			});
-			
-			Double avarage = copyActPlayersBal.entrySet().stream().mapToDouble(x->(Double)x.getValue()).average().getAsDouble();
 
 			result.entrySet().forEach(el->{
-				result.put(el.getKey(), (avarage - copyActPlayersBal.get(el.getKey())) + el.getValue());
-			}); 
-			
+				result.put(el.getKey(),
+						   el.getValue() - (copyActPlayersBal.get(el.getKey()) *
+						                    builder.allToBankPercentage.get()));
+			});
+
+		} else if (builder.makeTheAvarage) {
+			copyActPlayersBal.entrySet().forEach(el->{
+				copyActPlayersBal.put(el.getKey(),
+				                      result.get(el.getKey())+el.getValue());
+			});
+
+			Double avarage = makeTheAvarage(copyActPlayersBal);
+
+			result.entrySet().forEach(el->{
+				result.put(el.getKey(),
+				           (avarage - copyActPlayersBal.get(el.getKey()))
+				           + el.getValue());
+			});
+
 		}
-		
-		if(result.entrySet().stream()
-							.allMatch(x-> this.doubleEqualsWithTollerance(x.getValue(), MoneyEffect.ZERO_VALUE))) {
+
+		if(noValueToApply(result)) {
 			this.valueToApplyOnPlayersBalance = Optional.empty();
 		} else {
 			this.valueToApplyOnPlayersBalance = Optional.of(result);
 		}
-		
+
 	}
 
 	@Override
 	public Optional<Map<Integer, Double>> getValueToApplyOnPlayersBalance() {
 		return this.valueToApplyOnPlayersBalance;
 	}
-	
-	private boolean doubleEqualsWithTollerance(Double a, Double b) {
+
+	private boolean doubleEqualsWithTollerance(final Double a, final Double b) {
 		return Math.abs(a-b) < Math.pow(10, -6);
 	}
+
+    private boolean noValueToApply(final Map<Integer, Double> result) {
+        return result.entrySet()
+                     .stream()
+                     .allMatch(x-> this.doubleEqualsWithTollerance(x.getValue(),
+                                                     MoneyEffect.ZERO_VALUE));
+    }
+
+    private double makeTheAvarage(final Map<Integer, Double> copyActPlayersBal){
+        return copyActPlayersBal.entrySet()
+                                .stream()
+                                .mapToDouble(x->(Double)x.getValue())
+                                .average()
+                                .getAsDouble();
+    }
 }

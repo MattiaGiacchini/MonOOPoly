@@ -36,11 +36,11 @@ public class TraderImpl implements Trader {
 		final double moneyOne = this.trade.get().getPlayerOneTradeMoney();
 		final double moneyTwo = this.trade.get().getPlayerTwoTradeMoney();
 		
-		for(Purchasable property : setOne) {
+		for(final Purchasable property : setOne) {
 			property.setOwner(Optional.of(this.playerTwo.getPlayerManagerID()));
 		}
 		
-		for(Purchasable property : setTwo) {
+		for(final Purchasable property : setTwo) {
 			property.setOwner(Optional.of(this.playerOne.getPlayerManagerID()));
 		}
 		

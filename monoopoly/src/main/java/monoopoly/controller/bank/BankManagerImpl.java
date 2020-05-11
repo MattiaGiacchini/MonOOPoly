@@ -21,9 +21,9 @@ public class BankManagerImpl implements BankManager {
 	
 	private final Bank bank;
 	private final Table table;
-	private Set<Tile> purchaseableProperties;
-	private GameEngine gameEngine;
-	private BankCommandExecutor executor;
+	private final Set<Tile> purchaseableProperties;
+	private final GameEngine gameEngine;
+	private final BankCommandExecutor executor;
 	
 	public BankManagerImpl(GameEngine engine) {
 		this.gameEngine = engine;
@@ -55,10 +55,10 @@ public class BankManagerImpl implements BankManager {
 		
 		executor.executeCommand(() -> {
 				checkPurchasability(property);
-				Property toBuild = (Property)property;
+				final Property toBuild = (Property)property;
 				if (toBuild.getNumberOfHotelBuilt() < 1) {
 					toBuild.buildOn();
-					double moneyPaid = toBuild.getNumberOfHotelBuilt() == 1 ? toBuild.getCostToBuildHotel() : toBuild.getCostToBuildHouse();
+					final double moneyPaid = toBuild.getNumberOfHotelBuilt() == 1 ? toBuild.getCostToBuildHotel() : toBuild.getCostToBuildHouse();
 					player.payMoney(moneyPaid);
 					bank.giveMoney(-moneyPaid);
 				}
@@ -76,14 +76,14 @@ public class BankManagerImpl implements BankManager {
 		
 		executor.executeCommand(() -> {
 			checkPurchasability(property);
-			Purchasable purchasable = (Purchasable)property;
+			final Purchasable purchasable = (Purchasable)property;
 			Optional<Property> toRemove = Optional.empty();
 			if (!checkStationOrSociety(purchasable)) {
 				toRemove = Optional.of((Property)purchasable);
 			}
 			if (!purchasable.isMortgage() && toRemove.isPresent()?
 					toRemove.get().getNumberOfHouseBuilt() == 0 : true) {
-					double money = purchasable.mortgage();
+					final double money = purchasable.mortgage();
 					bank.giveMoney(money);
 					player.collectMoney(money);
 					bank.getMortgagedProperties().put(property, player.getPlayer());
@@ -106,9 +106,9 @@ public class BankManagerImpl implements BankManager {
 		
 		executor.executeCommand(() -> {
 				checkPurchasability(property);
-				Purchasable purchasable = (Purchasable)property;
+				final Purchasable purchasable = (Purchasable)property;
 				if (purchasable.isMortgage()) {
-					double money = purchasable.getMortgageValue();
+					final double money = purchasable.getMortgageValue();
 					purchasable.removeMortgage();
 					bank.giveMoney(-money);
 					player.payMoney(money);
@@ -122,9 +122,9 @@ public class BankManagerImpl implements BankManager {
 		
 		executor.executeCommand(() -> {
 			checkPurchasability(property);
-			Purchasable purchasable = (Purchasable)property;
+			final Purchasable purchasable = (Purchasable)property;
 			if(purchasable.getOwner().isEmpty()) {
-				double money = purchasable.getSalesValue();
+				final double money = purchasable.getSalesValue();
 				purchasable.setOwner(Optional.of(player.getPlayerManagerID()));
 				bank.getAssignedProperties().put(property, player.getPlayer());
 				bank.giveMoney(money);
@@ -146,11 +146,11 @@ public class BankManagerImpl implements BankManager {
 	public void sellHouse(Tile property, PlayerManager player) {
 		
 		executor.executeCommand(() -> {
-				Purchasable purchasable = (Purchasable)property;
+				final Purchasable purchasable = (Purchasable)property;
 				checkOwned(purchasable);
-				Property toSell = (Property)purchasable;
+				final Property toSell = (Property)purchasable;
 				if (toSell.getNumberOfHouseBuilt() != 0) {
-					double money = toSell.sellBuilding();
+					final double money = toSell.sellBuilding();
 					player.collectMoney(money);
 				}
 			});
@@ -176,7 +176,7 @@ public class BankManagerImpl implements BankManager {
 	 * @param player the player.
 	 */
 	private void removePlayerFromMap(Map<Tile, Player> map, PlayerManager player) {
-		for (Entry<Tile, Player> entry : map.entrySet()) {
+		for (final Entry<Tile, Player> entry : map.entrySet()) {
 			if (entry.getValue().equals(player.getPlayer())) {
 				map.remove(entry.getKey());
 			}

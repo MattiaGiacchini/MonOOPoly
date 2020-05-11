@@ -1,6 +1,5 @@
 package monoopoly.item;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -12,18 +11,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Stream;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.stream.Stream;
-
+import monoopoly.model.item.Property;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
-import monoopoly.model.item.Property;
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.TileDeck;
 import monoopoly.model.item.card.Card;
-import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.deck.Deck;
 import monoopoly.model.item.deck.DeckImpl;
 
@@ -38,7 +37,7 @@ public class TestDeck {
 	Integer idDrawer;
 	Map<Tile.Category,LinkedList<TileDeck>> deckPosition;
 	Card card;
-	
+
 	@Before
 	public void TestDeckCreator() {
 		Random rnd = new Random();
@@ -47,15 +46,15 @@ public class TestDeck {
 		this.playersPosition = new HashMap<>();
 		this.deckPosition = new HashMap<>();
 		this.idDrawer = 3;
-		
+
 		this.allTypeDeck = Set.of(Category.CALAMITY,
 								  Category.UNEXPECTED,
 								  Category.PROBABILITY);
-		
+
 		this.deckPosition.put(Category.CALAMITY, new LinkedList<>());
 		this.deckPosition.put(Category.UNEXPECTED, new LinkedList<>());
 		this.deckPosition.put(Category.PROBABILITY, new LinkedList<>());
-		
+
 		this.tileDeck = (TileDeck)table.getTile(2);
 		this.deck = new DeckImpl(this.allTypeDeck);
 		this.table.getFilteredTiles(TileDeck.class, x->x.isDeck()).forEach(x->{
@@ -69,13 +68,14 @@ public class TestDeck {
 		        		  x.buildOn();
 		        	  }
 		          });
-		
+
 		Stream.iterate(1, x->x+1).limit(6).forEach(x->{
-				this.playersBalance.put(x, ((Integer)rnd.nextInt(1500)).doubleValue());
+				this.playersBalance.put(x, ((Integer)rnd.nextInt(1500))
+				                                        .doubleValue());
 				this.playersPosition.put(x, 20);
 			});
-		
-		
+
+
 	}
 
 	@Test
@@ -107,27 +107,27 @@ public class TestDeck {
 	@Test
 	public void testUniqueDeck() {
 		Set<Integer> cardsNumber = new HashSet<>();
-		 
+
 		this.allTypeDeck.forEach(type->{
 			for(int i = 0; i < (type.equals(Category.CALAMITY) ? 9 : 16); i++) {
 				this.tileDeck = this.deckPosition.get(type).removeFirst();
-				
+
 				this.card =	this.tileDeck.actualPlayersBalance(playersBalance)
 										 .actualPlayersPosition(playersPosition)
 										 .idPlayerWhoHasDraw(idDrawer)
 										 .draw();
-				
+
 				cardsNumber.add(card.getCardNumber());
-				
+
 				this.deckPosition.get(type).addLast(this.tileDeck);
 			}
-			
+
 			if(type == Category.CALAMITY) {
 				assertEquals( 9, cardsNumber.size());
 			} else {
 				assertEquals( 16, cardsNumber.size());
 			}
-			
+
 			cardsNumber.clear();
 		});
 	}

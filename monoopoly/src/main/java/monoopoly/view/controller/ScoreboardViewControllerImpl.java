@@ -1,4 +1,4 @@
-package monoopoly.view.main;
+package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -56,8 +56,8 @@ public class ScoreboardViewControllerImpl implements ScoreboardViewContoller, In
      */
     private void displayLeaderboard() {
         this.rank.forEach(x -> {
-            this.nameList.get(x.getKey()).setText(names.get(x.getKey()));
-            this.pointsList.get(x.getKey()).setText(this.utilities.toMoneyString(points.get(x.getKey())));
+            this.nameList.get(rank.indexOf(x)).setText(names.get(x.getKey()));
+            this.pointsList.get(rank.indexOf(x)).setText(this.utilities.toMoneyString(x.getValue()));
         });
     }
 

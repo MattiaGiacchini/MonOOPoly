@@ -67,8 +67,8 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
     XYChart.Series<String, Double> yellowSeries = new XYChart.Series<String, Double>();
     XYChart.Series<String, Double> greenSeries = new XYChart.Series<String, Double>();
     XYChart.Series<String, Double> blueSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> stationSeries = new XYChart.Series<String, Double>();
     XYChart.Series<String, Double> societySeries = new XYChart.Series<String, Double>();
+    XYChart.Series<String, Double> stationSeries = new XYChart.Series<String, Double>();
 
     @Override
     public void updateStockMarket(Map<Category, Double> stockMarket) {

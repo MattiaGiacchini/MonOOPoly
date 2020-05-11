@@ -1,4 +1,4 @@
-package monoopoly.view.main;
+package monoopoly.view.controller;
 
 import java.util.List;
 import java.util.Map;

@@ -6,8 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import monoopoly.view.controller.ScoreboardViewControllerImpl;
 import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.main.ScoreboardViewControllerImpl;
 
 public class SceneManagerImpl implements SceneManager {
 
@@ -47,13 +48,21 @@ public class SceneManagerImpl implements SceneManager {
         this.stage.show();
     }
 
+    /**
+     * This method checks the scenes and sets the stage with the right settings
+     * 
+     * @param scene
+     */
     private void checkScene(ScenePath scene) {
         if (scene.equals(ScenePath.BOARD)) {
             this.stage.setMaximized(true);
         } else {
             this.stage.setMaximized(false);
-        }
+            this.stage.setResizable(false);
+            this.stage.sizeToScene();
+            this.stage.centerOnScreen();
 
+        }
     }
 
     @Override
@@ -65,7 +74,7 @@ public class SceneManagerImpl implements SceneManager {
     public MainBoardControllerImpl getMainController() {
         return (MainBoardControllerImpl) this.loader.getController();
     }
-    
+
     @Override
     public ScoreboardViewControllerImpl getLeaderboardController() {
         return (ScoreboardViewControllerImpl) this.loader.getController();

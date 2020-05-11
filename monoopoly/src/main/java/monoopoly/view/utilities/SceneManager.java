@@ -2,8 +2,8 @@ package monoopoly.view.utilities;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import monoopoly.view.controller.ScoreboardViewControllerImpl;
 import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.main.ScoreboardViewControllerImpl;
 
 /**
  * This interface is used to manage scenes swap and to set a stage.

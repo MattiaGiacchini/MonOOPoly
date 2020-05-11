@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.util.ArrayList?>
 
-<AnchorPane prefHeight="626.0" prefWidth="449.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.start.ScoreboardViewConotrollerImpl">
+<AnchorPane maxHeight="670.0" maxWidth="450.0" minHeight="670.0" minWidth="450.0" prefHeight="670.0" prefWidth="450.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.ScoreboardViewControllerImpl">
    <children>
       <VBox alignment="CENTER" prefHeight="626.0" prefWidth="350.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -25,32 +25,32 @@
                <children>
                   <VBox prefHeight="284.0" prefWidth="54.0" spacing="10.0">
                      <children>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 1" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="1°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="1°" VBox.vgrow="NEVER">
                              <font>
                                   <Font name="System Bold" size="17.0" />
                              </font>
                         </TextField>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 2" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="2°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="2°" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 3" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="3°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="3°" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 4" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="4°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="4°" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 5" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="5°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="5°" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 6" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="6°" VBox.vgrow="NEVER">
+                        <TextField alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" text="6°" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -62,32 +62,32 @@
                   </VBox>
                   <VBox prefHeight="284.0" prefWidth="182.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="player0" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 1" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #e1c36b;;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player0" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 1" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #e1c36b;;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="player1" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 2" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a2a2a9;;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player1" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 2" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a2a2a9;;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="player2" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 3" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #cba280;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player2" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 3" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #cba280;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="player3" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 4" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player3" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 4" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="player4" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 5" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player4" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 5" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="player6" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 6" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="player5" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" promptText="Player 6" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -99,32 +99,32 @@
                   </VBox>
                   <VBox prefHeight="284.0" prefWidth="186.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="points0" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #e1c36b;;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points0" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #e1c36b;;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="points1" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a2a2a9;;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points1" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #a2a2a9;;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="points2" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #cba280;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points2" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50; -fx-background-color: #cba280;" VBox.vgrow="NEVER">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="points3" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points3" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="points4" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points4" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="points5" alignment="CENTER" editable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
+                        <TextField fx:id="points5" alignment="CENTER" editable="false" focusTraversable="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 50; -fx-border-radius: 50;" VBox.vgrow="NEVER">
                            <font>
                               <Font size="17.0" />
                            </font>
@@ -136,7 +136,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button focusTraversable="false" mnemonicParsing="false" onAction="#quitButtonPressed" onMousePressed="#updatedBalance" prefHeight="50.0" prefWidth="141.0" style="-fx-background-radius: 50;" text="CLOSE" textAlignment="CENTER">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#quitButtonPressed" prefHeight="50.0" prefWidth="141.0" style="-fx-background-radius: 50;" text="CLOSE" textAlignment="CENTER">
                  <font>
                       <Font name="System Bold" size="18.0" />
                  </font>

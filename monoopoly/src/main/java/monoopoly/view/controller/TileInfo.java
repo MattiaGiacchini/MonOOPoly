@@ -26,6 +26,7 @@ public class TileInfo {
     private Double houseCost;
     private boolean isMortgaged;
     private Double rentToPay;
+    private boolean rentPayed;
     private Double purchasableValue;
 
     private Optional<Map<Integer, Double>> rentValues;
@@ -55,6 +56,7 @@ public class TileInfo {
         private Double houseCost = 0.00;
         private boolean isMortgaged = false;
         private Double rentToPay = 0.00;
+        private boolean rentPayed;
         private Double purchasableValue = 0.00;
         private boolean isBuildHouseEnabled = false;
         private boolean isSellHouseEnabled = false;
@@ -151,6 +153,12 @@ public class TileInfo {
             this.isSellHouseEnabled = isSellHouseEnabled;
             return this;
         }
+        
+        
+        public Builder rentPayed(boolean playerPayedRent) {
+            this.rentPayed = playerPayedRent;
+            return this;
+        }
 
         public TileInfo build() {
 
@@ -160,9 +168,11 @@ public class TileInfo {
             }
 
             return new TileInfo(tileName, owner, state, category, currentPlayerBalance, isCurrentPlayerOnTile,
-                    numHouses, houseCost, isMortgaged, rentToPay, purchasableValue, rentValues, mortgageValue,
+                    numHouses, houseCost, isMortgaged, rentToPay, rentPayed, purchasableValue, rentValues, mortgageValue,
                     unMortgageValue, isBuildHouseEnabled, isSellHouseEnabled);
         }
+
+   
 
     }
 
@@ -180,6 +190,7 @@ public class TileInfo {
      * @param houseCost
      * @param isMortgaged
      * @param rentToPay
+     * @param rentPayed 
      * @param purchasableValue
      * @param rentValues
      * @param mortgageValue
@@ -189,7 +200,7 @@ public class TileInfo {
      */
     public TileInfo(String tileName, String owner, PurchasableState state, TileViewCategory category,
             double currentPlayerBalance, boolean currentPlayerOnTile, int numHouses, Double houseCost,
-            boolean isMortgaged, Double rentToPay, Double purchasableValue, Optional<Map<Integer, Double>> rentValues,
+            boolean isMortgaged, Double rentToPay, boolean rentPayed, Double purchasableValue, Optional<Map<Integer, Double>> rentValues,
             Double mortgageValue, Double unMortgageValue, boolean isBuildHouseEnabled, boolean isSellHouseEnabled) {
         super();
         this.tileName = tileName;
@@ -201,6 +212,7 @@ public class TileInfo {
         this.houseCost = houseCost;
         this.isMortgaged = isMortgaged;
         this.rentToPay = rentToPay;
+        this.rentPayed = rentPayed;
         this.purchasableValue = purchasableValue;
         this.rentValues = rentValues;
         this.mortgageValue = mortgageValue;
@@ -361,6 +373,10 @@ public class TileInfo {
      */
     public Double getPurchasableValue() {
         return this.purchasableValue;
+    }
+    
+    public boolean rentPayed() {
+        return this.rentPayed;
     }
 
 }

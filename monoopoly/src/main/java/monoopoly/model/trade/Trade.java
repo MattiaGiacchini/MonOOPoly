@@ -5,37 +5,38 @@ import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.player.Player;
 
 /**
  *	This interface represents a trade between two players
  */
 public interface Trade {
 	/**
-	 * Returns the player proposing the trade.
+	 * Returns the {@link Player} proposing the trade.
 	 * @return
 	 */
 	PlayerManager getPlayerOne();
 	
 	/**
-	 *  Returns the player considering the trade.
+	 * Returns the {@link Player} considering the trade.
 	 * @return
 	 */
 	PlayerManager getPlayerTwo();
 	
 	/**
-	 * Returns what the first player proposes, in properties.
-	 * @return the list of offered properties.
+	 * Returns what the first {@link Player} proposes, in {@link Purchasable}.
+	 * @return the list of offered purchasables.
 	 */
 	Set<Purchasable> getPlayerOneTradeProperty();
 	
 	/**
-	 * Returns what the first player wants, in properties.
-	 * @return the list of wanted properties.
+	 * Returns what the first {@link Player} wants, in {@link Purchasable}.
+	 * @return the list of wanted purchasables.
 	 */
 	Set<Purchasable> getPlayerTwoTradeProperty();
 	
 	/**
-	 * Returns what the first player offers, in money.
+	 * Returns what the first {@link Player} offers, in money.
 	 * @return the offered money.
 	 */
 	double getPlayerOneTradeMoney();

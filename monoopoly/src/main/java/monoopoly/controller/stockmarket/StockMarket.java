@@ -3,6 +3,7 @@ package monoopoly.controller.stockmarket;
 import java.util.List;
 import java.util.Map;
 
+import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile.Category;
 
 /**
@@ -11,7 +12,7 @@ import monoopoly.model.item.Tile.Category;
 public interface StockMarket {
 
 	/**
-	 * This method allows to set a new currency, to be used when it's needed, for the properties,
+	 * This method allows to set a new currency, to be used when it's needed, for the {@link Purchasable},
 	 * to change their sell/Lease/Mortgage value.
 	 */
 	void setNewMarketValue();

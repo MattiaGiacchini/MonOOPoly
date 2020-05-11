@@ -11,7 +11,7 @@ import monoopoly.controller.player.manager.PlayerManager;
 public interface Dices {
 
 	/**
-	 * This method rolls the dices, and notifies a playerManager and the table that the player 
+	 * This method rolls the dices, and notifies a {@link PlayerManager} and the {@link Table} that the player 
 	 * must move.
 	 * @param playerManager the manager of the player.
 	 * @param table the table.

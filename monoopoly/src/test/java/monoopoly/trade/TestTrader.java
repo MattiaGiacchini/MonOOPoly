@@ -16,10 +16,10 @@ import monoopoly.controller.trades.Trader;
 import monoopoly.controller.trades.TraderImpl;
 import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
-import monoopoly.model.trade.TradeImpl;
 import monoopoly.utilities.States;
 
 public class TestTrader {
@@ -41,10 +41,6 @@ public class TestTrader {
 		this.initEngine();
 		this.initPlayers();
 		this.initProperties();
-		/*this.playerOne.getPropertyManager().buyPurchasable(propertyOne);
-		this.playerOne.getPropertyManager().buyPurchasable(propertyTwo);
-		this.playerTwo.getPropertyManager().buyPurchasable(propertyThree);
-		this.playerTwo.getPropertyManager().buyPurchasable(propertyFour);*/
 		this.propertyOne.setOwner(Optional.of(0));
 		this.propertyTwo.setOwner(Optional.of(0));
 		this.propertyThree.setOwner(Optional.of(1));
@@ -75,8 +71,8 @@ public class TestTrader {
 		this.initEngine();
 		this.initPlayers();
 		this.initProperties();
-		this.playerOne.collectMoney(this.MONEYONE);
-		this.playerTwo.collectMoney(this.MONEYTWO);
+		this.playerOne.collectMoney(MONEYONE);
+		this.playerTwo.collectMoney(MONEYTWO);
 		
 		final Trade trade = builder.setPlayerOne(playerOne)
 								   .setPlayerTwo(playerTwo)
@@ -87,8 +83,8 @@ public class TestTrader {
 		final Trader traderTest = new TraderImpl();
 		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), this.MONEYTWO) == 0);
-		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), this.MONEYONE) == 0);
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), MONEYTWO) == 0);
+		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), MONEYONE) == 0);
 	}
 	
 	@Test
@@ -96,12 +92,8 @@ public class TestTrader {
 		this.initEngine();
 		this.initPlayers();
 		this.initProperties();
-		this.playerOne.collectMoney(this.MONEYONE);
-		this.playerTwo.collectMoney(this.MONEYTWO);
-		/*this.playerOne.getPropertyManager().buyPurchasable(propertyOne);;
-		this.playerOne.getPropertyManager().buyPurchasable(propertyTwo);
-		this.playerTwo.getPropertyManager().buyPurchasable(propertyThree);
-		this.playerTwo.getPropertyManager().buyPurchasable(propertyFour);*/
+		this.playerOne.collectMoney(MONEYONE);
+		this.playerTwo.collectMoney(MONEYTWO);
 		this.propertyOne.setOwner(Optional.of(0));
 		this.propertyTwo.setOwner(Optional.of(0));
 		this.propertyThree.setOwner(Optional.of(1));
@@ -127,8 +119,8 @@ public class TestTrader {
 		
 		assertTrue(this.playerOne.getProperties().contains(propertyThree));
 		assertTrue(this.playerTwo.getProperties().contains(propertyOne));
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), this.MONEYTWO) == 0);
-		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), this.MONEYONE) == 0);
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), MONEYTWO) == 0);
+		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), MONEYONE) == 0);
 		
 	}
 	
@@ -145,20 +137,19 @@ public class TestTrader {
 		balance.put(1, 0.0);
 		positions.put(1, 0);
 		states.put(1, States.IN_GAME);
-		this.testEngine = new GameEngineImpl(names, balance, positions, states);
+		this.testEngine = new GameEngineImpl(names, balance);
 		testEngine.createTable();
 	}
 	
 	private void initPlayers() {
-		this.playerOne = new PlayerManagerImpl(0, this.testEngine);
-		this.playerTwo = new PlayerManagerImpl(1, this.testEngine);
+		this.playerOne = new PlayerManagerImpl(0, new PlayerImpl.Builder().playerId(0).name("0").balance(0.0).build());
+		this.playerTwo = new PlayerManagerImpl(1, new PlayerImpl.Builder().playerId(1).name("1").balance(0.0).build());
+		this.playerOne.setTable(this.testEngine.getTable());
+		this.playerTwo.setTable(this.testEngine.getTable());
 	}
 	
 	private void initProperties() {
 		this.propertyOne = (Purchasable) this.testEngine.getTable().getTile(1);
-		/*System.out.println(this.propertyOne.toString());
-		System.out.println(this.testEngine.getTable().getTile(1).toString());
-		System.out.println(this.testEngine.getTable().getTile(1).getCategory() + this.testEngine.getTable().getTile(1).getName());*/
 		this.propertyTwo = (Purchasable) this.testEngine.getTable().getTile(3);
 		this.propertyThree = (Purchasable) this.testEngine.getTable().getTile(5);
 		this.propertyFour = (Purchasable) this.testEngine.getTable().getTile(6);

@@ -36,7 +36,7 @@ public final class Society extends AbstractPurchasable {
             this.functionGetNumOfSocietyOwned  = null;
         }
 
-        public Builder tile(Tile decorated) {
+        public Builder tile(final Tile decorated) {
 			if(decorated.getCategory() != Tile.Category.SOCIETY) {
 				throw new IllegalArgumentException("the Tile isn't a Society");
 			}
@@ -44,22 +44,23 @@ public final class Society extends AbstractPurchasable {
 			return this;
 		}
 
-        public Builder supplierDiceResult(Supplier<Integer> supplierDiceResult){
+        public Builder supplierDiceResult
+                                   (final Supplier<Integer> supplierDiceResult){
             Objects.requireNonNull(supplierDiceResult,
                                  "the supplier of dice cannot has null value!");
             this.supplierDiceResult = supplierDiceResult;
             return this;
         }
 
-        public Builder funNumOfCatOwned(
-               Function<Integer, Integer> function) {
+        public Builder funNumOfCatOwned
+                (final Function<Integer, Integer> function) {
             Objects.requireNonNull(function, 
                     "the BiFunction of category Owned cannot has null value");
             this.functionGetNumOfSocietyOwned = function;
             return this;
         }
 		
-		public Builder mortgage(Double mortgageValue) {
+		public Builder mortgage(final Double mortgageValue) {
 		    Objects.requireNonNull(mortgageValue,
 		                           "mortgage cannot has null value!");
 		    this.doubleChecker(mortgageValue, "mortgage value wrong format!");
@@ -67,7 +68,7 @@ public final class Society extends AbstractPurchasable {
 			return this;
 		}
 
-        public Builder sales(Double salesValue) {
+        public Builder sales(final Double salesValue) {
             Objects.requireNonNull(salesValue, 
                                    "sales value cannot has null value!");
             this.doubleChecker(salesValue, "sales value wrong format!");
@@ -75,7 +76,7 @@ public final class Society extends AbstractPurchasable {
 			return this;
 		}
 		
-		public Builder multiplierLevelOne(Double multiplier) {
+		public Builder multiplierLevelOne(final Double multiplier) {
 		    Objects.requireNonNull(multiplier, 
 		                     "the multiplier level one cannot has null value!");
 		    this.doubleChecker(multiplier, "multiplier level one wrong format");
@@ -83,7 +84,7 @@ public final class Society extends AbstractPurchasable {
 			return this;
 		}
 		
-		public Builder multiplierLevelTwo(Double multiplier) {
+		public Builder multiplierLevelTwo(final Double multiplier) {
 		    Objects.requireNonNull(multiplier, 
 		                     "the multiplier level two cannot has null value!");
 		    this.doubleChecker(multiplier, "multiplier level one wrong format");
@@ -110,7 +111,7 @@ public final class Society extends AbstractPurchasable {
 			return new Society(this);
 		}
         
-        private void doubleChecker(Double value, String string) {
+        private void doubleChecker(final Double value, final String string) {
             if(value.isInfinite() || value.isNaN()) {
                 throw new IllegalArgumentException(string);
             }

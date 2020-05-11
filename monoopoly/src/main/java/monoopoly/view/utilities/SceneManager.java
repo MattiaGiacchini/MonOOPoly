@@ -3,6 +3,7 @@ package monoopoly.view.utilities;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.main.ScoreboardViewControllerImpl;
 
 /**
  * This interface is used to manage scenes swap and to set a stage.
@@ -40,6 +41,18 @@ public interface SceneManager {
 	 */
 	Scene getScene();
 
+	/**
+	 * This method returns the main view controller {@link MainBoardControllerImpl}
+	 * 
+	 * @return
+	 */
 	MainBoardControllerImpl getMainController();
+
+    /**
+     * This methos returns the controller of the final leaderboard
+     * 
+     * @return
+     */
+    ScoreboardViewControllerImpl getLeaderboardController();
 
 }

@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.main.ScoreboardViewControllerImpl;
 
 public class SceneManagerImpl implements SceneManager {
 
@@ -63,6 +64,11 @@ public class SceneManagerImpl implements SceneManager {
     @Override
     public MainBoardControllerImpl getMainController() {
         return (MainBoardControllerImpl) this.loader.getController();
+    }
+    
+    @Override
+    public ScoreboardViewControllerImpl getLeaderboardController() {
+        return (ScoreboardViewControllerImpl) this.loader.getController();
     }
 
 }

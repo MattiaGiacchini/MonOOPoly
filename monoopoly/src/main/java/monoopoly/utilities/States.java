@@ -5,6 +5,6 @@ package monoopoly.utilities;
 public enum States {
 	IN_GAME,
 	PRISONED,
-	HAS_PAYED_REND,
+	HAS_PAYED_RENT,
 	BROKE;
 }

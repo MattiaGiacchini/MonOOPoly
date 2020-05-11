@@ -16,6 +16,9 @@ public class PlayerImpl implements Player {
     private States state;
     private boolean prisonCard = false;
 
+    /*
+     * A simple builder for the player
+     */
     public static class Builder {
 
         private int playerID;
@@ -60,7 +63,6 @@ public class PlayerImpl implements Player {
         }
 
         public Player build() throws IllegalStateException {
-            // TODO
             if (this.playerID < 0 || this.name == null || this.balance == null || this.state == null
                     || this.position < 0) {
                 throw new IllegalStateException("Wrong player creation");

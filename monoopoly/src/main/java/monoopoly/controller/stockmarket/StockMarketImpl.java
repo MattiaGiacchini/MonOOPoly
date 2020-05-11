@@ -18,10 +18,10 @@ public class StockMarketImpl implements StockMarket {
 	
 
 	private Map<Category, Double> actualMarket;
-	private List<Map<Category, Double>> stockHistory;
-	private Set<Purchasable> purchasables;
+	private final List<Map<Category, Double>> stockHistory;
+	private final Set<Purchasable> purchasables;
 	private final Random random;
-	private Set<Category> purchasableCategories;
+	private final Set<Category> purchasableCategories;
 	
 	private static final double RANDOM_MEAN = 100.0;
 	private static final double RANDOM_DEVIATION = 10.0;
@@ -38,14 +38,14 @@ public class StockMarketImpl implements StockMarket {
 	
 	private Map<Category, Double> initMarket() {
 		this.actualMarket = new TreeMap<>();
-		for (Category cat : this.purchasableCategories) {
+		for (final Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, INIT_QUOTATION);
 		}
 		
-		for (Purchasable purchasable : this.purchasables) {
+		for (final Purchasable purchasable : this.purchasables) {
 			purchasable.setQuotation(this.actualMarket.get(purchasable.getCategory()));
 		}
-		
+		System.out.println(this.actualMarket);
 		this.stockHistory.add(this.actualMarket);
 		return this.actualMarket;
 		
@@ -54,11 +54,11 @@ public class StockMarketImpl implements StockMarket {
 	@Override
 	public void setNewMarketValue() {
 		this.actualMarket = new TreeMap<>();
-		for (Category cat : this.purchasableCategories) {
+		for (final Category cat : this.purchasableCategories) {
 			this.actualMarket.put(cat, getPercentile());
 		}
 		
-		for (Purchasable purchasable : this.purchasables) {
+		for (final Purchasable purchasable : this.purchasables) {
 			purchasable.setQuotation(this.actualMarket.get(purchasable.getCategory()));
 		}
 		
@@ -83,9 +83,9 @@ public class StockMarketImpl implements StockMarket {
 			throw new IllegalStateException("The stock market hasn't got two generations yet.");
 		}
 		
-		Map<Category, Double> toReturn = new HashMap<>();
+		final Map<Category, Double> toReturn = new HashMap<>();
 		
-		for (Category cat : this.purchasableCategories) {
+		for (final Category cat : this.purchasableCategories) {
 			toReturn.put(cat,  100 * (this.stockHistory.get(this.stockHistory.size() - 1).get(cat) 
 					- this.stockHistory.get(this.stockHistory.size() - 2).get(cat)));
 		}

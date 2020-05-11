@@ -61,7 +61,7 @@ public class Test {
 		for (PlayerManager pM: gameEngine.playersList()) {
 			
 		}
-		System.out.println(gameEngine.getGameWinner());
+		System.out.println(gameEngine.endGame());
 		/*System.out.println(gameEngine.getPosition(7));
 		System.out.println(gameEngine.currentPlayer().getPlayerManagerID() + 
 						   gameEngine.getName(gameEngine.currentPlayer().getPlayerManagerID()));

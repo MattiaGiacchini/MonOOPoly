@@ -36,7 +36,7 @@
                                     <Font size="30.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="surrender" focusTraversable="false" minWidth="100.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" stylesheets="@main.css" text="SURRENDER" />
+                              <Button fx:id="surrender" focusTraversable="false" minWidth="100.0" mnemonicParsing="false" onAction="#surrenderButtonPressed" prefHeight="31.0" prefWidth="103.0" stylesheets="@main.css" text="SURRENDER" />
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" />

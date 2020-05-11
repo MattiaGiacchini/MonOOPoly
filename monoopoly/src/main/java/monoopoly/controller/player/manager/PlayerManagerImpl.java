@@ -145,7 +145,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public boolean isBroken() {
-        return this.player.getState().equals(States.PRISONED);
+        return this.player.getState().equals(States.BROKE);
     }
 
     /**
@@ -186,12 +186,8 @@ public class PlayerManagerImpl implements PlayerManager {
         return this.table.getTile(position).getCategory().equals(Tile.Category.GO_TO_JAIL);
     }
 
-    /**
-     * This private method updates the state of the {@link Player} to "PRISONED" and
-     * moves the {@link Player} to the prison tile. If the {@link Player} has got
-     * the "leave prison for free" card, it will be applied.
-     */
-    private void goToPrison() {
+    @Override
+    public void goToPrison() {
         if (this.player.hasPrisonCard()) {
             this.player.setPrisonCard(false);
         } else {

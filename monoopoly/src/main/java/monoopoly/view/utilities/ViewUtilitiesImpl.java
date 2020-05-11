@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
+import monoopoly.Main;
 import monoopoly.utilities.Pair;
 
 /**
@@ -56,7 +57,7 @@ public class ViewUtilitiesImpl implements ViewUtilities {
 		remainButton.setText("Cancel");
 		closeConfirmation.setHeaderText("Confirm Exit");
 		closeConfirmation.initModality(Modality.APPLICATION_MODAL);
-
+        closeConfirmation.initOwner(Main.getPrimaryStage().getScene().getWindow());
 		Optional<ButtonType> closeResponse = closeConfirmation.showAndWait();
 		if (ButtonType.OK.equals(closeResponse.get())) {
 			Platform.exit();

@@ -3,6 +3,7 @@ package monoopoly.controller.managers;
 import java.util.Map;
 
 import monoopoly.model.item.Tile;
+import monoopoly.model.item.card.Card;
 import monoopoly.utilities.CardEffect;
 import monoopoly.utilities.CardEffect.*;
 
@@ -28,10 +29,10 @@ public class CardManagerImpl implements CardManager {
 		if (!card.getValueToApplyOnPlayersBalance().isEmpty()) {
 			return monoopoly.utilities.CardEffect.MONEY_EXCHANGE;
 		}		
-		else if (card.mustThePlayerGoToJail) {
+		else if (card.mustThePlayerGoToJail()) {
 			return monoopoly.utilities.CardEffect.JAIL_IN;
 		}
-		else if (card.canThePlayerExitFromJail) {
+		else if (card.canThePlayerExitFromJail()) {
 			this.setThisCardMaintainable(true);
 			return monoopoly.utilities.CardEffect.JAIL_OUT;
 		}
@@ -44,6 +45,7 @@ public class CardManagerImpl implements CardManager {
 		else if (!card.getNumberOfBuildingsToRemove().isEmpty()) {
 			return monoopoly.utilities.CardEffect.REMOVE_BUILDINGS;
 		}
+        return null;
 	}
 	
 	public boolean isThisCardMaintainable() {

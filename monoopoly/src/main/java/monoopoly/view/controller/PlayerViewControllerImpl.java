@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -93,6 +94,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 		propertiesController.setStage(propertiesStage);
 		propertiesStage.initModality(Modality.APPLICATION_MODAL);
 		propertiesController.show(properties);
+		propertiesStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/logoMonoopoly.png")));
 		propertiesStage.setResizable(false);
 		propertiesStage.showAndWait();
 	}

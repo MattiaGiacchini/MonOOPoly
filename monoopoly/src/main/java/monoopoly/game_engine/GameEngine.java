@@ -148,5 +148,10 @@ public interface GameEngine {
 	 */
 	public void payRent();
 	
+	/**
+	 * A player lose
+	 */
+	void lose();
+	
 	
 }

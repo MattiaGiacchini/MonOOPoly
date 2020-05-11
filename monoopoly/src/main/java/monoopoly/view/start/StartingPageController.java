@@ -16,34 +16,34 @@ import monoopoly.view.utilities.ScenePath;
 
 public class StartingPageController implements Initializable {
 
-	private SceneManager manager = new SceneManagerImpl();
+    private SceneManager manager = new SceneManagerImpl();
 
-	@FXML
-	private Button btnNewGame;
+    @FXML
+    private Button btnNewGame;
 
-	@FXML
-	private Button btnLoadGame;
+    @FXML
+    private Button btnLoadGame;
 
-	@FXML
-	private ImageView logo;
+    @FXML
+    private ImageView logo;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		this.logo.setImage(new Image(this.getClass().getResourceAsStream("/logoMonoopoly500.png")));
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        this.logo.setImage(new Image(getClass().getResourceAsStream("/logoMonoopoly500.png")));
+    }
 
-	@FXML
-	public void startNewGame(ActionEvent event) throws Exception {
-		Stage stage = (Stage) btnNewGame.getScene().getWindow();
-		manager.loadScene(ScenePath.SET_PLAYERS, stage);
-	}
+    @FXML
+    public void startNewGame(ActionEvent event) throws Exception {
+        Stage stage = (Stage) btnNewGame.getScene().getWindow();
+        manager.loadScene(ScenePath.SET_PLAYERS, stage);
+    }
 
-	@FXML
-	public void loadGame() {
+    @FXML
+    public void loadGame() {
 
-	}
+    }
 
 }

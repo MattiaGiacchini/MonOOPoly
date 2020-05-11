@@ -16,18 +16,17 @@ public class StartGameImpl implements StartGame {
 	private Map<Integer, Integer> position = new HashMap<>(); 
 
 	private Map<Integer, monoopoly.utilities.States> state = new HashMap<>(); 
-
 	
 	public StartGameImpl() {
 	}
 
 	@Override
 	public void createEngine() {
-		final GameEngine newGM = new GameEngineImpl(this.name, this.balance/*, this.position, this.state*/);
+		final GameEngine engine = new GameEngineImpl(this.name, this.balance/*, this.position, this.state*/);
 		SceneManager manager = new SceneManagerImpl();
 		manager.loadScene(ScenePath.BOARD, Main.getPrimaryStage());
-		newGM.setMainBoardController(manager.getMainController());
-		newGM.createPlayers();
+		engine.setMainBoardController(manager.getMainController());
+		engine.createPlayers();
 	}
 
 	@Override
@@ -46,6 +45,7 @@ public class StartGameImpl implements StartGame {
 	public void setBalance(Map<Integer, Double> balance) {
 		this.balance = balance;
 	}
+	
 	
 	/*public void setPosition(Map<Integer, Integer> position) {
 		this.position = position;

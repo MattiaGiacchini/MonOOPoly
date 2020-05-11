@@ -3,6 +3,7 @@ package monoopoly.controller.bank;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.Bank;
 import monoopoly.model.item.Tile;
+import monoopoly.model.player.Player;
 
 /**
  *	This interface allows the game to manage a Player
@@ -58,4 +59,10 @@ public interface BankManager {
 	 * @return the bank.
 	 */
 	Bank getBank();
+	
+	/**
+	 * This method removes from all the assigned or mortgaged properties from a {@link Player}.
+	 * @param player {@link Player}'s {@link PlayerManager}.
+	 */
+	void removeAssignmentsFromPlayer(PlayerManager player);
 }

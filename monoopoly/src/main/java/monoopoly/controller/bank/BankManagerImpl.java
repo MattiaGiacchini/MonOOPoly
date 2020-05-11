@@ -1,6 +1,8 @@
 package monoopoly.controller.bank;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -12,6 +14,7 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
+import monoopoly.model.player.Player;
 
 public class BankManagerImpl implements BankManager {
 
@@ -37,8 +40,11 @@ public class BankManagerImpl implements BankManager {
 			this.bank.giveMoney(toGive);
 			player.collectMoney(toGive);
 			if (this.bank.isBankBroken()) {
-				 final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
-				 System.out.println("THE BANK IS BROKEN, game has been won by player " + winningPlayer.getPlayerManagerID());
+				/*
+				 * Suppressed the warning because I only need to call gameEngine.getGameWinner
+				 */
+				 @SuppressWarnings("unused")
+				final PlayerManager winningPlayer = this.gameEngine.getGameWinner();
 			}
 		});
 		
@@ -71,10 +77,12 @@ public class BankManagerImpl implements BankManager {
 		executor.executeCommand(() -> {
 			checkPurchasability(property);
 			Purchasable purchasable = (Purchasable)property;
-			Property toRemove = (Property)purchasable;
-			if (!purchasable.isMortgage() && (Arrays.asList(Category.SOCIETY, Category.STATION)
-													.contains(purchasable.getCategory())
-					|| toRemove.getNumberOfHouseBuilt() == 0)) {
+			Optional<Property> toRemove = Optional.empty();
+			if (!checkStationOrSociety(purchasable)) {
+				toRemove = Optional.of((Property)purchasable);
+			}
+			if (!purchasable.isMortgage() && toRemove.isPresent()?
+					toRemove.get().getNumberOfHouseBuilt() == 0 : true) {
 					double money = purchasable.mortgage();
 					bank.giveMoney(money);
 					player.collectMoney(money);
@@ -82,6 +90,15 @@ public class BankManagerImpl implements BankManager {
 			}
 		});
 		
+	}
+	
+	/**
+	 * checks if a {@link Purchasable} is of {@link Category} society or station.
+	 * @param purch The purchasable.
+	 * @return if is a society or a station.
+	 */
+	private boolean checkStationOrSociety(Purchasable purch) {
+		return (Arrays.asList(Category.SOCIETY, Category.STATION).contains(purch.getCategory()));
 	}
 	
 	@Override
@@ -144,6 +161,25 @@ public class BankManagerImpl implements BankManager {
 	private void checkOwned(Purchasable property) {
 		if(property.getOwner().isEmpty()) {
 			throw new IllegalStateException("Property doesn't have an owner");
+		}
+	}
+
+	@Override
+	public void removeAssignmentsFromPlayer(PlayerManager player) {
+		removePlayerFromMap(this.bank.getAssignedProperties(), player);
+		removePlayerFromMap(this.bank.getMortgagedProperties(), player);
+	}
+
+	/**
+	 * Removes all the {@link Tile} referring to a {@link Player} in a {@link Map} Tile - Player.
+	 * @param map the map.
+	 * @param player the player.
+	 */
+	private void removePlayerFromMap(Map<Tile, Player> map, PlayerManager player) {
+		for (Entry<Tile, Player> entry : map.entrySet()) {
+			if (entry.getValue().equals(player.getPlayer())) {
+				map.remove(entry.getKey());
+			}
 		}
 	}
 }

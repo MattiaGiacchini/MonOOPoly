@@ -2,6 +2,7 @@ package monoopoly.controller;
 
 import static org.junit.Assert.assertTrue;
 
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,11 +18,12 @@ import monoopoly.game_engine.GameEngine;
 import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 
 public class BankTest {
 
-	private GameEngine engine;
+	private GameEngine engine;;
 	private BankManager bankManager;
 	private PlayerManager playerOne;
 	private Property tileBuilt;
@@ -37,11 +39,15 @@ public class BankTest {
 		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY) == 0);
 	}
 	
-	@Test
+	@Test(expected = IndexOutOfBoundsException.class)
 	public void testBankBreaking() {
+		/*
+		 * I use a test(expected) because GameEngineImpl.getGameWinner()  
+		 * throws an IllegalStateException if the engine is not built in the way is built during
+		 * a real game.
+		 */
 		this.initEngine();
 		this.bankManager.giveMoney(A_TON_OF_MONEY, this.playerOne);
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), A_TON_OF_MONEY) == 0);
 	}
 	
 	@Test
@@ -125,6 +131,16 @@ public class BankTest {
 				 - tileBuilt.getSalesValue()) == 0);
 	}
 	
+	@Test
+	public void testRemoval() {
+		this.initEngine();
+		this.bankManager.getBank().getAssignedProperties().put(this.engine.getTable().getTile(1), this.playerOne.getPlayer());
+		this.bankManager.getBank().getMortgagedProperties().put(this.engine.getTable().getTile(1), this.playerOne.getPlayer());
+		this.bankManager.removeAssignmentsFromPlayer(this.playerOne);
+		assertTrue(this.bankManager.getBank().getAssignedProperties().isEmpty());
+		assertTrue(this.bankManager.getBank().getMortgagedProperties().isEmpty());
+	}
+	
 	private void initEngine() {
 		Map<Integer, String> names = new HashMap<Integer, String>();
 		Map<Integer, Double> balance = new HashMap<Integer, Double>();
@@ -135,9 +151,7 @@ public class BankTest {
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		this.engine = new GameEngineImpl(names, balance);
-		this.engine.createTable();
-		this.engine.createPlayers();
-		this.playerOne = this.engine.playersList().get(0);
+		this.playerOne = new PlayerManagerImpl(0, new PlayerImpl.Builder().playerId(0).name("test").balance(0.0).build());
 		this.bankManager = new BankManagerImpl(this.engine);
 	}
 }

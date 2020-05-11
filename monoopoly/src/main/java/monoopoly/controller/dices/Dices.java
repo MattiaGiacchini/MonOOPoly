@@ -19,12 +19,6 @@ public interface Dices {
 	void roll(PlayerManager playerManager);
 	
 	/**
-	 * This method changes the player who's currently playing
-	 * @param playerManager the player manager.
-	 */
-	void setCurrentPlayer(PlayerManager playerManager);
-	
-	/**
 	 * 
 	 * @return the dices.
 	 */

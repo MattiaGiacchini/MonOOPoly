@@ -10,7 +10,6 @@ import monoopoly.model.item.Table;
 
 public class DicesImpl implements Dices{
 
-	private PlayerManager currentPlayer;
 	private final Table gameTable;
 	private Map<Integer, Integer> dices;
 	private final Random random;
@@ -33,17 +32,9 @@ public class DicesImpl implements Dices{
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
-		//this.currentPlayer.setDices(dices);
 		final int diceSum = this.dices.values().stream().reduce(0, Integer::sum);
-		//TODO logica prigione
 		playerManager.movePlayer(diceSum);
-		//this.currentPlayer.movePlayer(diceSum);
 		this.gameTable.notifyDices(diceSum);
-	}
-
-	@Override
-	public void setCurrentPlayer(PlayerManager playerManager) {
-		this.currentPlayer = playerManager;
 	}
 	
 	@Override

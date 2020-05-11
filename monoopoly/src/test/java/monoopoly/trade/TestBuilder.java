@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Test;
@@ -14,6 +13,7 @@ import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.game_engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
+import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
@@ -28,8 +28,6 @@ public class TestBuilder {
 	private static final double MONEY_TWO = 2.0;
 	private Purchasable propertyOne;
 	private Purchasable propertyTwo;
-	private Purchasable propertyThree;
-	private Purchasable propertyFour;
 	
 	@Test(expected = IllegalStateException.class)
 	public void testVoidTrade() {
@@ -86,22 +84,17 @@ public class TestBuilder {
 		balance.put(1, 0.0);
 		positions.put(1, 0);
 		states.put(1, States.IN_GAME);
-		this.testEngine = new GameEngineImpl(names, balance, positions, states);
+		this.testEngine = new GameEngineImpl(names, balance);
 		testEngine.createTable();
 	}
 	
 	private void initPlayers() {
-		this.playerOne = new PlayerManagerImpl(0, this.testEngine);
-		this.playerTwo = new PlayerManagerImpl(1, this.testEngine);
+		this.playerOne = new PlayerManagerImpl(0, new PlayerImpl.Builder().playerId(0).name("0").balance(0.0).build());
+		this.playerTwo = new PlayerManagerImpl(1, new PlayerImpl.Builder().playerId(1).name("1").balance(0.0).build());
 	}
 	
 	private void initProperties() {
 		this.propertyOne = (Purchasable) this.testEngine.getTable().getTile(1);
-		/*System.out.println(this.propertyOne.toString());
-		System.out.println(this.testEngine.getTable().getTile(1).toString());
-		System.out.println(this.testEngine.getTable().getTile(1).getCategory() + this.testEngine.getTable().getTile(1).getName());*/
 		this.propertyTwo = (Purchasable) this.testEngine.getTable().getTile(3);
-		this.propertyThree = (Purchasable) this.testEngine.getTable().getTile(5);
-		this.propertyFour = (Purchasable) this.testEngine.getTable().getTile(6);
 	}
 }

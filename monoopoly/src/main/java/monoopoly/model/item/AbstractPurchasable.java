@@ -51,18 +51,19 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator
 
 	@Override
 	public final double getSalesValue() {
-		return this.salesValue * this.getQuotation();
+		return this.applyQuotationOnValue(this.salesValue);
 	}
 
 	@Override
 	public final double getMortgageValue() {
-		return this.morgageValue * this.quotation;
+		return this.applyQuotationOnValue(this.morgageValue);
 	}
 
 	@Override
 	public final double getCostToRemoveMortgage() {
-		return this.morgageValue * 
-		       AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE;
+		return this.applyQuotationOnValue(
+		       this.morgageValue * 
+		       AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE);
 	}
 
 	@Override

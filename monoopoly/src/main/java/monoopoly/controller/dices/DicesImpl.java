@@ -11,7 +11,7 @@ import monoopoly.model.item.Table;
 public class DicesImpl implements Dices{
 
 	private final Table gameTable;
-	private Map<Integer, Integer> dices;
+	private final Map<Integer, Integer> dices;
 	private final Random random;
 	private final int numberOfDices;
 	private static final int RANDOM_DICE_BOUND = 5;

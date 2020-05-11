@@ -2,9 +2,9 @@ package monoopoly.controller.bank;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.game_engine.GameEngine;
@@ -172,10 +172,17 @@ public class BankManagerImpl implements BankManager {
 	 * @param player the player.
 	 */
 	private void removePlayerFromMap(Map<Tile, Player> map, PlayerManager player) {
-		for (final Entry<Tile, Player> entry : map.entrySet()) {
-			if (entry.getValue().equals(player.getPlayer())) {
-				map.remove(entry.getKey());
-			}
+		final Set<Tile> toRemove = getTilesInTilePlayerMapFromPlayer(map, player);
+		
+		for (final Tile tile : toRemove) {
+			map.remove(tile);
 		}
+	}
+
+	private Set<Tile> getTilesInTilePlayerMapFromPlayer(Map<Tile, Player> map, PlayerManager player) {
+		return map.entrySet().stream()
+							 .filter(e -> e.getValue().equals(player.getPlayer()))
+							 .map(e -> e.getKey())
+							 .collect(Collectors.toSet());
 	}
 }

@@ -276,13 +276,15 @@ public class GameEngineImpl implements GameEngine {
 		return this.dicesUse.getDices();
 	}
 
-	public Set<String> giveProperties(Integer ID) {
-		Set<String> properties = new HashSet<>();
-		for (Purchasable p: this.playersList().get(ID).getProperties()) {
-			properties.add(p.getName());
-		}
-		this.updateAlways();
-		return properties;
+	public void giveProperties(Integer ID) {
+	    if (ID < this.playersList().size()) {
+	        Set<String> properties = new HashSet<>();
+	        for (Purchasable p: this.playersList().get(ID).getProperties()) {
+	            properties.add(p.getName());
+	        }
+	        this.updateAlways();
+	        this.mainBoardController.showPlayerProperties(properties, this.playersList().get(ID).getPlayer().getName());
+	    }
 	}
 
 	public void giveTileInfo(Integer tileNum) {

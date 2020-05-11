@@ -9,7 +9,7 @@ public class Station extends AbstractPurchasable {
 	
 	private static final Integer CORRECTION = 1;
 	private static final Integer ZERO = 0;
-	private static final Double BASE = 2.0;
+	private static final Double  BASE = 2.0;
 	private final Double leaseBase;
     private final Integer numOfStations;
     private final Function<Integer, Integer> funToRetriveNumOfStationOwned;
@@ -32,7 +32,7 @@ public class Station extends AbstractPurchasable {
 	        this.funToRetriveNumOfStationOwned = null;
 		}
 		
-		public Builder tile(Tile decorated) {
+		public Builder tile(final Tile decorated) {
 		    Objects.requireNonNull(decorated, 
 		                              "Tile To decore cannot has null value!");
 			if(decorated.getCategory() != Tile.Category.STATION) {
@@ -42,7 +42,7 @@ public class Station extends AbstractPurchasable {
 			return this;
 		}
 
-        public Builder funNumOfCatOwned(Function<Integer, Integer> 
+        public Builder funNumOfCatOwned(final Function<Integer, Integer> 
                                         funToGetNumbOfTypeOwned) {
             Objects.requireNonNull(funToGetNumbOfTypeOwned, 
                     "The function to retrive the number of station owner "
@@ -51,7 +51,7 @@ public class Station extends AbstractPurchasable {
             return this;
         }
 		
-		public Builder mortgage(Double mortgageValue) {
+		public Builder mortgage(final Double mortgageValue) {
 		    Objects.requireNonNull(mortgageValue, 
 		                          "The mortgage Value cannot has null value!");
 		    this.doubleChecker(mortgageValue, 
@@ -60,7 +60,7 @@ public class Station extends AbstractPurchasable {
 			return this;
 		}
 		
-        public Builder sales(Double salesValue) {
+        public Builder sales(final Double salesValue) {
             Objects.requireNonNull(salesValue, 
                                    "The Sales Value cannot has null value!");
             this.doubleChecker(salesValue,
@@ -69,7 +69,7 @@ public class Station extends AbstractPurchasable {
 			return this;
 		}
 
-		public Builder leaseOneStation(Double lease) {
+		public Builder leaseOneStation(final Double lease) {
 		    Objects.requireNonNull(lease, 
 		                            "The lease Value cannot has null value!");
 		    this.doubleChecker(lease, "the lease value double wrong format!");
@@ -77,7 +77,7 @@ public class Station extends AbstractPurchasable {
 			return this;
 		}
 		
-        public Builder numOfStations(Integer numberOfStation) {
+        public Builder numOfStations(final Integer numberOfStation) {
             Objects.requireNonNull(numberOfStation, 
                                 "The number of station cannot has null value!");
             this.numOfStations = numberOfStation;
@@ -101,7 +101,7 @@ public class Station extends AbstractPurchasable {
 			return new Station(this);
 		}
         
-        private void doubleChecker(Double value, String string) {
+        private void doubleChecker(final Double value, final String string) {
             if(value.isNaN() || value.isInfinite()) {
                 throw new IllegalArgumentException(string);
             }
@@ -110,7 +110,7 @@ public class Station extends AbstractPurchasable {
 
 	}
 	
-	private Station(Builder builder) {
+	private Station(final Builder builder) {
 		super(builder.decorated, builder.mortgageValue, builder.salesValue);
 		this.leaseBase = builder.lease;
 		this.numOfStations = builder.numOfStations;
@@ -124,9 +124,8 @@ public class Station extends AbstractPurchasable {
 		if(counter == 0) {
 			return 0.0;
 		} else {
-			return this.leaseBase * 
-			       Math.pow(Station.BASE, counter - Station.CORRECTION) * 
-			       super.getQuotation();
+			return super.applyQuotationOnValue( this.leaseBase * 
+			       Math.pow(Station.BASE, counter - Station.CORRECTION));
 		}
 	}
 
@@ -134,8 +133,9 @@ public class Station extends AbstractPurchasable {
 	public Map<Integer, Double> getLeaseList() {
 		Map<Integer, Double> map = new HashMap<>();
 		for(Integer i = Station.ZERO;  i < this.numOfStations; i++) {
-			map.put(i+Station.CORRECTION, 
-			        this.leaseBase * Math.pow(Station.BASE, i));
+			map.put(i+Station.CORRECTION,
+			        super.applyQuotationOnValue(
+			        this.leaseBase * Math.pow(Station.BASE, i)));
 		}
 		return map;
 	}

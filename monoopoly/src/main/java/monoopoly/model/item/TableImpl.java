@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.TableFactory;
 
-public class TableImpl implements Table, ObserverPurchasable {
+public class TableImpl implements Table{
 	
 	private static final int BEGIN_POSITION = 0;
 	private static final double START_VALUE = 200.0;
@@ -88,15 +88,6 @@ public class TableImpl implements Table, ObserverPurchasable {
 	public void notifyDices(Integer sum) {
 		this.inputCheckIntegerType(sum);
 		this.sumOfDicesThrownNotified = sum;
-	}
-	
-	@Override
-	public Set<Tile> getTilesforSpecificCategoty(Category category) {
-		return this.table.entrySet().stream()
-		                            .filter(x->x.getValue()
-		                                        .getCategory()==category)
-									.map(x->x.getValue())
-									.collect(Collectors.toSet());
 	}
 
 	@Override

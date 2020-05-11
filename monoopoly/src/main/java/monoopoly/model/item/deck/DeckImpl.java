@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
 import monoopoly.model.item.Tile.Category;
 
 public class DeckImpl implements Deck {
@@ -14,7 +15,7 @@ public class DeckImpl implements Deck {
 	private final Set<Category> allTypeOfDeck;
 
 	private CardProperties cardDrawn;
-	
+
 	private enum CardProperties{
 
 		// PROBABILITY DECK
@@ -72,7 +73,7 @@ public class DeckImpl implements Deck {
 				                  + "Decidete di tutti di fare una festa, ma all'ultimo i tuoi compagni ti lasciano a casa!"
 				                  + "tutti trante te vanno al parco della vittoria!",							                                        null,	null,	null,	null,	null,	null,	false,	false,	false,	false,	null,	39,	    null,				false,	false,	true,	false	),
 		CARD08( Category.CALAMITY,	"ROTTURA DELLA QUARTA PARETE\nAvete consegnato il progetto di OOP, si festeggia, ma ognuno deve dare 180 euro.",	null,	null,	null,	null,	180.0,	null,	false,	false,	false,	false,	null,	null,	null,				false,	false,	false,	false	);
-		
+
 		private final Category	originDeck;
 		private final String 	description;
 		private final Double 	moneyPlayerToOthers;
@@ -92,17 +93,26 @@ public class DeckImpl implements Deck {
 		private final boolean 	movementMoveTheDrawer;
 		private final boolean 	movementMoveTheOthers;
 		private final boolean	propertyDestroy;
-		
-		private CardProperties(Category originDeck, String description,
-		        Double moneyPlayerToOthers, Double moneyPlayerToBank,
-		        Double moneyValueOfHouse, Double moneyValueOfHotel,
-		        Double moneyAllToBank, Double moneyAllToBankPercentage, 
-                boolean moneyAllMakeAvarage, boolean statusGoToJail,
-                boolean statusExitFromJail, boolean statusItIsMaintainable,
-	            Integer movementStepsToDo, Integer movementTilePositionToGo, 
-	            Category movementCategoryToReach, boolean movementRandomSteps,
-	            boolean movementMoveTheDrawer, boolean movementMoveTheOthers,
-	            boolean propertyDestroy) {
+
+		private CardProperties(final Category originDeck,
+		                       final String description,
+		                       final Double moneyPlayerToOthers,
+		                       final Double moneyPlayerToBank,
+		                       final Double moneyValueOfHouse,
+		                       final Double moneyValueOfHotel,
+		                       final Double moneyAllToBank,
+		                       final Double moneyAllToBankPercentage,
+		                       final boolean moneyAllMakeAvarage,
+		                       final boolean statusGoToJail,
+		                       final boolean statusExitFromJail,
+		                       final boolean statusItIsMaintainable,
+		                       final Integer movementStepsToDo,
+		                       final Integer movementTilePositionToGo,
+		                       final Category movementCategoryToReach,
+		                       final boolean movementRandomSteps,
+		                       final boolean movementMoveTheDrawer,
+		                       final boolean movementMoveTheOthers,
+		                       final boolean propertyDestroy) {
 			this.originDeck = originDeck;
 			this.description = description;
 			this.moneyPlayerToOthers = moneyPlayerToOthers;
@@ -124,27 +134,27 @@ public class DeckImpl implements Deck {
 			this.propertyDestroy = propertyDestroy;
 		}
 	}
-	
-	public DeckImpl(Set<Category> decks) {
+
+	public DeckImpl(final Set<Category> decks) {
 		super();
 		deckInputCheck(decks);
-		
+
 		this.allTypeOfDeck = decks;
 		this.deckMap = new HashMap<>();
 		this.cardDrawn = null;
-		
+
 		// creation of list (deck) inside the map
 		this.allTypeOfDeck.forEach(x->{
 			this.deckMap.put(x, new LinkedList<>());
 		});
-		
+
 		// add all card inside the list
  		for(CardProperties x : CardProperties.values()) {
 			if(this.deckMap.containsKey(x.originDeck)) {
 				this.deckMap.get(x.originDeck).addLast(x);
 			}
 		}
-		
+
 		this.deckMap.entrySet().forEach(entry->{
 			if(entry.getValue().isEmpty()) {
 				throw new IllegalStateException("there aren't cards for the "
@@ -156,9 +166,9 @@ public class DeckImpl implements Deck {
 		this.deckMap.values().forEach(x->Collections.shuffle(x));
 
 	}
-	
+
 	@Override
-	public void draw(Category category) {
+	public void draw(final Category category) {
 		categoryInputCheck(category);
 		this.cardDrawn = this.deckMap.get(category).removeFirst();
 		this.deckMap.get(category).addLast(this.cardDrawn);
@@ -282,19 +292,18 @@ public class DeckImpl implements Deck {
 		return this.cardDrawn.movementMoveTheOthers;
 	}
 
-	private void deckInputCheck(Set<Category> decks) {
+	private void deckInputCheck(final Set<Category> decks) {
 		Objects.requireNonNull(decks, "the deck cannot has null value");
 		if(decks.isEmpty()) {
 			throw new IllegalArgumentException("Category of decks required!");
 		}
 	}
 
-	private void categoryInputCheck(Category category) {
+	private void categoryInputCheck(final Category category) {
 		Objects.requireNonNull(category, "the category of the deck to be drawn"
 		        + " cannot have a null value");
 		if(!this.allTypeOfDeck.contains(category)) {
 			throw new IllegalArgumentException("The category isn't a Deck");
 		}
 	}
-
 }

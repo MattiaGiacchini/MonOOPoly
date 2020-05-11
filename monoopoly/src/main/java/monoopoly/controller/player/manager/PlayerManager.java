@@ -4,6 +4,7 @@ import java.util.Set;
 
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
+import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 import monoopoly.model.trade.Trade;
 
@@ -173,10 +174,16 @@ public interface PlayerManager {
     void resetPrisonCounter();
 
     /**
-     * This private method updates the state of the {@link Player} to "PRISONED" and
-     * moves the {@link Player} to the prison tile. If the {@link Player} has got
-     * the "leave prison for free" card, it will be applied.
+     * This method updates the state of the {@link Player} to "PRISONED" and moves
+     * the {@link Player} to the prison tile. If the {@link Player} has got the
+     * "leave prison for free" card, it will be applied.
      */
     void goToPrison();
+
+    /**
+     * This method is used to know if the {@link Player} has payed the rent on the
+     * current {@link Tile}.
+     */
+    void hasPayedRent();
 
 }

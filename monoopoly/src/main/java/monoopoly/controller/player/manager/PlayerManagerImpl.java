@@ -75,6 +75,7 @@ public class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public void goToPosition(int position) {
+        this.player.setState(States.IN_GAME);
         if (position < this.table.getTableSize() && position >= 0) {
             if (!this.isInPrison()) {
                 if (this.checkGoToJail(position)) {
@@ -220,6 +221,11 @@ public class PlayerManagerImpl implements PlayerManager {
     @Override
     public void resetPrisonCounter() {
         this.prisonTurnCounter = 0;
+    }
+    
+    @Override
+    public void hasPayedRent() {
+        this.player.setState(States.HAS_PAYED_RENT);
     }
 
 }

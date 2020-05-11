@@ -28,6 +28,12 @@ public interface TileInfoController {
     void resetButtons();
 
     /**
+     * This method locks the buttons to act over {@link Purchasable} like building,
+     * mortgaging, buying.
+     */
+    void lockButtons();
+
+    /**
      * This method return true if the current {@link Player} payed the rent he must
      * pay to the {@link Purchasable} owner.
      * 

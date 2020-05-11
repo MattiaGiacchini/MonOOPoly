@@ -152,7 +152,7 @@ public class GameEngineImpl implements GameEngine {
 		this.dicesUse.resetDices();
 		this.turnManager.nextTurn();
 		if (this.playersList().get(this.turnManager.getCurrentPlayer()).getPlayer().getState() == States.BROKE) {
-		    this.turnManager.nextTurn();
+		    this.passPlayer();
 		}
 		this.updateAlways();
 		if (this.turnManager.getCurrentPlayer() == 0) {
@@ -177,19 +177,27 @@ public class GameEngineImpl implements GameEngine {
 		Integer winner = -1;
 		Double greatest = 0.0;
 		Map<Integer, Double> quotationsMap = new HashMap<>();
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
+		if (!this.turnManager.areThereOtherPlayersInGame()) {
+		    for (PlayerManager pM: this.playersList()) {
+		        if (pM.getPlayer().getState() != States.BROKE) {
+		            return pM;
+		        }
+		    }
+		}
+		for (PlayerManager pM: this.playersList()) {
 			pM.setTable(this.table);
 			double quotationProperties = 0;
 			for (Purchasable p: pM.getProperties()) {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
-			quotationsMap.put(pM.getPlayer().getID(), quotationProperties + pM.getPlayer().getBalance());
+			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
 		}
 		for (Map.Entry<Integer, Double> entry: quotationsMap.entrySet()) {
 			if (entry.getValue() > greatest) {
 				winner = entry.getKey();
 			}
 		}
+		this.mainBoardController.showLeaderboard(this.name, quotationsMap);
 		return this.turnManager.getPlayersList().get(winner);
 	}
 
@@ -311,6 +319,11 @@ public class GameEngineImpl implements GameEngine {
 						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
 						                                                                    .getPlayer()
 						                                                                    .getPosition() == this.tileHit)
+						                     .rentPayed((this.playersList().get(this.currentPlayer().getPlayerManagerID())
+						                                                   .getPlayer()
+						                                                   .getState()
+						                                                   .equals(States.HAS_PAYED_RENT) && state.equals(PurchasableState.OWNED_PROPERTY)) 
+						                               || !state.equals(PurchasableState.OWNED_PROPERTY))
 						                     .build();
         } else if (tile.getCategory() == Category.STATION) { // station
             tileInfo = new TileInfo.Builder().tileName(tile.getName())
@@ -327,6 +340,11 @@ public class GameEngineImpl implements GameEngine {
 						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
                                                                                             .getPlayer()
                                                                                             .getPosition() == this.tileHit)
+						                     .rentPayed((this.playersList().get(this.currentPlayer().getPlayerManagerID())
+                                                                           .getPlayer()
+                                                                           .getState()
+                                                                           .equals(States.HAS_PAYED_RENT) && state.equals(PurchasableState.OWNED_PROPERTY)) 
+                                                       || !state.equals(PurchasableState.OWNED_PROPERTY))
 						                     .build();
  
         } else if (tile.getCategory() == Category.SOCIETY) { // SOCIETY
@@ -343,6 +361,11 @@ public class GameEngineImpl implements GameEngine {
 						                     .currentPlayerOnSelectedTile(this.playersList().get(this.turnManager.getCurrentPlayer())
                                                                                             .getPlayer()
                                                                                             .getPosition() == this.tileHit)
+						                     .rentPayed((this.playersList().get(this.currentPlayer().getPlayerManagerID())
+                                                                           .getPlayer()
+                                                                           .getState()
+                                                                           .equals(States.HAS_PAYED_RENT) && state.equals(PurchasableState.OWNED_PROPERTY)) 
+                                                       || !state.equals(PurchasableState.OWNED_PROPERTY))
 						                     .build();
  
         } else { // other
@@ -393,13 +416,14 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	public void payRent() {
-		Purchasable tile = (Purchasable)this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
+		Purchasable tile = (Purchasable)this.table.getTile(this.currentPlayer()
 															   .getPlayer()
 															   .getPosition());
 		//toglie soldi al debitore
-		this.bankManager.giveMoney(-tile.getLeaseValue(), this.playersList().get(this.turnManager.getCurrentPlayer()));
+		this.bankManager.giveMoney(-tile.getLeaseValue(), this.currentPlayer());
 		//li da al proprietario
 		this.bankManager.giveMoney(tile.getLeaseValue(), this.playersList().get(tile.getOwner().get()));
+		this.currentPlayer().hasPayedRent();
 		this.updateAlways();
 	}
 	
@@ -429,10 +453,9 @@ public class GameEngineImpl implements GameEngine {
 	}
 	
 	public void lose() {
-	    this.playersList().get(this.turnManager.getCurrentPlayer()).giveUp();
-	    this.mainBoardController.deletePlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
-	                                                            .getPlayerManagerID());
-	    for (Purchasable p: this.playersList().get(this.turnManager.getCurrentPlayer()).getProperties()) {	 
+	    this.currentPlayer().giveUp();
+	    this.mainBoardController.deletePlayer(this.currentPlayer().getPlayerManagerID());
+	    for (Purchasable p: this.currentPlayer().getProperties()) {	 
 	        if (p.getCategory() != Tile.Category.SOCIETY || p.getCategory() != Tile.Category.STATION || !p.isMortgage()) {
 	            for (int i=0; i<((Property)p).getNumberOfHouseBuilt() + ((Property)p).getNumberOfHotelBuilt(); i++) {
 	                ((Property)p).sellBuilding();
@@ -443,7 +466,8 @@ public class GameEngineImpl implements GameEngine {
 	        }
 	        p.setOwner(Optional.empty());
 	    }
+	    this.bankManager.removeAssignmentsFromPlayer(this.currentPlayer());
+	    this.passPlayer();
 	}
 	
-
 }

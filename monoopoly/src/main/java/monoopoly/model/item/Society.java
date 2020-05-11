@@ -129,9 +129,9 @@ public final class Society extends AbstractPurchasable {
 	@Override
 	public Map<Integer, Double> getLeaseList() {
 		return Map.of(Society.LEVEL_ONE, 
-		              this.multiplierLevelOne * this.getQuotation(), 
+		              super.applyQuotationOnValue(this.multiplierLevelOne), 
 					  Society.LEVEL_TWO, 
-					  this.multiplierLevelTwo * this.getQuotation());
+					  super.applyQuotationOnValue(this.getQuotation()));
 	}
 
 	@Override
@@ -139,16 +139,16 @@ public final class Society extends AbstractPurchasable {
 		if(super.getOwner().isPresent()) {
 			int nSociety = this.functionGetNumOfSocietyOwned.apply(
 			                                           super.getOwner().get());
-			
+
 			if(Society.LEVEL_ONE.equals(nSociety)) {
-				return this.multiplierLevelOne * 
-				       super.getQuotation() * 
-				       this.supplierDiceResult.get();
+				return super.applyQuotationOnValue(
+				       this.multiplierLevelOne *
+				       this.supplierDiceResult.get());
 				
 			} else if(Society.LEVEL_TWO.equals(nSociety)) {
-				return this.multiplierLevelTwo * 
-				       super.getQuotation() * 
-                       this.supplierDiceResult.get();
+				return super.applyQuotationOnValue(
+				       this.multiplierLevelTwo *
+                       this.supplierDiceResult.get());
 			}
 		}
 		return Society.NO_LEASE;

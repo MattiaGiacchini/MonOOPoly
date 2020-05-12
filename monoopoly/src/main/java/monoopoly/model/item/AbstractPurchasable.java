@@ -8,14 +8,14 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator
 
 	private final static double PERCENTAGE_TO_REMOVE_MORTGAGE = 1.1;
 	private final static double BASE_QUOTATION = 1.0;
-	
+
 	private final double morgageValue;
 	private final double salesValue;
-	
+
 	private Optional<Integer> ownerIdentify;
 	private Double quotation;
 	private boolean mortgageStatus;
-	
+
 	protected AbstractPurchasable(final Tile decorated,
  								  final double mortgageValue,
  								  final double salesValue) {
@@ -29,11 +29,11 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator
 		this.salesValue = salesValue;
 		this.ownerIdentify = Optional.empty();
 	}
-	
+
 	@Override
 	public final double mortgage() {
 		this.mortgageStatus = true;
-		return this.morgageValue;
+		return this.getMortgageValue();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator
 	@Override
 	public final double getCostToRemoveMortgage() {
 		return this.applyQuotationOnValue(
-		       this.morgageValue * 
+		       this.morgageValue *
 		       AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE);
 	}
 
@@ -86,8 +86,9 @@ public abstract class AbstractPurchasable extends AbstractTileDecorator
 		return this.ownerIdentify;
 	}
 
-	abstract public Map<Integer, Double> getLeaseList();
-	
+	@Override
+    abstract public Map<Integer, Double> getLeaseList();
+
 	protected final Double applyQuotationOnValue(final Double value) {
         return value * this.getQuotation();
 	}

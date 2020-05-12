@@ -14,6 +14,9 @@ import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 
+/**
+ * 
+ */
 public class StartingPageController implements Initializable {
 
     private SceneManager manager = new SceneManagerImpl();

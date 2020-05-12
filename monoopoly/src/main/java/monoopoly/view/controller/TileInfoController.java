@@ -1,24 +1,24 @@
 package monoopoly.view.controller;
 
 import monoopoly.game_engine.GameEngine;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.player.Player;
-import monoopoly.view.controller.TileInfo;
 
+/**
+ * This interface represents the controller for the properties display pane.
+ */
 public interface TileInfoController {
 
     /**
      * This method is used to display the correct pane from stack pane according to
-     * the property owner
+     * the property owner.
      * 
-     * @param {@link TileInfo} to be displayed
+     * @param info {@link TileInfo} to be displayed
      */
     void showPropertyPane(TileInfo info);
 
     /**
-     * This method sets the game controller
+     * This method sets the game controller.
      * 
-     * @param gameEngine
+     * @param gameEngine game engine.
      */
     void setGameEngine(GameEngine gameEngine);
 
@@ -40,5 +40,11 @@ public interface TileInfoController {
      * @return true id the current {@link Player} payed the rent.
      */
     boolean playerPayedRent();
+
+    /**
+     * This method is used to let the {@link Player} surrender without paying the
+     * rent bill.
+     */
+    void hasPayed();
 
 }

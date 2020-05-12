@@ -2,13 +2,13 @@ package monoopoly.view.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import monoopoly.game_engine.GameEngine;
-import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
 import monoopoly.view.utilities.PurchasableState;
@@ -16,12 +16,18 @@ import monoopoly.view.utilities.TileViewCategory;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
+/**
+ * This class implements the methods to display the {@link Purchasable} info and
+ * a controller pane to manage the {@link Purchasable} according to its owner.
+ * 
+ * This class contains even the logic of the buttons activation.
+ */
 public class TileInfoControllerImpl implements TileInfoController, Initializable {
 
     private static final int MAX_NUM_HOUSES = 4;
     private static final int MAX_NUM_HOTEL = 1;
-    private ButtonLogic logics = new ButtonLogicImpl();
-    private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private final ButtonLogic logics = new ButtonLogicImpl();
+    private final ViewUtilities utilities = new ViewUtilitiesImpl();
     private GameEngine gameEngine;
     private boolean playerPayedRent = true;
 
@@ -151,32 +157,55 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     @FXML
     private AnchorPane society;
 
+    /**
+     * This method builds a house over the chosen {@link Purchasable} when the
+     * button is pressed.
+     */
     @FXML
     public void buildHouseButtonPressed() {
         this.gameEngine.buildHouse();
     }
 
+    /**
+     * This method sells a house from the chosen {@link Purchasable} when the button
+     * is pressed.
+     */
     @FXML
     public void sellHouseButtonPressed() {
         this.gameEngine.sellHouse();
     }
 
+    /**
+     * This method mortgages the chosen {@link Purchasable} when the button is
+     * pressed.
+     */
     @FXML
     public void mortgageButtonPressed() {
         this.gameEngine.mortgage();
     }
 
+    /**
+     * This method remove the mortgage from the chosen {@link Purchasable} when the
+     * button is pressed.
+     */
     @FXML
     public void removeMortgageButtonPressed() {
         this.gameEngine.unMortgage();
     }
 
+    /**
+     * This method buys the chosen {@link Purchasable} when the button is pressed.
+     */
     @FXML
     public void buyPurchasableButtonPressed() {
         this.buyPurchasable.setDisable(true);
         this.gameEngine.buyPurchasable();
     }
 
+    /**
+     * This method pays the rent to the {@link Purchasable} owner when the button is
+     * pressed.
+     */
     @FXML
     public void payRentButtonPressed() {
         this.payRent.setDisable(true);
@@ -184,22 +213,33 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         this.gameEngine.payRent();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void showPropertyPane(TileInfo info) {
+    public void showPropertyPane(final TileInfo info) {
         this.show(info);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameEngine(final GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void resetButtons() {
         this.buyPurchasable.setDisable(false);
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void lockButtons() {
         this.buyPurchasable.setDisable(true);
@@ -212,7 +252,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method shows the tile control pane based on the topology of tile where
-     * the {@link Player} is standing on
+     * the {@link Player} is standing on.
      * 
      * @param info
      */
@@ -238,7 +278,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         }
 
         if (info.getCategory().equals(TileViewCategory.SOCIETY)) {
-            this.showSocietyInfo(info);
+            this.showSocietyInfo();
             this.disableHouseBuildButtons();
         } else if (info.getCategory().equals(TileViewCategory.STATION)) {
             this.showStationInfo(info);
@@ -261,20 +301,19 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     }
 
     /**
-     * This method updates the informations displayed about the chosen society
+     * This method updates the informations displayed about the chosen society.
      * 
-     * @param info
      */
-    private void showSocietyInfo(TileInfo info) {
+    private void showSocietyInfo() {
         this.society.toFront();
     }
 
     /**
-     * This method updates the informations displayed about the chosen station
+     * This method updates the informations displayed about the chosen station.
      * 
-     * @param info
+     * @param info to display.
      */
-    private void showStationInfo(TileInfo info) {
+    private void showStationInfo(final TileInfo info) {
         this.rentOneStation.setText(this.utilities.toMoneyString(info.getRentValue(1)));
         this.rentTwoStation.setText(this.utilities.toMoneyString(info.getRentValue(2)));
         this.rentThreeStation.setText(this.utilities.toMoneyString(info.getRentValue(3)));
@@ -283,11 +322,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     }
 
     /**
-     * This method updates the informations displayed about the chosen property
+     * This method updates the informations displayed about the chosen property.
      * 
-     * @param info
+     * @param info to display.
      */
-    private void showPropertyInfo(TileInfo info) {
+    private void showPropertyInfo(final TileInfo info) {
         this.houseNumber.setText(
                 String.valueOf(info.getHousesAmount() <= MAX_NUM_HOUSES ? String.valueOf(info.getHousesAmount())
                         : String.valueOf(MAX_NUM_HOUSES)));
@@ -298,7 +337,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         this.rentTwoHouse.setText(this.utilities.toMoneyString(info.getRentValue(2)));
         this.rentThreeHouse.setText(this.utilities.toMoneyString(info.getRentValue(3)));
         this.rentFourHouse.setText(this.utilities.toMoneyString(info.getRentValue(4)));
-        this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(5)));
+        this.rentOneHotel.setText(this.utilities.toMoneyString(info.getRentValue(MAX_NUM_HOUSES + MAX_NUM_HOTEL)));
         this.houseCost.setText(this.utilities.toMoneyString(info.getHouseCost()));
 
         this.property.toFront();
@@ -306,11 +345,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
-     * values and updates the labels
+     * values and updates the labels.
      * 
-     * @param info
+     * @param info to display.
      */
-    private void ownedPropertyButtonsLogic(TileInfo info) {
+    private void ownedPropertyButtonsLogic(final TileInfo info) {
         this.payRent.setDisable(!(!info.rentPayed() && info.isCurrentPlayerOnSelectedTile()));
         this.playerPayedRent = this.payRent.isDisabled() && info.rentPayed();
         this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
@@ -319,16 +358,16 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
-     * values and updates the labels
+     * values and updates the labels.
      * 
-     * @param info
+     * @param info to display.
      */
-    private void myPropertyButtonsLogic(TileInfo info) {
+    private void myPropertyButtonsLogic(final TileInfo info) {
         this.buildHouse.setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getHouseCost())
                 && info.isBuildHouseEnabled()));
         this.sellHouse.setDisable(!info.isSellHouseEnabled());
 
-        this.mortgage.setDisable(info.isMortgaged());
+        this.mortgage.setDisable(info.isMortgaged() || info.getHousesAmount() > 0);
         this.unMortgage.setDisable(!info.isMortgaged() || !(info.isMortgaged()
                 && this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getUnMortgageValue())));
 
@@ -337,11 +376,11 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
-     * values and updates the labels
+     * values and updates the labels.
      * 
-     * @param info
+     * @param info to display.
      */
-    private void freePropertyButtonsLogic(TileInfo info) {
+    private void freePropertyButtonsLogic(final TileInfo info) {
         this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
         this.buyPurchasable
                 .setDisable(!(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue())
@@ -349,16 +388,30 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
         this.freeProperty.toFront();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.freeProperty.toFront();
         this.emptyControl.toFront();
         this.propertyName.setText("START");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean playerPayedRent() {
         return this.playerPayedRent;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void hasPayed() {
+        this.playerPayedRent = true;
     }
 
 }

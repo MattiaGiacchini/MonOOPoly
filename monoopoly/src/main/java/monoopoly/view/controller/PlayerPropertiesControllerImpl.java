@@ -8,43 +8,61 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-public class PlayerPropertiesControllerImpl {
+/**
+ * This class implements the {@link PlayerPropertiesController} to display a
+ * popUp with the properties of a {@link Player}.
+ */
+public class PlayerPropertiesControllerImpl implements PlayerPropertiesController {
 
     private Stage stage;
-    ObservableList<String> properties = FXCollections.observableArrayList();
+    private final ObservableList<String> properties = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<String> playerProperties = new ListView<String>();
+    private final ListView<String> playerProperties = new ListView<>();
 
+    /**
+     * This method closes the popup.
+     */
     @FXML
-    void closePopUp() {
+    public void closePopUp() {
         this.stage.close();
     }
 
+    /**
+     * This method starts a trade with the chosen player.
+     */
     @FXML
-    void startTrade() {
+    public void startTrade() {
         // TODO
     }
 
-    public void show(Set<String> properties) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void show(final Set<String> properties) {
         this.setProperties(properties);
     }
 
-    public void setStage(Stage stage) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setStage(final Stage stage) {
         this.stage = stage;
     }
 
     /**
-     * This method displays the properties in the {@link ListView}
+     * This method sets the properties in the {@link ListView} to display.
      * 
-     * @param properties
+     * @param properties to display.
      */
-    private void setProperties(Set<String> properties) {
+    private void setProperties(final Set<String> properties) {
         this.properties.clear();
-        for (String tile : properties) {
+        for (final String tile : properties) {
             this.properties.add(tile);
         }
-        
+
         this.playerProperties.setItems(this.properties);
     }
 

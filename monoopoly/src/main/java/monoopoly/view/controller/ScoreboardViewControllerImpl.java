@@ -18,9 +18,13 @@ import javafx.scene.image.ImageView;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
+/**
+ * This class implements the methods to display the scoreboard at the end of the
+ * game.
+ */
 public class ScoreboardViewControllerImpl implements ScoreboardViewController, Initializable {
 
-    private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private final ViewUtilities utilities = new ViewUtilitiesImpl();
 
     @FXML
     private ImageView logo;
@@ -34,16 +38,24 @@ public class ScoreboardViewControllerImpl implements ScoreboardViewController, I
     @FXML
     private List<TextField> pointsList;
 
-    private Map<Integer, String> names = new HashMap<Integer, String>();
+    private Map<Integer, String> names = new HashMap<>();
     private List<Entry<Integer, Double>> rank;
 
+    /**
+     * This method closes the game when the button is closed.
+     * 
+     * @param event for closing app.
+     */
     @FXML
-    public void quitButtonPressed(ActionEvent event) {
+    public void quitButtonPressed(final ActionEvent event) {
         this.utilities.closeApp(event);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void showLeaderboard(Map<Integer, String> names, Map<Integer, Double> points) {
+    public void showLeaderboard(final Map<Integer, String> names, final Map<Integer, Double> points) {
         this.names = names;
         this.orderLeaderboard(points);
         this.displayLeaderboard();
@@ -65,16 +77,22 @@ public class ScoreboardViewControllerImpl implements ScoreboardViewController, I
      * @param names
      * @param points
      */
-    private void orderLeaderboard(Map<Integer, Double> points) {
+    private void orderLeaderboard(final Map<Integer, Double> points) {
         this.rank = points.entrySet().stream().sorted((x, y) -> Double.compare(y.getValue(), x.getValue()))
                 .collect(Collectors.toList());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.logo.setImage(new Image(getClass().getResourceAsStream("/logoMonoopoly500.png")));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Entry<Integer, Double>> getRank() {
         return rank;

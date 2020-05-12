@@ -20,7 +20,13 @@ import monoopoly.utilities.Pair;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
+/**
+ * this class represents the controller for the board: -pawns on the game board;
+ * -tiles buttons pressed on the board game.
+ */
 public class BoardViewControllerImpl implements BoardViewController, Initializable {
+
+    private static final int MAX_PLAYER = 6;
 
     @FXML
     private GridPane gridPane;
@@ -46,69 +52,89 @@ public class BoardViewControllerImpl implements BoardViewController, Initializab
     private GameEngine gameEngine;
 
     // This is the map with players positions initialized to 0
-    private Map<Integer, Integer> playerPositions = IntStream.range(0, 6).boxed()
+    private final Map<Integer, Integer> playerPositions = IntStream.range(0, MAX_PLAYER).boxed()
             .collect(Collectors.toMap(Function.identity(), i -> Integer.valueOf(0)));
-    private Map<Integer, Pair<Integer, Integer>> pawns = new HashMap<Integer, Pair<Integer, Integer>>();
-    private Map<Integer, Circle> circles = new HashMap<Integer, Circle>();
-    private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private final Map<Integer, Pair<Integer, Integer>> pawns = new HashMap<>();
+    private final Map<Integer, Circle> circles = new HashMap<>();
+    private final ViewUtilities utilities = new ViewUtilitiesImpl();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
 
         this.circles.put(0, player0);
         this.circles.put(1, player1);
         this.circles.put(2, player2);
         this.circles.put(3, player3);
         this.circles.put(4, player4);
-        this.circles.put(5, player5);
+        this.circles.put(MAX_PLAYER - 1, player5);
 
         this.updatePawn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGameEngine(final GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
 
+    /**
+     * This method notifies the {@link GameEngine} that a tile have been pressed.
+     * 
+     * @param event to get the button source.
+     */
     @FXML
-    public void cellButtonPressed(ActionEvent event) {
-        Button tileButton = (Button) event.getSource();
-        int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(tileButton),
+    public void cellButtonPressed(final ActionEvent event) {
+        final Button tileButton = (Button) event.getSource();
+        final int index = this.utilities.getBoardPosition(GridPane.getColumnIndex(tileButton),
                 GridPane.getRowIndex(tileButton),
                 (this.gridPane.getRowCount() - 1 + this.gridPane.getColumnCount() - 1) * 2);
         this.gameEngine.giveTileInfo(index);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updatePlayerPositions(final Map<Integer, Integer> positions) {
         this.playerPositions.putAll(positions);
-        this.playerPositions.keySet().forEach(K -> {
-            if (!positions.containsKey(K)) {
-                this.circles.get(K).setVisible(false);
+        this.playerPositions.keySet().forEach(k -> {
+            if (!positions.containsKey(k)) {
+                this.circles.get(k).setVisible(false);
             }
         });
 
         this.updatePawn();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void initializeBoard(final List<String> tileNames) {
         this.utilities.initializeBoard(gridPane, tileNames);
     }
 
     /**
-     * This method updates the pawn position on the board
+     * This method updates the pawn position on the board.
      */
     private void updatePawn() {
-        playerPositions.forEach((K, V) -> {
-            this.pawns.put(K, this.utilities.getCoords(V, gridPane));
-            GridPane.setColumnIndex(this.circles.get(K), this.pawns.get(K).getX());
-            GridPane.setRowIndex(this.circles.get(K), this.pawns.get(K).getY());
+        playerPositions.forEach((k, v) -> {
+            this.pawns.put(k, this.utilities.getCoords(v, gridPane));
+            GridPane.setColumnIndex(this.circles.get(k), this.pawns.get(k).getX());
+            GridPane.setRowIndex(this.circles.get(k), this.pawns.get(k).getY());
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void removePawn(int playerID) {
+    public void removePawn(final int playerID) {
         this.circles.get(playerID).setVisible(false);
     }
 

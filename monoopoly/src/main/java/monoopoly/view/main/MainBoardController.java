@@ -6,58 +6,59 @@ import java.util.Optional;
 import java.util.Set;
 
 import monoopoly.game_engine.GameEngine;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
-import monoopoly.model.player.Player;
 import monoopoly.view.controller.TileInfo;
 
+/**
+ * This interface represents the main view controller, the point of
+ * communication between the controller ({@link GameEngine}) and the view.
+ */
 public interface MainBoardController {
 
     /**
-     * This method sets the game controller
+     * This method sets the game controller.
      * 
-     * @param gameEngine
+     * @param gameEngine game engine.
      */
     void setGameEngine(GameEngine gameEngine);
 
     /**
-     * This method initializes the board with all the {@link Tile}s' names
+     * This method initializes the board with all the {@link Tile}s' names.
      * 
-     * @param tileNames
+     * @param tileNames board tiles names.
      */
     void setTileNames(List<String> tileNames);
 
     /**
-     * This method creates an alert with the deck card drawn
+     * This method creates an alert with the deck card drawn.
      * 
      * @param cardCategory category of the card
-     * @param message
+     * @param message      of the card.
      */
     void showDeckCard(String cardCategory, String message);
 
     /**
-     * This method updates the players' positions on the board and their balances
+     * This method updates the players' positions on the board and their balances.
      * 
      * @param positions of the {@link Player} on the board
      * @param balances  of the {@link Player}
      */
-    public void updatePlayers(final Map<Integer, Integer> positions, final Map<Integer, Double> balances);
+    void updatePlayers(Map<Integer, Integer> positions, Map<Integer, Double> balances);
 
     /**
-     * This method shows the current {@link Player} data
+     * This method shows the current {@link Player} data.
      * 
      * @param name    of the current {@link Player}
      * @param balance of the current {@link Player}
      */
-    void updateCurrentPlayer(final String name, final Double balance);
+    void updateCurrentPlayer(String name, Double balance);
 
     /**
      * This method sets the players' names on the beginning of the game.
      * 
-     * @param names
+     * @param names to display
      */
-    void setPlayerNames(final Map<Integer, String> names);
+    void setPlayerNames(Map<Integer, String> names);
 
     /**
      * This method shows the list of {@link Purchasable}s owned by the chosen
@@ -71,11 +72,11 @@ public interface MainBoardController {
     /**
      * This method displays the normal dices rolled and the speedyDice, if present.
      * 
-     * @param dice1
-     * @param dice2
-     * @param dice3
+     * @param dice1 first normal dice
+     * @param dice2 second normal dice
+     * @param dice3 speedyDice
      */
-    public void updateDices(final int dice1, final int dice2, final Optional<Integer> dice3);
+    void updateDices(int dice1, int dice2, Optional<Integer> dice3);
 
     /**
      * This method displays the dices rolled.
@@ -103,7 +104,7 @@ public interface MainBoardController {
     /**
      * This method eliminates the player pawn from the board.
      * 
-     * @param playerID
+     * @param playerID to delete
      */
     void deletePlayer(int playerID);
 

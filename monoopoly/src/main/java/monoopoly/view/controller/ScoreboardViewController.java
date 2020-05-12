@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import monoopoly.model.player.Player;
-
+/**
+ * This interface represents the controller of the leaderboard view.
+ */
 public interface ScoreboardViewController {
 
     /**
-     * This method displays the final leaderboard
+     * This method displays the final leaderboard.
      * 
      * @param names  map of the {@link Player} names
      * @param points map of the {@link Player} point gained

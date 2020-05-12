@@ -4,8 +4,6 @@ import java.util.*;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
-import monoopoly.model.player.Player;
-import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
 
 /**
@@ -39,6 +37,10 @@ public interface GameEngine {
 	 */
 	List<PlayerManager> playersList();
 	
+	/**
+	 * used to set the mainBoardController
+	 * @param {@link mainBoardController}
+	 */
 	void setMainBoardController(MainBoardControllerImpl mainBoardController);
 
 	/**
@@ -56,38 +58,16 @@ public interface GameEngine {
 	Double getBalance(final int ID);
 
 	/**
-	 * helpful for getting player's position by putting ID
-	 * @param ID
-	 * @return int
-	 */
-//	int getPosition(final int ID);
-
-	/**
-	 * helpful for getting player's state by putting ID
-	 * @param ID
-	 * @return monoopoly.utilities.States
-	 */
-//	monoopoly.utilities.States getState(final int ID);
-
-	/**
 	 * You can call this method to pass your turn
 	 * @return successive {@link PlayerManager}
 	 */
 	void passPlayer();
-	
-	public void incRound();
 
 	/**
 	 *
 	 * @return the table
 	 */
 	Table getTable();
-
-	/**
-	 * This updates the dices when rolled.
-	 * @param dices the dices rolled
-	 */
-//	void updateDices(Map<Integer, Integer> dices);
 
 	/** The game ends with a I,II,III leaderboard
 	 * @return {@link PlayerManager}

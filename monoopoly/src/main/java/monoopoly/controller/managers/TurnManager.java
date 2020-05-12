@@ -3,7 +3,6 @@ package monoopoly.controller.managers;
 import java.util.List;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.player.Player;
 
 /**
  * Interface used to handle turns
@@ -31,11 +30,24 @@ public interface TurnManager {
 	 */
 	public Integer getRound();
 	
+	/**
+	 * increments the round by one
+	 */
 	public void setRound();
 	
+	/**
+	 * @return id of the current player
+	 */
 	public Integer getCurrentPlayer();
 	
+	/**
+	 * @return the {@link List} of players
+	 */
 	public List<PlayerManager> getPlayersList();
 	
+	/**
+	 * method used by GameEngine to set the first player (in the beginning)
+	 * @param ID
+	 */
 	void setCurrentID(final Integer ID);
 }

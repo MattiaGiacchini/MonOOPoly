@@ -3,51 +3,27 @@ package monoopoly.game_engine;
 import java.util.*;
 import javafx.fxml.FXML;
 import monoopoly.Main;
-import monoopoly.controller.bank.BankManager;
-import monoopoly.controller.bank.BankManagerImpl;
-import monoopoly.controller.dices.Dices;
-import monoopoly.controller.dices.DicesImpl;
-import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.bank.*;
+import monoopoly.controller.dices.*;
+import monoopoly.controller.managers.*;
+import monoopoly.controller.player.manager.*;
+import monoopoly.controller.stockmarket.*;
 import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
-import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.controller.player.manager.PlayerManagerImpl;
-import monoopoly.controller.stockmarket.StockMarket;
-import monoopoly.controller.stockmarket.StockMarketImpl;
-import monoopoly.controller.managers.CardManagerImpl;
-import monoopoly.controller.managers.TurnManager;
-import monoopoly.controller.managers.TurnManagerImpl;
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.TableImpl;
-import monoopoly.model.item.Tile;
+import monoopoly.model.item.*;
 import monoopoly.model.item.Tile.Category;
-import monoopoly.model.item.TileDeck;
 import monoopoly.model.item.card.Card;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
-import monoopoly.view.main.MainBoardController;
-import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.main.*;
 import monoopoly.view.controller.ScoreboardViewControllerImpl;
-import monoopoly.view.utilities.PurchasableState;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
-import monoopoly.view.utilities.ScenePath;
-import monoopoly.view.utilities.TileViewCategory;
+import monoopoly.view.utilities.*;
 
 public class GameEngineImpl implements GameEngine {
 
-	/**
-	 * creating a map for each credential you need, reachable by player's ID
-	 */
-	private static final int FIRST_PLAYER = 0;
-
 	private Map<Integer, String> name = new HashMap<>();
 	private Map<Integer, Double> balance = new HashMap<>();
-	private Map<Integer, Integer> position = new HashMap<>();
-	private Map<Integer, States> state = new HashMap<>();
 	private TurnManager turnManager = new TurnManagerImpl();
 	private Table table = new TableImpl();
 	private CardManagerImpl cardManager;
@@ -72,13 +48,9 @@ public class GameEngineImpl implements GameEngine {
 	 * @param state
 	 */
 	public GameEngineImpl(final Map<Integer, String> name,
-						  final Map<Integer, Double> balance
-						  /*final Map<Integer, Integer> position,
-						  final Map<Integer, monoopoly.utilities.States> state*/) {
+						  final Map<Integer, Double> balance) {
 		this.name = name;
 		this.balance = balance;
-		this.position = position;
-		this.state = state;
 		this.tileHit = 0;
 	}
 
@@ -88,7 +60,6 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	private PlayerManager createPlayer(final int ID) {
-		String name = this.getName(ID);
 		PlayerManager pM = new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
 																			 .name(this.getName(ID))
 															    			 .balance(this.getBalance(ID))
@@ -122,7 +93,6 @@ public class GameEngineImpl implements GameEngine {
 	
 	public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
 		this.mainBoardController = mainBoardController;
-	//	this.initializeView();
 	}
 	
 	public String getName(final int ID) {
@@ -180,7 +150,7 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 	
-	public void incRound() {
+	private void incRound() {
 		this.turnManager.setRound();
 	}
 
@@ -193,7 +163,6 @@ public class GameEngineImpl implements GameEngine {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
 			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
-			System.out.println(quotationsMap.get(pM.getPlayerManagerID()));
 		}
 		this.sceneManager.loadScene(ScenePath.SCOREBOARD, Main.getPrimaryStage());
 		this.sCoreboardViewContollerImpl = this.sceneManager.getLeaderboardController();

@@ -9,12 +9,12 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import monoopoly.view.controller.ScoreboardViewContoller;
+import monoopoly.view.controller.ScoreboardViewController;
 import monoopoly.view.controller.ScoreboardViewControllerImpl;
 
 public class TestScoreboardViewController {
 
-    private ScoreboardViewContoller leaderboardController = new ScoreboardViewControllerImpl();
+    private ScoreboardViewController leaderboardController = new ScoreboardViewControllerImpl();
 
     @Test
     public void testOrderedLeaderboard() {

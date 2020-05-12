@@ -1,7 +1,7 @@
 package monoopoly.controller;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -29,20 +29,20 @@ public class BankTest {
 	private Property tileBuilt;
 	
 	private static final double A_LITTLE_MONEY = 150.0;
-	private static final double A_TON_OF_MONEY = 1500000.0;
+	private static final double A_TON_OF_MONEY = 1_500_000.0;
 	private static final int PROPERTY_ID = 1;
 	
 	@Test
 	public void testMoneyGiving() {
 		this.initEngine();
 		this.bankManager.giveMoney(A_LITTLE_MONEY, this.playerOne);
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY) == 0);
+		assertSame(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY);
 	}
 	
 	@Test(expected = IndexOutOfBoundsException.class)
 	public void testBankBreaking() {
 		/*
-		 * I use a test(expected) because GameEngineImpl.getGameWinner()  
+		 * I use a test(expected) because GameEngineImpl.getGameWinner()
 		 * throws an IllegalStateException if the engine is not built in the way is built during
 		 * a real game.
 		 */
@@ -53,17 +53,16 @@ public class BankTest {
 	@Test
 	public void testHouseAssignment() {
 		this.initEngine();
-		this.bankManager.giveMoney( 10 * A_LITTLE_MONEY, this.playerOne);
+		this.bankManager.giveMoney(10 * A_LITTLE_MONEY, this.playerOne);
 		this.bankManager.buyProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		this.bankManager.buyProperty(this.engine.getTable().getTile(3), this.playerOne);
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		final Purchasable otherTile = (Purchasable)this.engine.getTable().getTile(3);
-		final Property otherProperty = (Property)otherTile;
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(),  10 * A_LITTLE_MONEY - 
-				this.tileBuilt.getSalesValue() - 
-				otherProperty.getSalesValue() - 
-				this.tileBuilt.getCostToBuildHouse()) == 0
+		final Purchasable otherTile = (Purchasable) this.engine.getTable().getTile(3);
+		final Property otherProperty = (Property) otherTile;
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(),  10 * A_LITTLE_MONEY
+				- this.tileBuilt.getSalesValue() 
+				- otherProperty.getSalesValue() - this.tileBuilt.getCostToBuildHouse()) == 0
 				&& this.tileBuilt.getNumberOfHouseBuilt().equals(1));
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
@@ -74,14 +73,13 @@ public class BankTest {
 				&& this.tileBuilt.getNumberOfHotelBuilt().equals(1));
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		
 		assertTrue(this.tileBuilt.getNumberOfHouseBuilt().equals(4)
 				&& this.tileBuilt.getNumberOfHotelBuilt().equals(1));
 	}
 	
 	private void fetchProperty() {
-		Purchasable tilePurchased = (Purchasable)this.engine.getTable().getTile(PROPERTY_ID);
-		this.tileBuilt = (Property)tilePurchased;
+		final Purchasable tilePurchased = (Purchasable) this.engine.getTable().getTile(PROPERTY_ID);
+		this.tileBuilt = (Property) tilePurchased;
 	}
 
 	@Test
@@ -89,13 +87,13 @@ public class BankTest {
 		this.initEngine();
 		this.bankManager.giveMoney(A_LITTLE_MONEY, this.playerOne);
 		this.bankManager.buyProperty(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
-		Set<Purchasable> testSet = new HashSet<>();
-		testSet.add((Purchasable)this.engine.getTable().getTile(PROPERTY_ID));
+		final Set<Purchasable> testSet = new HashSet<>();
+		testSet.add((Purchasable) this.engine.getTable().getTile(PROPERTY_ID));
 		fetchProperty();
 		assertTrue(this.engine.getTable().getPurchasableTilesforSpecificPlayer(this.playerOne.getPlayerManagerID())
 																				   .equals(testSet)
-					&& Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY - 
-							this.tileBuilt.getSalesValue()) == 0);
+					&& Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY 
+							- this.tileBuilt.getSalesValue()) == 0);
 	}
 	
 	@Test
@@ -107,11 +105,11 @@ public class BankTest {
 		this.bankManager.assignHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		this.bankManager.sellHouse(this.engine.getTable().getTile(PROPERTY_ID), this.playerOne);
 		fetchProperty();
-		final Purchasable otherTile = (Purchasable)this.engine.getTable().getTile(3);
-		final Property otherProperty = (Property)otherTile;
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), 3 * A_LITTLE_MONEY -
-					tileBuilt.getSalesValue() - otherProperty.getSalesValue()
-					- tileBuilt.getCostToBuildHouse() + tileBuilt.getQuotationToSellHouse()) == 0
+		final Purchasable otherTile = (Purchasable) this.engine.getTable().getTile(3);
+		final Property otherProperty = (Property) otherTile;
+		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), 3 * A_LITTLE_MONEY
+				- tileBuilt.getSalesValue() - otherProperty.getSalesValue()
+				- tileBuilt.getCostToBuildHouse() + tileBuilt.getQuotationToSellHouse()) == 0
 				&& this.tileBuilt.getNumberOfHouseBuilt().equals(0));
 	}
 	
@@ -142,12 +140,12 @@ public class BankTest {
 	}
 	
 	private void initEngine() {
-		Map<Integer, String> names = new HashMap<Integer, String>();
-		Map<Integer, Double> balance = new HashMap<Integer, Double>();
-		Map<Integer, Integer> positions = new HashMap<Integer, Integer>();
-		Map<Integer, States> states = new HashMap<Integer, States>();
+		final Map<Integer, String> names = new HashMap<>();
+		final Map<Integer, Double> balance = new HashMap<>();
+		final Map<Integer, Integer> positions = new HashMap<>();
+		final Map<Integer, States> states = new HashMap<>();
 		names.put(0, "test");
-		balance.put (0, 0.0);
+		balance.put(0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		this.engine = new GameEngineImpl(names, balance);

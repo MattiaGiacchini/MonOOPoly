@@ -8,7 +8,7 @@ import java.util.Random;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 
-public class DicesImpl implements Dices{
+public class DicesImpl implements Dices {
 
 	private final Table gameTable;
 	private final Map<Integer, Integer> dices;
@@ -20,15 +20,15 @@ public class DicesImpl implements Dices{
 	 * @param number the number of dices.
 	 * @param table the table.
 	 */
-	public DicesImpl(int number, Table table) {
+	public DicesImpl(final int number, final Table table) {
 		this.gameTable = table;
-		this.dices = new HashMap<Integer, Integer>();
+		this.dices = new HashMap<>();
 		this.random = new Random();
 		this.numberOfDices = number;
 	}
 	
 	@Override
-	public void roll(PlayerManager playerManager) {
+	public final void roll(final PlayerManager playerManager) {
 		for (int i = 0; i < this.numberOfDices; i++) {
 			this.dices.put(i, random.nextInt(RANDOM_DICE_BOUND) + 1);
 		}
@@ -38,22 +38,19 @@ public class DicesImpl implements Dices{
 	}
 	
 	@Override
-	public Map<Integer, Integer> getDices(){
+	public final Map<Integer, Integer> getDices() {
 		return Collections.unmodifiableMap(this.dices);
 	}
 
 	@Override
-	public void resetDices() {
+	public final void resetDices() {
 		this.dices.clear();
-		
 	}
 
 	@Override
-	public boolean areEquals() {
-		if (this.dices.get(0).equals(this.dices.get(1))) {
-			return true;
-		}
-		return false;
+	public final boolean areEquals() {
+		return this.dices.get(0).equals(this.dices.get(1));
 	}
+	
 
 }

@@ -3,16 +3,15 @@ package monoopoly.controller.stockmarket;
 import java.util.List;
 import java.util.Map;
 
-import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile.Category;
 
 /**
- * This interface represents the Stock Market, and its history
+ * This interface represents the Stock Market, and its history.
  */
 public interface StockMarket {
 
 	/**
-	 * This method allows to set a new currency, to be used when it's needed, for the {@link Purchasable},
+	 * This method allows to set a new currency, to be used when it's needed, for the purchasable tiles,
 	 * to change their sell/Lease/Mortgage value.
 	 */
 	void setNewMarketValue();

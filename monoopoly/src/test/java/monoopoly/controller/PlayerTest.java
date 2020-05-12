@@ -1,15 +1,16 @@
 package monoopoly.controller;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
-
-import static org.junit.Assert.*;
-
-import org.junit.Before;
 
 public class PlayerTest {
 	private PlayerManager manager;

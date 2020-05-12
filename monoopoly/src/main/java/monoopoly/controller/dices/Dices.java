@@ -14,7 +14,6 @@ public interface Dices {
 	 * This method rolls the dices, and notifies a {@link PlayerManager} and the {@link Table} that the player 
 	 * must move.
 	 * @param playerManager the manager of the player.
-	 * @param table the table.
 	 */
 	void roll(PlayerManager playerManager);
 	
@@ -22,7 +21,7 @@ public interface Dices {
 	 * 
 	 * @return the dices.
 	 */
-	public Map<Integer, Integer> getDices();
+	Map<Integer, Integer> getDices();
 	
 	/**
 	 * This method resets the dices (aka, empties the map).
@@ -30,8 +29,8 @@ public interface Dices {
 	void resetDices();
 	
 	/**
-	 * This method tells if the dices returned the same number
-	 * @return
+	 * This method tells if the dices returned the same number.
+	 * @return if the dices are equals.
 	 */
 	boolean areEquals();
 }

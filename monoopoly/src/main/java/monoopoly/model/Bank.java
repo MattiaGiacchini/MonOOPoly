@@ -8,10 +8,10 @@ import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 
 /**
- *	This class represents the bank
+ *	This class represents the bank.
  */
 public class Bank {
-	private final static double HARD_CAP = 150000.0;
+	private static final double HARD_CAP = 150_000.0;
 	private final Set<Tile> allProperties;
 	private final Map<Tile, Player> assignedProperties;
 	private final Map<Tile, Player> mortgagedProperties;
@@ -19,7 +19,7 @@ public class Bank {
 	
 	private double currentBudget;
 	
-	public Bank(Set<Tile> property) {
+	public Bank(final Set<Tile> property) {
 		this.currentBudget = HARD_CAP;
 		this.allProperties = property;
 		this.assignedProperties = new HashMap<>();
@@ -27,30 +27,30 @@ public class Bank {
 		this.isBroke = false;
 	}
 	
-	public void giveMoney(double toGive) {
+	public final void giveMoney(final double toGive) {
 		this.currentBudget -= toGive;
 		if (this.currentBudget < 0) {
 			this.isBroke = true;
 		}
 	}
 	
-	public double getBankBudget() {
+	public final double getBankBudget() {
 		return this.currentBudget;
 	}
 	
-	public Set<Tile> getProperties(){
+	public final Set<Tile> getProperties(){
 		return this.allProperties;
 	}
 	
-	public Map<Tile, Player> getAssignedProperties(){
+	public final Map<Tile, Player> getAssignedProperties(){
 		return this.assignedProperties;
 	}
 	
-	public Map<Tile, Player> getMortgagedProperties(){
+	public final Map<Tile, Player> getMortgagedProperties(){
 		return this.mortgagedProperties;
 	}
 	
-	public boolean isBankBroken() {
+	public final boolean isBankBroken() {
 		return this.isBroke;
 	}
 	

@@ -1,9 +1,11 @@
 package monoopoly.controller;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,12 +29,12 @@ public class StockTest {
 	
 	@Test
 	public void testInit() {
-		Map<Category, Double> presumptInitMap = new HashMap<>();
+		final Map<Category, Double> presumptInitMap = new HashMap<>();
 		initEngine();
-		Set<Category> categories = this.engine.getTable().getFilteredTiles(Purchasable.class, x -> x.isPurchasable())
+		final Set<Category> categories = this.engine.getTable().getFilteredTiles(Purchasable.class, x -> x.isPurchasable())
 														 .stream().map(x -> x.getCategory())
 														 .collect(Collectors.toSet());
-		for (Category cat : categories) {
+		for (final Category cat : categories) {
 			presumptInitMap.put(cat, PRESUMPT_INIT_QUOTATION);
 		}
 		this.market = new StockMarketImpl(this.engine.getTable());
@@ -43,13 +45,13 @@ public class StockTest {
 	@Test
 	public void testMarketGen() {
 		initEngine();
-		Set<Purchasable> purchasables = this.engine.getTable()
+		final Set<Purchasable> purchasables = this.engine.getTable()
 												   .getFilteredTiles(Purchasable.class, x -> x.isPurchasable());
 		this.market = new StockMarketImpl(this.engine.getTable());
 		this.market.setNewMarketValue();
-		assertTrue(this.market.getStockHistory().size() == 2);
-		for (Purchasable purc : purchasables) {
-			assertTrue(Double.compare(purc.getQuotation(), this.market.getMarket().get(purc.getCategory())) == 0);
+		assertSame(this.market.getStockHistory().size(), 2);
+		for (final Purchasable purc : purchasables) {
+			assertSame(Double.compare(purc.getQuotation(), this.market.getMarket().get(purc.getCategory())), 0);
 		}
 	}
 	
@@ -66,18 +68,18 @@ public class StockTest {
 		this.market = new StockMarketImpl(this.engine.getTable());
 		this.market.setNewMarketValue();
 		final Map<Category, Double> variation = this.market.getVariation();
-		for (java.util.Map.Entry<Category, Double> entry : variation.entrySet()) {
-			assertTrue(Double.compare(entry.getValue(), MULTIPLIER * (this.market.getMarket().get(entry.getKey()) - PRESUMPT_INIT_QUOTATION)) == 0);
+		for (final Entry<Category, Double> entry : variation.entrySet()) {
+			assertSame(entry.getValue(), MULTIPLIER * (this.market.getMarket().get(entry.getKey()) - PRESUMPT_INIT_QUOTATION));
 		}
 	}
 	
 	private void initEngine() {
-		Map<Integer, String> names = new HashMap<Integer, String>();
-		Map<Integer, Double> balance = new HashMap<Integer, Double>();
-		Map<Integer, Integer> positions = new HashMap<Integer, Integer>();
-		Map<Integer, States> states = new HashMap<Integer, States>();
+		final Map<Integer, String> names = new HashMap<>();
+		final Map<Integer, Double> balance = new HashMap<>();
+		final Map<Integer, Integer> positions = new HashMap<>();
+		final Map<Integer, States> states = new HashMap<>();
 		names.put(0, "test");
-		balance.put (0, 0.0);
+		balance.put(0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		this.engine = new GameEngineImpl(names, balance);

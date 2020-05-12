@@ -16,8 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import monoopoly.game_engine.StartGame;
 import monoopoly.game_engine.StartGameImpl;
-import monoopoly.view.utilities.ViewUtilities;
-import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and
@@ -223,7 +221,7 @@ public class SetPlayerController implements Initializable {
         int i = 0;
         for (String x : tmpPlayers) {
             playerMap.put(i, x);
-            i++;
+            i = i + 1;
         }
     }
 

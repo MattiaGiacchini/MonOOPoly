@@ -26,6 +26,9 @@ import monoopoly.view.controller.PlayerViewControllerImpl;
 import monoopoly.view.controller.StockMarketViewControllerImpl;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoControllerImpl;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
@@ -62,6 +65,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     private StockMarketViewControllerImpl stockMarketController;
 
     private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private SceneManager manager = new SceneManagerImpl();
     private GameEngine gameEngine;
 
     @Override
@@ -72,9 +76,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
 
     @FXML
     public void endGameButtonPressed() {
-        /*
-         * TODO this.gameEngine.endGame();
-         */
+        this.gameEngine.endGame();
     }
 
     @FXML

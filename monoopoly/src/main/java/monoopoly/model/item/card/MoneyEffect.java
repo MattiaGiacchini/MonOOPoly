@@ -17,7 +17,7 @@ public class MoneyEffect extends AbstractCardDecorator {
  	public static class Builder {
 		private Card cardToDecore;
 		private Integer idDrawer;
-		private Map<Integer,Double> ActualPlayersBalance;
+		private Map<Integer,Double> actualPlayersBalance;
 		private Optional<Double>  playerToOthers;
 		private Optional<Double>  playerToBank;
 		private Optional<Double>  playerValueHouseToBank;
@@ -32,7 +32,7 @@ public class MoneyEffect extends AbstractCardDecorator {
 			super();
 			this.cardToDecore 		 	= null;
 			this.idDrawer 				= null;
-			this.ActualPlayersBalance	= null;
+			this.actualPlayersBalance	= null;
 			this.playerToOthers 	 	= Optional.empty();
 			this.playerToBank 		 	= Optional.empty();
 			this.playerValueHouseToBank = Optional.empty();
@@ -64,7 +64,7 @@ public class MoneyEffect extends AbstractCardDecorator {
 			for(Double value : map.values()) {
 				this.doubleChecker(value);
 			}
-			this.ActualPlayersBalance = map;
+			this.actualPlayersBalance = map;
 			return this;
 		}
 
@@ -120,7 +120,7 @@ public class MoneyEffect extends AbstractCardDecorator {
 		}
 
 		public MoneyEffect build() {
-			if((this.makeTheAvarage == true ||
+			if((this.makeTheAvarage ||
 				this.allToBank.isPresent() ||
 				this.playerToBank.isPresent() ||
 				this.playerToOthers.isPresent() ||
@@ -131,7 +131,7 @@ public class MoneyEffect extends AbstractCardDecorator {
 				  this.playerValueHotelToBank.isPresent())) &&
 			   !Objects.isNull(this.cardToDecore) &&
 			   !Objects.isNull(this.idDrawer) &&
-			   !Objects.isNull(this.ActualPlayersBalance)) {
+			   !Objects.isNull(this.actualPlayersBalance)) {
 				return new MoneyEffect(this);
 			}
 			throw new IllegalStateException("Wrong build sequence");
@@ -151,7 +151,7 @@ public class MoneyEffect extends AbstractCardDecorator {
 		super(builder.cardToDecore);
 
 		Map<Integer,Double> copyActPlayersBal = Maps.newHashMap(
-		        builder.ActualPlayersBalance);
+		        builder.actualPlayersBalance);
 		Integer numPlayers = copyActPlayersBal.size();
 
 		Map<Integer,Double> result = new HashMap<>();

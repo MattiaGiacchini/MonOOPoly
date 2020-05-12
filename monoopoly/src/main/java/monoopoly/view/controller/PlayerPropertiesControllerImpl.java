@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
-public class PlayerPropertiesControllerImpl {
+public class PlayerPropertiesControllerImpl implements PlayerPropertiesController {
 
     private Stage stage;
     ObservableList<String> properties = FXCollections.observableArrayList();
@@ -26,10 +26,12 @@ public class PlayerPropertiesControllerImpl {
         // TODO
     }
 
+    @Override
     public void show(Set<String> properties) {
         this.setProperties(properties);
     }
 
+    @Override
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -44,7 +46,7 @@ public class PlayerPropertiesControllerImpl {
         for (String tile : properties) {
             this.properties.add(tile);
         }
-        
+
         this.playerProperties.setItems(this.properties);
     }
 

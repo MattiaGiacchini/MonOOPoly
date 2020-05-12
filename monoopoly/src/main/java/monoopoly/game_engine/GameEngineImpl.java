@@ -185,7 +185,6 @@ public class GameEngineImpl implements GameEngine {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
 			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
-			System.out.println(quotationsMap.get(pM.getPlayerManagerID()));
 		}
 		this.sceneManager.loadScene(ScenePath.SCOREBOARD, Main.getPrimaryStage());
 		this.sCoreboardViewContollerImpl = this.sceneManager.getLeaderboardController();

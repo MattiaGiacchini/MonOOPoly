@@ -8,14 +8,14 @@ import monoopoly.model.item.Tile.Category;
 
 /**
  * this abstract Class has been created to
- * implement the Pattern Decorator.
+ * implement the Pattern Decorator for the Card.
  */
 public abstract class AbstractCardDecorator implements Card {
 
     private final Card decoratedCard;
 
     /**
-     * Constructor for the abstract class.
+     * Constructor for the class abstractCardDecorator.
      *
      * @param decoratedCard this is the card to decore
      */

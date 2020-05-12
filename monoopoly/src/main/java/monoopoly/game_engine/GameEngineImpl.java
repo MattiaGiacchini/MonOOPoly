@@ -3,27 +3,51 @@ package monoopoly.game_engine;
 import java.util.*;
 import javafx.fxml.FXML;
 import monoopoly.Main;
-import monoopoly.controller.bank.*;
-import monoopoly.controller.dices.*;
-import monoopoly.controller.managers.*;
-import monoopoly.controller.player.manager.*;
-import monoopoly.controller.stockmarket.*;
+import monoopoly.controller.bank.BankManager;
+import monoopoly.controller.bank.BankManagerImpl;
+import monoopoly.controller.dices.Dices;
+import monoopoly.controller.dices.DicesImpl;
+import monoopoly.controller.managers.CardManagerImpl;
 import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
-import monoopoly.model.item.*;
+import monoopoly.controller.player.manager.PlayerManager;
+import monoopoly.controller.player.manager.PlayerManagerImpl;
+import monoopoly.controller.stockmarket.StockMarket;
+import monoopoly.controller.stockmarket.StockMarketImpl;
+import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.managers.TurnManager;
+import monoopoly.controller.managers.TurnManagerImpl;
+import monoopoly.model.item.Property;
+import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.Table;
+import monoopoly.model.item.TableImpl;
+import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.TileDeck;
 import monoopoly.model.item.card.Card;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
-import monoopoly.view.main.*;
+import monoopoly.view.main.MainBoardController;
+import monoopoly.view.main.MainBoardControllerImpl;
 import monoopoly.view.controller.ScoreboardViewControllerImpl;
-import monoopoly.view.utilities.*;
+import monoopoly.view.utilities.PurchasableState;
+import monoopoly.view.utilities.SceneManager;
+import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.utilities.ScenePath;
+import monoopoly.view.utilities.TileViewCategory;
 
 public class GameEngineImpl implements GameEngine {
 
+	/**
+	 * creating a map for each credential you need, reachable by player's ID
+	 */
+	private static final int FIRST_PLAYER = 0;
+
 	private Map<Integer, String> name = new HashMap<>();
 	private Map<Integer, Double> balance = new HashMap<>();
+	private Map<Integer, Integer> position = new HashMap<>();
+	private Map<Integer, States> state = new HashMap<>();
 	private TurnManager turnManager = new TurnManagerImpl();
 	private Table table = new TableImpl();
 	private CardManagerImpl cardManager;
@@ -60,6 +84,7 @@ public class GameEngineImpl implements GameEngine {
 	}
 
 	private PlayerManager createPlayer(final int ID) {
+		String name = this.getName(ID);
 		PlayerManager pM = new PlayerManagerImpl(ID, new PlayerImpl.Builder().playerId(ID)
 																			 .name(this.getName(ID))
 															    			 .balance(this.getBalance(ID))
@@ -95,6 +120,7 @@ public class GameEngineImpl implements GameEngine {
 		this.mainBoardController = mainBoardController;
 	}
 	
+	
 	public String getName(final int ID) {
 		if (this.name.keySet().contains(ID)) {
 			return this.name.get(ID);
@@ -103,6 +129,7 @@ public class GameEngineImpl implements GameEngine {
 			throw new java.lang.IllegalArgumentException("No player found");
 		}
 	}
+	
 
 	public Double getBalance(final int ID) {
 		if (this.name.keySet().contains(ID)) {
@@ -112,10 +139,12 @@ public class GameEngineImpl implements GameEngine {
 			throw new java.lang.IllegalArgumentException("No player found");
 		}
 	}
+	
 
 	public Table getTable() {
 		return this.table;
 	}
+	
 	
 	private void updateCurrentPlayer() {
 	    this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
@@ -125,6 +154,7 @@ public class GameEngineImpl implements GameEngine {
                                                                        .getPlayer()
                                                                        .getBalance());
 	}
+	
 
 	public void passPlayer() {
 		this.dicesUse.resetDices();
@@ -150,9 +180,11 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 	
-	private void incRound() {
+	
+	public void incRound() {
 		this.turnManager.setRound();
 	}
+	
 
 	public void endGame() {
 		Map<Integer, Double> quotationsMap = new HashMap<>();
@@ -163,6 +195,7 @@ public class GameEngineImpl implements GameEngine {
 				quotationProperties = quotationProperties + p.getQuotation();
 			}
 			quotationsMap.put(pM.getPlayerManagerID(), quotationProperties + pM.getPlayer().getBalance());
+			System.out.println(quotationsMap.get(pM.getPlayerManagerID()));
 		}
 		this.sceneManager.loadScene(ScenePath.SCOREBOARD, Main.getPrimaryStage());
 		this.sCoreboardViewContollerImpl = this.sceneManager.getLeaderboardController();
@@ -174,14 +207,18 @@ public class GameEngineImpl implements GameEngine {
 									   								    .getPlayer().getPosition());
 		Map<Integer, Double> balance = new HashMap<>();
 		Map<Integer, Integer> position = new HashMap<>();
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
+		for (PlayerManager pM: this.playersList()) {
+		    if (!pM.isBroken()) {
+		        balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());		        
+		    }
 		}
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
+		for (PlayerManager pM: this.playersList()) {
+		    if (!pM.isBroken()) {
+	            position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
+            }
 		}
 
-		Card card = ((TileDeck)tile).idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
+		Card card = ((TileDeck)tile).idPlayerWhoHasDraw(this.currentPlayer().getPlayerManagerID())
                     				.actualPlayersBalance(balance)
                     				.actualPlayersPosition(position)
                     				.draw();
@@ -195,7 +232,7 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_IN) {
-			this.playersList().get(this.turnManager.getCurrentPlayer()).goToPrison();
+			this.currentPlayer().goToPrison();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_OUT) {
 			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
@@ -208,12 +245,16 @@ public class GameEngineImpl implements GameEngine {
 			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
 			                                    .getPlayer()
 			                                    .getPosition());
+			this.checkCard();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.ABSOLUTE_MOVE) {
 			Map<Integer, Integer> map = card.getAbsoluteMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
 				this.playersList().get(entry.getKey()).goToPosition(entry.getValue());
 			}
+			if (this.currentPlayer().getPlayer().getPosition() == 0) {
+	            this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
+	        }
 			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
                     .getPlayer()
                     .getPosition());
@@ -227,7 +268,8 @@ public class GameEngineImpl implements GameEngine {
 				}
 			}
 		}
-		this.updateAlways();
+//		this.updateAlways();
+		this.giveTileInfo(this.currentPlayer().getPlayer().getPosition());
 	}
 
 	public Map<Integer, Integer> rollDices() {
@@ -242,6 +284,7 @@ public class GameEngineImpl implements GameEngine {
 		if (prevPos + this.dicesUse.getDices().get(0) + this.dicesUse.getDices().get(1) > 39) {
 		    this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		}
+		this.checkCard();
 		return this.dicesUse.getDices();
 	}
 
@@ -344,9 +387,6 @@ public class GameEngineImpl implements GameEngine {
             								 .purchasableState(state)
             								 .purchasableCategory(TileViewCategory.OTHER)
             								 .build();
-            if (tile.isDeck()) {
-                this.useCard();
-            }
         }
         this.mainBoardController.showPropertyPane(tileInfo);
 		this.updateAlways();
@@ -428,7 +468,7 @@ public class GameEngineImpl implements GameEngine {
 	    this.currentPlayer().giveUp();
 	    this.mainBoardController.deletePlayer(this.currentPlayer().getPlayerManagerID());
 	    for (Purchasable p: this.currentPlayer().getProperties()) {	 
-	        if (p.getCategory() != Tile.Category.SOCIETY || p.getCategory() != Tile.Category.STATION || !p.isMortgage()) {
+	        if ((p.getCategory() != Tile.Category.SOCIETY && p.getCategory() != Tile.Category.STATION) && !p.isMortgage()) {
 	            for (int i=0; i<((Property)p).getNumberOfHouseBuilt() + ((Property)p).getNumberOfHotelBuilt(); i++) {
 	                ((Property)p).sellBuilding();
 	            }
@@ -439,6 +479,12 @@ public class GameEngineImpl implements GameEngine {
 	        p.setOwner(Optional.empty());
 	    }
 	    this.bankManager.removeAssignmentsFromPlayer(this.currentPlayer());
+	}
+	
+	private void checkCard(){
+	    if (this.table.getTile(this.currentPlayer().getPlayer().getPosition()).isDeck()) {
+            this.useCard();
+        }
 	}
 	
 }

@@ -10,8 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.util.ArrayList?>
 
-
-<AnchorPane style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.start.SetPlayerController">
+<AnchorPane maxHeight="650.0" maxWidth="400.0" minHeight="650.0" minWidth="400.0" prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.start.SetPlayerController">
    <children>
       <VBox alignment="CENTER" prefHeight="626.0" prefWidth="350.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -75,7 +74,7 @@
                   <Insets bottom="20.0" left="40.0" right="40.0" top="10.0" />
                </padding>
             </VBox>
-            <Button focusTraversable="false" mnemonicParsing="false" onAction="#btnStartGameClicked" onMousePressed="#updatedBalance" prefHeight="50.0" prefWidth="141.0" style="-fx-background-radius: 50;" text="START GAME" textAlignment="CENTER">
+            <Button alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#btnStartGameClicked" onMousePressed="#updatedBalance" prefHeight="39.0" prefWidth="176.0" style="-fx-background-radius: 50;" text="START GAME" textAlignment="CENTER">
                  <font>
                       <Font name="System Bold" size="18.0" />
                  </font>

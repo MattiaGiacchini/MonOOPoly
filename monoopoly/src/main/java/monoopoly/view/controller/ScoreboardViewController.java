@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import monoopoly.model.player.Player;
 
-public interface ScoreboardViewContoller {
+public interface ScoreboardViewController {
 
     /**
      * This method displays the final leaderboard

@@ -22,6 +22,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     private static final int MAX_NUM_HOTEL = 1;
     private ButtonLogic logics = new ButtonLogicImpl();
     private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private GameEngine gameEngine;
+    private boolean playerPayedRent = true;
 
     @FXML
     private Label propertyName;
@@ -149,10 +151,6 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     @FXML
     private AnchorPane society;
 
-    private boolean playerPayedRent = true;
-
-    private GameEngine gameEngine;
-
     @FXML
     public void buildHouseButtonPressed() {
         this.gameEngine.buildHouse();
@@ -198,10 +196,10 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     @Override
     public void resetButtons() {
-      this.buyPurchasable.setDisable(false);
+        this.buyPurchasable.setDisable(false);
 
     }
-    
+
     @Override
     public void lockButtons() {
         this.buyPurchasable.setDisable(true);
@@ -313,9 +311,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
      * @param info
      */
     private void ownedPropertyButtonsLogic(TileInfo info) {
-        this.playerPayedRent = false || info.rentPayed();
-        this.payRent.setDisable(info.rentPayed());
-        System.out.println("rent payed " + info.rentPayed());
+        this.payRent.setDisable(!(!info.rentPayed() && info.isCurrentPlayerOnSelectedTile()));
+        this.playerPayedRent = this.payRent.isDisabled() && info.rentPayed();
         this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
         this.ownedProperty.toFront();
     }

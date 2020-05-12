@@ -1,27 +1,14 @@
 package monoopoly.controller.managers;
 
-import java.util.Map;
-
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.card.Card;
-import monoopoly.utilities.CardEffect;
-import monoopoly.utilities.CardEffect.*;
 
 public class CardManagerImpl implements CardManager {
 	
 	private boolean isThisCardMaintainable;
 	
-	private String Description;
-	
-	private Integer cardNumber;
-	
-	private Tile.Category originDeck;
-	
 	public CardManagerImpl(final String description, final Integer cardNumber, final Tile.Category originDeck) {
 		this.isThisCardMaintainable = false;
-		this.Description = description;
-		this.cardNumber = cardNumber;
-		this.originDeck = originDeck;
 	}
 	
 

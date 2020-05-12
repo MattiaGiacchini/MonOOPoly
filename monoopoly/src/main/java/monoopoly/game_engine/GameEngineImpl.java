@@ -30,7 +30,7 @@ import monoopoly.utilities.*;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.main.MainBoardController;
 import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.main.ScoreboardViewControllerImpl;
+import monoopoly.view.controller.ScoreboardViewControllerImpl;
 import monoopoly.view.utilities.PurchasableState;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
@@ -72,13 +72,9 @@ public class GameEngineImpl implements GameEngine {
 	 * @param state
 	 */
 	public GameEngineImpl(final Map<Integer, String> name,
-						  final Map<Integer, Double> balance
-						  /*final Map<Integer, Integer> position,
-						  final Map<Integer, monoopoly.utilities.States> state*/) {
+						  final Map<Integer, Double> balance) {
 		this.name = name;
 		this.balance = balance;
-		this.position = position;
-		this.state = state;
 		this.tileHit = 0;
 	}
 
@@ -122,8 +118,8 @@ public class GameEngineImpl implements GameEngine {
 	
 	public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
 		this.mainBoardController = mainBoardController;
-	//	this.initializeView();
 	}
+	
 	
 	public String getName(final int ID) {
 		if (this.name.keySet().contains(ID)) {
@@ -133,6 +129,7 @@ public class GameEngineImpl implements GameEngine {
 			throw new java.lang.IllegalArgumentException("No player found");
 		}
 	}
+	
 
 	public Double getBalance(final int ID) {
 		if (this.name.keySet().contains(ID)) {
@@ -142,10 +139,12 @@ public class GameEngineImpl implements GameEngine {
 			throw new java.lang.IllegalArgumentException("No player found");
 		}
 	}
+	
 
 	public Table getTable() {
 		return this.table;
 	}
+	
 	
 	private void updateCurrentPlayer() {
 	    this.mainBoardController.updateCurrentPlayer(this.playersList().get(this.turnManager.getCurrentPlayer())
@@ -155,6 +154,7 @@ public class GameEngineImpl implements GameEngine {
                                                                        .getPlayer()
                                                                        .getBalance());
 	}
+	
 
 	public void passPlayer() {
 		this.dicesUse.resetDices();
@@ -180,9 +180,11 @@ public class GameEngineImpl implements GameEngine {
 		}
 	}
 	
+	
 	public void incRound() {
 		this.turnManager.setRound();
 	}
+	
 
 	public void endGame() {
 		Map<Integer, Double> quotationsMap = new HashMap<>();
@@ -205,14 +207,18 @@ public class GameEngineImpl implements GameEngine {
 									   								    .getPlayer().getPosition());
 		Map<Integer, Double> balance = new HashMap<>();
 		Map<Integer, Integer> position = new HashMap<>();
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());
+		for (PlayerManager pM: this.playersList()) {
+		    if (!pM.isBroken()) {
+		        balance.put(pM.getPlayer().getID(), pM.getPlayer().getBalance());		        
+		    }
 		}
-		for (PlayerManager pM: this.turnManager.getPlayersList()) {
-			position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
+		for (PlayerManager pM: this.playersList()) {
+		    if (!pM.isBroken()) {
+	            position.put(pM.getPlayer().getID(), pM.getPlayer().getPosition());
+            }
 		}
 
-		Card card = ((TileDeck)tile).idPlayerWhoHasDraw(this.turnManager.getCurrentPlayer())
+		Card card = ((TileDeck)tile).idPlayerWhoHasDraw(this.currentPlayer().getPlayerManagerID())
                     				.actualPlayersBalance(balance)
                     				.actualPlayersPosition(position)
                     				.draw();
@@ -226,7 +232,7 @@ public class GameEngineImpl implements GameEngine {
 			}
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_IN) {
-			this.playersList().get(this.turnManager.getCurrentPlayer()).goToPrison();
+			this.currentPlayer().goToPrison();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.JAIL_OUT) {
 			this.playersList().get(this.turnManager.getCurrentPlayer()).leavePrison();
@@ -239,12 +245,16 @@ public class GameEngineImpl implements GameEngine {
 			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
 			                                    .getPlayer()
 			                                    .getPosition());
+			this.checkCard();
 		}
 		else if (effect == monoopoly.utilities.CardEffect.ABSOLUTE_MOVE) {
 			Map<Integer, Integer> map = card.getAbsoluteMoveToPosition().get();
 			for (Map.Entry<Integer, Integer> entry: map.entrySet()) {
 				this.playersList().get(entry.getKey()).goToPosition(entry.getValue());
 			}
+			if (this.currentPlayer().getPlayer().getPosition() == 0) {
+	            this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
+	        }
 			this.giveTileInfo(this.playersList().get(this.turnManager.getCurrentPlayer())
                     .getPlayer()
                     .getPosition());
@@ -258,7 +268,8 @@ public class GameEngineImpl implements GameEngine {
 				}
 			}
 		}
-		this.updateAlways();
+//		this.updateAlways();
+		this.giveTileInfo(this.currentPlayer().getPlayer().getPosition());
 	}
 
 	public Map<Integer, Integer> rollDices() {
@@ -273,16 +284,19 @@ public class GameEngineImpl implements GameEngine {
 		if (prevPos + this.dicesUse.getDices().get(0) + this.dicesUse.getDices().get(1) > 39) {
 		    this.bankManager.giveMoney(200, this.playersList().get(this.turnManager.getCurrentPlayer()));
 		}
+		this.checkCard();
 		return this.dicesUse.getDices();
 	}
 
-	public Set<String> giveProperties(Integer ID) {
-		Set<String> properties = new HashSet<>();
-		for (Purchasable p: this.playersList().get(ID).getProperties()) {
-			properties.add(p.getName());
-		}
-		this.updateAlways();
-		return properties;
+	public void giveProperties(Integer ID) {
+	    if (ID < this.playersList().size()) {
+	        Set<String> properties = new HashSet<>();
+	        for (Purchasable p: this.playersList().get(ID).getProperties()) {
+	            properties.add(p.getName());
+	        }
+	        this.updateAlways();
+	        this.mainBoardController.showPlayerProperties(properties, this.playersList().get(ID).getPlayer().getName());
+	    }
 	}
 
 	public void giveTileInfo(Integer tileNum) {
@@ -373,9 +387,6 @@ public class GameEngineImpl implements GameEngine {
             								 .purchasableState(state)
             								 .purchasableCategory(TileViewCategory.OTHER)
             								 .build();
-            if (tile.isDeck()) {
-                this.useCard();
-            }
         }
         this.mainBoardController.showPropertyPane(tileInfo);
 		this.updateAlways();
@@ -457,7 +468,7 @@ public class GameEngineImpl implements GameEngine {
 	    this.currentPlayer().giveUp();
 	    this.mainBoardController.deletePlayer(this.currentPlayer().getPlayerManagerID());
 	    for (Purchasable p: this.currentPlayer().getProperties()) {	 
-	        if (p.getCategory() != Tile.Category.SOCIETY || p.getCategory() != Tile.Category.STATION || !p.isMortgage()) {
+	        if ((p.getCategory() != Tile.Category.SOCIETY && p.getCategory() != Tile.Category.STATION) && !p.isMortgage()) {
 	            for (int i=0; i<((Property)p).getNumberOfHouseBuilt() + ((Property)p).getNumberOfHotelBuilt(); i++) {
 	                ((Property)p).sellBuilding();
 	            }
@@ -468,6 +479,12 @@ public class GameEngineImpl implements GameEngine {
 	        p.setOwner(Optional.empty());
 	    }
 	    this.bankManager.removeAssignmentsFromPlayer(this.currentPlayer());
+	}
+	
+	private void checkCard(){
+	    if (this.table.getTile(this.currentPlayer().getPlayer().getPosition()).isDeck()) {
+            this.useCard();
+        }
 	}
 	
 }

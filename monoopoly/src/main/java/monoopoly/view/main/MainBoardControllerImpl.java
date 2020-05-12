@@ -6,9 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Set;
-import org.davidmoten.text.utils.WordWrap;
-
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,7 +25,6 @@ import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.TileInfoControllerImpl;
 import monoopoly.view.utilities.SceneManager;
 import monoopoly.view.utilities.SceneManagerImpl;
-import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
@@ -156,8 +152,8 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     }
 
     @Override
-    public void showPlayerProperties(Set<String> properties) {
-        this.playerInfoController.showPlayerProperties(properties);
+    public void showPlayerProperties(Set<String> properties, String playerName) {
+        this.playerInfoController.showPlayerProperties(properties, playerName);
     }
 
     @Override

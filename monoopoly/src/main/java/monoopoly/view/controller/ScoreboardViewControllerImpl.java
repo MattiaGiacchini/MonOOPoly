@@ -18,7 +18,7 @@ import javafx.scene.image.ImageView;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;
 
-public class ScoreboardViewControllerImpl implements ScoreboardViewContoller, Initializable {
+public class ScoreboardViewControllerImpl implements ScoreboardViewController, Initializable {
 
     private ViewUtilities utilities = new ViewUtilitiesImpl();
 
@@ -35,7 +35,6 @@ public class ScoreboardViewControllerImpl implements ScoreboardViewContoller, In
     private List<TextField> pointsList;
 
     private Map<Integer, String> names = new HashMap<Integer, String>();
-    private Map<Integer, Double> points = new HashMap<Integer, Double>();
     private List<Entry<Integer, Double>> rank;
 
     @FXML
@@ -46,7 +45,6 @@ public class ScoreboardViewControllerImpl implements ScoreboardViewContoller, In
     @Override
     public void showLeaderboard(Map<Integer, String> names, Map<Integer, Double> points) {
         this.names = names;
-        this.points = points;
         this.orderLeaderboard(points);
         this.displayLeaderboard();
     }

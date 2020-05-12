@@ -113,11 +113,6 @@
                                     <Font size="18.0" />
                                  </font>
                               </Button>
-                              <Button focusTraversable="false" mnemonicParsing="false" stylesheets="@main.css" text="SAVE">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Button>
                               <Button focusTraversable="false" mnemonicParsing="false" onAction="#quitButtonPressed" stylesheets="@main.css" text="QUIT">
                                  <font>
                                     <Font size="18.0" />

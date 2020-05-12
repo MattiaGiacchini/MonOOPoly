@@ -1,7 +1,8 @@
 package monoopoly.game_engine;
 
-import java.util.*;
 
+import java.util.List;
+import java.util.Map;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
 import monoopoly.view.main.MainBoardControllerImpl;
@@ -12,126 +13,121 @@ import monoopoly.view.main.MainBoardControllerImpl;
  */
 public interface GameEngine {
 
-	/**
-	 * method to create Table, monopoly's board-game
-	 *
-	 * @return {@link Table}
-	 */
-	Table createTable();
+    /**
+     * method to create Table, monopoly's board-game.
+     *
+     * @return {@link Table}
+     */
+    Table createTable();
 
-	/**
-	 * Creating all the players using all the IDs stored in maps
-	 */
-	void createPlayers();
+    /**
+     * Creating all the players using all the IDs stored in maps.
+     */
+    void createPlayers();
 
-	/**
-	 * Method to track turn by turn the current player by watching it
-	 * into TurnManagerImpl.
-	 *
-	 * @return {@link PlayerManager} that is the currently gaming player
-	 */
-	PlayerManager currentPlayer();
+    /**
+     * Method to track turn by turn the current player by watching it
+     * into TurnManagerImpl.
+     * @return {@link PlayerManager} that is the currently gaming player
+     */
+    PlayerManager currentPlayer();
 
-	/**
-	 * @return a list of {@link PlayerManager}
-	 */
-	List<PlayerManager> playersList();
-	
-	/**
-	 * used to set the mainBoardController
-	 * @param {@link mainBoardController}
-	 */
-	void setMainBoardController(MainBoardControllerImpl mainBoardController);
+    /**
+     * @return a list of {@link PlayerManager}
+     */
+    List<PlayerManager> playersList();
 
-	/**
-	 * helpful for getting player's name by putting ID
-	 * @param ID
-	 * @return String
-	 */
-	String getName(final int ID);
+    /**
+     * used to set the mainBoardController.
+     * @param mainBoardController 
+     */
+    void setMainBoardController(MainBoardControllerImpl mainBoardController);
 
-	/**
-	 * helpful for getting player's balance by putting ID
-	 * @param ID
-	 * @return Double
-	 */
-	Double getBalance(final int ID);
+    /**
+     * helpful for getting player's name by putting ID.
+     * @param iD
+     * @return String
+     */
+    String getName(int iD);
 
-	/**
-	 * You can call this method to pass your turn
-	 * @return successive {@link PlayerManager}
-	 */
-	void passPlayer();
+    /**
+     * helpful for getting player's balance by putting ID.
+     * @param iD
+     * @return Double
+     */
+    Double getBalance(int iD);
 
-	/**
-	 *
-	 * @return the table
-	 */
-	Table getTable();
+    /**
+     * You can call this method to pass your turn.
+     */
+    void passPlayer();
 
-	/** The game ends with a I,II,III leaderboard
-	 * @return {@link PlayerManager}
-	 */
-	void endGame();
+    /**
+     * @return the table
+     */
+    Table getTable();
 
-	/**
-	 * method to use the effect of a card
-	 */
-	void useCard();
-	
-	/**
-	 * method used to roll the dices
-	 * @return {@Map representing each dice with its value}
-	 */
-	Map<Integer, Integer> rollDices();
+    /** 
+     * The game ends with a leaderboard.
+     */
+    void endGame();
 
-	/**
-	 * Useful to get the names of players' properties
-	 * @param ID
-	 * @return a set of String
-	 */
-	void giveProperties(Integer ID);
-	
-	/**
-	 * Useful to get the names of the tile you hit on
-	 * @param tileNum
-	 */
-	void giveTileInfo(Integer tileNum);
-	
-	/**
-	 * Useful to build an house 
-	 */
-	public void buildHouse();
-	
-	/**
-	 * Useful to sell an house 
-	 */
-	public void sellHouse();
-	
-	/**
-	 * Useful to mortgage 
-	 */
-	public void mortgage();
-	
-	/**
-	 * Useful to un-mortgage 
-	 */
-	public void unMortgage();
-	
-	/**
-	 * Useful to buy a purchasable 
-	 */
-	public void buyPurchasable();
-	
-	/**
-	 * Useful to pay to the owner 
-	 */
-	public void payRent();
-	
-	/**
-	 * A player lose
-	 */
-	void lose();
-	
-	
+    /**
+     * method to use the effect of a card.
+     */
+    void useCard();
+
+    /**
+     * method used to roll the dices.
+     * @return {@Map representing each dice with its value}
+     */
+    Map<Integer, Integer> rollDices();
+
+    /**
+     * Useful to get the names of players' properties.
+     * @param iD
+     */
+    void giveProperties(Integer iD);
+
+    /**
+     * Useful to get the names of the tile you hit on.
+     * @param tileNum
+     */
+    void giveTileInfo(Integer tileNum);
+
+    /**
+     * Useful to build an house.
+     */
+    void buildHouse();
+
+    /**
+     * Useful to sell an house.
+     */
+    void sellHouse();
+
+    /**
+     * Useful to mortgage. 
+     */
+    void mortgage();
+
+    /**
+     * Useful to un-mortgage.
+     */
+    void unMortgage();
+
+    /**
+     * Useful to buy a purchasable.
+     */
+    void buyPurchasable();
+
+    /**
+     * Useful to pay to the owner. 
+     */
+    void payRent();
+
+    /**
+     * A player lose.
+     */
+    void lose();
+
 }

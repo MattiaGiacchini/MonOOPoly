@@ -63,9 +63,10 @@ public interface MainBoardController {
      * This method shows the list of {@link Purchasable}s owned by the chosen
      * player.
      * 
-     * @param properties
+     * @param properties a set of all the {@link Player} properties
+     * @param playerName the {@link Player}'s name to display
      */
-    void showPlayerProperties(Set<String> properties);
+    void showPlayerProperties(Set<String> properties, String playerName);
 
     /**
      * This method displays the normal dices rolled and the speedyDice, if present.

@@ -1,11 +1,9 @@
 package monoopoly.controller.managers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.player.Player;
 import monoopoly.utilities.States;
 
 public class TurnManagerImpl implements TurnManager {

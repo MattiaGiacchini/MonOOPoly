@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.engine.GameEngine;
 import monoopoly.model.Bank;
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Tile;
-import monoopoly.model.item.Tile.Category;
 import monoopoly.model.player.Player;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Property;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 public class BankManagerImpl implements BankManager {
 

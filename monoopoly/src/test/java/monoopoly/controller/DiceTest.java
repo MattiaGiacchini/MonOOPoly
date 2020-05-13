@@ -14,9 +14,9 @@ import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.engine.GameEngine;
 import monoopoly.engine.GameEngineImpl;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.TableImpl;
 import monoopoly.model.player.PlayerImpl;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.TableImpl;
 import monoopoly.utilities.States;
 
 public class DiceTest {

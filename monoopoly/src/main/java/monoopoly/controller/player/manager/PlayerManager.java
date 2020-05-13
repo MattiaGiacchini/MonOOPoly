@@ -2,9 +2,9 @@ package monoopoly.controller.player.manager;
 
 import java.util.Set;
 
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
 import monoopoly.model.player.Player;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.model.trade.Trade;
 
 /**

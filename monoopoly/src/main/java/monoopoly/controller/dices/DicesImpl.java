@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.Table;
+import monoopoly.model.table.Table;
 
 public class DicesImpl implements Dices {
 

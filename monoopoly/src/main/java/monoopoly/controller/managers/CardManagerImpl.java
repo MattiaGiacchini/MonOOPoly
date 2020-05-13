@@ -1,6 +1,6 @@
 package monoopoly.controller.managers;
 
-import monoopoly.model.item.card.Card;
+import monoopoly.model.table.card.Card;
 
 public final class CardManagerImpl implements CardManager {
 

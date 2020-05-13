@@ -3,7 +3,7 @@ package monoopoly.model.trade;
 import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.Purchasable;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 public class TradeImpl implements Trade {
 

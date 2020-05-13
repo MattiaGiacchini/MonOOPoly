@@ -249,6 +249,7 @@ public class PlayerManagerImpl implements PlayerManager {
     public void goToPrison() {
         if (this.player.hasPrisonCard()) {
             this.player.setPrisonCard(false);
+            this.resetPrisonCounter();
         } else {
             this.resetPrisonCounter();
             this.player.setState(States.PRISONED);

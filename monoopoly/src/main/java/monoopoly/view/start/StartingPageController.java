@@ -19,7 +19,7 @@ import monoopoly.view.utilities.ScenePath;
  */
 public class StartingPageController implements Initializable {
 
-    private SceneManager manager = new SceneManagerImpl();
+    private final SceneManager manager = new SceneManagerImpl();
 
     @FXML
     private Button btnNewGame;
@@ -34,19 +34,20 @@ public class StartingPageController implements Initializable {
      * {@inheritDoc}
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.logo.setImage(new Image(getClass().getResourceAsStream("/logoMonoopoly500.png")));
     }
 
+    /**
+     * This method make the game begin, swaps the scene and loads the player
+     * creation form.
+     * 
+     * @param event to consume.
+     */
     @FXML
-    public void startNewGame(ActionEvent event) throws Exception {
-        Stage stage = (Stage) btnNewGame.getScene().getWindow();
+    public void startNewGame(final ActionEvent event) {
+        final Stage stage = (Stage) btnNewGame.getScene().getWindow();
         manager.loadScene(ScenePath.SET_PLAYERS, stage);
-    }
-
-    @FXML
-    public void loadGame() {
-
     }
 
 }

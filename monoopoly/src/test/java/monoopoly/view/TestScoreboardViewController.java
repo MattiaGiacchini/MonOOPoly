@@ -12,26 +12,37 @@ import org.junit.Test;
 import monoopoly.view.controller.ScoreboardViewController;
 import monoopoly.view.controller.ScoreboardViewControllerImpl;
 
+/**
+ * This class tests the scoreboard visualization.
+ */
 public class TestScoreboardViewController {
 
-    private ScoreboardViewController leaderboardController = new ScoreboardViewControllerImpl();
+    private static final double THIRD_BALANCE = 900.00;
+    private static final double SECOND_BALANCE = 1800.00;
+    private static final double FIRST_BALANCE = 3500.00;
+    private static final double FOURTH_BALANCE = 500.00;
 
+    private final ScoreboardViewController leaderboardController = new ScoreboardViewControllerImpl();
+
+    /**
+     * Testing the ordered leaderboard.
+     */
     @Test
     public void testOrderedLeaderboard() {
-        Map<Integer, String> names = new HashMap<Integer, String>();
+        final Map<Integer, String> names = new HashMap<>();
         names.put(0, "Mattia");
         names.put(1, "Aiman");
         names.put(2, "Daniele");
         names.put(3, "Cristian");
 
-        Map<Integer, Double> points = new HashMap<Integer, Double>();
-        points.put(0, 500.00);
-        points.put(1, 3500.00);
-        points.put(2, 1800.00);
-        points.put(3, 900.00);
+        final Map<Integer, Double> points = new HashMap<>();
+        points.put(0, FOURTH_BALANCE);
+        points.put(1, FIRST_BALANCE);
+        points.put(2, SECOND_BALANCE);
+        points.put(3, THIRD_BALANCE);
 
         this.leaderboardController.showLeaderboard(names, points);
-        List<Entry<Integer, Double>> rank = this.leaderboardController.getRank();
+        final List<Entry<Integer, Double>> rank = this.leaderboardController.getRank();
 
         assertEquals(1, rank.get(0).getKey());
         assertEquals(2, rank.get(1).getKey());

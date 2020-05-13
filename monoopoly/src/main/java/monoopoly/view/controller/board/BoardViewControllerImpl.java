@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.utilities.Pair;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;

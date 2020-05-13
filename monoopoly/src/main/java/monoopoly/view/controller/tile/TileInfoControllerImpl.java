@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
@@ -20,7 +20,7 @@ import monoopoly.view.utilities.ViewUtilitiesImpl;
 /**
  * This class implements the methods to display the {@link Purchasable} info and
  * a controller pane to manage the {@link Purchasable} according to its owner.
- * 
+ *
  * This class contains even the logic of the buttons activation.
  */
 public class TileInfoControllerImpl implements TileInfoController, Initializable {
@@ -254,7 +254,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     /**
      * This method shows the tile control pane based on the topology of tile where
      * the {@link Player} is standing on.
-     * 
+     *
      * @param info
      */
     private void show(final TileInfo info) {
@@ -303,7 +303,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method updates the informations displayed about the chosen society.
-     * 
+     *
      */
     private void showSocietyInfo() {
         this.society.toFront();
@@ -311,7 +311,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method updates the informations displayed about the chosen station.
-     * 
+     *
      * @param info to display.
      */
     private void showStationInfo(final TileInfo info) {
@@ -324,7 +324,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
 
     /**
      * This method updates the informations displayed about the chosen property.
-     * 
+     *
      * @param info to display.
      */
     private void showPropertyInfo(final TileInfo info) {
@@ -347,7 +347,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
      * values and updates the labels.
-     * 
+     *
      * @param info to display.
      */
     private void ownedPropertyButtonsLogic(final TileInfo info) {
@@ -360,7 +360,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
      * values and updates the labels.
-     * 
+     *
      * @param info to display.
      */
     private void myPropertyButtonsLogic(final TileInfo info) {
@@ -378,7 +378,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     /**
      * This method sets the buttons enabled or disabled based on {@link TileInfo}
      * values and updates the labels.
-     * 
+     *
      * @param info to display.
      */
     private void freePropertyButtonsLogic(final TileInfo info) {

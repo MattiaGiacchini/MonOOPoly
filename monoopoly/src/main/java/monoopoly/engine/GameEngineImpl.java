@@ -111,7 +111,6 @@ public final class GameEngineImpl implements GameEngine {
         this.mainBoardController = mainBoardController;
     }
 
-
     @Override
     public String getName(final int iD) {
         if (this.name.keySet().contains(iD)) {
@@ -121,7 +120,6 @@ public final class GameEngineImpl implements GameEngine {
         }
     }
 
-
     @Override
     public Double getBalance(final int iD) {
         if (this.name.keySet().contains(iD)) {
@@ -130,7 +128,6 @@ public final class GameEngineImpl implements GameEngine {
             throw new IllegalArgumentException("No player found");
         }
     }
-
 
     @Override
     public Table getTable() {
@@ -146,16 +143,16 @@ public final class GameEngineImpl implements GameEngine {
                                                                        .getBalance());
     }
 
-
     @Override
     public void passPlayer() {
         this.dicesUse.resetDices();
         this.turnManager.nextTurn();
-        if (this.currentPlayer().getPlayer().getState() == States.BROKE) {
+        if (this.currentPlayer().isBroken()) {
             if (!this.turnManager.areThereOtherPlayersInGame()) {
                 this.endGame();
+            } else {
+                this.passPlayer();
             }
-            this.passPlayer();
         }
         this.updateAlways();
         if (this.turnManager.getCurrentPlayer() == 0) {

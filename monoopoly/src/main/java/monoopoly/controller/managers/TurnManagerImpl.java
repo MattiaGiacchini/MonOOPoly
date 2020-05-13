@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.utilities.States;
 
 public final class TurnManagerImpl implements TurnManager {
 
@@ -36,14 +35,11 @@ public final class TurnManagerImpl implements TurnManager {
     public Boolean areThereOtherPlayersInGame() {
         int check = 0;
         for (final PlayerManager pM: this.playersList) {
-            if (pM.getPlayer().getState() != States.BROKE) {
+            if (!pM.isBroken()) {
                 check = check + 1;
             }
         }
-        if (check > 1) {
-            return true;
-        }
-        return false;
+        return check > 1;
     }
 
     @Override

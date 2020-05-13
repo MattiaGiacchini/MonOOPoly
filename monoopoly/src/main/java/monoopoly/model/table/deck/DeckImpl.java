@@ -1,4 +1,4 @@
-package monoopoly.model.item.deck;
+package monoopoly.model.table.deck;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.table.tile.Tile.Category;
 
 /**
  * this is the {@link Deck} implementation.

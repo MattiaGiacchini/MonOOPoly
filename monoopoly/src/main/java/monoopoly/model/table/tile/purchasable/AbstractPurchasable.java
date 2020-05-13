@@ -1,10 +1,10 @@
-package monoopoly.model.item.tile.purchasable;
+package monoopoly.model.table.tile.purchasable;
 
 import java.util.Map;
 import java.util.Optional;
 
-import monoopoly.model.item.tile.AbstractTileDecorator;
-import monoopoly.model.item.tile.Tile;
+import monoopoly.model.table.tile.AbstractTileDecorator;
+import monoopoly.model.table.tile.Tile;
 
 /**
  * this Class is used to implement the pattern template method

@@ -1,11 +1,11 @@
-package monoopoly.model.item.tile.purchasable;
+package monoopoly.model.table.tile.purchasable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 
-import monoopoly.model.item.tile.Tile;
+import monoopoly.model.table.tile.Tile;
 
 /**
  * the class Station is a Decorator of Tile.

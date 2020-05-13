@@ -8,12 +8,12 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import monoopoly.model.item.Table;
-import monoopoly.model.item.TableImpl;
-import monoopoly.model.item.tile.Tile;
-import monoopoly.model.item.tile.TileImpl;
-import monoopoly.model.item.tile.purchasable.Property;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.TableImpl;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.TileImpl;
+import monoopoly.model.table.tile.purchasable.Property;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 /**
  *  in this class there are the test for all type of tile.

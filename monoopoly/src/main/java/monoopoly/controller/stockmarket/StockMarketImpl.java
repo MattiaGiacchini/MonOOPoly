@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import monoopoly.model.item.Table;
-import monoopoly.model.item.tile.Tile.Category;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 /**
  * This class implements the StockMarket interface.

@@ -1,4 +1,4 @@
-package monoopoly.model.item.card;
+package monoopoly.model.table.card;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.table.tile.Tile.Category;
 
 /**
  * The class MoveEffect is a decorator of card.

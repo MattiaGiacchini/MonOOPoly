@@ -15,8 +15,8 @@ import monoopoly.controller.stockmarket.StockMarket;
 import monoopoly.controller.stockmarket.StockMarketImpl;
 import monoopoly.engine.GameEngine;
 import monoopoly.engine.GameEngineImpl;
-import monoopoly.model.item.tile.Tile.Category;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.utilities.States;
 
 public class StockTest {

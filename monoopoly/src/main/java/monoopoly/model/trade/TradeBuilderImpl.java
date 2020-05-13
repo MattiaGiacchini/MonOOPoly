@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 
 public class TradeBuilderImpl implements TradeBuilder {

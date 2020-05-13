@@ -1,11 +1,11 @@
-package monoopoly.model.item.tile.purchasable;
+package monoopoly.model.table.tile.purchasable;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import monoopoly.model.item.tile.Tile;
+import monoopoly.model.table.tile.Tile;
 
 /**
  * the class Society is a Decorator of Tile.

@@ -2,7 +2,7 @@ package monoopoly.controller.bank;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.Bank;
-import monoopoly.model.item.tile.Tile;
+import monoopoly.model.table.tile.Tile;
 
 /**
  *    This interface allows the game to manage the bank.

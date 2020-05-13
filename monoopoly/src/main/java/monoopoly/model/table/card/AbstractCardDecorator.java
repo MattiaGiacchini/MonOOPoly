@@ -1,10 +1,10 @@
-package monoopoly.model.item.card;
+package monoopoly.model.table.card;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.table.tile.Tile.Category;
 
 /**
  * this abstract Class has been created to

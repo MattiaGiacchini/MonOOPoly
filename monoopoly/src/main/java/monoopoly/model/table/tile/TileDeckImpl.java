@@ -1,4 +1,4 @@
-package monoopoly.model.item.tile;
+package monoopoly.model.table.tile;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,13 +9,13 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import monoopoly.model.item.card.Card;
-import monoopoly.model.item.card.CardImpl;
-import monoopoly.model.item.card.MoneyEffect;
-import monoopoly.model.item.card.MoveEffect;
-import monoopoly.model.item.card.PropertyEffect;
-import monoopoly.model.item.card.StatusEffect;
-import monoopoly.model.item.deck.Deck;
+import monoopoly.model.table.card.Card;
+import monoopoly.model.table.card.CardImpl;
+import monoopoly.model.table.card.MoneyEffect;
+import monoopoly.model.table.card.MoveEffect;
+import monoopoly.model.table.card.PropertyEffect;
+import monoopoly.model.table.card.StatusEffect;
+import monoopoly.model.table.deck.Deck;
 
 /**
  * TileDeckImpl is a decoration of Tile and it's represents the one

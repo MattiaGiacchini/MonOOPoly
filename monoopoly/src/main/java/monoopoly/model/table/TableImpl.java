@@ -1,4 +1,4 @@
-package monoopoly.model.item;
+package monoopoly.model.table;
 
 import java.util.Map;
 import java.util.Objects;
@@ -6,9 +6,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import monoopoly.model.item.tile.Tile;
-import monoopoly.model.item.tile.Tile.Category;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 /**
  * This class contains the all tile of monopoly

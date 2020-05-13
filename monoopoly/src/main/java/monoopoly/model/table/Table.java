@@ -1,11 +1,11 @@
-package monoopoly.model.item;
+package monoopoly.model.table;
 
 import java.util.Set;
 import java.util.function.Predicate;
 
-import monoopoly.model.item.tile.Tile;
-import monoopoly.model.item.tile.Tile.Category;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 /**
  *  This interface represents the monopoly's board-game,

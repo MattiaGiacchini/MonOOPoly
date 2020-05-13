@@ -1,8 +1,8 @@
-package monoopoly.model.item.tile;
+package monoopoly.model.table.tile;
 
 import java.util.Map;
 
-import monoopoly.model.item.card.Card;
+import monoopoly.model.table.card.Card;
 
 /**
  * this interface represents the deck tile.

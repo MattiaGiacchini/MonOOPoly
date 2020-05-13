@@ -1,4 +1,4 @@
-package monoopoly.model.item.card;
+package monoopoly.model.table.card;
 
 import java.util.Collections;
 import java.util.HashMap;

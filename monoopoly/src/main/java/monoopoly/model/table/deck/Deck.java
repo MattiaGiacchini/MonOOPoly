@@ -1,6 +1,6 @@
-package monoopoly.model.item.deck;
+package monoopoly.model.table.deck;
 
-import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.table.tile.Tile.Category;
 
 /**
  *  this Interface represents the container of all

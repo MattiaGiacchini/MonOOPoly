@@ -4,7 +4,7 @@ package monoopoly.model.trade;
 import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 
 /**
  *    This interface represents a trade between two players.

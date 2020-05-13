@@ -1,4 +1,4 @@
-package monoopoly.model.item.tile;
+package monoopoly.model.table.tile;
 
 import java.util.Objects;
 

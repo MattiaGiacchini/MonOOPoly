@@ -5,10 +5,10 @@ import java.util.Set;
 
 import monoopoly.controller.trades.Trader;
 import monoopoly.controller.trades.TraderImpl;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.tile.Tile;
-import monoopoly.model.item.tile.purchasable.Purchasable;
 import monoopoly.model.player.Player;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;

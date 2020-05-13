@@ -1,4 +1,4 @@
-package monoopoly.model.item;
+package monoopoly.model.table;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -12,17 +12,17 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import monoopoly.model.item.deck.Deck;
-import monoopoly.model.item.deck.DeckImpl;
-import monoopoly.model.item.tile.Tile;
-import monoopoly.model.item.tile.TileDeckImpl;
-import monoopoly.model.item.tile.TileImpl;
-import monoopoly.model.item.tile.Tile.Category;
-import monoopoly.model.item.tile.purchasable.Property;
-import monoopoly.model.item.tile.purchasable.PropertyImpl;
-import monoopoly.model.item.tile.purchasable.Purchasable;
-import monoopoly.model.item.tile.purchasable.Society;
-import monoopoly.model.item.tile.purchasable.Station;
+import monoopoly.model.table.deck.Deck;
+import monoopoly.model.table.deck.DeckImpl;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.TileDeckImpl;
+import monoopoly.model.table.tile.TileImpl;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Property;
+import monoopoly.model.table.tile.purchasable.PropertyImpl;
+import monoopoly.model.table.tile.purchasable.Purchasable;
+import monoopoly.model.table.tile.purchasable.Society;
+import monoopoly.model.table.tile.purchasable.Station;
 
 class TableFactory {
 

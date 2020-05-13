@@ -1,6 +1,6 @@
 package monoopoly.view.controller;
 
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.Player;
 import monoopoly.view.controller.TileInfo;

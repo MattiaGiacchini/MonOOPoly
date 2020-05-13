@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;

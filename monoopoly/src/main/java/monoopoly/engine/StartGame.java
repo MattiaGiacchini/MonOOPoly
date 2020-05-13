@@ -1,4 +1,4 @@
-package monoopoly.game_engine;
+package monoopoly.engine;
 
 import java.util.Map;
 

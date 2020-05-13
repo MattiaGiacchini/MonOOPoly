@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.model.player.Player;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;

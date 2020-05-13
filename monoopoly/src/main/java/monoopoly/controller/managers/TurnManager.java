@@ -9,8 +9,8 @@ import monoopoly.controller.player.manager.PlayerManager;
  */
 public interface TurnManager {
 
-	/**
-	 * Used to handle turn passing
+    /**
+	 * Used to handle turn passing.
 	 * 
 	 *  @return {@link PlayerManager} successive 
 	 */

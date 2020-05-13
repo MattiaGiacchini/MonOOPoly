@@ -14,7 +14,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import monoopoly.Main;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 
 public class TradeViewControllerImpl implements Initializable {
 

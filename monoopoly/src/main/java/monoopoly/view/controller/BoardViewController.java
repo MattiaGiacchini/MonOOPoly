@@ -3,7 +3,7 @@ package monoopoly.view.controller;
 import java.util.List;
 import java.util.Map;
 
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 
 /**
  * This interface represents the view controller for the game board

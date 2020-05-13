@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import monoopoly.Main;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;

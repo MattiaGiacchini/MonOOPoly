@@ -14,8 +14,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import monoopoly.game_engine.StartGame;
-import monoopoly.game_engine.StartGameImpl;
+import monoopoly.engine.StartGame;
+import monoopoly.engine.StartGameImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and

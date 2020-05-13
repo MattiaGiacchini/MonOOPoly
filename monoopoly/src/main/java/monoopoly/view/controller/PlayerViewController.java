@@ -3,7 +3,7 @@ package monoopoly.view.controller;
 import java.util.Map;
 import java.util.Set;
 
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 
 public interface PlayerViewController {
 

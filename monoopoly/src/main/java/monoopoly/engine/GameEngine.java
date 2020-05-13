@@ -79,7 +79,7 @@ public interface GameEngine {
 
     /**
      * method used to roll the dices.
-     * @return {@Map representing each dice with its value}
+     * @return {@link Map} representing each dice with its value
      */
     Map<Integer, Integer> rollDices();
 

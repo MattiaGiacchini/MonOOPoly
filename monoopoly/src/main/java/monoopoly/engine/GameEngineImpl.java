@@ -40,7 +40,7 @@ import monoopoly.view.utilities.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.TileViewCategory;
 
-public class GameEngineImpl implements GameEngine {
+public final class GameEngineImpl implements GameEngine {
 
     private static final int OUT_OF_PRISON = -150;
     private static final int VIA = 200;
@@ -65,6 +65,7 @@ public class GameEngineImpl implements GameEngine {
         this.tileHit = 0;
     }
 
+    @Override
     public Table createTable() {
         this.table = new TableImpl();
         return this.getTable();
@@ -79,6 +80,7 @@ public class GameEngineImpl implements GameEngine {
         return pM;
     }
 
+    @Override
     public void createPlayers() {
         this.turnManager.setCurrentID(this.name.values().size() - 1);
         final Iterator<Map.Entry<Integer, String>> it = name.entrySet().iterator();
@@ -89,6 +91,7 @@ public class GameEngineImpl implements GameEngine {
         this.passPlayer();
     }
 
+    @Override
     public PlayerManager currentPlayer() {
         for (final PlayerManager pM: this.turnManager.getPlayersList()) {
             if (pM.getPlayerManagerID() == this.turnManager.getCurrentPlayer()) {
@@ -98,15 +101,18 @@ public class GameEngineImpl implements GameEngine {
         return null;
     }
 
-    public List<PlayerManager> playersList(){
+    @Override
+    public List<PlayerManager> playersList() {
         return this.turnManager.getPlayersList();
     }
 
-    public void setMainBoardController(MainBoardControllerImpl mainBoardController) {
+    @Override
+    public void setMainBoardController(final MainBoardControllerImpl mainBoardController) {
         this.mainBoardController = mainBoardController;
     }
 
 
+    @Override
     public String getName(final int iD) {
         if (this.name.keySet().contains(iD)) {
             return this.name.get(iD);
@@ -116,6 +122,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
 
+    @Override
     public Double getBalance(final int iD) {
         if (this.name.keySet().contains(iD)) {
             return this.balance.get(iD);
@@ -125,6 +132,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
 
+    @Override
     public Table getTable() {
         return this.table;
     }
@@ -139,6 +147,7 @@ public class GameEngineImpl implements GameEngine {
     }
 
 
+    @Override
     public void passPlayer() {
         this.dicesUse.resetDices();
         this.turnManager.nextTurn();
@@ -167,6 +176,7 @@ public class GameEngineImpl implements GameEngine {
         this.turnManager.setRound();
     }
 
+    @Override
     public void endGame() {
         ScoreboardViewControllerImpl scoreboardViewContollerImpl;
         final Map<Integer, Double> quotationsMap = new HashMap<>();
@@ -183,6 +193,7 @@ public class GameEngineImpl implements GameEngine {
         scoreboardViewContollerImpl.showLeaderboard(this.name, quotationsMap);
     }
 
+    @Override
     public void useCard() {
         CardManagerImpl cardManager;
         final Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
@@ -205,7 +216,7 @@ public class GameEngineImpl implements GameEngine {
                                            .actualPlayersPosition(position)
                                            .draw();
         this.mainBoardController.showDeckCard(card.getOriginDeck().toString(), card.getDescription());
-        cardManager = new CardManagerImpl(card.getDescription(), card.getCardNumber(), card.getOriginDeck());
+        cardManager = new CardManagerImpl();
         final monoopoly.utilities.CardEffect effect = cardManager.knowCard(card);
         if (effect == monoopoly.utilities.CardEffect.MONEY_EXCHANGE) {
             final Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get();
@@ -248,6 +259,7 @@ public class GameEngineImpl implements GameEngine {
         this.giveTileInfo(this.currentPlayer().getPlayer().getPosition());
     }
 
+    @Override
     public Map<Integer, Integer> rollDices() {
         final int prevPos = this.currentPlayer().getPlayer().getPosition();
         this.dicesUse.roll(this.playersList().get(this.turnManager.getCurrentPlayer()));
@@ -264,7 +276,8 @@ public class GameEngineImpl implements GameEngine {
         return this.dicesUse.getDices();
     }
 
-    public void giveProperties(Integer iD) {
+    @Override
+    public void giveProperties(final Integer iD) {
         if (iD < this.playersList().size()) {
             final Set<String> properties = new HashSet<>();
             for (final Purchasable p: this.playersList().get(iD).getProperties()) {
@@ -275,7 +288,8 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
-    public void giveTileInfo(Integer tileNum) {
+    @Override
+    public void giveTileInfo(final Integer tileNum) {
         this.tileHit = tileNum;
         final Tile tile = this.table.getTile(tileNum);
         PurchasableState state = PurchasableState.OTHER;
@@ -368,18 +382,21 @@ public class GameEngineImpl implements GameEngine {
         this.updateAlways();
     }
 
+    @Override
     public void buildHouse() {
         this.bankManager.assignHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
         this.updateAlways();
         this.giveTileInfo(this.tileHit);
     }
 
+    @Override
     public void sellHouse() {
         this.bankManager.sellHouse(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
         this.updateAlways();
         this.giveTileInfo(this.tileHit);
     }
 
+    @Override
     public void mortgage() { 
         this.bankManager.mortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
         this.updateAlways();
@@ -387,12 +404,14 @@ public class GameEngineImpl implements GameEngine {
         this.giveTileInfo(this.tileHit);
     }
 
+    @Override
     public void unMortgage() {
         this.bankManager.unmortgageProperty(this.table.getTile(this.tileHit), this.playersList().get(this.turnManager.getCurrentPlayer()));
         this.updateAlways();
         this.giveTileInfo(this.tileHit);
     }
 
+    @Override
     public void buyPurchasable() {
         final Purchasable tile = (Purchasable) this.table.getTile(this.playersList().get(this.turnManager.getCurrentPlayer())
                                                          .getPlayer()
@@ -402,6 +421,7 @@ public class GameEngineImpl implements GameEngine {
         this.giveTileInfo(this.tileHit);
     }
 
+    @Override
     public void payRent() {
         final Purchasable tile = (Purchasable) this.table.getTile(this.currentPlayer()
                                                          .getPlayer()
@@ -439,6 +459,7 @@ public class GameEngineImpl implements GameEngine {
         this.updateCurrentPlayer();
     }
 
+    @Override
     public void lose() {
         this.bankManager.giveMoney(-this.currentPlayer().getPlayer().getBalance(), this.currentPlayer());
         this.currentPlayer().giveUp();

@@ -1,11 +1,10 @@
 package monoopoly.engine;
 
-
 import java.util.List;
 import java.util.Map;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Table;
-import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.controller.main.MainBoardControllerImpl;
 
 /**
  * Interface representing the brain behind

@@ -32,11 +32,11 @@ import monoopoly.model.item.card.Card;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 import monoopoly.view.controller.TileInfo;
-import monoopoly.view.main.MainBoardControllerImpl;
-import monoopoly.view.controller.ScoreboardViewControllerImpl;
+import monoopoly.view.controller.main.MainBoardControllerImpl;
+import monoopoly.view.controller.scoreboard.ScoreboardViewControllerImpl;
+import monoopoly.view.scene.controller.SceneManager;
+import monoopoly.view.scene.controller.SceneManagerImpl;
 import monoopoly.view.utilities.PurchasableState;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.TileViewCategory;
 

@@ -6,8 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * The class MoneyEffect is a decorator of card and represents all tile
- * buildable.
+ * The class MoneyEffect is a decorator of card
  */
 public final class MoneyEffect extends AbstractCardDecorator {
 

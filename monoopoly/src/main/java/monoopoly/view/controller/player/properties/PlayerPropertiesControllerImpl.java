@@ -18,7 +18,7 @@ public class PlayerPropertiesControllerImpl implements PlayerPropertiesControlle
     private final ObservableList<String> properties = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<String> playerProperties = new ListView<>();
+    private ListView<String> playerProperties;
 
     /**
      * This method closes the popup.

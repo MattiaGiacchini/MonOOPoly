@@ -5,9 +5,9 @@ package monoopoly.controller.bank;
  */
 public interface BankCommand {
 
-	/**
-	 * This method executes the specific command.
-	 */
-	void execute();
+    /**
+     * This method executes the specific command.
+     */
+    void execute();
 
 }

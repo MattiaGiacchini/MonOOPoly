@@ -4,13 +4,11 @@
 package monoopoly.controller.bank;
 
 public class BankCommandExecutor {
-	
-	/**
-	 * Executes a command.
-	 * @param bankCommand the command to be executed.
-	 */
-	public void executeCommand(final BankCommand bankCommand) {
-		bankCommand.execute();
-	}
-	
+    /**
+     * Executes a command.
+     * @param bankCommand the command to be executed.
+     */
+    public void executeCommand(final BankCommand bankCommand) {
+        bankCommand.execute();
+    }
 }

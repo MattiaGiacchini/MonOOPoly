@@ -2,8 +2,8 @@ package monoopoly;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.scene.controller.SceneManager;
+import monoopoly.view.scene.controller.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 
 /**

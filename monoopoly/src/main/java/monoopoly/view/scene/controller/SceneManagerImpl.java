@@ -1,4 +1,4 @@
-package monoopoly.view.utilities;
+package monoopoly.view.scene.controller;
 
 import java.io.IOException;
 
@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import monoopoly.view.controller.ScoreboardViewControllerImpl;
 import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.utilities.ScenePath;
+import monoopoly.view.utilities.ViewUtilities;
+import monoopoly.view.utilities.ViewUtilitiesImpl;
 
 /**
  * This class implements the method to change scenes or to create new stages.

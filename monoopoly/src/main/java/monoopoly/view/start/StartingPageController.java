@@ -10,8 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import monoopoly.view.utilities.SceneManager;
-import monoopoly.view.utilities.SceneManagerImpl;
+import monoopoly.view.scene.controller.SceneManager;
+import monoopoly.view.scene.controller.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 
 /**

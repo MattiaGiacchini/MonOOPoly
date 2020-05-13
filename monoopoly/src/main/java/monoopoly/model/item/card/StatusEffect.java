@@ -95,7 +95,7 @@ public final class StatusEffect extends AbstractCardDecorator {
          * {@link StatusEffect} using all parameters you already
          * pass in the {@link Builder}.
          *
-         * @return {@link Builder} for a fluent programming
+         * @return a new Instance of {@link StatusEffect}
          * @throws IllegalStateException if the parameters aren't formatted
          *                               correctly
          *

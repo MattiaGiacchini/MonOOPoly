@@ -1,9 +1,11 @@
-package monoopoly.model.item;
+package monoopoly.model.item.tile.purchasable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import monoopoly.model.item.tile.Tile;
 
 /**
  * The class PropertyImpl is a decorator of Tile and represents all tile

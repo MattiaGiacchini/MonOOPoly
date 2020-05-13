@@ -16,7 +16,7 @@ import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controller.trades.Trader;
 import monoopoly.controller.trades.TraderImpl;
 import monoopoly.engine.GameEngineImpl;
-import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;

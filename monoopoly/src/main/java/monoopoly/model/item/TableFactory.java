@@ -12,9 +12,17 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.deck.Deck;
 import monoopoly.model.item.deck.DeckImpl;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.TileDeckImpl;
+import monoopoly.model.item.tile.TileImpl;
+import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.item.tile.purchasable.Property;
+import monoopoly.model.item.tile.purchasable.PropertyImpl;
+import monoopoly.model.item.tile.purchasable.Purchasable;
+import monoopoly.model.item.tile.purchasable.Society;
+import monoopoly.model.item.tile.purchasable.Station;
 
 class TableFactory {
 

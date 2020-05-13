@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  *  CardImpl is the base of every single Card.

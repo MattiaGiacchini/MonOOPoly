@@ -3,7 +3,9 @@ package monoopoly.model.item;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 
 /**
  *  This interface represents the monopoly's board-game,

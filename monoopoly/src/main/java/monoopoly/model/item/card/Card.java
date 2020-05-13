@@ -3,7 +3,7 @@ package monoopoly.model.item.card;
 import java.util.Map;
 import java.util.Optional;
 
-import monoopoly.model.item.Tile;
+import monoopoly.model.item.tile.Tile;
 
 /**
  *  this interface represents the effect of every

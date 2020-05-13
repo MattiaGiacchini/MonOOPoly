@@ -16,8 +16,8 @@ import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.engine.GameEngine;
 import monoopoly.engine.GameEngineImpl;
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.tile.purchasable.Property;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 

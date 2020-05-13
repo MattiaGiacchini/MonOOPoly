@@ -3,7 +3,7 @@ package monoopoly.controller.stockmarket;
 import java.util.List;
 import java.util.Map;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  * This interface represents the Stock Market, and its history.

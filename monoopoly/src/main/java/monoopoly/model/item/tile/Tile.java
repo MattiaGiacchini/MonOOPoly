@@ -1,4 +1,4 @@
-package monoopoly.model.item;
+package monoopoly.model.item.tile;
 
 /**
  *  This interface represents a generic

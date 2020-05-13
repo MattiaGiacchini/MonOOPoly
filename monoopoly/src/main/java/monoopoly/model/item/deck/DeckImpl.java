@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  * this is the {@link Deck} implementation.

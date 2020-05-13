@@ -2,8 +2,8 @@ package monoopoly.controller.player.manager;
 
 import java.util.Set;
 
-import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 import monoopoly.model.player.Player;
 import monoopoly.model.trade.Trade;
 

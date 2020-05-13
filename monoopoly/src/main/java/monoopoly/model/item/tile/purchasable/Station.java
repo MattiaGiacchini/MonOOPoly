@@ -1,9 +1,11 @@
-package monoopoly.model.item;
+package monoopoly.model.item.tile.purchasable;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+
+import monoopoly.model.item.tile.Tile;
 
 /**
  * the class Station is a Decorator of Tile.
@@ -120,7 +122,9 @@ public final class Station extends AbstractPurchasable {
         }
 
         /**
-         * @param numberOfStation
+         * this method is used to set the number of stations inside the table.
+         *
+         * @param numberOfStation to set
          * @return {@link Builder} for a fluent programming
          */
         public Builder numOfStations(final Integer numberOfStation) {
@@ -130,6 +134,15 @@ public final class Station extends AbstractPurchasable {
             return this;
         }
 
+        /**
+         * This method is used to create the instance of
+         * {@link Station} using all parameters you already pass
+         * to the {@link Builder}.
+         *
+         * @return the Instance of {@link Station}
+         * @throws NullPointerException if parameters are
+         *         not all set
+         */
         public Station build() {
             Objects.requireNonNull(this.decorated,
                     "STATION: Card to decor is unsetted!");

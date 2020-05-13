@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  * The class MoveEffect is a decorator of card.

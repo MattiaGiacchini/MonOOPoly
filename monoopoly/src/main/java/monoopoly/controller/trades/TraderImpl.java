@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.model.item.Purchasable;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 import monoopoly.model.trade.Trade;
 
 public class TraderImpl implements Trader {

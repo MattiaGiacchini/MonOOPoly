@@ -14,14 +14,14 @@ import java.util.stream.Stream;
 import org.junit.Before;
 import org.junit.Test;
 
-import monoopoly.model.item.Tile;
-import monoopoly.model.item.Tile.Category;
 import monoopoly.model.item.card.Card;
 import monoopoly.model.item.card.CardImpl;
 import monoopoly.model.item.card.MoneyEffect;
 import monoopoly.model.item.card.MoveEffect;
 import monoopoly.model.item.card.PropertyEffect;
 import monoopoly.model.item.card.StatusEffect;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  *  The TestCard verify the function of Cards.

@@ -6,7 +6,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.item.tile.purchasable.Purchasable;
 
 /**
  * This class contains the all tile of monopoly

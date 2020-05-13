@@ -12,8 +12,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TabPane;
-import monoopoly.model.item.Tile;
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.Tile.Category;
 
 /**
  * This class implements the method to display the {@link StockMarket} on the

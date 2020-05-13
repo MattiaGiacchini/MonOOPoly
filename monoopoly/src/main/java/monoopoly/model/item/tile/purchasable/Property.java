@@ -1,4 +1,4 @@
-package monoopoly.model.item;
+package monoopoly.model.item.tile.purchasable;
 
 /**
  *  This interface represents the single property of Monoopoly

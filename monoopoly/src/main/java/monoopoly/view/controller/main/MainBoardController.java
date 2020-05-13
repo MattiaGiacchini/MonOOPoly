@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import monoopoly.engine.GameEngine;
-import monoopoly.model.item.Tile.Category;
+import monoopoly.model.item.tile.Tile.Category;
 import monoopoly.view.controller.TileInfo;
 
 /**

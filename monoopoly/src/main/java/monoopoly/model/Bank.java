@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import monoopoly.model.item.Tile;
+import monoopoly.model.item.tile.Tile;
 import monoopoly.model.player.Player;
 
 /**

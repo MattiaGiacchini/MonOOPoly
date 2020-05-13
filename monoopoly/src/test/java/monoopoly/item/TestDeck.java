@@ -16,15 +16,15 @@ import java.util.stream.Stream;
 import org.junit.Before;
 import org.junit.Test;
 
-import monoopoly.model.item.Property;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.TableImpl;
-import monoopoly.model.item.Tile;
-import monoopoly.model.item.Tile.Category;
-import monoopoly.model.item.TileDeck;
 import monoopoly.model.item.card.Card;
 import monoopoly.model.item.deck.Deck;
 import monoopoly.model.item.deck.DeckImpl;
+import monoopoly.model.item.tile.Tile;
+import monoopoly.model.item.tile.TileDeck;
+import monoopoly.model.item.tile.Tile.Category;
+import monoopoly.model.item.tile.purchasable.Property;
 
 /**
  * this test verify the deck where you can draw card.

@@ -1,7 +1,9 @@
-package monoopoly.model.item;
+package monoopoly.model.item.tile.purchasable;
 
 import java.util.Map;
 import java.util.Optional;
+
+import monoopoly.model.item.tile.Tile;
 
 
 /**

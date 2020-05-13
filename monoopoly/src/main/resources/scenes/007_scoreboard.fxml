@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.util.ArrayList?>
 
-<AnchorPane maxHeight="670.0" maxWidth="450.0" minHeight="670.0" minWidth="450.0" prefHeight="670.0" prefWidth="450.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.ScoreboardViewControllerImpl">
+<AnchorPane maxHeight="670.0" maxWidth="450.0" minHeight="670.0" minWidth="450.0" prefHeight="670.0" prefWidth="450.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.scoreboard.ScoreboardViewControllerImpl">
    <children>
       <VBox alignment="CENTER" prefHeight="626.0" prefWidth="350.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

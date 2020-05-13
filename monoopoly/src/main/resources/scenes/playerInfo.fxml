@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.util.ArrayList?>
 
-<VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.PlayerViewControllerImpl">
+<VBox prefHeight="587.0" prefWidth="458.0" spacing="15.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.player.info.PlayerViewControllerImpl">
    <children>
       <HBox id="player0" alignment="CENTER_LEFT" onMouseClicked="#displayPlayerPropertiesButtonClicked" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FF8A65; -fx-background-radius: 50 0 0 50;" styleClass="playerInfo" stylesheets="@main.css">
          <children>

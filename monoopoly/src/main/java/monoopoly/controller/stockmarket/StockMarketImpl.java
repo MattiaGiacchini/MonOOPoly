@@ -14,6 +14,9 @@ import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
 import monoopoly.model.item.Tile.Category;
 
+/**
+ * This class implements the StockMarket interface.
+ */
 public class StockMarketImpl implements StockMarket {
     private Map<Category, Double> actualMarket;
     private final List<Map<Category, Double>> stockHistory;
@@ -27,10 +30,11 @@ public class StockMarketImpl implements StockMarket {
     private static final double INIT_QUOTATION = 1.0;
     private static final double MAX_PERCENT = 250.0;
     private static final double MIN_PERCENT = 5.0;
+
     public StockMarketImpl(final Table table) {
         this.purchasables = table.getFilteredTiles(Purchasable.class, x -> x.isPurchasable());
         this.purchasableCategories = this.purchasables.stream().map(x -> x.getCategory()).collect(Collectors.toSet());
-        this.stockHistory = new ArrayList<Map<Category, Double>>();
+        this.stockHistory = new ArrayList<>();
         this.actualMarket = initMarket();
         this.random = new Random();
     }

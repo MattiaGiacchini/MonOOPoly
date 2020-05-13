@@ -2,8 +2,8 @@ package monoopoly.view.scene.controller;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import monoopoly.view.controller.ScoreboardViewControllerImpl;
-import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.controller.main.MainBoardControllerImpl;
+import monoopoly.view.controller.scoreboard.ScoreboardViewControllerImpl;
 import monoopoly.view.utilities.ScenePath;
 
 /**

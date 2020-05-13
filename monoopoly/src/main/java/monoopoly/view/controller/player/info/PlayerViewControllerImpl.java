@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.player.info;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
+import monoopoly.view.controller.player.properties.PlayerPropertiesController;
+import monoopoly.view.controller.player.properties.PlayerPropertiesControllerImpl;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.ViewUtilities;
 import monoopoly.view.utilities.ViewUtilitiesImpl;

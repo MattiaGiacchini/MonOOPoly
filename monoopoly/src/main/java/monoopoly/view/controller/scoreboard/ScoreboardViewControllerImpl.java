@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.scoreboard;
 
 import java.net.URL;
 import java.util.HashMap;

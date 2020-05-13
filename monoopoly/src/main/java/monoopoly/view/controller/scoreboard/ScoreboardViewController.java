@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.scoreboard;
 
 import java.util.List;
 import java.util.Map;

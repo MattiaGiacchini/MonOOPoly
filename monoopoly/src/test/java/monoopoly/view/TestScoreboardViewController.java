@@ -9,8 +9,8 @@ import java.util.Map.Entry;
 
 import org.junit.Test;
 
-import monoopoly.view.controller.ScoreboardViewController;
-import monoopoly.view.controller.ScoreboardViewControllerImpl;
+import monoopoly.view.controller.scoreboard.ScoreboardViewController;
+import monoopoly.view.controller.scoreboard.ScoreboardViewControllerImpl;
 
 /**
  * This class tests the scoreboard visualization.

@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.dices;
 
 import java.util.Optional;
 

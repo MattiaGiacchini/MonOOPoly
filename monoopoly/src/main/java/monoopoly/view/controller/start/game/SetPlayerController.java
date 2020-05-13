@@ -1,4 +1,4 @@
-package monoopoly.view.start;
+package monoopoly.view.controller.start.game;
 
 import java.net.URL;
 import java.util.ArrayList;

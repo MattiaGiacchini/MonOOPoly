@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.stockmarket;
 
 import java.net.URL;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.tile;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import monoopoly.game_engine.GameEngine;
+import monoopoly.view.controller.TileInfo;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
 import monoopoly.view.utilities.PurchasableState;

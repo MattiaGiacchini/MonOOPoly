@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.player.properties;
 
 import java.util.Set;
 

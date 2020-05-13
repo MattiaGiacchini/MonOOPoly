@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.dices;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class DiceViewControllerImpl implements DiceViewController, Initializable
     @FXML
     private ImageView dice3;
 
-    private Set<ImageView> dices = new HashSet<ImageView>(Arrays.asList(dice1, dice2, dice3));
+    private final Set<ImageView> dices = new HashSet<>(Arrays.asList(dice1, dice2, dice3));
 
     /**
      * {@inheritDoc}

@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.stockmarket;
 
 import java.util.List;
 import java.util.Map;

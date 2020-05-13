@@ -1,6 +1,7 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.tile;
 
 import monoopoly.game_engine.GameEngine;
+import monoopoly.view.controller.TileInfo;
 
 /**
  * This interface represents the controller for the properties display pane.

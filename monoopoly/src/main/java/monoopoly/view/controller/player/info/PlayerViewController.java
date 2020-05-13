@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.player.info;
 
 import java.util.Map;
 import java.util.Set;

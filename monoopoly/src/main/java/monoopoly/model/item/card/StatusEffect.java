@@ -47,7 +47,8 @@ public final class StatusEffect extends AbstractCardDecorator {
          * @return {@link Builder} for a fluent programming
          */
         public Builder cardToDecore(final Card card) {
-            Objects.requireNonNull(card, "The decorator cannot decor a null pointer");
+            Objects.requireNonNull(card,
+                    "The decorator cannot decor a null pointer");
             this.cardToDecore = card;
             return this;
         }

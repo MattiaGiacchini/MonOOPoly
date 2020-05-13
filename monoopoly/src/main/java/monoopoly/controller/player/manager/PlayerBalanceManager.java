@@ -8,13 +8,13 @@ import monoopoly.model.player.Player;
  */
 public interface PlayerBalanceManager {
 
-	/**
-	 * Add or remove a quantity of money from {@link Player}'s balance
-	 * 
-	 * @param player owner of the balance to be modified
-	 * @param amount money to add (positive amount value) or to remove (negative
-	 *               amount value) from balance
-	 */
-	void updateBalance(Player player, Double amount);
+    /**
+     * Add or remove a quantity of money from {@link Player}'s balance.
+     * 
+     * @param player owner of the balance to be modified
+     * @param amount money to add (positive amount value) or to remove (negative
+     *               amount value) from balance
+     */
+    void updateBalance(Player player, Double amount);
 
 }

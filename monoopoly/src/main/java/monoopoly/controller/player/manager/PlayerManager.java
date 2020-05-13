@@ -4,7 +4,6 @@ import java.util.Set;
 
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Table;
-import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
 import monoopoly.model.trade.Trade;
 
@@ -37,7 +36,7 @@ public interface PlayerManager {
      * 
      * @param table Game table instance
      */
-    void setTable(final Table table);
+    void setTable(Table table);
 
     /*
      * /** This method return a manager to manage the {@link Player}'s {@link
@@ -125,17 +124,17 @@ public interface PlayerManager {
     void declineTrade();
 
     /**
-     * This method modifies the existing trade setting new fields
+     * This method modifies the existing trade setting new fields.
      */
     void modifyTrade();
 
     /**
-     * Updates the {@link Player}'s state setting it to "IN GAME"
+     * Updates the {@link Player}'s state setting it to "IN GAME".
      */
     void leavePrison();
 
     /**
-     * Checks if the {@link Player} is or not in prison
+     * Checks if the {@link Player} is or not in prison.
      *
      * @return true if {@link Player} is in prison
      */
@@ -143,7 +142,7 @@ public interface PlayerManager {
 
     /**
      * This method returns the set of {@link Purchasable}s owned by the
-     * {@link Player}
+     * {@link Player}.
      *
      * @return the set of {@link Purchasable}s owned by the {@link Player}
      */
@@ -169,7 +168,7 @@ public interface PlayerManager {
     boolean isBroken();
 
     /**
-     * This method resets the counter of the turn remained in prison;
+     * This method resets the counter of the turn remained in prison.
      */
     void resetPrisonCounter();
 

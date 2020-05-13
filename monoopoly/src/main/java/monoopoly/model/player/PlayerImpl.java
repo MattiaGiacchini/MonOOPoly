@@ -4,8 +4,7 @@ import monoopoly.utilities.States;
 
 /**
  * This class represents the player as a pawn on the board, managed by the
- * {@link PlayerManager}
- *
+ * {@link PlayerManager}.
  */
 public class PlayerImpl implements Player {
 
@@ -14,10 +13,10 @@ public class PlayerImpl implements Player {
     private Double balance;
     private int position;
     private States state;
-    private boolean prisonCard = false;
+    private boolean prisonCard;
 
-    /*
-     * A simple builder for the player
+    /**
+     * A simple builder for the player.
      */
     public static class Builder {
 
@@ -26,43 +25,82 @@ public class PlayerImpl implements Player {
         private Double balance;
         private Integer position = 0;
         private States state = States.IN_GAME;
-        private boolean leavePrisonForFree = false;
+        private boolean leavePrisonForFree;
 
-        public Builder() {
-
-        }
-
+        /**
+         * This is a builder function to set the {@link Player}'s identifier.
+         * 
+         * @param id to set.
+         * @return {@link Builder}
+         */
         public Builder playerId(final int id) {
             this.playerID = id;
             return this;
         }
 
+        /**
+         * This is a builder function to set the {@link Player}'s name.
+         * 
+         * @param name to set
+         * @return {@link Builder}
+         */
         public Builder name(final String name) {
             this.name = name;
             return this;
         }
 
+        /**
+         * This is a builder function to set the {@link Player}'s balance.
+         * 
+         * @param balance to set
+         * @return {@link Builder}
+         */
         public Builder balance(final Double balance) {
             this.balance = balance;
             return this;
         }
 
+        /**
+         * This is a builder function to set the {@link Player}'s position.
+         * 
+         * @param position to set
+         * @return {@link Builder}
+         */
         public Builder position(final int position) {
             this.position = position;
             return this;
         }
 
+        /**
+         * This is a builder function to set the {@link Player}'s state.
+         * 
+         * @param state to set
+         * @return {@link Builder}
+         */
         public Builder state(final States state) {
             this.state = state;
             return this;
         }
 
+        /**
+         * This is a builder function to set the {@link Player}'s leavePrisonForFree
+         * card.
+         * 
+         * @param leave boolean to set
+         * @return {@link Builder}
+         */
         public Builder leavePrisonForFree(final boolean leave) {
             this.leavePrisonForFree = leave;
             return this;
         }
 
-        public Player build() throws IllegalStateException {
+        /**
+         * This method builds the {@link PlayerImpl} instance.
+         * 
+         * @return {@link PlayerImpl}
+         * @throws IllegalStateException
+         */
+        public Player build() {
             if (this.playerID < 0 || this.name == null || this.balance == null || this.state == null
                     || this.position < 0) {
                 throw new IllegalStateException("Wrong player creation");
@@ -75,7 +113,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * This method creates an instance of {@link Player} with an unique ID
+     * This method creates an instance of {@link Player} with an unique ID.
      * 
      * @param playerID player unique identifier
      * @param name     of the player you want to create
@@ -85,7 +123,8 @@ public class PlayerImpl implements Player {
      * @param leave    if the player has a collectable card that allows him to leave
      *                 prison for free
      */
-    public PlayerImpl(int playerID, String name, Double balance, Integer position, States state, boolean leave) {
+    public PlayerImpl(final int playerID, final String name, final Double balance, final Integer position,
+            final States state, final boolean leave) {
         super();
         this.playerID = playerID;
         this.name = name;
@@ -95,61 +134,97 @@ public class PlayerImpl implements Player {
         this.prisonCard = leave;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getID() {
         return playerID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Double getBalance() {
         return balance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setBalance(Double balance) {
+    public void setBalance(final Double balance) {
         this.balance = balance;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getPosition() {
         return position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPosition(int position) {
+    public void setPosition(final int position) {
         this.position = position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public States getState() {
         return state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setState(States state) {
+    public void setState(final States state) {
         this.state = state;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateBalance(Double value) {
+    public void updateBalance(final Double value) {
         this.balance = this.balance + value;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasPrisonCard() {
         return this.prisonCard;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setPrisonCard(boolean leaveForFree) {
+    public void setPrisonCard(final boolean leaveForFree) {
         this.prisonCard = leaveForFree;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -159,25 +234,35 @@ public class PlayerImpl implements Player {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        PlayerImpl other = (PlayerImpl) obj;
+        }
+
+        final PlayerImpl other = (PlayerImpl) obj;
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
-        if (playerID != other.playerID)
-            return false;
-        return true;
+        }
+        return playerID == other.playerID;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "PlayerImpl [playerID=" + this.playerID + ", name=" + this.name + ", balance=" + this.balance

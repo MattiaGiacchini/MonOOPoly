@@ -121,17 +121,17 @@ public class PlayerManagerImpl implements PlayerManager {
 
     @Override
     public void setOffererOffer(Set<Purchasable> offererRealEstate, Double offererMoney) {
-        this.tradeBuilder.setPlayerOne(this);
-        this.tradeBuilder.setPlayerOneProperties(offererRealEstate);
-        this.tradeBuilder.setPlayerOneMoney(offererMoney);
+        this.tradeBuilder.playerOne(this);
+        this.tradeBuilder.playerOneProperties(offererRealEstate);
+        this.tradeBuilder.playerOneMoney(offererMoney);
     }
 
     @Override
     public void setContractorRequest(PlayerManager contractor, Set<Purchasable> contractorRealEstate,
             Double contractorMoney) {
-        this.tradeBuilder.setPlayerTwo(contractor);
-        this.tradeBuilder.setPlayerTwoProperties(contractorRealEstate);
-        this.tradeBuilder.setPlayerTwoMoney(contractorMoney);
+        this.tradeBuilder.playerTwo(contractor);
+        this.tradeBuilder.playerTwoProperties(contractorRealEstate);
+        this.tradeBuilder.playerTwoMoney(contractorMoney);
     }
 
     @Override

@@ -18,46 +18,46 @@ public class TradeBuilderImpl implements TradeBuilder {
 	
 	
 	@Override
-	public TradeBuilder setPlayerOne(PlayerManager player) {
+	public final TradeBuilder playerOne(final PlayerManager player) {
 		this.playerOne = player;
 		return this;
 	}
 
 	@Override
-	public TradeBuilder setPlayerTwo(PlayerManager player) {
+	public final TradeBuilder playerTwo(final PlayerManager player) {
 		this.playerTwo = player;
 		return this;
 	}
 
 	@Override
-	public TradeBuilder setPlayerOneProperties(Set<Purchasable> properties) {
+	public final TradeBuilder playerOneProperties(final Set<Purchasable> properties) {
 		this.propertiesOne = properties;
 		return this;
 	}
 
 	@Override
-	public TradeBuilder setPlayerTwoProperties(Set<Purchasable> properties) {
+	public final TradeBuilder playerTwoProperties(final Set<Purchasable> properties) {
 		this.propertiesTwo = properties;
 		return this;
 	}
 
 	@Override
-	public TradeBuilder setPlayerOneMoney(double money) {
+	public final TradeBuilder playerOneMoney(final double money) {
 		this.moneyOne = money;
 		return this;
 	}
 
 	@Override
-	public TradeBuilder setPlayerTwoMoney(double money) {
+	public final TradeBuilder playerTwoMoney(final double money) {
 		this.moneyTwo = money;
 		return this;
 	}
 
 	@Override
-	public TradeImpl build() {
+	public final TradeImpl build() {
 		if (this.playerOne == null || this.playerTwo == null) {
-			throw new IllegalStateException("The trade must have at least " + 
-					"the players involved in it!");
+			throw new IllegalStateException("The trade must have at least " 
+						+ "the players involved in it!");
 		}
 		if (this.propertiesOne == null) {
 			this.propertiesOne = new HashSet<>();

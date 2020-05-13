@@ -1,5 +1,6 @@
 package monoopoly.trade;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -24,6 +25,8 @@ import monoopoly.utilities.States;
 
 public class TestTrader {
 	
+	private static final int TILE_6 = 6;
+	private static final int TILE_5 = 5;
 	private PlayerManager playerOne;
 	private PlayerManager playerTwo;
 	private GameEngineImpl testEngine;
@@ -34,7 +37,7 @@ public class TestTrader {
 	
 	private static final double MONEYONE = 100;
 	private static final double MONEYTWO = 50;
-	private TradeBuilder builder = new TradeBuilderImpl();
+	private final TradeBuilder builder = new TradeBuilderImpl();
 	
 	@Test
 	public void testTradeWithoutMoney() {
@@ -45,23 +48,18 @@ public class TestTrader {
 		this.propertyTwo.setOwner(Optional.of(0));
 		this.propertyThree.setOwner(Optional.of(1));
 		this.propertyFour.setOwner(Optional.of(1));
-		
-		final Set<Purchasable> setOne = new HashSet<Purchasable>();
-		final Set<Purchasable> setTwo = new HashSet<Purchasable>();
-		
+		final Set<Purchasable> setOne = new HashSet<>();
+		final Set<Purchasable> setTwo = new HashSet<>();
 		setOne.add(propertyOne);
 		setTwo.add(propertyThree);
-		
-		
-		final Trade trade = builder.setPlayerOne(playerOne)
-								   .setPlayerTwo(playerTwo)
-								   .setPlayerOneProperties(setOne)
-								   .setPlayerTwoProperties(setTwo)
+		final Trade trade = builder.playerOne(playerOne)
+								   .playerTwo(playerTwo)
+								   .playerOneProperties(setOne)
+								   .playerTwoProperties(setTwo)
 								   .build();
 		final Trader traderTest = new TraderImpl();
 		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
-		
 		assertTrue(this.playerOne.getProperties().contains(propertyThree));
 		assertTrue(this.playerTwo.getProperties().contains(propertyOne));
 	}
@@ -73,18 +71,16 @@ public class TestTrader {
 		this.initProperties();
 		this.playerOne.collectMoney(MONEYONE);
 		this.playerTwo.collectMoney(MONEYTWO);
-		
-		final Trade trade = builder.setPlayerOne(playerOne)
-								   .setPlayerTwo(playerTwo)
-								   .setPlayerOneMoney(MONEYONE)
-								   .setPlayerTwoMoney(MONEYTWO)
+		final Trade trade = builder.playerOne(playerOne)
+								   .playerTwo(playerTwo)
+								   .playerOneMoney(MONEYONE)
+								   .playerTwoMoney(MONEYTWO)
 								   .build();
-		
 		final Trader traderTest = new TraderImpl();
 		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), MONEYTWO) == 0);
-		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), MONEYONE) == 0);
+		assertSame(this.playerOne.getPlayer().getBalance(), MONEYTWO);
+		assertSame(this.playerTwo.getPlayer().getBalance(), MONEYONE);
 	}
 	
 	@Test
@@ -98,39 +94,33 @@ public class TestTrader {
 		this.propertyTwo.setOwner(Optional.of(0));
 		this.propertyThree.setOwner(Optional.of(1));
 		this.propertyFour.setOwner(Optional.of(1));
-		
-		final Set<Purchasable> setOne = new HashSet<Purchasable>();
-		final Set<Purchasable> setTwo = new HashSet<Purchasable>();
-		
+		final Set<Purchasable> setOne = new HashSet<>();
+		final Set<Purchasable> setTwo = new HashSet<>();
 		setOne.add(propertyOne);
 		setTwo.add(propertyThree);
-		
-		
-		final Trade trade = builder.setPlayerOne(playerOne)
-								   .setPlayerTwo(playerTwo)
-								   .setPlayerOneProperties(setOne)
-								   .setPlayerTwoProperties(setTwo)
-								   .setPlayerOneMoney(MONEYONE)
-								   .setPlayerTwoMoney(MONEYTWO)
+		final Trade trade = builder.playerOne(playerOne)
+								   .playerTwo(playerTwo)
+								   .playerOneProperties(setOne)
+								   .playerTwoProperties(setTwo)
+								   .playerOneMoney(MONEYONE)
+								   .playerTwoMoney(MONEYTWO)
 								   .build();
 		final Trader traderTest = new TraderImpl();
 		traderTest.changeTrade(Optional.of(trade));
 		traderTest.acceptTrade();
-		
 		assertTrue(this.playerOne.getProperties().contains(propertyThree));
 		assertTrue(this.playerTwo.getProperties().contains(propertyOne));
-		assertTrue(Double.compare(this.playerOne.getPlayer().getBalance(), MONEYTWO) == 0);
-		assertTrue(Double.compare(this.playerTwo.getPlayer().getBalance(), MONEYONE) == 0);
-		
+		assertSame(this.playerOne.getPlayer().getBalance(), MONEYTWO);
+		assertSame(this.playerTwo.getPlayer().getBalance(), MONEYONE);
 	}
 	
 	private void initEngine() {
-		Map<Integer, String> names = new HashMap<Integer, String>();
-		Map<Integer, Double> balance = new HashMap<Integer, Double>();
-		Map<Integer, Integer> positions = new HashMap<Integer, Integer>();
-		Map<Integer, States> states = new HashMap<Integer, States>();
+		final Map<Integer, String> names = new HashMap<>();
+		final Map<Integer, Double> balance = new HashMap<>();
+		final Map<Integer, Integer> positions = new HashMap<>();
+		final Map<Integer, States> states = new HashMap<>();
 		names.put(0, "one");
-		balance.put (0, 0.0);
+		balance.put(0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		names.put(1, "two");
@@ -151,7 +141,7 @@ public class TestTrader {
 	private void initProperties() {
 		this.propertyOne = (Purchasable) this.testEngine.getTable().getTile(1);
 		this.propertyTwo = (Purchasable) this.testEngine.getTable().getTile(3);
-		this.propertyThree = (Purchasable) this.testEngine.getTable().getTile(5);
-		this.propertyFour = (Purchasable) this.testEngine.getTable().getTile(6);
+		this.propertyThree = (Purchasable) this.testEngine.getTable().getTile(TILE_5);
+		this.propertyFour = (Purchasable) this.testEngine.getTable().getTile(TILE_6);
 	}
 }

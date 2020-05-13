@@ -4,47 +4,52 @@ import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.item.Purchasable;
-import monoopoly.model.player.Player;
 
 /**
  * This interface builds a {@link Trade}, with different fields.
  */
 public interface TradeBuilder {
 	/**
-	 * This sets the {@link Player} proposing the {@link Trade}. This is obligatory.
+	 * This sets the {@link PlayerManager} proposing the {@link Trade}. This is obligatory.
 	 * @param player the player.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerOne(PlayerManager player);
+	TradeBuilder playerOne(PlayerManager player);
 	
 	/**
-	 * This sets the {@link Player} that has to accept the {@link Trade}. This is obligatory.
-	 * @param player
+	 * This sets the {@link PlayerManager} that has to accept the {@link Trade}. This is obligatory.
+	 * @param player the player.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerTwo(PlayerManager player);
+	TradeBuilder playerTwo(PlayerManager player);
 	
 	/**
-	 * This sets what {@link Player} one offers, in {@link Purchasable}.
-	 * @param properties the list of purchasables
+	 * This sets what player one offers, in {@link Purchasable}.
+	 * @param properties the list of purchasables.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerOneProperties(Set<Purchasable> properties);
+	TradeBuilder playerOneProperties(Set<Purchasable> properties);
 	
 	/**
 	 * This sets what is wanted back, in {@link Purchasable}.
 	 * @param properties the list of purchasables.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerTwoProperties(Set<Purchasable> properties);
+	TradeBuilder playerTwoProperties(Set<Purchasable> properties);
 	
 	/**
-	 * This sets what {@link Player} one offers, in money.
+	 * This sets what player one offers, in money.
 	 * @param money the money offered.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerOneMoney(double money);
+	TradeBuilder playerOneMoney(double money);
 	
 	/**
 	 * This sets what is wanted back, in money.
 	 * @param money the money wanted back.
+	 * @return the builder.
 	 */
-	TradeBuilder setPlayerTwoMoney(double money);
+	TradeBuilder playerTwoMoney(double money);
 	
 	/**
 	 * Builds the {@link Trade}.

@@ -1,5 +1,6 @@
 package monoopoly.trade;
 
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import monoopoly.model.trade.TradeBuilderImpl;
 import monoopoly.utilities.States;
 
 public class TestBuilder {
-	private TradeBuilder tradeBuilder = new TradeBuilderImpl();
+	private final TradeBuilder tradeBuilder = new TradeBuilderImpl();
 	private GameEngineImpl testEngine;
 	private PlayerManager playerOne;
 	private PlayerManager playerTwo;
@@ -38,13 +39,13 @@ public class TestBuilder {
 	public void testBlankTrade() {
 		this.initEngine();
 		this.initPlayers();
-		final Trade trade = tradeBuilder.setPlayerOne(playerOne).setPlayerTwo(playerTwo).build();
+		final Trade trade = tradeBuilder.playerOne(playerOne).playerTwo(playerTwo).build();
 		assertTrue(trade.getPlayerOne().equals(playerOne));
 		assertTrue(trade.getPlayerTwo().equals(playerTwo));
 		assertTrue(trade.getPlayerOneTradeProperty().isEmpty());
 		assertTrue(trade.getPlayerTwoTradeProperty().isEmpty());
-		assertTrue(Double.compare(0.0, trade.getPlayerOneTradeMoney()) == 0);
-		assertTrue(Double.compare(0.0, trade.getPlayerTwoTradeMoney()) == 0);
+		assertSame(0.0, trade.getPlayerOneTradeMoney());
+		assertSame(0.0, trade.getPlayerTwoTradeMoney());
 	}
 	
 	@Test 
@@ -56,28 +57,28 @@ public class TestBuilder {
 		this.initProperties();
 		setOne.add(propertyOne);
 		setTwo.add(propertyTwo);
-		final Trade trade = tradeBuilder.setPlayerOne(playerOne)
-										.setPlayerTwo(playerTwo)
-										.setPlayerOneProperties(setOne)
-										.setPlayerTwoProperties(setTwo)
-										.setPlayerOneMoney(MONEY_ONE)
-										.setPlayerTwoMoney(MONEY_TWO)
+		final Trade trade = tradeBuilder.playerOne(playerOne)
+										.playerTwo(playerTwo)
+										.playerOneProperties(setOne)
+										.playerTwoProperties(setTwo)
+										.playerOneMoney(MONEY_ONE)
+										.playerTwoMoney(MONEY_TWO)
 										.build();
 		assertTrue(trade.getPlayerOne().equals(playerOne));
 		assertTrue(trade.getPlayerTwo().equals(playerTwo));
 		assertTrue(trade.getPlayerOneTradeProperty().equals(setOne));
 		assertTrue(trade.getPlayerTwoTradeProperty().equals(setTwo));
-		assertTrue(Double.compare(MONEY_ONE, trade.getPlayerOneTradeMoney()) == 0);
-		assertTrue(Double.compare(MONEY_TWO, trade.getPlayerTwoTradeMoney()) == 0);
+		assertSame(MONEY_ONE, trade.getPlayerOneTradeMoney());
+		assertSame(MONEY_TWO, trade.getPlayerTwoTradeMoney());
 	}
 	
 	private void initEngine() {
-		Map<Integer, String> names = new HashMap<Integer, String>();
-		Map<Integer, Double> balance = new HashMap<Integer, Double>();
-		Map<Integer, Integer> positions = new HashMap<Integer, Integer>();
-		Map<Integer, States> states = new HashMap<Integer, States>();
+		final Map<Integer, String> names = new HashMap<>();
+		final Map<Integer, Double> balance = new HashMap<>();
+		final Map<Integer, Integer> positions = new HashMap<>();
+		final Map<Integer, States> states = new HashMap<>();
 		names.put(0, "one");
-		balance.put (0, 0.0);
+		balance.put(0, 0.0);
 		positions.put(0, 0);
 		states.put(0, States.IN_GAME);
 		names.put(1, "two");

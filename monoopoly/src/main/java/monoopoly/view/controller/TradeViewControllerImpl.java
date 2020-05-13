@@ -13,119 +13,147 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import monoopoly.Main;
 import monoopoly.game_engine.GameEngine;
 
+/**
+ * This class implements the method to manager trades.
+ */
+/**
+ * 
+ */
 public class TradeViewControllerImpl implements Initializable {
 
-	ObservableList<String> available = FXCollections.observableArrayList();
-	ObservableList<String> selected = FXCollections.observableArrayList();
-	private GameEngine gameEngine;
-	private Stage stage;
+    private final ObservableList<String> available = FXCollections.observableArrayList();
+    private final ObservableList<String> selected = FXCollections.observableArrayList();
+    private GameEngine gameEngine;
+    private Stage stage;
 
-	@FXML
-	private Label headerLabel;
+    @FXML
+    private Label headerLabel;
 
-	@FXML
-	private ListView<String> availableProperties;
+    @FXML
+    private ListView<String> availableProperties;
 
-	@FXML
-	private ListView<String> selectedProperties;
+    @FXML
+    private ListView<String> selectedProperties;
 
-	@FXML
-	private TextField monetaryField;
+    @FXML
+    private TextField monetaryField;
 
-	@FXML
-	private Button confirm;
+    @FXML
+    private Button confirm;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void initialize(final URL location, final ResourceBundle resources) {
 
-		this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "NON FUNZIONA!!",
-				"OK ORA VA");
-		this.availableProperties.setItems(this.available);
-		this.selectedProperties.setItems(this.selected);
-	}
+        this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "NON FUNZIONA!!", "OK ORA VA");
+        this.availableProperties.setItems(this.available);
+        this.selectedProperties.setItems(this.selected);
+    }
 
-	@FXML
-	public void removeProperty() {
-		String tile = selectedProperties.getSelectionModel().getSelectedItem();
-		if (tile != null) {
-			this.selectedProperties.getSelectionModel().clearSelection();
-			this.selected.remove(tile);
-			this.available.add(tile);
-		}
-	}
+    /**
+     * This method removes the selected property from the list.
+     */
+    @FXML
+    public void removeProperty() {
+        final String tile = selectedProperties.getSelectionModel().getSelectedItem();
+        if (tile != null) {
+            this.selectedProperties.getSelectionModel().clearSelection();
+            this.selected.remove(tile);
+            this.available.add(tile);
+        }
+    }
 
-	@FXML
-	public void addProperty() {
-		String tile = this.availableProperties.getSelectionModel().getSelectedItem();
-		if (tile != null) {
-			this.availableProperties.getSelectionModel().clearSelection();
-			this.available.remove(tile);
-			this.selected.add(tile);
-		}
-	}
+    /**
+     * This method adds the selected property from the list.
+     */
+    @FXML
+    public void addProperty() {
+        final String tile = this.availableProperties.getSelectionModel().getSelectedItem();
+        if (tile != null) {
+            this.availableProperties.getSelectionModel().clearSelection();
+            this.available.remove(tile);
+            this.selected.add(tile);
+        }
+    }
 
-	@FXML
-	public void close() {
-		this.stage.close();
-	}
+    /**
+     * This method rejects the offer.
+     */
+    @FXML
+    public void close() {
+        this.stage.close();
+    }
 
-	@FXML
-	public void setTradeOffer() {
-		//TODO
-	}
+    /**
+     * This method sets the offer.
+     */
+    @FXML
+    public void setTradeOffer() {
+        // TODO
+        this.gameEngine.getClass();
+    }
 
-	@FXML
-	public void updatedMoneyField() {
-		if (!this.monetaryField.getText().matches("\\d*")) {
-			this.monetaryField.setText(this.monetaryField.getText().replaceAll("[^\\d]", ""));
-		}
-	}
+    /**
+     * This method updates the monetary fields and checks its content.
+     */
+    @FXML
+    public void updatedMoneyField() {
+        if (!this.monetaryField.getText().matches("\\d*")) {
+            this.monetaryField.setText(this.monetaryField.getText().replaceAll("[^\\d]", ""));
+        }
+    }
 
-	/**
-	 * This method sets the stage for the offerer
-	 * 
-	 * @param gameEngine
-	 * @param properties
-	 */
-	public void showTileOffer(GameEngine gameEngine, Set<String> properties) {
-		this.confirm.setText("NEXT");
-		this.headerLabel.setText("Place your offer");
-		this.setProperties(properties);
-		this.gameEngine = gameEngine;
-	}
+    /**
+     * This method sets the stage for the offerer.
+     * 
+     * @param gameEngine game engine
+     * @param properties of the offerer.
+     */
+    public void showTileOffer(final GameEngine gameEngine, final Set<String> properties) {
+        this.confirm.setText("NEXT");
+        this.headerLabel.setText("Place your offer");
+        this.setProperties(properties);
+        this.gameEngine = gameEngine;
+    }
 
-	/**
-	 * This method sets the stage for the request
-	 * 
-	 * @param gameEngine
-	 * @param properties
-	 */
-	public void showTileRequest(GameEngine gameEngine, Set<String> properties) {
-		this.confirm.setText("SEND");
-		this.headerLabel.setText("Place your request");
-		this.setProperties(properties);
-		this.gameEngine = gameEngine;
-	}
+    /**
+     * This method sets the stage for the request.
+     * 
+     * @param gameEngine game engine.
+     * @param properties of the contractor.
+     */
+    public void showTileRequest(final GameEngine gameEngine, final Set<String> properties) {
+        this.confirm.setText("SEND");
+        this.headerLabel.setText("Place your request");
+        this.setProperties(properties);
+        this.gameEngine = gameEngine;
+    }
 
-	/**
-	 * This method displays the properties in the {@link ListView}
-	 * 
-	 * @param properties
-	 */
-	private void setProperties(Set<String> properties) {
-		for (String tile : properties) {
-			this.available.add(tile);
-		}
+    /**
+     * This method sets the stage for the trade view components.
+     * 
+     * @param stage to set.
+     */
+    public void setStage(final Stage stage) {
+        this.stage = stage;
+    }
 
-		this.availableProperties.setItems(available);
-		this.selectedProperties.setItems(selected);
-	}
+    /**
+     * This method displays the properties in the {@link ListView}.
+     * 
+     * @param properties to display.
+     */
+    private void setProperties(final Set<String> properties) {
+        for (final String tile : properties) {
+            this.available.add(tile);
+        }
 
-	public void setStage(Stage stage) {
-		this.stage = stage;
-	}
+        this.availableProperties.setItems(available);
+        this.selectedProperties.setItems(selected);
+    }
 
 }

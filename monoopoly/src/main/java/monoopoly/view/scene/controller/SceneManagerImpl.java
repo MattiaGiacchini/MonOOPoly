@@ -1,4 +1,4 @@
-package monoopoly.view.utilities;
+package monoopoly.view.scene.controller;
 
 import java.io.IOException;
 
@@ -6,34 +6,46 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import monoopoly.view.controller.ScoreboardViewControllerImpl;
-import monoopoly.view.main.MainBoardControllerImpl;
+import monoopoly.view.controller.main.MainBoardControllerImpl;
+import monoopoly.view.controller.scoreboard.ScoreboardViewControllerImpl;
+import monoopoly.view.utilities.ScenePath;
+import monoopoly.view.utilities.ViewUtilities;
+import monoopoly.view.utilities.ViewUtilitiesImpl;
 
+/**
+ * This class implements the method to change scenes or to create new stages.
+ */
 public class SceneManagerImpl implements SceneManager {
 
     private Stage stage;
-    private FXMLLoader loader = new FXMLLoader();
-    private ViewUtilities utilities = new ViewUtilitiesImpl();
+    private final FXMLLoader loader = new FXMLLoader();
+    private final ViewUtilities utilities = new ViewUtilitiesImpl();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setup(Stage stage) throws Exception {
+    public void setup(final Stage stage) {
         this.stage = stage;
         stage.setTitle("Monoopoly");
         stage.setOnCloseRequest(event -> utilities.closeApp(event));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void loadScene(ScenePath scene, Stage stage) {
-        try {
-            this.setup(stage);
-            this.swapScene(scene);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void loadScene(final ScenePath scene, final Stage stage) {
+        this.setup(stage);
+        this.swapScene(scene);
+
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void swapScene(ScenePath scene) {
+    public void swapScene(final ScenePath scene) {
         this.stage.setResizable(true);
         this.loader.setLocation(this.getClass().getResource(scene.getPath()));
         try {
@@ -48,11 +60,11 @@ public class SceneManagerImpl implements SceneManager {
     }
 
     /**
-     * This method checks the scenes and sets the stage with the right settings
+     * This method checks the scenes and sets the stage with the right settings.
      * 
-     * @param scene
+     * @param scene to display.
      */
-    private void checkScene(ScenePath scene) {
+    private void checkScene(final ScenePath scene) {
         if (scene.equals(ScenePath.BOARD)) {
             this.stage.setMaximized(true);
         } else {
@@ -60,20 +72,28 @@ public class SceneManagerImpl implements SceneManager {
             this.stage.setResizable(true);
             this.stage.sizeToScene();
             this.stage.centerOnScreen();
-
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Scene getScene() {
         return this.stage.getScene();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public MainBoardControllerImpl getMainController() {
         return (MainBoardControllerImpl) this.loader.getController();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ScoreboardViewControllerImpl getLeaderboardController() {
         return (ScoreboardViewControllerImpl) this.loader.getController();

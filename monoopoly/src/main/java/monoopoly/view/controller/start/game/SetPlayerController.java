@@ -1,4 +1,4 @@
-package monoopoly.view.start;
+package monoopoly.view.controller.start.game;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,25 +19,25 @@ import monoopoly.game_engine.StartGameImpl;
 
 /**
  * This class checks the parameters set in the setPlayers JavaFX scene and
- * starts the game
+ * starts the game.
  */
 public class SetPlayerController implements Initializable {
 
     /**
      * These constants defines the balance bounds, the balance increase step for the
-     * "spinner" and the minimum player number
+     * "spinner" and the minimum player number.
      */
 
-    private static final Double STARTING_BALANCE = 3000.00;
-    private static final Double MIN_BALANCE = 1500.00;
-    private static final Double MAX_BALANCE = 15000.00;
+    private static final Double STARTING_BALANCE = 3_000.00;
+    private static final Double MIN_BALANCE = 1_500.00;
+    private static final Double MAX_BALANCE = 15_000.00;
     private static final Double BALANCE_INCREASE_VALUE = 500.00;
     private static final int MIN_PLAYERS = 2;
     private static final int MAX_NAME_LENGHT = 10;
 
     private StartGame start;
 
-    private Map<Integer, String> playerMap = new HashMap<Integer, String>();
+    private final Map<Integer, String> playerMap = new HashMap<>();
     private Double balance = STARTING_BALANCE;
 
     /*
@@ -56,27 +56,30 @@ public class SetPlayerController implements Initializable {
      * List of player names fields
      */
     @FXML
-    private ArrayList<TextField> namesList;
+    private List<TextField> namesList;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.logo.setImage(new Image(this.getClass().getResourceAsStream("/logoMonoopoly500.png")));
         this.startingBalance.setText(STARTING_BALANCE.toString());
     }
 
     /**
-     * This method starts the game when the "Start Game" button is pressed
+     * This method starts the game when the "Start Game" button is pressed.
+     * 
+     * @param event to consume.
+     * 
      */
     @FXML
-    public void btnStartGameClicked(ActionEvent event) {
+    public void btnStartGameClicked(final ActionEvent event) {
         if (this.checkFields()) {
             this.removeEmptyPlayer();
             this.start = new StartGameImpl();
             this.start.setName(this.playerMap);
-            this.start.setBalance(this.setBalanceMap());
+            this.start.setBalance(this.initializeBalanceMap());
             this.start.createEngine();
         } else {
             new Alert(AlertType.ERROR, "You have to set at least two players").show();
@@ -84,7 +87,7 @@ public class SetPlayerController implements Initializable {
     }
 
     /**
-     * This method updates the player names map to pass to the {@link StartGame}
+     * This method updates the player names map to pass to the {@link StartGame}.
      */
     @FXML
     public void updatedText() {
@@ -99,7 +102,7 @@ public class SetPlayerController implements Initializable {
 
     /**
      * This method updates the balance variable and checks the balance value set by
-     * the player, and eventually corrects it
+     * the player, and eventually corrects it.
      */
     @FXML
     public void updatedBalance() {
@@ -119,7 +122,7 @@ public class SetPlayerController implements Initializable {
     }
 
     /**
-     * This method increases the balance by a set value
+     * This method increases the balance by a set value.
      */
     @FXML
     public void btnIncreaseBalanceClicked() {
@@ -136,7 +139,7 @@ public class SetPlayerController implements Initializable {
     }
 
     /**
-     * This method decreases the balance by a set value
+     * This method decreases the balance by a set value.
      */
     @FXML
     public void btnDecreaseBalanceClicked() {
@@ -153,7 +156,7 @@ public class SetPlayerController implements Initializable {
     }
 
     /**
-     * This method checks if the balance is lower then the minimum balance value
+     * This method checks if the balance is lower then the minimum balance value.
      */
     private void checkBalanceLowerBound() {
         if (this.balance < MIN_BALANCE) {
@@ -163,7 +166,7 @@ public class SetPlayerController implements Initializable {
     }
 
     /**
-     * This method checks if the balance is greater then the maximum balance value
+     * This method checks if the balance is greater then the maximum balance value.
      */
     private void checkBalanceUpperBound() {
         if (this.balance > MAX_BALANCE) {
@@ -174,7 +177,7 @@ public class SetPlayerController implements Initializable {
 
     /**
      * This method checks if there are at least MIN_PLAYERS in game and if the
-     * balance is between the bounds
+     * balance is between the bounds.
      *
      * @return true if the game is ready to start
      */
@@ -182,44 +185,44 @@ public class SetPlayerController implements Initializable {
         this.checkBalanceUpperBound();
         this.checkBalanceLowerBound();
         this.playerMap.values().removeIf(String::isBlank);
-        return (this.playerMap.values().stream().count() >= MIN_PLAYERS);
+        return this.playerMap.values().stream().count() >= MIN_PLAYERS;
     }
 
     /**
-     * This method updates the displayed balance field
+     * This method updates the displayed balance field.
      */
     private void setBalanceField() {
         this.startingBalance.setText(String.valueOf(this.balance));
     }
 
     /**
-     * This method sets the initial balance map to set in {@link StartGame}
+     * This method sets the initial balance map to set in {@link StartGame}.
      *
      * @return the map of balances
      */
-    private Map<Integer, Double> setBalanceMap() {
-        Map<Integer, Double> balanceMap = new HashMap<Integer, Double>();
-        this.playerMap.forEach((K, V) -> {
-            balanceMap.put(K, this.balance);
+    private Map<Integer, Double> initializeBalanceMap() {
+        final Map<Integer, Double> balanceMap = new HashMap<>();
+        this.playerMap.forEach((k, v) -> {
+            balanceMap.put(k, this.balance);
         });
 
         return balanceMap;
     }
 
     /**
-     * This method removes the empty strings from player names map
+     * This method removes the empty strings from player names map.
      */
     private void removeEmptyPlayer() {
-        this.playerMap.forEach((K, V) -> {
-            if (V.isBlank()) {
-                this.playerMap.remove(K);
+        this.playerMap.forEach((k, v) -> {
+            if (v.isBlank()) {
+                this.playerMap.remove(k);
             }
         });
 
-        List<String> tmpPlayers = new ArrayList<>(playerMap.values());
+        final List<String> tmpPlayers = new ArrayList<>(playerMap.values());
         playerMap.clear();
         int i = 0;
-        for (String x : tmpPlayers) {
+        for (final String x : tmpPlayers) {
             playerMap.put(i, x);
             i = i + 1;
         }

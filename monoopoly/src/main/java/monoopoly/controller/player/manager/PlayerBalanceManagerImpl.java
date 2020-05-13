@@ -4,13 +4,16 @@ import monoopoly.model.player.Player;
 
 /**
  * This class represents a concrete BalanceManager who modifies {@link Player}'s
- * balance value
+ * balance value.
  */
 public class PlayerBalanceManagerImpl implements PlayerBalanceManager {
 
-	@Override
-	public void updateBalance(Player player, Double amount) {
-		player.updateBalance(amount);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateBalance(final Player player, final Double amount) {
+        player.updateBalance(amount);
+    }
 
 }

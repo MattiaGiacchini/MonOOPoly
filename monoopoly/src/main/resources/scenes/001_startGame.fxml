@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.start.StartingPageController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" style="-fx-background-color: #424242;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.start.game.StartingPageController">
    <children>
       <ImageView fx:id="logo" fitHeight="250.0" fitWidth="250.0" layoutX="126.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="136.0" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="14.0" />
       <HBox alignment="CENTER" layoutX="42.0" layoutY="280.0" prefHeight="84.0" prefWidth="417.0" spacing="50.0" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="40.39999999999998" AnchorPane.topAnchor="280.0">
@@ -17,7 +16,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="btnLoadGame" mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" style="-fx-background-radius: 50;" text="LOAD GAME">
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" style="-fx-background-radius: 50;" text="LOAD GAME">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

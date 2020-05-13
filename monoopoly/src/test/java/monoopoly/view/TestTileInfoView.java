@@ -5,25 +5,30 @@ import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
-import monoopoly.view.controller.TileInfoController;
-import monoopoly.view.controller.TileInfoControllerImpl;
 import monoopoly.view.utilities.ButtonLogic;
 import monoopoly.view.utilities.ButtonLogicImpl;
 
+/**
+ * This class tests the tile info button logic.
+ */
 public class TestTileInfoView {
 
-    // TileInfo.Builder().currentPlayerBalance(5200.00).housePrice(20.00).mortgage(false).numHouses(4).purchasableValue(250.00).rentValue(47000.00).tileName("Parco
-    // della Vittoria").purchasableState(PurchasableState.FREE_PROPERTY);
-    TileInfoController controller = new TileInfoControllerImpl();
-    private ButtonLogic logic = new ButtonLogicImpl();
+    private static final double PRICE = 500.00;
+    private static final double LOW_BALANCE = 1_000.00;
+    private static final double HIGH_BALANCE = 50.00;
 
+    private final ButtonLogic logic = new ButtonLogicImpl();
+
+    /**
+     * Testing the button logic: enough money to pay.
+     */
     @Test
     public void testButtonLogics() {
 
         boolean button = true;
-        button = (logic.enoughMoney(500.00, 1000.00));
+        button = logic.enoughMoney(PRICE, HIGH_BALANCE);
         assertFalse(button);
-        button = (logic.enoughMoney(500.00, 50.00));
+        button = logic.enoughMoney(PRICE, LOW_BALANCE);
         assertTrue(button);
     }
 

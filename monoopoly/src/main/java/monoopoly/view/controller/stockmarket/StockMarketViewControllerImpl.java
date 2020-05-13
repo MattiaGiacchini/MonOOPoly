@@ -1,4 +1,4 @@
-package monoopoly.view.controller;
+package monoopoly.view.controller.stockmarket;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -15,6 +15,10 @@ import javafx.scene.control.TabPane;
 import monoopoly.model.item.Tile;
 import monoopoly.model.item.Tile.Category;
 
+/**
+ * This class implements the method to display the {@link StockMarket} on the
+ * view.
+ */
 public class StockMarketViewControllerImpl implements StockMarketViewController, Initializable {
 
     private static final double PERCENTAGE_VALUE = 100.00;
@@ -55,53 +59,62 @@ public class StockMarketViewControllerImpl implements StockMarketViewController,
     @FXML
     private LineChart<String, Double> societyChart;
 
-    private Map<Tile.Category, LineChart<String, Double>> historyCharts = new HashMap<Tile.Category, LineChart<String, Double>>();
-    private Map<Tile.Category, XYChart.Series<String, Double>> lineChartSeriesMap = new HashMap<Tile.Category, XYChart.Series<String, Double>>();
-    private int stockHistoryCounter = 0;
+    private final Map<Tile.Category, LineChart<String, Double>> historyCharts = new HashMap<>();
+    private final Map<Tile.Category, XYChart.Series<String, Double>> lineChartSeriesMap = new HashMap<>();
+    private int stockHistoryCounter;
 
-    XYChart.Series<String, Double> brownSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> lightBlueSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> pinkSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> orangeSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> redSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> yellowSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> greenSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> blueSeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> societySeries = new XYChart.Series<String, Double>();
-    XYChart.Series<String, Double> stationSeries = new XYChart.Series<String, Double>();
+    private final XYChart.Series<String, Double> brownSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> lightBlueSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> pinkSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> orangeSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> redSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> yellowSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> greenSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> blueSeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> societySeries = new XYChart.Series<>();
+    private final XYChart.Series<String, Double> stationSeries = new XYChart.Series<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateStockMarket(Map<Category, Double> stockMarket) {
+    public void updateStockMarket(final Map<Category, Double> stockMarket) {
 
         this.tabPane.getSelectionModel().select(0);
 
-        XYChart.Series<String, Double> stockMarketSeries = new XYChart.Series<String, Double>();
+        final XYChart.Series<String, Double> stockMarketSeries = new XYChart.Series<>();
         barChart.getData().clear();
         stockMarketSeries.getData().clear();
 
-        stockMarket.forEach((K, V) -> {
+        stockMarket.forEach((k, v) -> {
             stockMarketSeries.getData()
-                    .add(new XYChart.Data<String, Double>(K.toString(), V * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
+                    .add(new XYChart.Data<String, Double>(k.toString(), v * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
         });
 
         barChart.getData().add(stockMarketSeries);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateStockMarketHistory(List<Map<Category, Double>> stockHistory) {
+    public void updateStockMarketHistory(final List<Map<Category, Double>> stockHistory) {
         this.historyCharts.values().forEach(x -> x.getData().clear());
-        stockHistory.get(this.stockHistoryCounter).forEach((K, V) -> {
-            this.lineChartSeriesMap.get(K).getData().add(new XYChart.Data<String, Double>(
-                    String.valueOf(this.stockHistoryCounter), V * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
-            this.historyCharts.get(K).getData().clear();
-            this.historyCharts.get(K).getData().add(this.lineChartSeriesMap.get(K));
+        stockHistory.get(this.stockHistoryCounter).forEach((k, v) -> {
+            this.lineChartSeriesMap.get(k).getData().add(new XYChart.Data<String, Double>(
+                    String.valueOf(this.stockHistoryCounter), v * PERCENTAGE_VALUE - PERCENTAGE_VALUE));
+            this.historyCharts.get(k).getData().clear();
+            this.historyCharts.get(k).getData().add(this.lineChartSeriesMap.get(k));
         });
 
         this.stockHistoryCounter = this.stockHistoryCounter + 1;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.historyCharts.put(Category.BROWN, this.brownChart);
         this.historyCharts.put(Category.LIGHT_BLUE, this.lightBlueChart);
         this.historyCharts.put(Category.PINK, this.pinkChart);

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TabPane fx:id="tabPane" focusTraversable="false" prefHeight="441.0" prefWidth="577.0" style="-fx-background-color: white;" stylesheets="@stockMarketTab.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.StockMarketViewControllerImpl">
+<TabPane fx:id="tabPane" focusTraversable="false" prefHeight="441.0" prefWidth="577.0" style="-fx-background-color: white;" stylesheets="@stockMarketTab.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.stockmarket.StockMarketViewControllerImpl">
   <tabs>
     <Tab closable="false" text="StockMarket">
       <content>

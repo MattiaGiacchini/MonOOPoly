@@ -3,7 +3,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.DiceViewControllerImpl">
+<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="monoopoly.view.controller.dices.DiceViewControllerImpl">
    <children>
       <ImageView fx:id="dice1" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="dice2" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />

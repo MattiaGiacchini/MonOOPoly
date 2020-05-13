@@ -13,13 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 
 /**
  * This class implements the method to manager trades.
  */
 /**
- * 
+ *
  */
 public class TradeViewControllerImpl implements Initializable {
 
@@ -109,7 +109,7 @@ public class TradeViewControllerImpl implements Initializable {
 
     /**
      * This method sets the stage for the offerer.
-     * 
+     *
      * @param gameEngine game engine
      * @param properties of the offerer.
      */
@@ -122,7 +122,7 @@ public class TradeViewControllerImpl implements Initializable {
 
     /**
      * This method sets the stage for the request.
-     * 
+     *
      * @param gameEngine game engine.
      * @param properties of the contractor.
      */
@@ -135,7 +135,7 @@ public class TradeViewControllerImpl implements Initializable {
 
     /**
      * This method sets the stage for the trade view components.
-     * 
+     *
      * @param stage to set.
      */
     public void setStage(final Stage stage) {
@@ -144,7 +144,7 @@ public class TradeViewControllerImpl implements Initializable {
 
     /**
      * This method displays the properties in the {@link ListView}.
-     * 
+     *
      * @param properties to display.
      */
     private void setProperties(final Set<String> properties) {

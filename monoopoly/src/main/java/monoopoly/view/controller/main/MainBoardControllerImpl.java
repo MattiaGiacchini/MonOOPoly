@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import monoopoly.Main;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.board.BoardViewControllerImpl;

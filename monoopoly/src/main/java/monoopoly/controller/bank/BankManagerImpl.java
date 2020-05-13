@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import monoopoly.controller.player.manager.PlayerManager;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.model.Bank;
 import monoopoly.model.item.Property;
 import monoopoly.model.item.Purchasable;

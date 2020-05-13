@@ -19,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import monoopoly.Main;
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 import monoopoly.view.controller.player.properties.PlayerPropertiesController;
 import monoopoly.view.controller.player.properties.PlayerPropertiesControllerImpl;
 import monoopoly.view.utilities.ScenePath;
@@ -56,7 +56,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
     /**
      * This method displays the {@link Purchasable} of a {@link Player}.
-     * 
+     *
      * @param event to get the parent button.
      */
     @FXML
@@ -67,7 +67,7 @@ public class PlayerViewControllerImpl implements PlayerViewController, Initializ
 
     /**
      * This method sets the {@link Player} names in the view.
-     * 
+     *
      * @param names to display.
      */
     @Override

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
-import monoopoly.game_engine.GameEngineImpl;
+import monoopoly.engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.trade.Trade;

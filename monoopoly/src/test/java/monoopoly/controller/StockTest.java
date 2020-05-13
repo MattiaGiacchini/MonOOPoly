@@ -11,8 +11,8 @@ import org.junit.Test;
 
 import monoopoly.controller.stockmarket.StockMarket;
 import monoopoly.controller.stockmarket.StockMarketImpl;
-import monoopoly.game_engine.GameEngine;
-import monoopoly.game_engine.GameEngineImpl;
+import monoopoly.engine.GameEngine;
+import monoopoly.engine.GameEngineImpl;
 import monoopoly.model.item.Purchasable;
 import monoopoly.model.item.Tile.Category;
 import monoopoly.utilities.States;

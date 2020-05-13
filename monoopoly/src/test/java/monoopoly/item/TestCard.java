@@ -343,11 +343,9 @@ public class TestCard {
                 .applyToPlayer(true)
                 .tilePositionToGo(A_10)
                 .build();
-        assertEquals(A_10, this.playersPosition.get(this.idDrawer) == A_10 ? A_10
-                : card.getAbsoluteMoveToPosition().get().get(this.idDrawer));
-        assertTrue(card.getAbsoluteMoveToPosition()
-                .get().keySet()
-                .stream().allMatch(x -> x.equals(this.idDrawer)));
+        assertEquals(A_10, this.playersPosition.get(this.idDrawer) == A_10
+                ? A_10 : card.getAbsoluteMoveToPosition()
+                        .get().get(this.idDrawer));
         assertTrue(card.getRelativeMoveToPosition().isEmpty());
 
         card = new MoveEffect.Builder()

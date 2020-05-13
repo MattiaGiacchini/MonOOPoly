@@ -136,6 +136,7 @@ public class MainBoardControllerImpl implements Initializable, MainBoardControll
     @FXML
     public void surrenderButtonPressed() {
         this.surrender.setDisable(true);
+        this.tileInfoController.lockButtons();
         this.tileInfoController.hasPayed();
         this.gameEngine.lose();
     }

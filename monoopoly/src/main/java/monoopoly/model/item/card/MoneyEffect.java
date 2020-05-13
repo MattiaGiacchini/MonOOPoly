@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * The class MoneyEffect is a decorator of card
+ * The class MoneyEffect is a decorator of card.
  */
 public final class MoneyEffect extends AbstractCardDecorator {
 
@@ -36,8 +36,7 @@ public final class MoneyEffect extends AbstractCardDecorator {
         private boolean                 makeTheAvarage;
 
         /**
-         * This nested static class is used
-         * to create a new instance of {@link MoneyEffect}.
+         * {@link Builder}'s Constructor.
          */
         public Builder() {
             super();

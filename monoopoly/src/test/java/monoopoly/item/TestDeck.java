@@ -39,6 +39,7 @@ public class TestDeck {
     private static final int DECK_SIZE = 16;
     private static final int CALAMITY_DECK_SIZE = 9;
 
+    // because i need of these field inside the test.
     @SuppressWarnings("PMD.SingularField")
     private Table table;
     private TileDeck tileDeck;
@@ -52,7 +53,9 @@ public class TestDeck {
 
     /**
      * this method generate the ambient for each test!
-     * i added the suppressWarnig to avoid PMD launch error for
+     *
+     * i added the suppressWarnig to avoid PMD launch error
+     * because i need to rebuild the ambient every time.
      */
     @SuppressWarnings("PMD.JUnit4TestShouldUseTestAnnotation")
     @Before

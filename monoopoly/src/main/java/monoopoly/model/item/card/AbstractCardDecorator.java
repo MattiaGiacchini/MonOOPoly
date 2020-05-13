@@ -6,64 +6,96 @@ import java.util.Optional;
 
 import monoopoly.model.item.Tile.Category;
 
+/**
+ * this abstract Class has been created to
+ * implement the Pattern Decorator for the Card.
+ */
 public abstract class AbstractCardDecorator implements Card {
-	
-	private final Card decoratedCard;
-	
-	public AbstractCardDecorator(Card decoratedCard) {
-		super();
-		Objects.requireNonNull(decoratedCard,"the cart to decore has null value");
-		this.decoratedCard = decoratedCard;
-	}
 
-	@Override
-	public Integer getCardNumber() {
-		return this.decoratedCard.getCardNumber();
-	}
+    private final Card decoratedCard;
 
-	@Override
-	public String getDescription() {
-		return this.decoratedCard.getDescription();
-	}
+    /**
+     * Constructor for the class abstractCardDecorator.
+     *
+     * @param decoratedCard this is the card to decore
+     */
+    public AbstractCardDecorator(final Card decoratedCard) {
+        super();
+        Objects.requireNonNull(decoratedCard,
+                "the cart to decore has null value");
+        this.decoratedCard = decoratedCard;
+    }
 
-	@Override
-	public Category getOriginDeck() {
-		return this.decoratedCard.getOriginDeck();
-	}
+    @Override
+    public final Integer getCardNumber() {
+        return this.decoratedCard.getCardNumber();
+    }
 
-	@Override
-	public Optional<Map<Integer, Double>> getValueToApplyOnPlayersBalance() {
-		return this.decoratedCard.getValueToApplyOnPlayersBalance();
-	}
+    @Override
+    public final String getDescription() {
+        return this.decoratedCard.getDescription();
+    }
 
-	@Override
-	public boolean mustThePlayerGoToJail() {
-		return this.decoratedCard.mustThePlayerGoToJail();
-	}
+    @Override
+    public final Category getOriginDeck() {
+        return this.decoratedCard.getOriginDeck();
+    }
 
-	@Override
-	public boolean canThePlayerExitFromJail() {
-		return this.decoratedCard.mustThePlayerGoToJail();
-	}
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public Optional<Map<Integer, Double>>
+    getValueToApplyOnPlayersBalance() {
+        return this.decoratedCard.getValueToApplyOnPlayersBalance();
+    }
 
-	@Override
-	public boolean isThisCardMaintainable() {
-		return this.decoratedCard.isThisCardMaintainable();
-	}
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public boolean mustThePlayerGoToJail() {
+        return this.decoratedCard.mustThePlayerGoToJail();
+    }
 
-	@Override
-	public Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
-		return  this.decoratedCard.getRelativeMoveToPosition();
-	}
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public boolean canThePlayerExitFromJail() {
+        return this.decoratedCard.mustThePlayerGoToJail();
+    }
 
-	@Override
-	public Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
-		return  this.decoratedCard.getAbsoluteMoveToPosition();
-	}
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public boolean isThisCardMaintainable() {
+        return this.decoratedCard.isThisCardMaintainable();
+    }
 
-	@Override
-	public Optional<Map<Integer, Integer>> getNumberOfBuildingsToRemove() {
-		return this.decoratedCard.getNumberOfBuildingsToRemove();
-	}
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
+        return this.decoratedCard.getRelativeMoveToPosition();
+    }
+
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
+        return this.decoratedCard.getAbsoluteMoveToPosition();
+    }
+
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    public Optional<Map<Integer, Integer>> getNumberOfBuildingsToRemove() {
+        return this.decoratedCard.getNumberOfBuildingsToRemove();
+    }
 
 }

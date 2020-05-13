@@ -10,20 +10,20 @@ import monoopoly.model.trade.Trade;
  */
 public interface Trader {
 
-	/**
-	 * This return the {@link trade} in consideration.
-	 * @return the trade.
-	 */
-	Trade getTrade();
-	
-	/**
-	 * This accepts the {@link trade}, and makes the opportune swaps.
-	 */
-	void acceptTrade();
-	
-	/**
-	 * This changes the {@link trade} inside the trader.
-	 * @param trade	The trade.
-	 */
-	void changeTrade(Optional<Trade> trade);
+    /**
+     * This return the {@link trade} in consideration.
+     * @return the trade.
+     */
+    Trade getTrade();
+
+    /**
+     * This accepts the {@link trade}, and makes the opportune swaps.
+     */
+    void acceptTrade();
+
+    /**
+     * This changes the {@link trade} inside the trader.
+     * @param trade    The trade.
+     */
+    void changeTrade(Optional<Trade> trade);
 }

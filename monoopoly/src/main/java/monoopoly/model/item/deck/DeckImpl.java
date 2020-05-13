@@ -10,7 +10,7 @@ import java.util.Set;
 import monoopoly.model.item.Tile.Category;
 
 /**
- *
+ * this is the {@link Deck} implementation.
  */
 public class DeckImpl implements Deck {
 

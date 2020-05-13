@@ -147,12 +147,10 @@ public final class GameEngineImpl implements GameEngine {
     public void passPlayer() {
         this.dicesUse.resetDices();
         this.turnManager.nextTurn();
-        if (this.currentPlayer().isBroken()) {
-            if (!this.turnManager.areThereOtherPlayersInGame()) {
-                this.endGame();
-            } else {
-                this.passPlayer();
-            }
+        if (this.currentPlayer().isBroken() && this.turnManager.areThereOtherPlayersInGame()) {
+            this.passPlayer();
+        } else if (!this.turnManager.areThereOtherPlayersInGame()) {
+            this.endGame();
         }
         this.updateAlways();
         if (this.turnManager.getCurrentPlayer() == 0) {

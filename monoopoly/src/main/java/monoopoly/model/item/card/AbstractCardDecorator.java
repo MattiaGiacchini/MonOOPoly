@@ -41,39 +41,60 @@ public abstract class AbstractCardDecorator implements Card {
         return this.decoratedCard.getOriginDeck();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final Optional<Map<Integer, Double>>
+    public Optional<Map<Integer, Double>>
     getValueToApplyOnPlayersBalance() {
         return this.decoratedCard.getValueToApplyOnPlayersBalance();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final boolean mustThePlayerGoToJail() {
+    public boolean mustThePlayerGoToJail() {
         return this.decoratedCard.mustThePlayerGoToJail();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final boolean canThePlayerExitFromJail() {
+    public boolean canThePlayerExitFromJail() {
         return this.decoratedCard.mustThePlayerGoToJail();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final boolean isThisCardMaintainable() {
+    public boolean isThisCardMaintainable() {
         return this.decoratedCard.isThisCardMaintainable();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
+    public Optional<Map<Integer, Integer>> getRelativeMoveToPosition() {
         return this.decoratedCard.getRelativeMoveToPosition();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
+    public Optional<Map<Integer, Integer>> getAbsoluteMoveToPosition() {
         return this.decoratedCard.getAbsoluteMoveToPosition();
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final Optional<Map<Integer, Integer>> getNumberOfBuildingsToRemove() {
+    public Optional<Map<Integer, Integer>> getNumberOfBuildingsToRemove() {
         return this.decoratedCard.getNumberOfBuildingsToRemove();
     }
 

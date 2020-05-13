@@ -4,12 +4,23 @@ import java.util.Map;
 
 public interface StartGame {
 
+    /**
+     * Method used to create the GameEngine.
+     */
     void createEngine();
 
-    GameEngine openRecentGame(int game);
-
+    /**
+     * Method used to create the beginning list of Players 
+     * with their names.
+     * @param name
+     */
     void setName(Map<Integer, String> name);
 
+    /**
+     * Method used to create the beginning list of Players 
+     * with their names.
+     * @param balance
+     */
     void setBalance(Map<Integer, Double> balance);
 
 }

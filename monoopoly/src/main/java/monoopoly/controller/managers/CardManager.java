@@ -5,7 +5,7 @@ import monoopoly.model.item.card.Card;
 public interface CardManager {
 
     /**
-     * this method lets you know the type of effect that this card has.
+     * this method lets you know the effect type possessed by this card.
      * @param card
      * @return {@link monoopoly.utilities.CardEffect}
      */

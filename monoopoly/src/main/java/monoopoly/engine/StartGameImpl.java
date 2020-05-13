@@ -24,12 +24,6 @@ public final class StartGameImpl implements StartGame {
     }
 
     @Override
-    public GameEngine openRecentGame(final int game) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public void setName(final Map<Integer, String> name) {
         this.name = name;
     }

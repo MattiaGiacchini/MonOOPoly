@@ -3,7 +3,7 @@ package monoopoly.view.controller.player.info;
 import java.util.Map;
 import java.util.Set;
 
-import monoopoly.game_engine.GameEngine;
+import monoopoly.engine.GameEngine;
 
 /**
  * This interfaces represents the controller for the player informations in the

@@ -1,8 +1,8 @@
 package monoopoly.item;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,19 +28,19 @@ import monoopoly.model.table.tile.Tile.Category;
  */
 public class TestCard {
 
-    private static final int A_10 = 10;
-    private static final int EXPONENT_TOLLERANCE = -7;
-    private static final int BASE_TOLLERANCE = A_10;
-    private static final int A_5 = 5;
-    private static final double A_0_1 = 0.1;
-    private static final double A_100_0 = 100.0;
-    private static final double A_80_0 = 80.0;
-    private static final double A_1500_0 = 1500.0;
-    private static final double A_10_0 = 10.0;
-    private static final int A_6 = 6;
-    private static final int A_40 = 40;
-    private static final int A_20 = 20;
-    private static final int A_10000 = 10_000;
+    private static final Integer A_10 = 10;
+    private static final Integer EXPONENT_TOLLERANCE = -7;
+    private static final Integer BASE_TOLLERANCE = A_10;
+    private static final Integer A_5 = 5;
+    private static final Double A_0_1 = 0.1;
+    private static final Double A_100_0 = 100.0;
+    private static final Double A_80_0 = 80.0;
+    private static final Double A_1500_0 = 1500.0;
+    private static final Double A_10_0 = 10.0;
+    private static final Integer A_6 = 6;
+    private static final Integer A_40 = 40;
+    private static final Integer A_20 = 20;
+    private static final Integer A_10000 = 10_000;
 
     private Card card;
     private Map<Integer, Double> playersBalance;
@@ -321,7 +321,7 @@ public class TestCard {
                 .nextTileCategoryToReach(Category.CALAMITY)
                 .build();
         assertEquals(card.getRelativeMoveToPosition().get().get(idDrawer),
-                this.playersPosition.get(this.idDrawer) + A_10);
+                (Integer) (this.playersPosition.get(this.idDrawer) + A_10));
 
         card = new MoveEffect.Builder()
                 .cardToDecore(card)

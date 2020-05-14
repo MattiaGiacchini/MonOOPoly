@@ -17,7 +17,7 @@ public interface Purchasable extends Tile {
      *
      *  @return the mortgage value of the purchasable tile
      */
-    double mortgage();
+    Double mortgage();
 
     /**
      *  This method is used to know if the purchasable tile is
@@ -39,14 +39,14 @@ public interface Purchasable extends Tile {
      *
      *  @return the quoted lease value
      */
-    double getLeaseValue();
+    Double getLeaseValue();
 
     /**
      *  this method is used to know the quoted sales value.
      *
      *  @return the quoted sales value
      */
-    double getSalesValue();
+    Double getSalesValue();
 
     /**
      *  This method is used to know how much money you'll receive
@@ -54,7 +54,7 @@ public interface Purchasable extends Tile {
      *
      *  @return the mortgage value of the purchasable tile
      */
-    double getMortgageValue();
+    Double getMortgageValue();
 
     /**
      *  This method is used to know how much money you'll have
@@ -62,14 +62,14 @@ public interface Purchasable extends Tile {
      *
      *  @return the unMortgage value of the purchasable tile
      */
-    double getCostToRemoveMortgage();
+    Double getCostToRemoveMortgage();
 
     /**
      *  this method is used to get the actual quotation applied.
      *
      *  @return the value of quotation applied
      */
-    double getQuotation();
+    Double getQuotation();
 
     /**
      *  this method is used to set a new quotation for this

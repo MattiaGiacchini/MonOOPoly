@@ -1,8 +1,8 @@
 package monoopoly.item;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 
@@ -20,34 +20,35 @@ import monoopoly.model.table.tile.purchasable.Purchasable;
  */
 public class TestTile {
 
-    private static final int A_28 = 28;
-    private static final int A_12 = 12;
-    private static final double A_400_0 = 400.0;
-    private static final int A_25 = 25;
-    private static final double A_500_0 = 500.0;
-    private static final double A_250_0 = 250.0;
-    private static final double A_160_0 = 160.0;
-    private static final double A_30_0 = 30.0;
-    private static final double A_60_0 = 60.0;
-    private static final double A_40_0 = 40.0;
-    private static final double A_50_0 = 50.0;
-    private static final double A_20_0 = 20.0;
-    private static final int DICE = 5;
-    private static final double DOUBLE_SALES_VALUE = 300.0;
-    private static final double SALES_VALUE_BASE = 150.0;
-    private static final double BASE_STATION_LEASE = 25.0;
-    private static final int STATION_STEP = 10;
-    private static final int FIRST_STATION = DICE;
-    private static final double BASE_SALES_STATION = 200.0;
-    private static final double DOUBLE_ZERO = 0.0;
-    private static final int STATION_4_POSITION = 35;
-    private static final int GO_TO_JAIL_POSITION = 30;
-    private static final int FREE_PARCKING_POSITION = 20;
-    private static final int STATION_3_POSITION = A_25;
-    private static final int STATION_2_POSITION = 15;
-    private static final int JAIL_POSITION = 10;
-    private static final int STATION_POSITION = DICE;
-    private static final int START_POSITION = 0;
+    private static final Double A_0_0 = 0.0;
+    private static final Integer A_28 = 28;
+    private static final Integer A_12 = 12;
+    private static final Double A_400_0 = 400.0;
+    private static final Integer A_25 = 25;
+    private static final Double A_500_0 = 500.0;
+    private static final Double A_250_0 = 250.0;
+    private static final Double A_160_0 = 160.0;
+    private static final Double A_30_0 = 30.0;
+    private static final Double A_60_0 = 60.0;
+    private static final Double A_40_0 = 40.0;
+    private static final Double A_50_0 = 50.0;
+    private static final Double A_20_0 = 20.0;
+    private static final Integer DICE = 5;
+    private static final Double DOUBLE_SALES_VALUE = 300.0;
+    private static final Double SALES_VALUE_BASE = 150.0;
+    private static final Double BASE_STATION_LEASE = 25.0;
+    private static final Integer STATION_STEP = 10;
+    private static final Integer FIRST_STATION = DICE;
+    private static final Double BASE_SALES_STATION = 200.0;
+    private static final Double DOUBLE_ZERO = A_0_0;
+    private static final Integer STATION_4_POSITION = 35;
+    private static final Integer GO_TO_JAIL_POSITION = 30;
+    private static final Integer FREE_PARCKING_POSITION = 20;
+    private static final Integer STATION_3_POSITION = A_25;
+    private static final Integer STATION_2_POSITION = 15;
+    private static final Integer JAIL_POSITION = 10;
+    private static final Integer STATION_POSITION = DICE;
+    private static final Integer START_POSITION = 0;
 
     /**
      * test on wrong composition.
@@ -127,12 +128,12 @@ public class TestTile {
                     FIRST_STATION + (STATION_STEP * i));
             purch.setOwner(Optional.of(1));
             assertEquals(purchBase.getLeaseValue(),
-                    BASE_STATION_LEASE * Math.pow(2.0, i));
+                    (Double) (BASE_STATION_LEASE * Math.pow(2.0, i)));
         }
 
         purch = (Purchasable) table.getTile(A_25);
         purch.setOwner(Optional.empty());
-        assertEquals(purchBase.getLeaseValue(),   100.0);
+        assertEquals(purchBase.getLeaseValue(), (Double) 100.0);
 
         table.setNewQuotationToSpecificPurchasableCategory(
                 Tile.Category.STATION, 2.0);
@@ -157,18 +158,18 @@ public class TestTile {
         assertEquals(purch2.getSalesValue(), DOUBLE_SALES_VALUE);
         table.setNewQuotationToSpecificPurchasableCategory(
                 Tile.Category.SOCIETY, 1.0);
-        assertEquals(purch1.getLeaseValue(), 0.0);
-        assertEquals(purch2.getLeaseValue(), 0.0);
+        assertEquals(purch1.getLeaseValue(), A_0_0);
+        assertEquals(purch2.getLeaseValue(), A_0_0);
         table.notifyDices(DICE);
-        assertEquals(purch1.getLeaseValue(), 0.0);
-        assertEquals(purch2.getLeaseValue(), 0.0);
+        assertEquals(purch1.getLeaseValue(), A_0_0);
+        assertEquals(purch2.getLeaseValue(), A_0_0);
         purch1.setOwner(Optional.of(1));
         assertEquals(purch1.getLeaseValue(), A_20_0);
         purch2.setOwner(Optional.of(1));
         assertEquals(purch1.getLeaseValue(), A_50_0);
         table.setNewQuotationToSpecificPurchasableCategory(
                 Tile.Category.SOCIETY, 2.0);
-        assertEquals(purch1.getLeaseValue(), 100.0);
+        assertEquals(purch1.getLeaseValue(), (Double) 100.0);
         purch1.setOwner(Optional.of(2));
         assertEquals(purch1.getLeaseValue(), A_40_0);
     }
@@ -184,29 +185,29 @@ public class TestTile {
 
         assertEquals(prop1.getSalesValue(),  A_60_0);
         assertEquals(prop2.getSalesValue(),  A_60_0);
-        assertEquals(prop1.getLeaseValue(),   0.0);
-        assertEquals(prop2.getLeaseValue(),   0.0);
+        assertEquals(prop1.getLeaseValue(),   A_0_0);
+        assertEquals(prop2.getLeaseValue(),   A_0_0);
         prop1.setOwner(Optional.of(1));
-        assertEquals(prop1.getLeaseValue(),   2.0);
+        assertEquals(prop1.getLeaseValue(),   (Double) 2.0);
         prop2.setOwner(Optional.of(1));
-        assertEquals(prop1.getLeaseValue(),   4.0);
+        assertEquals(prop1.getLeaseValue(),   (Double) 4.0);
         prop1.buildOn();
-        assertEquals(prop1.getLeaseValue(),  10.0);
+        assertEquals(prop1.getLeaseValue(),  (Double) 10.0);
         prop1.buildOn();
         assertEquals(prop1.getLeaseValue(),  A_30_0);
         prop1.buildOn();
-        assertEquals(prop1.getLeaseValue(),  90.0);
+        assertEquals(prop1.getLeaseValue(),  (Double) 90.0);
         prop1.buildOn();
         assertEquals(prop1.getLeaseValue(), A_160_0);
         prop1.buildOn();
         assertEquals(prop1.getLeaseValue(), A_250_0);
         prop2.setOwner(Optional.of(1));
-        assertEquals(prop2.getLeaseValue(),   8.0);
-        assertEquals(prop1.getOwner().get(),  1);
+        assertEquals(prop2.getLeaseValue(),  (Double) 8.0);
+        assertEquals(prop1.getOwner().get(),  (Integer) 1);
         prop1.setQuotation(2.0);
         assertEquals(prop1.getLeaseValue(), A_500_0);
         prop1.setOwner(Optional.empty());
-        assertEquals(prop1.getLeaseValue(),   0.0);
+        assertEquals(prop1.getLeaseValue(),   A_0_0);
     }
 
     /**

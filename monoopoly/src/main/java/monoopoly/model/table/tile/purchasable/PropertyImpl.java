@@ -300,7 +300,7 @@ implements Property {
     }
 
     @Override
-    public double sellBuilding() {
+    public Double sellBuilding() {
         if (this.numberOfConstructionBuilt.equals(
                 PropertyImpl.PROPERTY_WITHOUT_BUILDINGS)) {
             throw new IllegalStateException(
@@ -328,29 +328,29 @@ implements Property {
     }
 
     @Override
-    public double getCostToBuildHouse() {
+    public Double getCostToBuildHouse() {
         return super.applyQuotationOnValue(this.valueTobuildHouse);
     }
 
     @Override
-    public double getCostToBuildHotel() {
+    public Double getCostToBuildHotel() {
         return super.applyQuotationOnValue(this.valueTobuildHotel);
     }
 
     @Override
-    public double getQuotationToSellHouse() {
+    public Double getQuotationToSellHouse() {
         return super.applyQuotationOnValue(this.getCostToBuildHouse()
                 * PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING);
     }
 
     @Override
-    public double getQuotationToSellHotel() {
+    public Double getQuotationToSellHotel() {
         return super.applyQuotationOnValue(this.getCostToBuildHotel()
                 * PropertyImpl.PERCENTAGE_TO_APPLY_FOR_SELLING);
     }
 
     @Override
-    public double getLeaseValue() {
+    public Double getLeaseValue() {
         if (super.getOwner().isPresent() && !super.isMortgage()) {
             if (this.isCategoryOfPropertiesAllOwned()
                     && this.numberOfConstructionBuilt.equals(

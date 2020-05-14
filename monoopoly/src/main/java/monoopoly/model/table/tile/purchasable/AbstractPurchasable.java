@@ -3,14 +3,14 @@ package monoopoly.model.table.tile.purchasable;
 import java.util.Map;
 import java.util.Optional;
 
-import monoopoly.model.table.tile.AbstractTileDecorator;
+import monoopoly.model.table.tile.AbstractTile;
 import monoopoly.model.table.tile.Tile;
 
 /**
  * this Class is used to implement the pattern template method
  * for the Purchasable Class.
  */
-public abstract class AbstractPurchasable extends AbstractTileDecorator
+public abstract class AbstractPurchasable extends AbstractTile
 implements Purchasable {
 
     private static final double PERCENTAGE_TO_REMOVE_MORTGAGE = 1.1;

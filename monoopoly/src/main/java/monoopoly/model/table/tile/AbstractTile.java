@@ -6,17 +6,17 @@ import java.util.Objects;
  * this Abstract Class is used to implement the pattern
  * decorator for the Tiles.
  */
-public abstract class AbstractTileDecorator implements Tile {
+public abstract class AbstractTile implements Tile {
 
     private final Tile decorated;
 
     /**
-     * Constructor of class {@link AbstractTileDecorator}.
+     * Constructor of class {@link AbstractTile}.
      *
      * @param decorated Tile to decore
      * @throws NullPointerException if the decorated has null value
      */
-    public AbstractTileDecorator(final Tile decorated) {
+    public AbstractTile(final Tile decorated) {
         super();
         Objects.requireNonNull(decorated,
                 "Tile to decore cannot has null value");

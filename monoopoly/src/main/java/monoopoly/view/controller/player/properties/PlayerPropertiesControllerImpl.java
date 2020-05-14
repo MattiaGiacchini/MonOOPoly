@@ -29,14 +29,6 @@ public class PlayerPropertiesControllerImpl implements PlayerPropertiesControlle
     }
 
     /**
-     * This method starts a trade with the chosen player.
-     */
-    @FXML
-    public void startTrade() {
-        // TODO
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override

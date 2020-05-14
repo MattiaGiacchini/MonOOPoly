@@ -352,7 +352,7 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
      */
     private void ownedPropertyButtonsLogic(final TileInfo info) {
         this.payRent.setDisable(!(!info.rentPayed() && info.isCurrentPlayerOnSelectedTile()));
-        this.playerPayedRent = this.payRent.isDisabled() && info.rentPayed();
+        this.playerPayedRent = this.payRent.isDisabled() && (info.rentPayed() || !info.isCurrentPlayerOnSelectedTile());
         this.rentValue.setText(this.utilities.toMoneyString(info.getRentToPay()));
         this.ownedProperty.toFront();
     }
@@ -384,8 +384,8 @@ public class TileInfoControllerImpl implements TileInfoController, Initializable
     private void freePropertyButtonsLogic(final TileInfo info) {
         this.purchasableValue.setText(this.utilities.toMoneyString(info.getPurchasableValue()));
         this.buyPurchasable
-                .setDisable(!(!this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue())
-                        || info.isCurrentPlayerOnSelectedTile()));
+                .setDisable(!(this.logics.enoughMoney(info.getCurrentPlayerBalance(), info.getPurchasableValue())
+                        && info.isCurrentPlayerOnSelectedTile()));
         this.freeProperty.toFront();
     }
 

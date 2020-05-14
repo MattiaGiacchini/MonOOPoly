@@ -11,7 +11,6 @@ import monoopoly.view.utilities.ScenePath;
 public final class StartGameImpl implements StartGame {
 
     private Map<Integer, String> name = new HashMap<>(); 
-
     private Map<Integer, Double> balance = new HashMap<>(); 
 
     @Override

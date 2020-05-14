@@ -5,10 +5,10 @@ import java.util.Set;
 
 import monoopoly.controller.trades.Trader;
 import monoopoly.controller.trades.TraderImpl;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.Tile;
 import monoopoly.model.player.Player;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
@@ -249,6 +249,7 @@ public class PlayerManagerImpl implements PlayerManager {
     public void goToPrison() {
         if (this.player.hasPrisonCard()) {
             this.player.setPrisonCard(false);
+            this.resetPrisonCounter();
         } else {
             this.resetPrisonCounter();
             this.player.setState(States.PRISONED);

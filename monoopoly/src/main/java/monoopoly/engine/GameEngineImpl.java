@@ -21,15 +21,15 @@ import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.controller.stockmarket.StockMarket;
 import monoopoly.controller.stockmarket.StockMarketImpl;
-import monoopoly.model.item.Property;
-import monoopoly.model.item.Purchasable;
-import monoopoly.model.item.Table;
-import monoopoly.model.item.TableImpl;
-import monoopoly.model.item.Tile;
-import monoopoly.model.item.Tile.Category;
-import monoopoly.model.item.TileDeck;
-import monoopoly.model.item.card.Card;
 import monoopoly.model.player.PlayerImpl;
+import monoopoly.model.table.Table;
+import monoopoly.model.table.TableImpl;
+import monoopoly.model.table.card.Card;
+import monoopoly.model.table.tile.Tile;
+import monoopoly.model.table.tile.TileDeck;
+import monoopoly.model.table.tile.Tile.Category;
+import monoopoly.model.table.tile.purchasable.Property;
+import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.utilities.States;
 import monoopoly.view.controller.TileInfo;
 import monoopoly.view.controller.main.MainBoardControllerImpl;
@@ -111,7 +111,6 @@ public final class GameEngineImpl implements GameEngine {
         this.mainBoardController = mainBoardController;
     }
 
-
     @Override
     public String getName(final int iD) {
         if (this.name.keySet().contains(iD)) {
@@ -121,7 +120,6 @@ public final class GameEngineImpl implements GameEngine {
         }
     }
 
-
     @Override
     public Double getBalance(final int iD) {
         if (this.name.keySet().contains(iD)) {
@@ -130,7 +128,6 @@ public final class GameEngineImpl implements GameEngine {
             throw new IllegalArgumentException("No player found");
         }
     }
-
 
     @Override
     public Table getTable() {
@@ -146,16 +143,14 @@ public final class GameEngineImpl implements GameEngine {
                                                                        .getBalance());
     }
 
-
     @Override
     public void passPlayer() {
         this.dicesUse.resetDices();
         this.turnManager.nextTurn();
-        if (this.currentPlayer().getPlayer().getState() == States.BROKE) {
-            if (!this.turnManager.areThereOtherPlayersInGame()) {
-                this.endGame();
-            }
+        if (this.currentPlayer().isBroken() && this.turnManager.areThereOtherPlayersInGame()) {
             this.passPlayer();
+        } else if (!this.turnManager.areThereOtherPlayersInGame()) {
+            this.endGame();
         }
         this.updateAlways();
         if (this.turnManager.getCurrentPlayer() == 0) {

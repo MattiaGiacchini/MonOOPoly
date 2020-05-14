@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.controller.player.manager.PlayerManagerImpl;
-import monoopoly.model.item.TableImpl;
 import monoopoly.model.player.PlayerImpl;
+import monoopoly.model.table.TableImpl;
 import monoopoly.utilities.States;
 
 /**

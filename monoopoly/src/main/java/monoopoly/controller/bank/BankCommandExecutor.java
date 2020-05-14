@@ -1,8 +1,7 @@
+package monoopoly.controller.bank;
 /**
  * This class has to only purpose to execute objects of the {@link BankCommand} class.
  */
-package monoopoly.controller.bank;
-
 public class BankCommandExecutor {
     /**
      * Executes a command.

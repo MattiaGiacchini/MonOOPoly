@@ -11,13 +11,14 @@ import monoopoly.controller.player.manager.PlayerManager;
 public interface Dices {
 
     /**
-     * This method rolls the dices, and notifies a {@link PlayerManager} and the {@link Table} that the player 
+     * This method rolls the dices, and notifies a {@link PlayerManager} and the 
+     * {@link Table} that the player 
      * must move.
      * @param playerManager the manager of the player.
      */
     void roll(PlayerManager playerManager);
     /**
-     * 
+     * This method returns the dices.
      * @return the dices.
      */
     Map<Integer, Integer> getDices();

@@ -14,7 +14,6 @@
             <ListView fx:id="playerProperties" prefHeight="300.0" prefWidth="300.0" style="-fx-background-color: #EEEEEE;" />
             <HBox alignment="CENTER_RIGHT" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#startTrade" prefHeight="35.0" text="START TRADE" />
                   <Button mnemonicParsing="false" onAction="#closePopUp" prefHeight="35.0" text="CLOSE" />
                </children>
                <VBox.margin>

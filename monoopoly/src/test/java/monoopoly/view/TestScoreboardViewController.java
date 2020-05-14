@@ -1,6 +1,6 @@
 package monoopoly.view;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.List;
@@ -44,11 +44,10 @@ public class TestScoreboardViewController {
         this.leaderboardController.showLeaderboard(names, points);
         final List<Entry<Integer, Double>> rank = this.leaderboardController.getRank();
 
-        assertEquals(1, rank.get(0).getKey());
-        assertEquals(2, rank.get(1).getKey());
-        assertEquals(3, rank.get(2).getKey());
-        assertEquals(0, rank.get(3).getKey());
-
+        assertEquals(Integer.valueOf(1), Integer.valueOf(rank.get(0).getKey()));
+        assertEquals(Integer.valueOf(2), Integer.valueOf(rank.get(1).getKey()));
+        assertEquals(Integer.valueOf(3), Integer.valueOf(rank.get(2).getKey()));
+        assertEquals(Integer.valueOf(0), Integer.valueOf(rank.get(3).getKey()));
     }
 
 }

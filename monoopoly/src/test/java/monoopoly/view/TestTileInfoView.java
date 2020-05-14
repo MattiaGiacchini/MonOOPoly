@@ -24,7 +24,6 @@ public class TestTileInfoView {
      */
     @Test
     public void testButtonLogics() {
-
         boolean button = true;
         button = logic.enoughMoney(PRICE, HIGH_BALANCE);
         assertFalse(button);

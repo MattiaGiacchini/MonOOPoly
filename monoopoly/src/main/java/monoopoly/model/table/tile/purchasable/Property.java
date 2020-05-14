@@ -55,7 +55,7 @@ public interface Property extends Purchasable {
      * @throws  IllegalStateException if you try to sell
      *          a build that you haven't
      */
-    double sellBuilding();
+    Double sellBuilding();
 
     /**
      * This method is used to know if is possible to
@@ -90,7 +90,7 @@ public interface Property extends Purchasable {
      *
      * @return value to pay for a new house
      */
-    double getCostToBuildHouse();
+    Double getCostToBuildHouse();
 
     /**
      * this method is used to know the cost of
@@ -98,7 +98,7 @@ public interface Property extends Purchasable {
      *
      * @return value to pay for a new Hotel
      */
-    double getCostToBuildHotel();
+    Double getCostToBuildHotel();
 
     /**
      * this method is used to know the quotation
@@ -106,7 +106,7 @@ public interface Property extends Purchasable {
      *
      * @return the listed selling value of a house
      */
-    double getQuotationToSellHouse();
+    Double getQuotationToSellHouse();
 
     /**
      * this method is used to know the quotation
@@ -114,5 +114,5 @@ public interface Property extends Purchasable {
      *
      * @return the listed selling value of a hotel
      */
-    double getQuotationToSellHotel();
+    Double getQuotationToSellHotel();
 }

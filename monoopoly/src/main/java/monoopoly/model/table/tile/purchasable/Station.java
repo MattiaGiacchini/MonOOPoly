@@ -178,7 +178,7 @@ public final class Station extends AbstractPurchasable {
     }
 
     @Override
-    public double getLeaseValue() {
+    public Double getLeaseValue() {
         final int counter = getNumberOfStationOwned();
         if (counter == 0) {
             return 0.0;

@@ -47,7 +47,7 @@ implements Purchasable {
     }
 
     @Override
-    public final double mortgage() {
+    public final Double mortgage() {
         this.mortgageStatus = true;
         return this.getMortgageValue();
     }
@@ -63,25 +63,25 @@ implements Purchasable {
     }
 
     @Override
-    public abstract double getLeaseValue();
+    public abstract Double getLeaseValue();
 
     @Override
-    public final double getSalesValue() {
+    public final Double getSalesValue() {
         return this.applyQuotationOnValue(this.salesValue);
     }
 
     @Override
-    public final double getMortgageValue() {
+    public final Double getMortgageValue() {
         return this.applyQuotationOnValue(this.morgageValue);
     }
 
     @Override
-    public final double getCostToRemoveMortgage() {
+    public final Double getCostToRemoveMortgage() {
         return this.applyQuotationOnValue(this.morgageValue * AbstractPurchasable.PERCENTAGE_TO_REMOVE_MORTGAGE);
     }
 
     @Override
-    public final double getQuotation() {
+    public final Double getQuotation() {
         return this.quotation;
     }
 

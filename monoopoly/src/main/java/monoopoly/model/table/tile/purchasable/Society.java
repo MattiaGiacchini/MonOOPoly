@@ -206,7 +206,7 @@ public final class Society extends AbstractPurchasable {
     }
 
     @Override
-    public double getLeaseValue() {
+    public Double getLeaseValue() {
         if (super.getOwner().isPresent()) {
             final int nSociety = this.functionGetNumOfSocietyOwned.apply(
                     super.getOwner().get());

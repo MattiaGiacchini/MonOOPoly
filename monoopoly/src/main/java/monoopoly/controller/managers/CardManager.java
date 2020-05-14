@@ -2,13 +2,23 @@ package monoopoly.controller.managers;
 
 import monoopoly.model.table.card.Card;
 
-public interface CardManager {
+public final class CardManager {
 
-    /**
-     * this method lets you know the effect type possessed by this card.
-     * @param card
-     * @return {@link monoopoly.utilities.CardEffect}
-     */
-    monoopoly.utilities.CardEffect knowCard(Card card);
+    public monoopoly.utilities.CardEffect knowCard(final Card card) {
+        if (!card.getValueToApplyOnPlayersBalance().isEmpty()) {
+            return monoopoly.utilities.CardEffect.MONEY_EXCHANGE;
+        } else if (card.mustThePlayerGoToJail()) {
+            return monoopoly.utilities.CardEffect.JAIL_IN;
+        } else if (card.canThePlayerExitFromJail()) {
+            return monoopoly.utilities.CardEffect.JAIL_OUT;
+        } else if (!card.getRelativeMoveToPosition().isEmpty()) {
+            return monoopoly.utilities.CardEffect.RELATIVE_MOVE;
+        } else if (!card.getAbsoluteMoveToPosition().isEmpty()) {
+            return monoopoly.utilities.CardEffect.ABSOLUTE_MOVE;
+        } else if (!card.getNumberOfBuildingsToRemove().isEmpty()) {
+            return monoopoly.utilities.CardEffect.REMOVE_BUILDINGS;
+        }
+        return null;
+    }
 
 }

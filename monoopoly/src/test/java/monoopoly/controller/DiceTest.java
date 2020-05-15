@@ -18,7 +18,9 @@ import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.table.Table;
 import monoopoly.model.table.TableImpl;
 import monoopoly.utilities.States;
-
+/**
+ * Test class of dice feature.
+ */
 public class DiceTest {
 
     private static final String TEST = "test";
@@ -27,7 +29,9 @@ public class DiceTest {
     private GameEngine testEngine;
     private PlayerManager playerTest;
     private final Table tableTest = new TableImpl();
-
+    /**
+     * tests init.
+     */
     @Test
     public void testDiceInit() {
         initEngine();
@@ -37,7 +41,9 @@ public class DiceTest {
         assertTrue(this.dicesTwo.getDices().isEmpty());
         assertTrue(this.dicesThree.getDices().isEmpty());
     }
-
+    /**
+     * tests two dices.
+     */
     @Test
     public void testDualDices() {
         initEngine();
@@ -49,7 +55,9 @@ public class DiceTest {
         assertEquals(this.playerTest.getPlayer().getPosition(), sum);
         assertEquals(this.tableTest.getNotifiedDices(), sum);
     }
-
+    /**
+     * tests three dices.
+     */
     @Test
     public void testThreeDices() {
         initEngine();

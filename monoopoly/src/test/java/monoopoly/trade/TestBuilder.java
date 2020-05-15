@@ -19,7 +19,9 @@ import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
 import monoopoly.utilities.States;
-
+/**
+ * Test class of builder feature.
+ */
 public class TestBuilder {
     private final TradeBuilder tradeBuilder = new TradeBuilderImpl();
     private GameEngineImpl testEngine;
@@ -29,12 +31,16 @@ public class TestBuilder {
     private static final double MONEY_TWO = 2.0;
     private Purchasable propertyOne;
     private Purchasable propertyTwo;
-
+    /**
+     * tests a void trade.
+     */
     @Test(expected = IllegalStateException.class)
     public void testVoidTrade() {
         tradeBuilder.build();
     }
-
+    /**
+     * tests a blank trade.
+     */
     @Test
     public void testBlankTrade() {
         this.initEngine();
@@ -47,7 +53,9 @@ public class TestBuilder {
         assertSame(0.0, trade.getPlayerOneTradeMoney());
         assertSame(0.0, trade.getPlayerTwoTradeMoney());
     }
-
+    /**
+     * tests a complete trade.
+     */
     @Test 
     public void testCompleteTrade() {
         final Set<Purchasable> setOne = new HashSet<>();

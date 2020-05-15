@@ -20,7 +20,9 @@ import monoopoly.model.player.PlayerImpl;
 import monoopoly.model.table.tile.purchasable.Property;
 import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.utilities.States;
-
+/**
+ * Test class of bank feature.
+ */
 public class BankTest {
 
     private GameEngine engine;;
@@ -31,14 +33,18 @@ public class BankTest {
     private static final double A_LITTLE_MONEY = 150.0;
     private static final double A_TON_OF_MONEY = 1_500_000.0;
     private static final int PROPERTY_ID = 1;
-
+    /**
+     * tests the money giving.
+     */
     @Test
     public void testMoneyGiving() {
         this.initEngine();
         this.bankManager.giveMoney(A_LITTLE_MONEY, this.playerOne);
-        assertSame(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY);
+        assertSame(this.playerOne.getPlayer().getBalance(), Double.valueOf(A_LITTLE_MONEY));
     }
-
+    /**
+     * tests bankrupt.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void testBankBreaking() {
         /*
@@ -49,7 +55,9 @@ public class BankTest {
         this.initEngine();
         this.bankManager.giveMoney(A_TON_OF_MONEY, this.playerOne);
     }
-
+    /**
+     * tests house assignment.
+     */
     @Test
     public void testHouseAssignment() {
         this.initEngine();
@@ -81,7 +89,9 @@ public class BankTest {
         final Purchasable tilePurchased = (Purchasable) this.engine.getTable().getTile(PROPERTY_ID);
         this.tileBuilt = (Property) tilePurchased;
     }
-
+    /**
+     * tests property buying.
+     */
     @Test
     public void testPropertyBuy() {
         this.initEngine();
@@ -95,7 +105,9 @@ public class BankTest {
                     && Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY 
                             - this.tileBuilt.getSalesValue()) == 0);
     }
-
+    /**
+     * tests house selling.
+     */
     @Test
     public void testHouseSelling() {
         this.initEngine();
@@ -112,7 +124,9 @@ public class BankTest {
                 - tileBuilt.getCostToBuildHouse() + tileBuilt.getQuotationToSellHouse()) == 0
                 && this.tileBuilt.getNumberOfHouseBuilt().equals(0));
     }
-
+    /**
+     * tests mortgaging.
+     */
     @Test
     public void testMortgage() {
         this.initEngine();
@@ -128,7 +142,9 @@ public class BankTest {
         assertTrue(!this.tileBuilt.isMortgage() && Double.compare(this.playerOne.getPlayer().getBalance(), A_LITTLE_MONEY
                  - tileBuilt.getSalesValue()) == 0);
     }
-
+    /**
+     * tests house removal.
+     */
     @Test
     public void testRemoval() {
         this.initEngine();

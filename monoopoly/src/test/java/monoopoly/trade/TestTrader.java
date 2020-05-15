@@ -22,7 +22,9 @@ import monoopoly.model.trade.Trade;
 import monoopoly.model.trade.TradeBuilder;
 import monoopoly.model.trade.TradeBuilderImpl;
 import monoopoly.utilities.States;
-
+/**
+ * Test class of the trader.
+ */
 public class TestTrader {
 
     private static final int TILE_6 = 6;
@@ -38,7 +40,9 @@ public class TestTrader {
     private static final double MONEYONE = 100;
     private static final double MONEYTWO = 50;
     private final TradeBuilder builder = new TradeBuilderImpl();
-
+    /**
+     * tests a trade without money.
+     */
     @Test
     public void testTradeWithoutMoney() {
         this.initEngine();
@@ -63,7 +67,9 @@ public class TestTrader {
         assertTrue(this.playerOne.getProperties().contains(propertyThree));
         assertTrue(this.playerTwo.getProperties().contains(propertyOne));
     }
-
+    /**
+     * tests a trade without properties.
+     */
     @Test
     public void testTradeWithoutProperties() {
         this.initEngine();
@@ -82,7 +88,9 @@ public class TestTrader {
         assertSame(this.playerOne.getPlayer().getBalance(), MONEYTWO);
         assertSame(this.playerTwo.getPlayer().getBalance(), MONEYONE);
     }
-
+    /**
+     * tests a complete trade.
+     */
     @Test
     public void testCompleteTrade() {
         this.initEngine();

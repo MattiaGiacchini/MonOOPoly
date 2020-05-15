@@ -18,7 +18,9 @@ import monoopoly.engine.GameEngineImpl;
 import monoopoly.model.table.tile.Tile.Category;
 import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.utilities.States;
-
+/**
+ * Test class of StockMarket feature.
+ */
 public class StockTest {
 
     private GameEngine engine;
@@ -26,7 +28,9 @@ public class StockTest {
 
     private static final double PRESUMPT_INIT_QUOTATION = 1.0;
     private static final int MULTIPLIER = 100;
-
+    /**
+     * tests init.
+     */
     @Test
     public void testInit() {
         final Map<Category, Double> presumptInitMap = new HashMap<>();
@@ -41,7 +45,9 @@ public class StockTest {
         assertTrue(this.market.getStockHistory().size() == 1
                    && this.market.getStockHistory().get(0).equals(presumptInitMap));
     }
-
+    /**
+     * tests generation.
+     */
     @Test
     public void testMarketGen() {
         initEngine();
@@ -54,14 +60,18 @@ public class StockTest {
             assertSame(Double.compare(purc.getQuotation(), this.market.getMarket().get(purc.getCategory())), 0);
         }
     }
-
+    /**
+     * tests variation method throwing an exception.
+     */
     @Test (expected = IllegalStateException.class)
     public void testVariationException() {
         initEngine();
         this.market = new StockMarketImpl(this.engine.getTable());
         this.market.getVariation();
     }
-
+    /**
+     * tests variation.
+     */
     @Test
     public void testVariation() {
         initEngine();

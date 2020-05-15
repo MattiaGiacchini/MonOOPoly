@@ -44,15 +44,15 @@ public interface GameEngine {
 
     /**
      * helpful for getting player's name by putting ID.
-     * @param iD
-     * @return String representing player's name.
+     * @param iD representing player's id
+     * @return String
      */
     String getName(int iD);
 
     /**
      * helpful for getting player's balance by putting ID.
-     * @param iD
-     * @return Double representing player's balance.
+     * @param iD representing player's id
+     * @return Double
      */
     Double getBalance(int iD);
 

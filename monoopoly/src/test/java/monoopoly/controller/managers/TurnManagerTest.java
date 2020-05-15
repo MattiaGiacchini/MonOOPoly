@@ -9,6 +9,9 @@ import monoopoly.controller.player.manager.PlayerManagerImpl;
 import monoopoly.model.player.PlayerImpl;
 import monoopoly.utilities.States;
 
+/**
+ * Testing TurnManagerImpl class.
+ */
 public class TurnManagerTest {
 
     private static final Double INITIAL_BALANCE = 100.0;
@@ -32,6 +35,9 @@ public class TurnManagerTest {
         this.turnManager.getPlayersList().add(pM3);
     }
 
+    /**
+     * Testing the passing player mechanism.
+     */
     @Test
     public void testPassPlayer() {
         this.buildPlayers();
@@ -43,6 +49,9 @@ public class TurnManagerTest {
         assertEquals(this.turnManager.getCurrentPlayer(), Integer.valueOf(0));
     }
 
+    /**
+     * Testing the recognition of the in-game players.
+     */
     @Test
     public void testLastPlayer() {
         this.buildPlayers();

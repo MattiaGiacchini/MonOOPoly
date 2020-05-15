@@ -8,6 +8,9 @@ import monoopoly.view.scene.controller.SceneManager;
 import monoopoly.view.scene.controller.SceneManagerImpl;
 import monoopoly.view.utilities.ScenePath;
 
+/**
+ * Implementation of the interface engaged to create the game.
+ */
 public final class StartGameImpl implements StartGame {
 
     private Map<Integer, String> name = new HashMap<>(); 

@@ -45,14 +45,14 @@ public interface GameEngine {
     /**
      * helpful for getting player's name by putting ID.
      * @param iD
-     * @return String
+     * @return String representing player's name.
      */
     String getName(int iD);
 
     /**
      * helpful for getting player's balance by putting ID.
      * @param iD
-     * @return Double
+     * @return Double representing player's balance.
      */
     Double getBalance(int iD);
 
@@ -84,13 +84,13 @@ public interface GameEngine {
 
     /**
      * Useful to get the names of players' properties.
-     * @param iD
+     * @param iD representing the player.
      */
     void giveProperties(Integer iD);
 
     /**
      * Useful to get the names of the tile you hit on.
-     * @param tileNum
+     * @param tileNum representing the tile where the player is.
      */
     void giveTileInfo(Integer tileNum);
 

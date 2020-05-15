@@ -36,11 +36,11 @@ public class TurnManagerTest {
     public void testPassPlayer() {
         this.buildPlayers();
         this.turnManager.nextTurn();
-        assertEquals(this.turnManager.getCurrentPlayer(), 1);
+        assertEquals(this.turnManager.getCurrentPlayer(), Integer.valueOf(1));
         this.turnManager.nextTurn();
-        assertEquals(this.turnManager.getCurrentPlayer(), 2);
+        assertEquals(this.turnManager.getCurrentPlayer(), Integer.valueOf(2));
         this.turnManager.nextTurn();
-        assertEquals(this.turnManager.getCurrentPlayer(), 0);
+        assertEquals(this.turnManager.getCurrentPlayer(), Integer.valueOf(0));
     }
 
     @Test

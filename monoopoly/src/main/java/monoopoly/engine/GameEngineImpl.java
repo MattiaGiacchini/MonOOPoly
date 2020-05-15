@@ -40,6 +40,9 @@ import monoopoly.view.utilities.PurchasableState;
 import monoopoly.view.utilities.ScenePath;
 import monoopoly.view.utilities.TileViewCategory;
 
+/**
+ * Implementation of the brain behind every action.
+ */
 public final class GameEngineImpl implements GameEngine {
 
     private static final int OUT_OF_PRISON = -150;
@@ -59,6 +62,11 @@ public final class GameEngineImpl implements GameEngine {
     @FXML
     private MainBoardControllerImpl mainBoardController;
 
+    /**
+     * GameEngineImpl's constructor.
+     * @param name representing every player with his own name.
+     * @param balance representing every player with his own beginning balance.
+     */
     public GameEngineImpl(final Map<Integer, String> name, final Map<Integer, Double> balance) {
         this.name = name;
         this.balance = balance;
@@ -167,7 +175,7 @@ public final class GameEngineImpl implements GameEngine {
         }
     }
 
-    public void incRound() {
+    private void incRound() {
         this.turnManager.setRound();
     }
 

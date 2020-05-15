@@ -2,8 +2,16 @@ package monoopoly.controller.managers;
 
 import monoopoly.model.table.card.Card;
 
+/**
+ * This class is a gestion of tipe of card effects.
+ */
 public final class CardManager {
 
+    /**
+     * Useful to understend the specific type of card effect.
+     * @param card representing the specific card
+     * @return {@link monoopoly.utilities.CardEffect}
+     */
     public monoopoly.utilities.CardEffect knowCard(final Card card) {
         if (!card.getValueToApplyOnPlayersBalance().isEmpty()) {
             return monoopoly.utilities.CardEffect.MONEY_EXCHANGE;

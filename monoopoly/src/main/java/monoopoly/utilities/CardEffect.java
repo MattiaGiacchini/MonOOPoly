@@ -1,5 +1,8 @@
 package monoopoly.utilities;
 
+/**
+ * Enum representing the effect type of cards.
+ */
 public enum CardEffect {
     /**
      * Effect dealing with money exchange.

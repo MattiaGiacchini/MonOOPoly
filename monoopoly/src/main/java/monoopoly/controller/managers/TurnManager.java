@@ -47,7 +47,7 @@ public interface TurnManager {
 
     /**
      * method used by GameEngine to set the first player (in the beginning).
-     * @param iD
+     * @param iD representing the id of the current player
      */
     void setCurrentID(Integer iD);
 }

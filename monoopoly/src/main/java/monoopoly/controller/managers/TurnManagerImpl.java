@@ -5,12 +5,18 @@ import java.util.List;
 
 import monoopoly.controller.player.manager.PlayerManager;
 
+/**
+ * Class used to handle turns, that implements TurnManager. 
+ */
 public final class TurnManagerImpl implements TurnManager {
 
     private int currentPlayerID;
     private final List<PlayerManager> playersList = new ArrayList<>();
     private Integer round;
 
+    /**
+     * TurnManagerImpl's constructor.
+     */
     public TurnManagerImpl() {
         this.round = -1;
     }
@@ -57,7 +63,7 @@ public final class TurnManagerImpl implements TurnManager {
         return this.currentPlayerID;
     }
 
-    public void setCurrentPlayer(final Integer currentPlayer) {
+    private void setCurrentPlayer(final Integer currentPlayer) {
         this.currentPlayerID = currentPlayer;
     }
 

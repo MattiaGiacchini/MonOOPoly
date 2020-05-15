@@ -14,7 +14,7 @@ import monoopoly.controller.bank.BankManager;
 import monoopoly.controller.bank.BankManagerImpl;
 import monoopoly.controller.dices.Dices;
 import monoopoly.controller.dices.DicesImpl;
-import monoopoly.controller.managers.CardManagerImpl;
+import monoopoly.controller.managers.CardManager;
 import monoopoly.controller.managers.TurnManager;
 import monoopoly.controller.managers.TurnManagerImpl;
 import monoopoly.controller.player.manager.PlayerManager;
@@ -190,7 +190,6 @@ public final class GameEngineImpl implements GameEngine {
 
     @Override
     public void useCard() {
-        CardManagerImpl cardManager;
         final Tile tile = this.table.getTile(this.turnManager.getPlayersList().get(this.turnManager.getCurrentPlayer())
                                                                               .getPlayer().getPosition());
         final Map<Integer, Double> balance = new HashMap<>();
@@ -211,7 +210,7 @@ public final class GameEngineImpl implements GameEngine {
                                            .actualPlayersPosition(position)
                                            .draw();
         this.mainBoardController.showDeckCard(card.getOriginDeck().toString(), card.getDescription());
-        cardManager = new CardManagerImpl();
+        final CardManager cardManager = new CardManager();
         final monoopoly.utilities.CardEffect effect = cardManager.knowCard(card);
         if (effect == monoopoly.utilities.CardEffect.MONEY_EXCHANGE) {
             final Map<Integer, Double> map = card.getValueToApplyOnPlayersBalance().get();

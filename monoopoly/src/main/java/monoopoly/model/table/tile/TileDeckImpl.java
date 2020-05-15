@@ -21,7 +21,7 @@ import monoopoly.model.table.deck.Deck;
  * TileDeckImpl is a decoration of Tile and it's represents the one
  * decks inside the map. TileDeckImpl is used to draw new cards!
  */
-public final class TileDeckImpl extends AbstractTileDecorator
+public final class TileDeckImpl extends AbstractTile
 implements TileDeck {
 
     private static final Integer ZERO = 0;

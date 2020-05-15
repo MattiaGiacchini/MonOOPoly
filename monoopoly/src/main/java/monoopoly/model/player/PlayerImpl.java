@@ -204,6 +204,9 @@ public class PlayerImpl implements Player {
     @Override
     public void updateBalance(final Double value) {
         this.balance = this.balance + value;
+        if (this.balance <= 0) {
+            this.state = States.BROKE;
+        }
     }
 
     /**

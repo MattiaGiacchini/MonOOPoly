@@ -49,9 +49,15 @@ public class TradeViewControllerImpl implements Initializable {
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
 
-        this.available.addAll("LARGO COLOMBO", "PARCO DELLA VITTORIA", "STAZIONE EST", "NON FUNZIONA!!", "OK ORA VA");
-        this.availableProperties.setItems(this.available);
-        this.selectedProperties.setItems(this.selected);
+    }
+
+    /**
+     * This method sets the game engine to the controller.
+     * 
+     * @param gameEngine game engine.
+     */
+    public void setGameEngine(final GameEngine gameEngine) {
+        this.gameEngine = gameEngine;
     }
 
     /**
@@ -93,8 +99,8 @@ public class TradeViewControllerImpl implements Initializable {
      */
     @FXML
     public void setTradeOffer() {
-        // TODO
-        this.gameEngine.getClass();
+        //TODO
+        this.gameEngine.notifyAll();
     }
 
     /**

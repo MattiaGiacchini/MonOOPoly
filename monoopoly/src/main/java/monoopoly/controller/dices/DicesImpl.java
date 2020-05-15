@@ -7,7 +7,9 @@ import java.util.Random;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.table.Table;
-
+/**
+ * Class that implements {@link Dices}.
+ */
 public class DicesImpl implements Dices {
 
     private final Table gameTable;

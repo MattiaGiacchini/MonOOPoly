@@ -6,7 +6,9 @@ import java.util.Set;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.table.tile.purchasable.Purchasable;
 import monoopoly.model.trade.Trade;
-
+/**
+ * Class that implements {@link Trader}.
+ */
 public class TraderImpl implements Trader {
 
     private PlayerManager playerOne;

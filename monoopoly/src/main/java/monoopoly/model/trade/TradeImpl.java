@@ -4,7 +4,9 @@ import java.util.Set;
 
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.table.tile.purchasable.Purchasable;
-
+/**
+ * Class that implements {@link Trade}.
+ */
 public class TradeImpl implements Trade {
 
     private final PlayerManager playerOne;
@@ -13,7 +15,15 @@ public class TradeImpl implements Trade {
     private final Set<Purchasable> propertiesTwo;
     private final double moneyOne;
     private final double moneyTwo;
-
+    /**
+     * constructor.
+     * @param playerOne player one.
+     * @param playerTwo player two.
+     * @param propertiesOne one's properties.
+     * @param propertiesTwo two's properties.
+     * @param moneyOne one's money.
+     * @param moneyTwo two's money.
+     */
     public TradeImpl(final PlayerManager playerOne, final PlayerManager playerTwo,
                 final Set<Purchasable> propertiesOne, final Set<Purchasable> propertiesTwo,
                 final double moneyOne, final double moneyTwo) {

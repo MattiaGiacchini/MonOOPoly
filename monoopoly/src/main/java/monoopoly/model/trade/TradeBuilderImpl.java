@@ -6,7 +6,9 @@ import java.util.Set;
 import monoopoly.controller.player.manager.PlayerManager;
 import monoopoly.model.table.tile.purchasable.Purchasable;
 
-
+/**
+ * Class that implements {@link TradeBuilder}.
+ */
 public class TradeBuilderImpl implements TradeBuilder {
 
     private PlayerManager playerOne;

@@ -14,13 +14,18 @@ import monoopoly.model.table.tile.Tile;
 import monoopoly.model.table.tile.Tile.Category;
 import monoopoly.model.table.tile.purchasable.Property;
 import monoopoly.model.table.tile.purchasable.Purchasable;
-
+/** 
+ * Class that implements {@link BankManager}.
+ */
 public class BankManagerImpl implements BankManager {
 
     private final Bank bank;
     private final GameEngine gameEngine;
     private final BankCommandExecutor executor;
-
+    /**
+     * constructor.
+     * @param engine the engine.
+     */
     public BankManagerImpl(final GameEngine engine) {
         this.gameEngine = engine;
         this.bank = new Bank(this.gameEngine.getTable().getFilteredTiles(Tile.class, x -> x.isPurchasable()));

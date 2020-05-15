@@ -30,7 +30,10 @@ public class StockMarketImpl implements StockMarket {
     private static final double INIT_QUOTATION = 1.0;
     private static final double MAX_PERCENT = 250.0;
     private static final double MIN_PERCENT = 5.0;
-
+    /**
+     * constructor.
+     * @param table game's table.
+     */
     public StockMarketImpl(final Table table) {
         this.purchasables = table.getFilteredTiles(Purchasable.class, x -> x.isPurchasable());
         this.purchasableCategories = this.purchasables.stream().map(x -> x.getCategory()).collect(Collectors.toSet());

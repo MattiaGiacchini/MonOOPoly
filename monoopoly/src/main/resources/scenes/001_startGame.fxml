@@ -16,11 +16,6 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" style="-fx-background-radius: 50;" text="LOAD GAME">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
          </children>
       </HBox>
    </children>
